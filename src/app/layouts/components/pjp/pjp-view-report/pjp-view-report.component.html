@@ -1,0 +1,654 @@
+<!--Container Main start-->
+<main class="content">
+    <div class="container-fluid p-0">
+
+
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center main-hdng">
+                <div class="col-md-6">
+                    <h3>PJP</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item">PJP</li>
+                                <li class="breadcrumb-item" aria-current="page">PJP Report</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
+                <div class="col-md-5">
+                    <input type="text" class="form-control"
+                        placeholder="Search by visitor's or employee name or number here">
+
+                </div>
+                <div class="col-md-7 text-end mt-n1">
+                    <ul class="d-inline-block ml-auto mt-3 mt-lg-0 mb-0">
+                        <li class="list-inline-item">
+                            <div class="dt_fld">Select Date Range</div>
+                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm"><i
+                                    class="fa fa-calendar"></i></div>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-success btn-lg">Search &nbsp;<i class="fa fa-search"
+                                    aria-hidden="true"></i></button>
+                        </li>
+                        <li class="list-inline-item">
+
+                            <div class="d-inline-block">
+                                <a class="btn btn-secondary-drk btn-lg d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-filter" aria-hidden="true"></i>
+                                    &nbsp;Filter Search &nbsp;
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end filter_secn_dv">
+                                    <div class="filter_secn">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Location</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">State</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">District
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Zone</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 mb-3">
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Visit
+                                                    Type</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Visited
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">
+                                                    Time Period
+                                                    <div class="form-check d-inline-block align-middle me-1 ms-2">
+                                                        <input class="form-check-input" type="radio" name="assigned"
+                                                            id="assigned_users">
+                                                        <label class="form-check-label"
+                                                            for="assigned_users">Past</label>
+                                                    </div>
+                                                    <div class="form-check d-inline-block align-middle">
+                                                        <input class="form-check-input" type="radio" name="assigned"
+                                                            id="assigned_groups" checked="">
+                                                        <label class="form-check-label"
+                                                            for="assigned_groups">Next</label>
+                                                    </div>
+                                                </label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Last One Month
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">
+                                                    <div class="form-check d-inline-block align-middle me-1 ms-2">
+                                                        <input class="form-check-input" type="radio" name="assigned"
+                                                            id="assigned_users">
+                                                        <label class="form-check-label"
+                                                            for="assigned_users">Customer</label>
+                                                    </div>
+                                                    <div class="form-check d-inline-block align-middle">
+                                                        <input class="form-check-input" type="radio" name="assigned"
+                                                            id="assigned_groups" checked="">
+                                                        <label class="form-check-label"
+                                                            for="assigned_groups">Influenceer</label>
+                                                    </div>
+                                                </label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Dealer</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Employee
+                                                    Type</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">MO/TO</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-pink w-100">Reset</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-success w-100">Save &
+                                                        Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+                                <button id="switchList" (click)="toggleBtnList()" type="button"
+                                    class="btn btn-outline-dark btn-xs switchActiveList">
+                                    <img src="assets/images/list-view.svg" alt="list-view">
+                                </button>
+                                <button id="switchGrid" (click)="toggleBtnGrid()" type="button"
+                                    class="btn btn-outline-dark btn-xs">
+                                    <img src="assets/images/grid-view.svg" alt="list-view">
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                    <div class="d-inline-block">
+                        <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate" href="#"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="">Edit this organization</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change profile image</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Delete organization</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change record owner</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Print this details</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Assign task</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change assign user</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Add opportunity with this org.</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12 ">
+
+                <div class="bg-white shadow_d py-4 px-4 rounded-3">
+                    <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="d-md-flex align-items-center mb-3">
+                            <div class="col-auto d-flex">
+                                <h3>PJP Visit Report</h3><span class="sm-font text-primary">4730 Records
+                                    Found</span>
+                            </div>
+                            <div class="col-auto d-block ms-auto">
+                                <div class="text-center">
+                                    <div class="dataTables_length" id="datatables-reponsive_length">
+                                        <label>Records per page <select name="datatables-reponsive_length"
+                                                aria-controls="datatables-reponsive" class="form-select form-select-sm">
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="30">20</option>
+                                                <option value="30">30</option>
+                                                <option value="50">50</option>
+                                            </select> 1 - 10</label>
+                                        <label>
+                                            <a class="px-1 d-inline-block align-middle" href="#">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left"></a>
+                                            <a class="px-1 d-inline-block align-middle" href="#">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right"></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group btn-group-sm ms-auto  btn-download-group">
+
+                                <select class="btn btn-primary px-4 text-white">
+                                    <option>
+                                        Download List
+                                    </option>
+                                </select>
+                                <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                    Upload</button>
+                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
+                                <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="assets/images/filtering.svg" alt="filtering"></button>
+                                <div class="dropdown-menu dropdown-menu-end addDropdownhead">
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Organizations name</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch1">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Owner</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch2">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Contact Person</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch3">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">State</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch4">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Phone</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch5">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Deals</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch6">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Contact person title</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch7">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">District</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch8">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Zone</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch9">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Annual revenue</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch10">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Lead Source</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Lead owner</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Assigned to</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="datatables-column-search-select-inputs"
+                                class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
+                                aria-describedby="datatables-column-search-select-inputs_info">
+                                <thead class="thead-dark">
+                                    <tr role="row">
+                                        <th width="40" style="background:#e8e8e8">&nbsp;</th>
+                                        <th colspan="3" class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            Customer</th>
+                                        <th colspan="3" class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            Employee</th>
+                                        <th colspan="3" class="sorting align-middle"
+                                            style="background:#e8e8e8; text-align: center;">PJP Details</th>
+                                        <th style="background:#e8e8e8">&nbsp;</th>
+                                    </tr>
+                                    <tr role="row">
+                                        <th width="40">&nbsp;</th>
+                                        <th class="sorting align-middle">Customer Name</th>
+                                        <th class="sorting align-middle">Phone No.</th>
+                                        <th class="sorting align-middle">Customer Type</th>
+                                        <th class="sorting align-middle">Employee Name</th>
+                                        <th class="sorting align-middle">Employee Type</th>
+                                        <th class="sorting align-middle">Pjp Date</th>
+                                        <th class="sorting align-middle">Visit Status</th>
+                                        <th class="sorting align-middle">Customer Opinion</th>
+                                        <th class="sorting align-middle">Next Visit Date</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr role="row" class="odd">
+                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle">Bairagi Builders</td>
+                                        <td class="align-middle">9876543210</td>
+                                        <td class="align-middle">Sub Dealer</td>
+                                        <td class="align-middle">Amir Tarafdar</td>
+                                        <td class="align-middle">Mo/TO</td>
+                                        <td class="align-middle">25-04-2022</td>
+                                        <td class="align-middle">Visited</td>
+                                        <td class="align-middle">Favourable</td>
+                                        <td class="align-middle">Required</td>
+                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                class="d-inline-block align-middle" href="#"> <img
+                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                            <div class="dropdown-menu dropdown-menu-end"> <a class="dropdown-item"
+                                                    href="">Edit this organization</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Change profile image</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Delete organization</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Change record owner</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Print this details</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Assign task</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Change assign user</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Add opportunity with this
+                                                    org.</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle">Bairagi Builders</td>
+                                        <td class="align-middle">9876543210</td>
+                                        <td class="align-middle">Sub Dealer</td>
+                                        <td class="align-middle">Amir Tarafdar</td>
+                                        <td class="align-middle">Mo/TO</td>
+                                        <td class="align-middle">25-04-2022</td>
+                                        <td class="align-middle">Visited</td>
+                                        <td class="align-middle">Favourable</td>
+                                        <td class="align-middle">Required</td>
+                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                class="d-inline-block align-middle" href="#"> <img
+                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle">Bairagi Builders</td>
+                                        <td class="align-middle">9876543210</td>
+                                        <td class="align-middle">Sub Dealer</td>
+                                        <td class="align-middle">Amir Tarafdar</td>
+                                        <td class="align-middle">Mo/TO</td>
+                                        <td class="align-middle">25-04-2022</td>
+                                        <td class="align-middle">Visited</td>
+                                        <td class="align-middle">Favourable</td>
+                                        <td class="align-middle">Required</td>
+                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                class="d-inline-block align-middle" href="#"> <img
+                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle">Bairagi Builders</td>
+                                        <td class="align-middle">9876543210</td>
+                                        <td class="align-middle">Sub Dealer</td>
+                                        <td class="align-middle">Amir Tarafdar</td>
+                                        <td class="align-middle">Mo/TO</td>
+                                        <td class="align-middle">25-04-2022</td>
+                                        <td class="align-middle">Visited</td>
+                                        <td class="align-middle">Favourable</td>
+                                        <td class="align-middle">Required</td>
+                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                class="d-inline-block align-middle" href="#"> <img
+                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle">Bairagi Builders</td>
+                                        <td class="align-middle">9876543210</td>
+                                        <td class="align-middle">Sub Dealer</td>
+                                        <td class="align-middle">Amir Tarafdar</td>
+                                        <td class="align-middle">Mo/TO</td>
+                                        <td class="align-middle">25-04-2022</td>
+                                        <td class="align-middle">Visited</td>
+                                        <td class="align-middle">Favourable</td>
+                                        <td class="align-middle">Required</td>
+                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                class="d-inline-block align-middle" href="#"> <img
+                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle">Bairagi Builders</td>
+                                        <td class="align-middle">9876543210</td>
+                                        <td class="align-middle">Sub Dealer</td>
+                                        <td class="align-middle">Amir Tarafdar</td>
+                                        <td class="align-middle">Mo/TO</td>
+                                        <td class="align-middle">25-04-2022</td>
+                                        <td class="align-middle">Visited</td>
+                                        <td class="align-middle">Favourable</td>
+                                        <td class="align-middle">Required</td>
+                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                class="d-inline-block align-middle" href="#"> <img
+                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle">Bairagi Builders</td>
+                                        <td class="align-middle">9876543210</td>
+                                        <td class="align-middle">Sub Dealer</td>
+                                        <td class="align-middle">Amir Tarafdar</td>
+                                        <td class="align-middle">Mo/TO</td>
+                                        <td class="align-middle">25-04-2022</td>
+                                        <td class="align-middle">Visited</td>
+                                        <td class="align-middle">Favourable</td>
+                                        <td class="align-middle">Required</td>
+                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                class="d-inline-block align-middle" href="#"> <img
+                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle">Bairagi Builders</td>
+                                        <td class="align-middle">9876543210</td>
+                                        <td class="align-middle">Sub Dealer</td>
+                                        <td class="align-middle">Amir Tarafdar</td>
+                                        <td class="align-middle">Mo/TO</td>
+                                        <td class="align-middle">25-04-2022</td>
+                                        <td class="align-middle">Visited</td>
+                                        <td class="align-middle">Favourable</td>
+                                        <td class="align-middle">Required</td>
+                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                class="d-inline-block align-middle" href="#"> <img
+                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle">Bairagi Builders</td>
+                                        <td class="align-middle">9876543210</td>
+                                        <td class="align-middle">Sub Dealer</td>
+                                        <td class="align-middle">Amir Tarafdar</td>
+                                        <td class="align-middle">Mo/TO</td>
+                                        <td class="align-middle">25-04-2022</td>
+                                        <td class="align-middle">Visited</td>
+                                        <td class="align-middle">Favourable</td>
+                                        <td class="align-middle">Required</td>
+                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                class="d-inline-block align-middle" href="#"> <img
+                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle">Bairagi Builders</td>
+                                        <td class="align-middle">9876543210</td>
+                                        <td class="align-middle">Sub Dealer</td>
+                                        <td class="align-middle">Amir Tarafdar</td>
+                                        <td class="align-middle">Mo/TO</td>
+                                        <td class="align-middle">25-04-2022</td>
+                                        <td class="align-middle">Visited</td>
+                                        <td class="align-middle">Favourable</td>
+                                        <td class="align-middle">Required</td>
+                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                class="d-inline-block align-middle" href="#"> <img
+                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="d-xl-flex align-items-center mt-3">
+
+                            <div class="col-auto d-block">
+
+                                <div class="text-center">
+                                    <div class="dataTables_length" id="datatables-reponsive_length">
+                                        <label>Records per page <select name="datatables-reponsive_length"
+                                                aria-controls="datatables-reponsive" class="form-select form-select-sm">
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="30">20</option>
+                                                <option value="30">30</option>
+                                                <option value="50">50</option>
+                                            </select> 1 - 10</label>
+                                        <label>
+                                            <a class="px-1 d-inline-block align-middle" href="#">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left"></a>
+                                            <a class="px-1 d-inline-block align-middle" href="#">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right"></a>
+                                            <label>
+                                            </label></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>

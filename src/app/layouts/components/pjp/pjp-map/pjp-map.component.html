@@ -1,0 +1,28 @@
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fitBounds]="true" [disableDefaultUI]="true">
+    <!-- <agm-direction [origin]="origin" [destination]="destination">
+    </agm-direction> -->
+
+
+    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat"
+        [longitude]="m.lng" [agmFitBounds]="true" 
+        [iconUrl]="$any(icon)">
+        <!-- [label]="m.label" -->
+        <!-- animation="BOUNCE" -->
+        <!-- iconUrl="http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png"  -->
+        <agm-info-window>
+            <strong>{{infoLabel}}</strong>
+        </agm-info-window>
+
+    </agm-marker>
+
+    <ng-container>
+        <agm-polyline *ngFor="let polyline of polylines;let i = index;" [strokeWeight]="5"
+            [strokeColor]="polyline.color">
+            <!-- <agm-icon-sequence [fixedRotation]="false" [repeat]="'150px'" [offset]="'200'" [path]="'FORWARD_OPEN_ARROW'">
+            </agm-icon-sequence> -->
+            <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.latitude"
+                [longitude]="point.longitude">
+            </agm-polyline-point>
+        </agm-polyline>
+    </ng-container>
+</agm-map>

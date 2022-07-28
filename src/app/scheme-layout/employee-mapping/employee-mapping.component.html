@@ -1,0 +1,899 @@
+<!--Container Main start-->
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center main-hdng">
+                <div class="col-md-6">
+                    <h3>Mapping-Employee with {{mapHeader}}</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item" aria-current="page">Mapping Configuration</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="crt_pjp_top">
+                    <div class="crt_pjp_lft">
+                        <h4></h4>
+                    </div>
+                    <div class="crt_pjp_rit">
+                        <strong>Mapping for</strong>
+                        <div class="form-check d-inline-block align-middle me-3 mb-2">
+                            <input class="form-check-input" type="radio" name="mapFor" id="assigned_users" value="0"
+                                (change)="onChangeMapFor($event)" [checked]="true">
+                            <label class="form-check-label" for="assigned_users">Employee</label>
+                        </div>
+                        <div class="form-check d-inline-block align-middle mb-2">
+                            <input class="form-check-input" type="radio" name="mapFor" id="assigned_groups" value="1"
+                                (change)="onChangeMapFor($event)">
+                            <label class="form-check-label" for="assigned_groups">Seller</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-5 col-sm-12 bg-white shadow_d py-4 px-0 rounded-3 border empl_mpnge">
+                <div class="map_inf">
+                    <div class="emp_map">
+                        <button class="btn btn-cust">Employee Mapping</button>
+                    </div>
+                    <div class="int_fac">
+                        <div class="form-check d-inline-block align-middle me-3 mb-2">
+                            <input class="form-check-input" type="radio" name="etype" id="assigned_users"
+                                checked="true">
+                            <label class="form-check-label" for="assigned_users">Internal</label>
+                        </div>
+                        <div class="form-check d-inline-block align-middle mb-2">
+                            <input class="form-check-input" type="radio" name="etype" id="assigned_groups">
+                            <label class="form-check-label" for="assigned_groups">FAC</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label for="district_name" class="form-label">State Name</label>
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="empStateId" (change)="employeeStateChange($event)">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of stateArr" [value]="data.id">{{data.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label for="district_name" class="form-label">District Name</label>
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="empCityId" (change)="employeeDistrictChange($event)">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of empCityArr" [value]="data.id">{{data.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label for="district_name" class="form-label">Employee Type</label>
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="empDesignationId" (change)="onChangeEmployeeDesignationType()">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of employeeDesignationList" [value]="data.designationId">
+                                        {{data.designationName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 mb-2">
+                        <div class="col-md-12">
+
+                            <div class="input-group srch_box">
+                                <input type="text" name="Customer name" class="form-control"
+                                    placeholder="Search by the name here" id="" [(ngModel)]="empSearch">
+                                <button class="btn btn-success" (click)="employeeSearchClick()"><i
+                                        class="fa fa-search"></i> &nbsp; Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="brdr"></div>
+
+                <!-- For location data -->
+                <div class="px-4" *ngIf="mapHeader == 'Location'">
+
+                    <div id="simplebarright" class="sech_list_out">
+                        <div class="sech_list" *ngFor="let data of employeeList">
+                            <div class="cnk_slect">
+
+                                <div class="form-check d-inline-block align-middle me-3">
+                                    <input class="form-check-input" type="radio" name="employee" id="assigned_groups"
+                                        [value]="data.userId" (click)="onChangeEmployee($event)">
+                                    <label class="form-check-label" for="assigned_groups"></label>
+                                </div>
+                                <div class="p_files">
+                                    <img src="assets/images/profl-pic.png" alt="create">
+                                    <div>
+                                        <strong>{{data.firstName +" "+ data.lastName}}</strong>
+                                        <span> Relationship : {{data.designationName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-primary me-2">Reset</button>
+                        <button class="btn btn-info" (click)="addEmployeInResources()">Add</button>
+                    </div>
+                </div>
+
+                <!-- For Hierarchy data -->
+                <div class="px-4" *ngIf="mapHeader == 'Hierarchy'">
+
+                    <div id="simplebarright" class="sech_list_out">
+                        <div class="sech_list" *ngFor="let data of hempList">
+                            <div class="cnk_slect">
+                                <div class="form-check date">
+                                    <ng-container *ngIf="data.isActive == 0">
+                                        <input class="form-check-input
+                                            me-2" type="checkbox" [value]="data.userId" id="show_event"
+                                            (click)="selectHempData($event)" [checked]="false">
+                                    </ng-container>
+                                    <ng-container *ngIf="data.isActive == 1">
+                                        <input class="form-check-input
+                                            me-2" type="checkbox" [value]="data.userId" id="show_event"
+                                            (click)="selectHempData($event)" [checked]="true">
+                                    </ng-container>
+                                    <label class="form-check-label" for="show_event">&nbsp;</label>
+                                </div>
+                                <div class="p_files">
+                                    <img src="assets/images/profl-pic.png" alt="create">
+                                    <div>
+                                        <strong>{{data.firstName +" "+ data.lastName}}</strong>
+                                        <span> Relationship : {{data.designationName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-primary me-2">Reset</button>
+                        <button class="btn btn-info" (click)="addHierarchyEmployeeMappingData()">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7 col-sm-12 empl_mpnge lg_rit">
+                <div class="bg-white shadow_d py-4 rounded-3 h-100 border">
+                    <div class="map_inf">
+                        <div class="text-align-center d-flex align-items-center"><img src="assets/images/mark-icn.png">
+                            <span>Mapping</span>
+                        </div>
+                        <div class="wrapper-nav w-auto p-0">
+                            <ul class="nav nav-pills nav-tabs" id="pills-tab" role="tablist">
+
+                                <li>
+                                    <a class="click_tab active" id="attandance" data-bs-target="#pills_attandance"
+                                        role="tab" data-bs-toggle="pill" aria-controls="pills_attandance"
+                                        aria-selected="true" (click)="onMapTypeTabChange('0')">Location
+                                        Wise</a>
+                                </li>
+                                <li>
+                                    <a class="click_tab" data-bs-target="#pills_eod" role="tab" data-bs-toggle="tab"
+                                        id="eod" data-bs-toggle="pill" aria-controls="pills_eod" aria-selected="false"
+                                        (click)="onMapTypeTabChange('1')">Hierarchy Wise</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="px-4">
+                        <div class="tab-content" id="pills-tabContent">
+                            <div role="tabpanel" class="tab-pane fade active show" id="pills_attandance"
+                                aria-labelledby="attandance">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="district_name" class="form-label">State Name</label>
+                                        <div class="input-group">
+                                            <select class="form-select" aria-label="Default select example"
+                                                id="status_type" [(ngModel)]="mapStateId"
+                                                (change)="mapStateChange($event)">
+                                                <option value="">Select from list</option>
+                                                <option *ngFor="let data of stateArr" [value]="data.id">{{data.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="district_name" class="form-label">District Name</label>
+                                        <div class="input-group">
+                                            <select class="form-select" aria-label="Default select example"
+                                                id="status_type" [(ngModel)]="mapCityId"
+                                                (change)="mapDistrictChange($event)">
+                                                <option value="">Select from list</option>
+                                                <option *ngFor="let data of mapCityArr" [value]="data.id">{{data.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-3 col-sm-12">
+                                        <label for="district_name" class="form-label">Zone Name</label>
+                                        <div class="input-group">
+                                            <select class="form-select" aria-label="Default select example"
+                                                id="status_type" [(ngModel)]="mapZoneId"
+                                                (change)="mapZoneChange($event)">
+                                                <option value="">Select from list</option>
+                                                <option *ngFor="let data of mapZoneArr" [value]="data.id">{{data.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div> -->
+                                    <!-- <div class="col-md-4 col-sm-12" *ngIf="mapHeader=='Hierarchy'">
+                                        <label for="district_name" class="form-label">HierarchyType</label>
+                                        <div class="input-group">
+                                            <select class="form-select" aria-label="Default select example"
+                                                id="status_type">
+                                                <option selected="Select an options">Select from list
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div> -->
+                                </div>
+
+                                <div class="row mt-2 mb-2">
+                                    <div class="col-md-12">
+
+                                        <!-- <div class="input-group srch_box">
+                                            <input type="text" name="Customer name" class="form-control"
+                                                placeholder="Search by the name or number here" id="">
+                                            <button class="btn btn-success"><i class="fa fa-search"></i>
+                                                &nbsp; Search </button>
+                                        </div> -->
+                                    </div>
+                                </div>
+
+
+                                <div id="simplebarright" class="web_hery_out">
+                                    <div *ngFor="let data of mappingArray">
+                                        <ng-container *ngIf="data.isDelete == 0">
+                                            <div class="hdweb">
+                                                <div class="form-check date">
+                                                    <!-- <ng-container *ngIf="data.isActive == 1">
+                                                        <input class="form-check-input me-2" type="checkbox"
+                                                            [value]="data.id" id="show_event"
+                                                            (change)="changeState($event)" [checked]="true">
+                                                    </ng-container>
+                                                    <ng-container *ngIf="data.isActive == 0">
+                                                        <input class="form-check-input me-2" type="checkbox"
+                                                            [value]="data.id" id="show_event"
+                                                            (change)="changeState($event)" [checked]="false">
+                                                    </ng-container> -->
+                                                    <label class="form-check-label"
+                                                        for="show_event">{{data.name}}</label>
+                                                </div>
+
+                                                <span><img src="assets/images/close-icon.png"
+                                                        (click)="deleteState(data.id)"></span>
+                                            </div>
+
+                                            <div class="zone_lists" *ngFor="let ds of data.district">
+                                                <div class="zone_lists" *ngIf="ds.isDelete == 0">
+                                                    <div class="zone_lists_inr">
+                                                        <strong>{{ds.name}}</strong>
+                                                        <div class="form-check date" *ngFor="let zn of ds.zone">
+                                                            <ng-container *ngIf="zn.isActive == 1">
+                                                                <input class="form-check-input me-2" type="checkbox"
+                                                                    [value]="zn.id" id="show_event"
+                                                                    (click)="changeZone($event, data.id, ds.id)"
+                                                                    [checked]="true">
+                                                            </ng-container>
+                                                            <ng-container *ngIf="zn.isActive == 0">
+                                                                <input class="form-check-input me-2" type="checkbox"
+                                                                    [value]="zn.id" id="show_event"
+                                                                    (click)="changeZone($event, data.id, ds.id)"
+                                                                    [checked]="false">
+                                                            </ng-container>
+                                                            <label class="form-check-label"
+                                                                for="show_event">{{zn.name}}</label>
+                                                        </div>
+                                                        <button class="btn btn-nobg"
+                                                            (click)="deleteDistrict(data.id, ds.id)"><img
+                                                                src="assets/images/trash-sm.png" alt="create">
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+
+                                    </div>
+
+                                    <!-- <div>
+                                        <div class="hdweb">
+                                            <div class="form-check date">
+                                                <input class="form-check-input me-2" type="checkbox" value=""
+                                                    id="show_event">
+                                                <label class="form-check-label" for="show_event">West
+                                                    Bengal</label>
+                                            </div><img src="assets/images/close-icon.png">
+                                        </div>
+                                        <div class="zone_lists">
+                                            <div class="zone_lists">
+                                                <div class="zone_lists_inr">
+                                                    <strong>Bankura</strong>
+                                                    <div class="form-check date">
+                                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                                            id="show_event">
+                                                        <label class="form-check-label" for="show_event">Zone 1</label>
+                                                    </div>
+                                                    <div class="form-check date">
+                                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                                            id="show_event">
+                                                        <label class="form-check-label" for="show_event">Zone 1</label>
+                                                    </div>
+                                                    <div class="form-check date">
+                                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                                            id="show_event">
+                                                        <label class="form-check-label" for="show_event">Zone 1</label>
+                                                    </div>
+                                                    <button class="btn btn-nobg"><img src="assets/images/trash-sm.png"
+                                                            alt="create"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="zone_lists">
+                                            <div class="zone_lists">
+                                                <div class="zone_lists_inr">
+                                                    <strong>Purulia</strong>
+                                                    <div class="form-check date">
+                                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                                            id="show_event">
+                                                        <label class="form-check-label" for="show_event">Zone 1</label>
+                                                    </div>
+                                                    <div class="form-check date">
+                                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                                            id="show_event">
+                                                        <label class="form-check-label" for="show_event">Zone 1</label>
+                                                    </div>
+                                                    <div class="form-check date">
+                                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                                            id="show_event">
+                                                        <label class="form-check-label" for="show_event">Zone 1</label>
+                                                    </div>
+                                                    <button class="btn btn-nobg"><img src="assets/images/trash-sm.png"
+                                                            alt="create"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="zone_lists">
+                                            <div class="zone_lists">
+                                                <div class="zone_lists_inr">
+                                                    <strong>Birbhum</strong>
+                                                    <div class="form-check date">
+                                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                                            id="show_event">
+                                                        <label class="form-check-label" for="show_event">Zone 1</label>
+                                                    </div>
+                                                    <div class="form-check date">
+                                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                                            id="show_event">
+                                                        <label class="form-check-label" for="show_event">Zone 1</label>
+                                                    </div>
+                                                    <button class="btn btn-nobg"><img src="assets/images/trash-sm.png"
+                                                            alt="create"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div> -->
+                                </div>
+                                <div class="red_map">
+                                    <div class="red_mp_dnw">
+                                        <div class="red_mp_dnw_in">
+                                            <img src="assets/images/mark-icn.png">
+                                            <span>Ready for Mapping</span>
+                                        </div>
+                                        <div class="red_mp_dnw_in">
+                                            <img src="assets/images/fingr-icon.png">
+                                            <span>Above Location With</span>
+                                        </div>
+                                        <div class="red_mp_dnw_in">
+                                            <img src="assets/images/fingr-icon-dwn.png">
+                                            <span>Following Resources</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="simplebarright" class="mm_files_out">
+                                    <div class="mm_files">
+                                        <div class="p_files" *ngFor="let data of resourceEmployeeList">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div class="wit_zon">
+                                                <strong>{{data.listData.firstName +" "+
+                                                    data.listData.lastName}}</strong>
+                                                <p><span> Relationship : {{data.listData.designationName}}</span>
+                                                    <span> {{data.listData.cityName}}, Zone
+                                                        {{data.listData.zoneName}}</span>
+                                                </p>
+                                            </div>
+                                            <button class="btn btn-nobg"><img src="assets/images/trash-sm.png"
+                                                    alt="create"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <button class="btn btn-primary me-2">Preview</button>
+                                    <button class="btn btn-info" (click)="onSubmitLocationMapping()">Save Map</button>
+                                </div>
+                            </div>
+
+                            <!-- Hierarchy employee type settings -->
+
+                            <div class="tab-pane fade mt-2" id="pills_eod" role="tabpanel" aria-labelledby="eod">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-12">
+                                        <label for="district_name" class="form-label">State Name</label>
+                                        <div class="input-group">
+                                            <select class="form-select" aria-label="Default select example"
+                                                id="status_type">
+                                                <option selected="Select an options">Select from list
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                                        <label for="district_name" class="form-label">District Name</label>
+                                        <div class="input-group">
+                                            <select class="form-select" aria-label="Default select example"
+                                                id="status_type">
+                                                <option selected="Select an options">Select from list
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                                        <label for="district_name" class="form-label">Zone Name</label>
+                                        <div class="input-group">
+                                            <select class="form-select" aria-label="Default select example"
+                                                id="status_type">
+                                                <option selected="Select an options">Select from list
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                                        <label for="district_name" class="form-label">HierarchyType</label>
+                                        <div class="input-group">
+                                            <select class="form-select" aria-label="Default select example"
+                                                id="status_type">
+                                                <option value="">Select from list</option>
+                                                <option *ngFor="let data of employeeDesignationList"
+                                                    [value]="data.designationId">
+                                                    {{data.designationName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2 mb-2">
+                                    <div class="col-md-12">
+
+                                        <div class="input-group srch_box">
+                                            <input type="text" name="Customer name" class="form-control"
+                                                placeholder="Search by the name or number here" id="">
+                                            <button class="btn btn-success"><i class="fa fa-search"></i>
+                                                &nbsp; Search </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="simplebarright" class="web_hery_out">
+                                    <!-- <div class="hdweb">
+                                        <strong>
+                                            West Bengal, Birbhum</strong>
+                                        <span><img src="assets/images/close-icon.png"></span>
+                                    </div> -->
+                                    <div class="web_hery" *ngFor="let data of allHierarchyEmpList">
+
+                                        <div class="sech_list_webl justify-content-start">
+                                            <div class="cnk_slect me-2">
+
+                                                <div class="form-check d-inline-block align-middle me-3">
+                                                    <input class="form-check-input" type="radio" name="hemp1"
+                                                        id="assigned_groups" [value]="data.userId"
+                                                        (click)="onselectHierarchyEmployee($event)">
+                                                    <label class="form-check-label" for="assigned_groups"></label>
+                                                </div>
+
+                                                <div class="p_files">
+                                                    <img src="assets/images/profl-pic.png" alt="create">
+                                                    <div>
+                                                        <strong>{{data.firstName +" "+ data.lastName}}</strong>
+                                                        <span>Relationship : {{data.designationName}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="can_sc_forday">
+                                                <p>{{data.empCount}} member under his team</p>
+                                                <p> {{data.sellerCount}} seller under his zone</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="red_map">
+                                    <div class="red_mp_dnw">
+                                        <div class="red_mp_dnw_in">
+                                            <img src="assets/images/mark-icn.png">
+                                            <span>Ready for Mapping</span>
+                                        </div>
+                                        <div class="red_mp_dnw_in">
+                                            <img src="assets/images/fingr-icon.png">
+                                            <span>Above Hierarchy With</span>
+                                        </div>
+                                        <div class="red_mp_dnw_in">
+                                            <img src="assets/images/fingr-icon-dwn.png">
+                                            <span>Following Resources</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="simplebarright" class="mm_files_out">
+                                    <div class="mm_files">
+                                        <div class="p_files" *ngFor="let data of allMappingHierarchyList">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div class="wit_zon">
+                                                <strong>{{data.firstName +" "+ data.lastName}}</strong>
+                                                <p><span> Relationship : {{data.designationName}}</span>
+                                                    <!-- <span> Bankura, Zone 2, 3</span> -->
+                                                </p>
+                                            </div>
+                                            <button class="btn btn-nobg">
+                                                <img src="assets/images/trash-sm.png" alt="create">
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <ng-container *ngIf="allMappingHierarchyList.length > 0">
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <button class="btn btn-primary me-2">Preview</button>
+                                        <button class="btn btn-info" (click)="saveHierarchyMapping()">Save Map</button>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+
+<!---add new popup start--->
+<div id="addContactModal" tabindex="-1" aria-labelledby="addContactModal" class="modal fade addContactModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-sm-10">
+                            <h3 class="modal-title d-inline-block align-middle me-2">Select Employee for the PJP
+                            </h3>
+
+                        </div>
+                        <div class="col-sm-2 d-flex justify-content-end"><button type="button" data-bs-dismiss="modal"
+                                aria-label="Close" class="btn-close"></button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 add_pjp_pp">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="district_name" class="form-label">District Name</label>
+                                    <div class="input-group">
+                                        <select class="form-select" aria-label="Default select example"
+                                            id="status_type">
+                                            <option selected="Select an options">Select from list</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="district_name" class="form-label">Zone Name</label>
+                                    <div class="input-group">
+                                        <select class="form-select" aria-label="Default select example"
+                                            id="status_type">
+                                            <option selected="Select an options">Select from list</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="district_name" class="form-label">Visitor Type</label>
+                                    <div class="input-group">
+                                        <select class="form-select" aria-label="Default select example"
+                                            id="status_type">
+                                            <option selected="Select an options">Select from list</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="brdr"></div>
+                            <div class="row mt-2 mb-2">
+                                <div class="col-md-12">
+
+                                    <div class="input-group srch_box">
+                                        <input type="text" name="Customer name" class="form-control"
+                                            placeholder="Search" id="">
+                                        <button><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="">
+                                <div class="sech_list_out">
+                                    <div class="sech_list_list">
+                                        <div class="sech_list">
+                                            <div class="cnk_slect">
+                                                <div class="form-check date">
+                                                    <input class="form-check-input me-2" type="checkbox" value=""
+                                                        id="show_event">
+                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
+                                                </div>
+                                                <div class="p_files">
+                                                    <img src="assets/images/profl-pic.png" alt="create">
+                                                    <div>
+                                                        <strong>Ghosh Hardware &amp; Iron</strong>
+                                                        <span> Relationship : Sales</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="can_sc_forday">
+                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                                                <strong>4 days</strong>
+                                                <span>Preplan Visit</span>
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <div id="collapsebuisnessTwo" class="accordion-collapse collapse"
+                                            aria-labelledby="headingbuisnessTwo"
+                                            data-bs-parent="#accordionExamplebuisness">
+                                            <div class="accordion-body">
+                                                <div class="pre_plan_vist">
+                                                    <h4>Preplan Visit</h4>
+                                                    <div class="tabl_div_sec">
+
+                                                        <div class="cle"><i class="fa fa-calendar"
+                                                                aria-hidden="true"></i>23-02-21</div>
+                                                        <div class="mo_nm"><i class="fa fa-map-marker"
+                                                                aria-hidden="true"></i>
+                                                            <div><strong>Sujol</strong><span>MO/TO Bankura</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="lnce"><i class="fa fa-question"
+                                                                aria-hidden="true"></i>
+                                                            <div><strong>Payment Followup</strong><span>I will Visit
+                                                                    for a final price negotation</span></div>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sech_list_list">
+                                        <div class="sech_list">
+                                            <div class="cnk_slect">
+                                                <div class="form-check date">
+                                                    <input class="form-check-input me-2" type="checkbox" value=""
+                                                        id="show_event">
+                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
+                                                </div>
+                                                <div class="p_files">
+                                                    <img src="assets/images/profl-pic.png" alt="create">
+                                                    <div>
+                                                        <strong>Ghosh Hardware &amp; Iron</strong>
+                                                        <span> Relationship : Sales</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="can_sc_forday">
+                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                                                <strong>4 days</strong>
+                                                <span>Preplan Visit</span>
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <div id="collapsebuisnessTwo" class="accordion-collapse collapse"
+                                            aria-labelledby="headingbuisnessTwo"
+                                            data-bs-parent="#accordionExamplebuisness">
+                                            <div class="accordion-body">
+                                                <div class="pre_plan_vist">
+                                                    <h4>Preplan Visit</h4>
+                                                    <div class="tabl_div_sec">
+
+                                                        <div class="cle"><i class="fa fa-calendar"
+                                                                aria-hidden="true"></i>23-02-21</div>
+                                                        <div class="mo_nm"><i class="fa fa-map-marker"
+                                                                aria-hidden="true"></i>
+                                                            <div><strong>Sujol</strong><span>MO/TO Bankura</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="lnce"><i class="fa fa-question"
+                                                                aria-hidden="true"></i>
+                                                            <div><strong>Payment Followup</strong><span>I will Visit
+                                                                    for a final price negotation</span></div>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sech_list_list">
+                                        <div class="sech_list">
+                                            <div class="cnk_slect">
+                                                <div class="form-check date">
+                                                    <input class="form-check-input me-2" type="checkbox" value=""
+                                                        id="show_event">
+                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
+                                                </div>
+                                                <div class="p_files">
+                                                    <img src="assets/images/profl-pic.png" alt="create">
+                                                    <div>
+                                                        <strong>Ghosh Hardware &amp; Iron</strong>
+                                                        <span> Relationship : Sales</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="can_sc_forday">
+                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                                                <strong>4 days</strong>
+                                                <span>Preplan Visit</span>
+
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="sech_list_list">
+                                        <div class="sech_list">
+                                            <div class="cnk_slect">
+                                                <div class="form-check date">
+                                                    <input class="form-check-input me-2" type="checkbox" value=""
+                                                        id="show_event">
+                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
+                                                </div>
+                                                <div class="p_files">
+                                                    <img src="assets/images/profl-pic.png" alt="create">
+                                                    <div>
+                                                        <strong>Ghosh Hardware &amp; Iron</strong>
+                                                        <span> Relationship : Sales</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="can_sc_forday">
+                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                                                <strong>4 days</strong>
+                                                <span>Preplan Visit</span>
+
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="sech_list_list">
+                                        <div class="sech_list">
+                                            <div class="cnk_slect">
+                                                <div class="form-check date">
+                                                    <input class="form-check-input me-2" type="checkbox" value=""
+                                                        id="show_event">
+                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
+                                                </div>
+                                                <div class="p_files">
+                                                    <img src="assets/images/profl-pic.png" alt="create">
+                                                    <div>
+                                                        <strong>Ghosh Hardware &amp; Iron</strong>
+                                                        <span> Relationship : Sales</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="can_sc_forday">
+                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                                                <strong>4 days</strong>
+                                                <span>Preplan Visit</span>
+
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <button class="btn btn-success vewpjp">Save</button>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #successfullMap>
+    <!-- <div class="modal-dialog modal-dialog-centered modal-sm"> -->
+    <!-- <div class="modal-content"> -->
+    <div class="addContactModal">
+        <!-- <div class="modal-header"> -->
+        <!-- <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <button class="btn-close" (click)="closeModal()"></button>
+                    </div>
+                </div>
+            </div> -->
+        <!-- </div> -->
+        <div class="modal-body">
+            <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                <div class="row align-items-center">
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <button class="btn-close pjp_error_mod" (click)="closeModal()"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 alart_popu">
+
+                        <div class="alart_pop">
+                            <!-- <img class="d-inline-block align-middle" src="assets/images/alart-icon.png" alt=""> -->
+                            <p>
+                                <!-- <strong>Select Atleast one visit point</strong> -->
+                                <strong>Mapping Successfully</strong>
+                            </p>
+                        </div>
+                        <!-- <button class="btn btn-success" (click)="closeModal()">Ok</button> -->
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+</ng-template>
