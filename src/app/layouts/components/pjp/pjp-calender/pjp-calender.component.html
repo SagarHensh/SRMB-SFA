@@ -1,0 +1,22 @@
+<div class="calendar_header">
+    <button class="switch-month switch-left" (click)="prevMonth()"> <i class="fa fa-chevron-left"></i></button>
+    <h2>{{currMonth}} {{currYear}}</h2>
+    <button class="switch-month switch-right" (click)="nextMonth()"> <i class="fa fa-chevron-right"></i></button>
+</div>
+<table class="pjp-cal-tble">
+    <tr>
+        <th *ngFor="let ww of weekData">{{ww}}</th>
+    </tr>
+    <tr *ngFor="let data of monthBox">
+        <td *ngFor="let aa of data" style="text-align: center;">
+            <ng-container *ngIf="aa.day">
+                <ng-container *ngIf="aa.isToday">
+                    <span class="circle-with-text">{{aa.day}}</span>
+                </ng-container>
+                <ng-container *ngIf="!aa.isToday">
+                    <span >{{aa.day}}</span>
+                </ng-container>
+            </ng-container>
+        </td>
+    </tr>
+</table>

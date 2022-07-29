@@ -23,7 +23,24 @@ export class AppComponent {
   ngOnInit(): void {
     this.mainPath = this.common.getLayoutHomePath();
     this.schemePath = this.common.getLayoutSchemePath();
-    this.getMasterList()
+    this.getMasterList();
+
+    this.storeDataToLocalhost();
+  }
+
+  storeDataToLocalhost() {
+    let data = {
+      clientId: 1,
+      createdAt: "2022-05-27T12:47:25.000Z",
+      firstName: "Admin",
+      lastName: "",
+      profileImgUrl: null,
+      userId: 3,
+      userType: "1",
+      username: "user",
+    }
+
+    localStorage.setItem("AuthUserData", JSON.stringify(data));
   }
 
 

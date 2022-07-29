@@ -27,16 +27,30 @@
                     </div>
                     <div class="crt_pjp_rit">
                         <strong>Create PJP for</strong>
-                        <div class="form-check d-inline-block align-middle me-3 mb-2">
-                            <input class="form-check-input" type="radio" name="pjp_type" id="assigned_users" value="0"
-                                (change)="onChangePjpType($event)">
-                            <label class="form-check-label" for="assigned_users">Self</label>
-                        </div>
-                        <div class="form-check d-inline-block align-middle mb-2">
-                            <input class="form-check-input" type="radio" name="pjp_type" id="assigned_groups" value="1"
-                                (change)="onChangePjpType($event)" checked="">
-                            <label class="form-check-label" for="assigned_groups">Subordinate</label>
-                        </div>
+                        <ng-container *ngIf="isSelf">
+                            <div class="form-check d-inline-block align-middle me-3 mb-2">
+                                <input class="form-check-input" type="radio" name="pjp_type" id="assigned_users"
+                                    value="0" (change)="onChangePjpType($event)" checked="true">
+                                <label class="form-check-label" for="assigned_users">Self</label>
+                            </div>
+                            <div class="form-check d-inline-block align-middle mb-2">
+                                <input class="form-check-input" type="radio" name="pjp_type" id="assigned_groups"
+                                    value="1" (change)="onChangePjpType($event)">
+                                <label class="form-check-label" for="assigned_groups">Subordinate</label>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="!isSelf">
+                            <div class="form-check d-inline-block align-middle me-3 mb-2">
+                                <input class="form-check-input" type="radio" name="pjp_type" id="assigned_users"
+                                    value="0" (change)="onChangePjpType($event)" checked="true">
+                                <label class="form-check-label" for="assigned_users">Self</label>
+                            </div>
+                            <div class="form-check d-inline-block align-middle mb-2">
+                                <input class="form-check-input" type="radio" name="pjp_type" id="assigned_groups"
+                                    value="1" (change)="onChangePjpType($event)" checked="true">
+                                <label class="form-check-label" for="assigned_groups">Subordinate</label>
+                            </div>
+                        </ng-container>
                     </div>
                 </div>
             </div>
@@ -49,8 +63,7 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="can_sc">
-                                    <a data-bs-target="#addContactModal2" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                        href="javascript:void(0)">
+                                    <a (click)="openDateCalenderModal()" href="javascript:void(0)">
                                         <strong>6th January 2021</strong>
                                         <span>You are selected this date for PJP</span>
                                     </a>
@@ -61,18 +74,36 @@
                                 </div>
                             </div>
                             <div class="col-lg-4">
-                                <div class="execut_sc p_files">
-                                    <img src="assets/images/no-profil-pic.png">
-                                    <div class="execut_sc_in ">
-                                        <strong>Select Employee</strong>
-                                        <span>Marketing Executive for the PJP</span>
-                                    </div>
-                                    <div *ngIf="!isSelf">
+                                <div class="execut_sc p_files" *ngIf="!isSelf">
+                                    <ng-container *ngIf="!isSelected">
+                                        <img src="assets/images/no-profil-pic.png">
+                                        <div class="execut_sc_in ">
+                                            <strong>Select Employee</strong>
+                                            <span>Marketing Executive for the PJP</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="isSelected">
+                                        <img src="assets/images/no-profil-pic.png">
+                                        <div class="execut_sc_in ">
+                                            <strong>{{selectedEmpDeails.name}}</strong>
+                                            <span>{{selectedEmpDeails.designation}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <div>
                                         <a class="p_files_edt_icm" href="javascript:void(0)"
-                                            data-bs-target="#addContactModal" data-bs-toggle="modal"
-                                            data-bs-dismiss="modal"><img src="assets/images/create.svg" alt="create">
+                                            (click)="openSubOrdinateModal()"><img src="assets/images/create.svg"
+                                                alt="create">
                                         </a>
                                     </div>
+                                </div>
+                                <div class="execut_sc p_files" *ngIf="isSelf">
+                                    <ng-container *ngIf="isSelected">
+                                        <img src="assets/images/no-profil-pic.png">
+                                        <div class="execut_sc_in ">
+                                            <strong>{{selectedEmpDeails.name}}</strong>
+                                            <span>{{selectedEmpDeails.designation}}</span>
+                                        </div>
+                                    </ng-container>
                                 </div>
 
                             </div>
@@ -139,8 +170,8 @@
                                                 (ngModelChange)="onChangeState($event)">
                                                 <option value="">Select from list
                                                 </option>
-                                                <option *ngFor="let state of allState" [value]="state.stateId">
-                                                    {{state.stateName}}</option>
+                                                <option *ngFor="let state of allState" [value]="state.id">
+                                                    {{state.name}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -152,8 +183,8 @@
                                                 (ngModelChange)="onChangeDistrict($event)">
                                                 <option value="">Select from list
                                                 </option>
-                                                <option *ngFor="let district of allDistrictType"
-                                                    [value]="district.cityId">{{district.cityName}}</option>
+                                                <option *ngFor="let district of allDistrictType" [value]="district.id">
+                                                    {{district.name}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -165,8 +196,8 @@
                                                 (ngModelChange)="onChangeZone($event)">
                                                 <option value="">Select from list
                                                 </option>
-                                                <option *ngFor="let zone of allZoneType" [value]="zone.zoneId">
-                                                    {{zone.zoneName}}</option>
+                                                <option *ngFor="let zone of allZoneType" [value]="zone.id">
+                                                    {{zone.name}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -223,37 +254,40 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="sech_list" *ngIf="isContactList">
-                                        <div class="cnk_slect">
-                                            <div class="form-check date">
-                                                <input class="form-check-input me-2" type="checkbox" value=""
-                                                    id="show_event">
-                                                <label class="form-check-label" for="show_event">&nbsp;</label>
-                                            </div>
-                                            <div class="p_files">
-                                                <img src="assets/images/profl-pic.png" alt="create">
-                                                <div>
-                                                    <strong>Ghosh Hardware & Iron</strong>
-                                                    <span>Relationship : Dealer</span>
+                                    <ng-container *ngIf="isContactList">
+                                        <div class="sech_list" *ngFor="let data of allContactTypeList">
+                                            <div class="cnk_slect">
+                                                <div class="form-check date">
+                                                    <input class="form-check-input me-2" type="checkbox"
+                                                        [value]='data.contactId' id="show_event"
+                                                        (click)="selectCheckboxOfContact($event)">
+                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
+                                                </div>
+                                                <div class="p_files">
+                                                    <img src="assets/images/profl-pic.png" alt="create">
+                                                    <div>
+                                                        <strong>{{data.firstName}} {{data.lastName}}</strong>
+                                                        <span>Relationship : {{data.contactTypeName}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div class="vst_rsgn" *ngIf="data.isSelected">
+                                                <span>Visit Reason <i class="fa fa-circle text-success"
+                                                        aria-hidden="true"></i></span>
+                                                <a href="javascript:void(0)" class="d-inline-block align-middle"
+                                                    (click)="visitInfoClick(data.contactId)">
+                                                    <img src=" assets/images/create.svg" alt="create">
+                                                </a>
+                                            </div>
                                         </div>
-                                        <div class="vst_rsgn">
-                                            <span>Visit Reason <i class="fa fa-circle text-success"
-                                                    aria-hidden="true"></i></span>
-                                            <a data-bs-target="#addContactModal" data-bs-toggle="modal"
-                                                data-bs-dismiss="modal" href="javascript:void(0)"
-                                                class="d-inline-block align-middle"><img src="assets/images/create.svg"
-                                                    alt="create"></a>
-                                        </div>
-                                    </div>
+                                    </ng-container>
                                 </div>
 
                             </div>
                             <div class="col-md-5 col-sm-12">
                                 <h4>Write Visit Purpose</h4>
                                 <div class="wri_box">
-                                    <div class="p_files">
+                                    <div class="p_files" *ngIf="visitArray.length == 0">
                                         <img src="assets/images/no-profil-pic.png" alt="">
                                         <div>
                                             <strong>Visit Purpose for a seller</strong>
@@ -263,31 +297,60 @@
                                         </div>
                                     </div>
 
-                                    <div class="compny_select">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                                <select class="form-select" aria-label="Default select example"
-                                                    id="status_type">
-                                                    <option selected="Select an options">Select Category
-                                                    </option>
-                                                </select>
+                                    <ng-container *ngIf="visitArray.length > 0">
+                                        <ng-container *ngFor="let visit of visitArray; let i = index">
+                                            <div class="p_files">
+                                                <img src="assets/images/profl-pic.png" alt="create">
+                                                <div>
+                                                    <strong>{{visit.firstName}} {{visit.lastName}}</strong>
+                                                    <span>Relationship : {{visit.contactTypeName}}</span>
+                                                </div>
+                                            </div>
+                                            <ng-container *ngIf="visit.pjpData.length>0">
+                                                <div class="pay_flw_up" *ngFor="let pjpData of visit.pjpData">
+                                                    <i class="fa fa-question text-danger" aria-hidden="true"></i>
+                                                    <strong>{{pjpData.taskName}}</strong>
+                                                    <p>{{pjpData.taskDescription}}</p>
+                                                    <span><i class="fa fa-trash text-danger" aria-hidden="true"
+                                                            (click)="deletePjpTask(i)"></i></span>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                    <ng-container *ngIf="!currPjp">
+                                        <div class="compny_select">
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [ngModel]="selectedTaskType"
+                                                        (ngModelChange)="onChangeTaskType($event)">
+                                                        <option value="">Select from list
+                                                        </option>
+                                                        <option *ngFor="let task of allTaskType" [value]="task.taskId">
+                                                            {{task.taskName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mt-2 mb-3">
+                                                <div class="input-group">
+                                                    <textarea name="task_desc" class="form-control"
+                                                        placeholder="Additional Note here" id=""
+                                                        [(ngModel)]="selectedTaskDescription"></textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mt-2 mb-3">
-                                            <div class="input-group">
-                                                <textarea name="" class="form-control"
-                                                    placeholder="Additional Note here" id=""></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </ng-container>
+
                                     <div class="pre_plan_vist">
 
                                         <div class="note_sc">
                                             <p>You have selected <strong class="text-primary">3</strong>
                                                 locations forn the PJP but did't write any reason those
                                                 visit <strong class="text-danger">2</strong> of those
-                                                location. Please mention reason before create the PJP</p>
-                                            <button class="btn btn-secondary2 btn-sm">Save</button>
+                                                location. Please mention reason before create the PJP
+                                            </p>
+                                            <button class="btn btn-secondary2 btn-sm"
+                                                (click)="addVisitDataintoClient()">Add</button>
                                         </div>
 
                                     </div>
@@ -309,294 +372,197 @@
 
 
 <!---add new popup start--->
-<div id="addContactModal" tabindex="-1" aria-labelledby="addContactModal" class="modal fade addContactModal"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-sm-10">
-                            <h3 class="modal-title d-inline-block align-middle me-2">Select Employee for the PJP</h3>
+<!-- .........Popup for subordinate List.......... -->
+<ng-template #subordinateListModal>
+    <div class="addContactModal">
+        <div class="modal-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <h3 class="modal-title d-inline-block align-middle me-2">Select Employee for the PJP</h3>
 
-                        </div>
-                        <div class="col-sm-2 d-flex justify-content-end"><button type="button" data-bs-dismiss="modal"
-                                aria-label="Close" class="btn-close"></button></div>
                     </div>
+                    <div class="col-sm-2 d-flex justify-content-end"><button type="button" data-bs-dismiss="modal"
+                            aria-label="Close" class="btn-close" (click)="closeModal()"></button></div>
                 </div>
             </div>
-            <div class="modal-body">
-                <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 add_pjp_pp">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="district_name" class="form-label">District Name</label>
-                                    <div class="input-group">
-                                        <select class="form-select" aria-label="Default select example"
-                                            id="status_type">
-                                            <option selected="Select an options">Select from list</option>
-                                        </select>
-                                    </div>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 add_pjp_pp">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="district_name" class="form-label">District Name</label>
+                                <div class="input-group">
+                                    <select class="form-select" aria-label="Default select example" id="status_type">
+                                        <option selected="Select an options">Select from list</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="district_name" class="form-label">Zone Name</label>
-                                    <div class="input-group">
-                                        <select class="form-select" aria-label="Default select example"
-                                            id="status_type">
-                                            <option selected="Select an options">Select from list</option>
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="district_name" class="form-label">Zone Name</label>
+                                <div class="input-group">
+                                    <select class="form-select" aria-label="Default select example" id="status_type">
+                                        <option selected="Select an options">Select from list</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="district_name" class="form-label">Visitor Type</label>
-                                    <div class="input-group">
-                                        <select class="form-select" aria-label="Default select example"
-                                            id="status_type">
-                                            <option selected="Select an options">Select from list</option>
-                                        </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="district_name" class="form-label">Visitor Type</label>
+                                <div class="input-group">
+                                    <select class="form-select" aria-label="Default select example" id="status_type">
+                                        <option selected="Select an options">Select from list</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="brdr"></div>
+                        <div class="row mt-2 mb-2">
+                            <div class="col-md-12">
+
+                                <div class="input-group srch_box">
+                                    <input type="text" name="Customer name" class="form-control" placeholder="Search"
+                                        id="">
+                                    <button><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="">
+                            <div class="sech_list_out">
+                                <div class="sech_list_list" *ngFor="let data of allSubordinateList">
+                                    <div class="sech_list">
+                                        <div class="cnk_slect">
+
+                                            <div class="form-check d-inline-block align-middle me-3">
+                                                <input class="form-check-input" type="radio" name="employee"
+                                                    id="assigned_groups" [value]="data.userId"
+                                                    (click)="onchangeEmployeeSubList($event)">
+                                                <label class="form-check-label" for="assigned_groups"></label>
+                                            </div>
+                                            <div class="p_files">
+                                                <img src="assets/images/profl-pic.png" alt="create">
+                                                <div>
+                                                    <strong>{{data.name}}</strong>
+                                                    <span>{{data.designation}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="can_sc forday">
+                                            <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                                            <strong>{{data.datesOfPrePlanVisit}} days</strong>
+                                            <span>Preplan Visit</span>
+
+
+                                        </div>
+                                        <div class="vst_rsgn">
+
+                                            <span class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapsebuisnessTwo"
+                                                aria-expanded="false" aria-controls="collapsebuisnessTwo">View
+                                                details</span>
+
+                                        </div>
+
+                                    </div>
+                                    <div id="collapsebuisnessTwo" class="accordion-collapse collapse"
+                                        aria-labelledby="headingbuisnessTwo" data-bs-parent="#accordionExamplebuisness">
+                                        <div class="accordion-body">
+                                            <div class="pre_plan_vist">
+                                                <h4>Preplan Visit</h4>
+
+                                                <div class="tabl_div_sec" *ngFor="let plan of data.allPrePlanVisit">
+
+                                                    <div class="cle"><i class="fa fa-calendar"
+                                                            aria-hidden="true"></i>{{plan.date}}</div>
+                                                    <div class="mo_nm"><i class="fa fa-map-marker"
+                                                            aria-hidden="true"></i>
+                                                        <div><strong>{{plan.visitorName}}</strong><span>{{plan.district}},
+                                                                {{plan.zone}}</span></div>
+                                                    </div>
+                                                    <div class="lnce"><i class="fa fa-question" aria-hidden="true"></i>
+                                                        <div>
+                                                            <strong>{{plan.task}}</strong><span>{{plan.description}}</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="brdr"></div>
-                            <div class="row mt-2 mb-2">
-                                <div class="col-md-12">
+                        </div>
 
-                                    <div class="input-group srch_box">
-                                        <input type="text" name="Customer name" class="form-control"
-                                            placeholder="Search" id="">
-                                        <button><i class="fa fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="">
-                                <div class="sech_list_out">
-                                    <div class="sech_list_list">
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-                                                <div class="form-check date">
-                                                    <input class="form-check-input me-2" type="checkbox" value=""
-                                                        id="show_event">
-                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
-                                                </div>
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>4 days</strong>
-                                                <span>Preplan Visit</span>
+                    </div>
+                    <button class="btn btn-success vewpjp" (click)="selectEmployeeForPjP()">Save</button>
+                </div>
 
 
-                                            </div>
-                                            <div class="vst_rsgn">
-
-                                                <span class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapsebuisnessTwo"
-                                                    aria-expanded="false" aria-controls="collapsebuisnessTwo">View
-                                                    details</span>
-
-                                            </div>
-
-                                        </div>
-                                        <div id="collapsebuisnessTwo" class="accordion-collapse collapse"
-                                            aria-labelledby="headingbuisnessTwo"
-                                            data-bs-parent="#accordionExamplebuisness">
-                                            <div class="accordion-body">
-                                                <div class="pre_plan_vist">
-                                                    <h4>Preplan Visit</h4>
-                                                    <div class="tabl_div_sec">
-
-                                                        <div class="cle"><i class="fa fa-calendar"
-                                                                aria-hidden="true"></i>23-02-21</div>
-                                                        <div class="mo_nm"><i class="fa fa-map-marker"
-                                                                aria-hidden="true"></i>
-                                                            <div><strong>Sujol</strong><span>MO/TO Bankura</span></div>
-                                                        </div>
-                                                        <div class="lnce"><i class="fa fa-question"
-                                                                aria-hidden="true"></i>
-                                                            <div><strong>Payment Followup</strong><span>I will Visit for
-                                                                    a final price negotation</span></div>
-                                                        </div>
-
-                                                    </div>
+            </div>
 
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="sech_list_list">
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-                                                <div class="form-check date">
-                                                    <input class="form-check-input me-2" type="checkbox" value=""
-                                                        id="show_event">
-                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
-                                                </div>
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>4 days</strong>
-                                                <span>Preplan Visit</span>
+        </div>
+    </div>
+</ng-template>
+<!-- </div> -->
 
 
-                                            </div>
-                                            <div class="vst_rsgn">
+<ng-template #selectDateModal>
+    <div class="addContactModal">
+        <div class="modal-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <h3 class="modal-title d-inline-block align-middle me-2">Shedule PJP Date</h3>
 
-                                                <span class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapsebuisnessTwo"
-                                                    aria-expanded="false" aria-controls="collapsebuisnessTwo">View
-                                                    details</span>
+                    </div>
+                    <div class="col-sm-2 d-flex justify-content-end"><button type="button" aria-label="Close"
+                            class="btn-close" (click)="closeModal()"></button></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 can_sc_hd">
+                        <div class="can_sc">
+                            <a data-bs-target="#addContactModal1" data-bs-toggle="modal" data-bs-dismiss="modal"
+                                href="javascript:void(0)">
+                                <strong>6th January 2021</strong>
+                                <span>You are selected this date for PJP</span>
+                            </a>
 
-                                            </div>
-
-                                        </div>
-                                        <div id="collapsebuisnessTwo" class="accordion-collapse collapse"
-                                            aria-labelledby="headingbuisnessTwo"
-                                            data-bs-parent="#accordionExamplebuisness">
-                                            <div class="accordion-body">
-                                                <div class="pre_plan_vist">
-                                                    <h4>Preplan Visit</h4>
-                                                    <div class="tabl_div_sec">
-
-                                                        <div class="cle"><i class="fa fa-calendar"
-                                                                aria-hidden="true"></i>23-02-21</div>
-                                                        <div class="mo_nm"><i class="fa fa-map-marker"
-                                                                aria-hidden="true"></i>
-                                                            <div><strong>Sujol</strong><span>MO/TO Bankura</span></div>
-                                                        </div>
-                                                        <div class="lnce"><i class="fa fa-question"
-                                                                aria-hidden="true"></i>
-                                                            <div><strong>Payment Followup</strong><span>I will Visit for
-                                                                    a final price negotation</span></div>
-                                                        </div>
-
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="sech_list_list">
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-                                                <div class="form-check date">
-                                                    <input class="form-check-input me-2" type="checkbox" value=""
-                                                        id="show_event">
-                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
-                                                </div>
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>4 days</strong>
-                                                <span>Preplan Visit</span>
-
-
-                                            </div>
-                                            <div class="vst_rsgn">
-
-                                                <span class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="">View details</span>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="sech_list_list">
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-                                                <div class="form-check date">
-                                                    <input class="form-check-input me-2" type="checkbox" value=""
-                                                        id="show_event">
-                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
-                                                </div>
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>4 days</strong>
-                                                <span>Preplan Visit</span>
-
-
-                                            </div>
-                                            <div class="vst_rsgn">
-
-                                                <span class="accordion-button collapsed" type="button" data-bs-toggle=""
-                                                    aria-expanded="false" aria-controls="collapsebuisnessTwo">View
-                                                    details</span>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="sech_list_list">
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-                                                <div class="form-check date">
-                                                    <input class="form-check-input me-2" type="checkbox" value=""
-                                                        id="show_event">
-                                                    <label class="form-check-label" for="show_event">&nbsp;</label>
-                                                </div>
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>4 days</strong>
-                                                <span>Preplan Visit</span>
-
-
-                                            </div>
-                                            <div class="vst_rsgn">
-
-                                                <span class="accordion-button collapsed" type="button" data-bs-toggle=""
-                                                    aria-expanded="false" aria-controls="collapsebuisnessTwo">View
-                                                    details</span>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
 
                         </div>
-                        <button class="btn btn-success vewpjp">Save</button>
+                        <button class="btn btn-success">Save</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 add_pjp_pp">
+
+                        <div class="calender_box_dv">
+                            <div class="calendar calendar-first" id="calendar_first">
+                                <!-- <div class="calendar_header">
+                                    <button class="switch-month switch-left"> <i
+                                            class="fa fa-chevron-left"></i></button>
+                                    <h2></h2>
+                                    <button class="switch-month switch-right"> <i
+                                            class="fa fa-chevron-right"></i></button>
+                                </div> -->
+                                <!-- <div class="calendar_weekdays"></div>
+                                    <div class="calendar_content"></div> -->
+                                <div>
+                                    <app-pjp-calender></app-pjp-calender>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div>
+                            <app-pjp-calender></app-pjp-calender>
+                        </div> -->
+
                     </div>
 
 
@@ -606,67 +572,7 @@
             </div>
         </div>
     </div>
-</div>
-<div id="addContactModal1" tabindex="-1" aria-labelledby="addContactModal" class="modal fade addContactModal"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-sm-10">
-                            <h3 class="modal-title d-inline-block align-middle me-2">Shedule PJP Date</h3>
-
-                        </div>
-                        <div class="col-sm-2 d-flex justify-content-end"><button type="button" data-bs-dismiss="modal"
-                                aria-label="Close" class="btn-close"></button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 can_sc_hd">
-                            <div class="can_sc">
-                                <a data-bs-target="#addContactModal1" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                    href="javascript:void(0)">
-                                    <strong>6th January 2021</strong>
-                                    <span>You are selected this date for PJP</span>
-                                </a>
-
-
-                            </div>
-                            <button class="btn btn-success">Save</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 add_pjp_pp">
-
-                            <div class="calender_box_dv">
-                                <div class="calendar calendar-first" id="calendar_first">
-                                    <div class="calendar_header">
-                                        <button class="switch-month switch-left"> <i
-                                                class="fa fa-chevron-left"></i></button>
-                                        <h2></h2>
-                                        <button class="switch-month switch-right"> <i
-                                                class="fa fa-chevron-right"></i></button>
-                                    </div>
-                                    <div class="calendar_weekdays"></div>
-                                    <div class="calendar_content"></div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</ng-template>
 <!-- <div id="addContactModal2" tabindex="-1" aria-labelledby="addContactModal" class="modal fade addContactModal"
     aria-hidden="true"> -->
 <ng-template #addContactModal2>
@@ -1042,8 +948,7 @@
                         <div class="row mt-3">
                             <div class="col-md-12 ">
 
-                                <div class="rout_map sec_dv">
-
+                                <div class="rout_map sec_dv" style="height: 450px;">
                                     <!-- <img src="assets/images/route-map.png"> -->
                                     <app-pjp-map></app-pjp-map>
                                 </div>

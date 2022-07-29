@@ -26,6 +26,7 @@ import { CreatePjpComponent } from './components/pjp/create-pjp/create-pjp.compo
 import { PjpViewReportComponent } from './components/pjp/pjp-view-report/pjp-view-report.component';
 import app_config from '../app.config';
 import { PjpMapComponent } from './components/pjp/pjp-map/pjp-map.component';
+import { PjpCalenderComponent } from './components/pjp/pjp-calender/pjp-calender.component';
 
 
 
@@ -48,7 +49,8 @@ import { PjpMapComponent } from './components/pjp/pjp-map/pjp-map.component';
     LeaveComponent,
     CreatePjpComponent,
     PjpViewReportComponent,
-    PjpMapComponent
+    PjpMapComponent,
+    PjpCalenderComponent
   ],
   imports: [
     FormsModule,

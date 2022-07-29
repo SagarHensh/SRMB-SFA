@@ -12,6 +12,87 @@ export class StoreDataService {
   allState: any = [];
   stateId: any = 1;
   allDistrictType: any = [];
+  allEmployeeList: any = [
+    {
+      userId: "1",
+      name: "Bhuban Goswami",
+      designation: "Project Manager",
+      profileImg: "",
+      datesOfPrePlanVisit: "4",
+      allPrePlanVisit: [
+        {
+          id: "1",
+          date: "2022-07-29",
+          visitorName: "Laxmi Hardware",
+          state: "West Bengal",
+          district: "Kolkata",
+          zone: "Zone 3",
+          task: "Payment followup",
+          description: "I will visit for a final price negotiation"
+        },
+        {
+          id: "2",
+          date: "2022-07-30",
+          visitorName: "Maa Tara Hardware",
+          state: "West Bengal",
+          district: "Howrah",
+          zone: "Bally",
+          task: "Stock View",
+          description: "I will visit for review stocks"
+        }
+      ]
+    },
+    {
+      userId: "2",
+      name: "Abhisek Sen",
+      designation: "Marketing Executive",
+      profileImg: "",
+      datesOfPrePlanVisit: "2",
+      allPrePlanVisit: [
+        {
+          id: "3",
+          date: "2022-07-29",
+          visitorName: "Laxmi Hardware",
+          state: "West Bengal",
+          district: "Kolkata",
+          zone: "Zone 3",
+          task: "Payment followup",
+          description: "I will visit for a final price negotiation"
+        },
+        {
+          id: "4",
+          date: "2022-07-30",
+          visitorName: "Maa Tara Hardware",
+          state: "West Bengal",
+          district: "Howrah",
+          zone: "Bally",
+          task: "Stock View",
+          description: "I will visit for review stocks"
+        }
+      ]
+    }
+  ];
+
+  allContactTypeList : any = [
+    {
+        "contactId": 9,
+        "firstName": "Ghosh",
+        "lastName": "Hardware",
+        "contactTypeName": "Distributor"
+    },
+    {
+        "contactId": 10,
+        "firstName": "Kamal",
+        "lastName": "Hardware",
+        "contactTypeName": "Distributor"
+    },
+    {
+        "contactId":11,
+        "firstName": "Biswanath",
+        "lastName": "Steel",
+        "contactTypeName": "Distributor"
+    }
+  ]
 
   addMasterType(data: any) {
     this.masterType = data;
@@ -42,8 +123,8 @@ export class StoreDataService {
     })
   }
 
-  getAllDistrict(state :any) {
-    
+  getAllDistrict(state: any) {
+
     let obj = {
       stateId: state
     }
@@ -58,4 +139,14 @@ export class StoreDataService {
       }
     })
   }
+
+  getAllEmployeeList() {
+    return this.allEmployeeList;
+  }
+
+  getAllContactTypeList(){
+    return this.allContactTypeList;
+  }
+
+
 }
