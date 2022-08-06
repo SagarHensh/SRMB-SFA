@@ -1,0 +1,1100 @@
+<!--Container Main start-->
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center main-hdng">
+                <div class="col-md-6">
+                    <h3>View Map</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item active">Dashboard</li>
+                                <li class="breadcrumb-item" aria-current="page">View Map</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="bg-white shadow_d py-4 px-4 rounded-3">
+                    <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="map_sec">
+                            <div class="map_sec_top">
+                                <div class="map_sec_top_lft">
+                                    <ul class="nav nav-pills " id="pills-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link js-btn-tooltip active" id="pills-live-tab"
+                                                data-toggle="tooltip" data-bs-toggle="pill" data-placement="top"
+                                                data-custom-class="tooltip-dark" data-bs-target="#pills-live"
+                                                type="button" role="tab" aria-controls="pills-home" aria-selected="true"
+                                                title="Live Tracking"><span class="live-icon"></span> Live
+                                                Tracking</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link js-btn-tooltip" id="pills-beat-tab"
+                                                data-toggle="tooltip" data-bs-toggle="pill" data-placement="top"
+                                                data-custom-class="tooltip-dark" data-bs-target="#pills-beat"
+                                                type="button" role="tab" aria-controls="pills-beat"
+                                                aria-selected="false" title="Beat Route"> Beat Route</button>
+
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link js-btn-tooltip" id="pills-sales-tab"
+                                                data-bs-toggle="pill" data-toggle="tooltip" data-bs-toggle="pill"
+                                                data-placement="top" data-custom-class="tooltip-dark"
+                                                data-bs-target="#pills-sales" type="button" role="tab"
+                                                aria-controls="pills-lead" aria-selected="false" title="Sales">
+                                                Sales</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation" style="display:none">
+                                            <button class="nav-link" id="pills-ttt-tab" data-bs-toggle="pill"
+                                                data-bs-target="#pills-enq" type="button" role="tab"
+                                                aria-controls="pills-lead" aria-selected="false">eeee</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link js-btn-tooltip" id="pills-area-tab"
+                                                data-bs-toggle="pill" data-toggle="tooltip" data-bs-toggle="pill"
+                                                data-placement="top" data-custom-class="tooltip-dark"
+                                                data-bs-target="#pills-area" type="button" role="tab"
+                                                aria-controls="pills-area" aria-selected="false"
+                                                title="Explore New Area"> Explore New
+                                                Area</button>
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+                                <div class="map_sec_top_rit">
+                                    <ul class="nav nav-pills ttt" id="pills-tab" role="tablist">
+
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-lead-tab"
+                                                onclick="setSalesType(1)">Lead</button>
+                                            <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="javascript:void(0)">Hot</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Warm </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Cold </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Recently Added <input
+                                                        type="text" />
+                                                    Days</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-enq-tab"
+                                                onclick="setSalesType(0)">Enquiry</button>
+                                            <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="javascript:void(0)">Recently Added <input
+                                                        type="text" />
+                                                    Days</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Delay Response <input
+                                                        type="text" />
+                                                    Days</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Not Moving <input
+                                                        type="text" />
+                                                    Days</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-opt-tab"
+                                                onclick="setSalesType(2)">Opportunity</button>
+                                            <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="javascript:void(0)">Stage</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Delay Response <input
+                                                        type="text" />
+                                                    Days</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Recently Converted
+                                                    <input type="text" /> Days</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-rcnt-tab"
+                                                onclick="setSalesType(3)">Closed</button>
+                                            <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="javascript:void(0)">Recently Closed
+                                                    <input type="text" />
+                                                    Days</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                    <div class="lead_profil" style="display: none">
+                                        <span class="pppic"><img src="assets/images/profile-img.svg"></span>
+                                        <div class="nme_desg">
+                                            <button>Assign Task</button>
+                                            <strong><span>Saikat Das</span></strong>
+                                            <div class="deg_str">
+                                                <strong><span>Markting Officer</span></strong>
+                                                <div class="rat_str">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star-half checked"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span>3.5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-live" role="tabpanel"
+                                    aria-labelledby="pills-live-tab">
+                                    <div class="map_srch">
+                                        <div class="wrapper_div">
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectEmployeeType">
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectStateName">
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectDistrictName">
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectZone">
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv">
+                                                <select id="selectrating">
+                                                    <option>3.5 and Above</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="map_trac_sc">
+                                        <div class="map_dv">
+                                            <app-gmap></app-gmap>
+                                            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                                        </div>
+                                        <div class="map_record">
+                                            <div class="map_rec_con col_bl"> <strong id="fsaTotal">0</strong>
+                                                <p>Field force</p>
+                                            </div>
+                                            <div class="map_rec_con col_gr"> <strong id="fsaPresent">0</strong>
+                                                <p>On Duty</p>
+                                            </div>
+                                            <div class="map_rec_con col_rd"> <strong id="fsaAbsent">0</strong>
+                                                <p>Absent</p>
+                                            </div>
+                                            <div class="map_rec_con col_yl"> <strong id="fsaLeave">0</strong>
+                                                <p>On Leave</p>
+                                            </div>
+                                            <div class="map_rec_con col_gry"> <strong id="fsaLate">0</strong>
+                                                <p>Late</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade show" id="pills-beat" role="tabpanel"
+                                    aria-labelledby="pills-beat-tab">
+                                    <div class="map_srch">
+                                        <div class="wrapper_div">
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectEmployeeType1">
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectEmptList">
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv date_fil">
+                                                <div class="form-group">
+
+                                                    <input type="date" placeholder="MM/DD/YYYY" /><i
+                                                        class="fa fa-calendar"></i>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="select_filt_dv pjp_actl">
+                                                <div class="pjp_dv"><strong>PV</strong><span
+                                                        class="pv_col">&nbsp;</span></div>
+                                                <div class="pjp_dv"><strong>UPV</strong><span
+                                                        class="uv_col">&nbsp;</span></div>
+                                                <div class="pjp_dv"><strong>NV</strong><span
+                                                        class="nv_col">&nbsp;</span></div>
+                                            </div>
+                                            <div class="select_filt_dv date_fil pikker">
+                                                <div class="input-group time" id="timepicker">
+                                                    <input type="text" name="daterange"
+                                                        value="01/01/2018 - 01/15/2018" /><i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="map_trac_sc">
+                                        <div class="map_dv" id="routeMap">
+                                            <!-- <iframe
+                          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
+                          width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                          referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                                        </div>
+                                        <div class="map_record pv_upv_dv">
+                                            <div class="map_rec_con pv_upv col_bl">
+                                                <ul>
+                                                    <li><strong id="pvCount">PV - 0 </strong></li>
+                                                    <li><strong id="uvcount">UPV - 0 </strong></li>
+                                                </ul>
+                                                <p>Visit Type Count</p>
+                                            </div>
+                                            <div class="map_rec_con col_gr">
+                                                <ul>
+                                                    <li><strong id="cusDlr">DLR–0 </strong></li>
+                                                    <li><strong id="cusDst">DST–0 </strong></li>
+                                                    <li><strong id="cusSd">SD–0 </strong></li>
+                                                    <li><strong id="cusSdst">S DST–0 </strong></li>
+                                                </ul>
+                                                <p>Customer Count </p>
+                                            </div>
+                                            <div class="map_rec_con col_yl">
+                                                <ul>
+                                                    <li><strong id="ncusDlr">DLR–0 </strong></li>
+                                                    <li><strong id="ncusDst">DST–0 </strong></li>
+                                                    <li><strong id="ncusSd">SD–0 </strong></li>
+                                                    <li><strong id="ncusSdst">S DST–0 </strong></li>
+                                                </ul>
+                                                <p>New Customer Count</p>
+                                            </div>
+                                            <div class="map_rec_con col_gry">
+                                                <ul>
+                                                    <li><strong id="nMas">Mason–5 </strong></li>
+                                                    <li><strong id="nIFB">IFB–8 </strong></li>
+                                                </ul>
+                                                <p>Meeting count </p>
+                                            </div>
+                                            <div class="map_rec_con col_rd">
+                                                <ul>
+                                                    <li><strong id="tMas">Mason–5 </strong></li>
+                                                    <li><strong id="tIFB">IFB–8 </strong></li>
+                                                </ul>
+                                                <p>Total influencer count </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade show" id="pills-sales" role="tabpanel"
+                                    aria-labelledby="pills-sales-tab">
+                                    <div class="map_srch">
+                                        <div class="wrapper_div">
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectStateName2">
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectDistrictName2">
+
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectZone2">
+
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv" id="dayDiv">
+                                                <select id="selectDay4">
+                                                    <option value="">Customer Type</option>
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv" id="dayDiv">
+                                                <select id="selectVertical1">
+                                                    <option value="">Retail</option>
+                                                    <option value="">Project</option>
+                                                </select>
+                                            </div>
+                                            <!-- <div class="select_filt_dv ratting" id="ratDiv">
+                          <span>Rating 3.5 and Above</span>
+                        </div> -->
+                                            <div class="select_filt_dv" id="dayDiv">
+                                                <select id="selectBrand1">
+                                                    <option value="">Brand</option>
+                                                    <option value="">Realedge</option>
+                                                    <option value="">SRMB TMT</option>
+                                                    <option value="">TOP Tech</option>
+                                                </select>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="map_trac_sc">
+                                        <div class="map_dv" id="saleMap">
+                                            <!-- <iframe
+                          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
+                          width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                          referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                                        </div>
+                                        <div class="map_record salese">
+
+                                            <div class="lead_dv">
+                                                <h4>Total Count</h4>
+                                                <p><strong id="saleCount">0
+                                                    </strong></p>
+                                            </div>
+                                            <div class="lead_dv">
+                                                <h4>Type count
+                                                </h4>
+                                                <div class="slse_dv">
+                                                    <ul>
+                                                        <li id="saleDlrCount">DLR - 0 </li>
+                                                        <li id="saleDstCount">DST - 0 </li>
+                                                        <li id="saleSdCount">SD - 0</li>
+                                                    </ul>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="lead_dv">
+                                                <h4>Hierarchy
+
+                                                </h4>
+
+                                                <div class="opp_hier">
+                                                    <div class="progress">
+                                                        <ul id="progUl">
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-success"
+                                                                        role="progressbar" aria-valuenow="25"
+                                                                        aria-valuemin="0" aria-valuemax="100"
+                                                                        style="width:25%;" id="leadProg"></div>
+                                                                    <div class="prog_dv"></div>
+                                                                    <!-- <span>Opp. Count</span> -->
+                                                                </div>
+                                                                <span>Lead</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-danger"
+                                                                        role="progressbar" aria-valuenow="50"
+                                                                        aria-valuemin="0" aria-valuemax="100"
+                                                                        style="width:50%;" id="enqProg"></div>
+                                                                    <div class="prog_dv"></div>
+                                                                    <!-- <span>Opp. Count</span> -->
+                                                                </div>
+                                                                <span>Enquiry</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-black"
+                                                                        role="progressbar" aria-valuenow="75"
+                                                                        aria-valuemin="0" aria-valuemax="100"
+                                                                        style="width:75%;" id="oppProg"></div>
+                                                                    <div class="prog_dv"></div>
+                                                                    <!-- <span>Opp. Count</span> -->
+                                                                </div>
+                                                                <span>Opportunity</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-warning"
+                                                                        role="progressbar" aria-valuenow="100"
+                                                                        aria-valuemin="0" aria-valuemax="100"
+                                                                        style="width:100%;" id="rcProg"></div>
+                                                                    <div class="prog_dv"></div>
+                                                                    <!-- <span>Opp. Count</span> -->
+                                                                </div>
+                                                                <span>Recently Converted</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane  fade show" id="pills-enq" role="tabpanel"
+                                    aria-labelledby="pills-enq-tab">
+                                    <div class="map_srch">
+                                        <div class="wrapper_div">
+                                            <!-- <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                          <select id="selectStateName3">
+                            <option value="ACA"></option>
+                            <option value="BNI"></option>
+                            <option value="CRI"></option>
+                            <option value="DCA"></option>
+                            <option value="ENI"></option>
+                            <option value="FRI"></option>
+                          </select>
+                        </div>
+                        <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                          <select id="selectDistrictName3">
+                            <option value="ACA"></option>
+                            <option value="BNI"></option>
+                            <option value="CRI"></option>
+                            <option value="DCA"></option>
+                            <option value="ENI"></option>
+                            <option value="FRI"></option>
+                          </select>
+                        </div>
+                        <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                          <select id="selectZone3">
+                            <option value="ACA"></option>
+                            <option value="BNI"></option>
+                            <option value="CRI"></option>
+                            <option value="DCA"></option>
+                            <option value="ENI"></option>
+                            <option value="FRI"></option>
+                          </select>
+                        </div>
+
+-->
+                                        </div>
+                                    </div>
+                                    <div class="map_trac_sc">
+                                        <div class="map_dv">
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
+                                                width="100%" height="450" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+                                        <div class="map_record leaddetls">
+
+                                            <div class="bar_pr">
+                                                <ol>
+                                                    <li class="active"><strong><span>Initiation</span>
+                                                            10-05-2022</strong></li>
+                                                    <li class="active"><strong><span>Follow up</span>
+                                                            10-05-2022</strong> </li>
+                                                    <li class="active"><strong><span>Assigned</span> 10-05-2022</strong>
+                                                    </li>
+                                                    <li class="active"><strong><span>Call</span> 10-05-2022</strong>
+                                                    </li>
+                                                    <li class="active"><strong><span>Visited</span> 10-05-2022</strong>
+                                                    </li>
+                                                    <li class="active"><strong><span>Follow Up</span>
+                                                            10-05-2022</strong></li>
+                                                    <li class="active"><strong><span>Visited</span> 10-05-2022</strong>
+                                                    </li>
+                                                    <li class="ask"><strong><span>Email</span> 10-05-2022</strong></li>
+
+                                                </ol>
+                                            </div>
+                                            <div class="bar-rit">
+                                                <div class="lead_dv">
+                                                    <h4>Prediction Score</h4>
+                                                    <p><strong id="saleCount">70%</strong></p>
+                                                </div>
+                                                <div class="lead_dv ldinf">
+                                                    <h4>Lead information</h4>
+                                                    <ul>
+                                                        <li>
+                                                            Dealer
+                                                        </li>
+                                                        <li>
+                                                            Opportunity
+                                                        </li>
+                                                        <li>
+                                                            Negotiation
+                                                        </li>
+
+
+
+
+                                                    </ul>
+                                                </div>
+                                                <div class="lead_dv">
+                                                    <h4>Recommendation</h4>
+                                                    <ul>
+                                                        <li>
+                                                            <strong> Regular Follow Up </strong>
+                                                        </li>
+                                                        <li>
+                                                            <strong>ASM Visit Required </strong>
+                                                        </li>
+
+
+
+                                                    </ul>
+                                                </div>
+                                                <div class="lead_dv">
+                                                    <h4>Prospect value</h4>
+                                                    <p>
+                                                        <strong>
+                                                            5,00,0000 INR
+                                                        </strong>
+
+
+                                                    </p>
+
+                                                </div>
+                                                <div class="lead_dv">
+                                                    <h4>Loyality Score</h4>
+                                                    <p>
+                                                        <strong>
+                                                            80%
+                                                        </strong>
+
+
+                                                    </p>
+
+                                                </div>
+                                                <div class="lead_dv">
+                                                    <h4>Compitator Activity</h4>
+                                                    <p>
+                                                        <strong>
+                                                            Yes
+                                                        </strong>
+
+
+                                                    </p>
+
+                                                </div>
+                                            </div>
+
+
+                                            <!-- <div class="lead_dv">
+                          <h4>Details</h4>
+                          <ul>
+                            <li>
+                              <strong>Initiation date </strong>:
+                            </li>
+                            <li>
+                              <strong>Closing date </strong>:
+                            </li>
+                            <li>
+                              <strong>Lead Value </strong>:
+                            </li>
+                            <li>
+                              <strong>Lead Owner </strong>:
+                            </li>
+                            <li>
+                              <strong>Lead purpose - DLR / DST/ SD </strong>:
+                            </li>
+
+                          </ul>
+                        </div> -->
+
+                                        </div>
+                                        <!-- <div class="map_record salese">
+
+                        <div class="lead_dv">
+                          <h4>Total Opportunity Count</h4>
+                          <p><strong>3565
+                            </strong></p>
+                        </div>
+                        <div class="lead_dv">
+                          <h4>Opportunity
+                            Type count
+                          </h4>
+                          <div class="slse_dv">
+                            <ul>
+                              <li>DLR - 355 </li>
+                              <li>DST - 268 </li>
+                              <li>SD - 610</li>
+                            </ul>
+
+
+                          </div>
+                        </div>
+                        <div class="lead_dv">
+                          <h4>Opp hierarchy
+                            (Top 5)
+                          </h4>
+
+                          <div class="opp_hier">
+                            <div class="progress">
+                              <ul>
+                                <li>
+                                  <div class="opp_hier_in">
+                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25"
+                                      aria-valuemin="0" aria-valuemax="100"></div>
+                                    <span>Opp. Count</span>
+                                  </div>
+                                  <span>Lead</span>
+                                </li>
+                                <li>
+                                  <div class="opp_hier_in">
+                                    <div class="progress-bar bg-info" role="progressbar" aria-valuenow="50"
+                                      aria-valuemin="0" aria-valuemax="100"></div>
+                                    <span>Opp. Count</span>
+                                  </div>
+                                  <span>Enquiry</span>
+                                </li>
+                                <li>
+                                  <div class="opp_hier_in">
+                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="75"
+                                      aria-valuemin="0" aria-valuemax="100"></div>
+                                    <span>Opp. Count</span>
+                                  </div>
+                                  <span>Opportunity</span>
+                                </li>
+                                <li>
+                                  <div class="opp_hier_in">
+                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="100"
+                                      aria-valuemin="0" aria-valuemax="100"></div>
+                                    <span>Opp. Count</span>
+                                  </div>
+                                  <span>Recently Converted</span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div>
+
+                          </div>
+
+                        </div>
+                      </div> -->
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane  fade show" id="pills-lead" role="tabpanel"
+                                    aria-labelledby="pills-lead-tab">
+                                    <div class="map_srch">
+                                        <div class="wrapper_div">
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectStateName4">
+                                                    <option value="ACA"></option>
+                                                    <option value="BNI"></option>
+                                                    <option value="CRI"></option>
+                                                    <option value="DCA"></option>
+                                                    <option value="ENI"></option>
+                                                    <option value="FRI"></option>
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectDistrictName4">
+                                                    <option value="ACA"></option>
+                                                    <option value="BNI"></option>
+                                                    <option value="CRI"></option>
+                                                    <option value="DCA"></option>
+                                                    <option value="ENI"></option>
+                                                    <option value="FRI"></option>
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectZone4">
+                                                    <option value="ACA"></option>
+                                                    <option value="BNI"></option>
+                                                    <option value="CRI"></option>
+                                                    <option value="DCA"></option>
+                                                    <option value="ENI"></option>
+                                                    <option value="FRI"></option>
+                                                </select>
+                                            </div>
+                                            <!-- <div class="select_filt_dv ratting">
+                          <span>Rating 3.5 and Above</span>
+                        </div>
+                        <div class="select_filt_dv days">
+                          <select id="selectZone4">
+                            <option>Days</option>
+                            <option>Less Then 7 days</option>
+                            <option>Less Then 15 days</option>
+                            <option>Less Then 30 days</option>
+                          </select>
+                        </div> -->
+
+                                        </div>
+                                    </div>
+                                    <div class="map_trac_sc">
+                                        <div class="map_dv">
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
+                                                width="100%" height="450" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+                                        <div class="map_record salese">
+
+                                            <div class="lead_dv">
+                                                <h4>Total Count</h4>
+                                                <p><strong>3565
+                                                    </strong></p>
+                                            </div>
+                                            <div class="lead_dv">
+                                                <h4>Opportunity
+                                                    Type count
+                                                </h4>
+                                                <div class="slse_dv">
+                                                    <ul>
+                                                        <li>DLR - 355 </li>
+                                                        <li>DST - 268 </li>
+                                                        <li>SD - 610</li>
+                                                    </ul>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="lead_dv">
+                                                <h4>Opp hierarchy
+                                                    (Top 5)
+                                                </h4>
+
+                                                <div class="opp_hier">
+                                                    <div class="progress">
+                                                        <ul>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-success"
+                                                                        role="progressbar" aria-valuenow="25"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Lead</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-info" role="progressbar"
+                                                                        aria-valuenow="50" aria-valuemin="0"
+                                                                        aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Enquiry</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-warning"
+                                                                        role="progressbar" aria-valuenow="75"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Opportunity</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-danger"
+                                                                        role="progressbar" aria-valuenow="100"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Recently Converted</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane  fade show" id="pills-opt" role="tabpanel"
+                                    aria-labelledby="pills-opt-tab">
+                                    <div class="map_srch">
+                                        <div class="wrapper_div">
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectStateName5">
+                                                    <option value="ACA"></option>
+                                                    <option value="BNI"></option>
+                                                    <option value="CRI"></option>
+                                                    <option value="DCA"></option>
+                                                    <option value="ENI"></option>
+                                                    <option value="FRI"></option>
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectDistrictName5">
+                                                    <option value="ACA"></option>
+                                                    <option value="BNI"></option>
+                                                    <option value="CRI"></option>
+                                                    <option value="DCA"></option>
+                                                    <option value="ENI"></option>
+                                                    <option value="FRI"></option>
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectZone5">
+                                                    <option value="ACA"></option>
+                                                    <option value="BNI"></option>
+                                                    <option value="CRI"></option>
+                                                    <option value="DCA"></option>
+                                                    <option value="ENI"></option>
+                                                    <option value="FRI"></option>
+                                                </select>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="map_trac_sc">
+                                        <div class="map_dv">
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
+                                                width="100%" height="450" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+                                        <div class="map_record salese">
+
+                                            <div class="lead_dv">
+                                                <h4>Total Opportunity Count</h4>
+                                                <p><strong>3565
+                                                    </strong></p>
+                                            </div>
+                                            <div class="lead_dv">
+                                                <h4>Opportunity
+                                                    Type count
+                                                </h4>
+                                                <div class="slse_dv">
+                                                    <ul>
+                                                        <li>DLR - 355 </li>
+                                                        <li>DST - 268 </li>
+                                                        <li>SD - 610</li>
+                                                    </ul>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="lead_dv">
+                                                <h4>Opp hierarchy
+                                                    (Top 5)
+                                                </h4>
+
+                                                <div class="opp_hier">
+                                                    <div class="progress">
+                                                        <ul>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-success"
+                                                                        role="progressbar" aria-valuenow="25"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Lead</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-info" role="progressbar"
+                                                                        aria-valuenow="50" aria-valuemin="0"
+                                                                        aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Enquiry</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-warning"
+                                                                        role="progressbar" aria-valuenow="75"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Opportunity</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-danger"
+                                                                        role="progressbar" aria-valuenow="100"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Recently Converted</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane  fade show" id="pills-rcnt" role="tabpanel"
+                                    aria-labelledby="pills-rcnt-tab">
+                                    <div class="map_srch">
+                                        <div class="wrapper_div">
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectStateName6">
+                                                    <option value="ACA"></option>
+                                                    <option value="BNI"></option>
+                                                    <option value="CRI"></option>
+                                                    <option value="DCA"></option>
+                                                    <option value="ENI"></option>
+                                                    <option value="FRI"></option>
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectDistrictName6">
+                                                    <option value="ACA"></option>
+                                                    <option value="BNI"></option>
+                                                    <option value="CRI"></option>
+                                                    <option value="DCA"></option>
+                                                    <option value="ENI"></option>
+                                                    <option value="FRI"></option>
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectZone6">
+                                                    <option value="ACA"></option>
+                                                    <option value="BNI"></option>
+                                                    <option value="CRI"></option>
+                                                    <option value="DCA"></option>
+                                                    <option value="ENI"></option>
+                                                    <option value="FRI"></option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="map_trac_sc">
+                                        <div class="map_dv">
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
+                                                width="100%" height="450" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+                                        <div class="map_record salese">
+
+                                            <div class="lead_dv">
+                                                <h4>Total Opportunity Count</h4>
+                                                <p><strong>3565
+                                                    </strong></p>
+                                            </div>
+                                            <div class="lead_dv">
+                                                <h4>Opportunity
+                                                    Type count
+                                                </h4>
+                                                <div class="slse_dv">
+                                                    <ul>
+                                                        <li>DLR - 355 </li>
+                                                        <li>DST - 268 </li>
+                                                        <li>SD - 610</li>
+                                                    </ul>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="lead_dv">
+                                                <h4>Opp hierarchy
+                                                    (Top 5)
+                                                </h4>
+
+                                                <div class="opp_hier">
+                                                    <div class="progress">
+                                                        <ul>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-success"
+                                                                        role="progressbar" aria-valuenow="25"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Lead</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-info" role="progressbar"
+                                                                        aria-valuenow="50" aria-valuemin="0"
+                                                                        aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Enquiry</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-warning"
+                                                                        role="progressbar" aria-valuenow="75"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Opportunity</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="opp_hier_in">
+                                                                    <div class="progress-bar bg-danger"
+                                                                        role="progressbar" aria-valuenow="100"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <span>Opp. Count</span>
+                                                                </div>
+                                                                <span>Recently Converted</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane  fade show" id="pills-area" role="tabpanel"
+                                    aria-labelledby="pills-area-tab">
+                                    <div class="map_srch">
+                                        <div class="wrapper_div">
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectStateName7">
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectDistrictName7">
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                                <select id="selectZone7">
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv">
+                                                <select id="selectVertical2">
+                                                    <option value="Retail"></option>
+                                                    <option value="Project"></option>
+                                                </select>
+                                            </div>
+                                            <div class="select_filt_dv">
+                                                <select id="selectBrand2">
+                                                    <option value="">Realedge</option>
+                                                    <option value="">SRMB TMT</option>
+                                                    <option value="">TOP Tech</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="map_trac_sc">
+                                        <div class="map_dv">
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
+                                                width="100%" height="450" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

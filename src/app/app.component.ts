@@ -30,15 +30,42 @@ export class AppComponent {
 
   storeDataToLocalhost() {
     let data = {
-      clientId: 1,
-      createdAt: "2022-05-27T12:47:25.000Z",
-      firstName: "Admin",
-      lastName: "",
-      profileImgUrl: null,
-      userId: 3,
-      userType: "1",
-      username: "user",
-    }
+      "firstName": "SRMB",
+      "lastName": "Admin",
+      "username": "Admin",
+      "userType": "1",
+      "profileImgUrl": null,
+      "clientId": 1,
+      "userId": 2,
+      "createdAt": "2022-05-27T12:47:25.000Z",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InJlcXRpbWUiOjE2NTk1MDY2NzM1ODh9LCJpYXQiOjE2NTk1MDY2NzN9.MaDQUtoMqDxPPnlzBaKNtmTQqd_OvJ-hCM1DK0nDaL0",
+      "clientSettings": [
+          {
+              "settingsType": "userLimit",
+              "settingsValue": "10"
+          },
+          {
+              "settingsType": "systemApprovalRequired",
+              "settingsValue": "1"
+          },
+          {
+              "settingsType": "opportunityAsSales",
+              "settingsValue": "0"
+          },
+          {
+              "settingsType": "productListing",
+              "settingsValue": "0"
+          },
+          {
+              "settingsType": "hasCRM",
+              "settingsValue": "1"
+          },
+          {
+              "settingsType": "hasSFA",
+              "settingsValue": "1"
+          }
+      ]
+  }
 
     localStorage.setItem("AuthUserData", JSON.stringify(data));
   }
@@ -66,6 +93,10 @@ export class AppComponent {
   goToScheme(path: any) {
     this.route.navigate([this.schemePath + path])
 
+  }
+
+  redirect(path:any){
+    this.route.navigate(["/"+path])
   }
 
   getMasterList() {

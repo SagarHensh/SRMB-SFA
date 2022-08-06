@@ -96,4 +96,48 @@ export class CommonService {
   setEmployeeHierarchyMapping(params: any): Observable<any> {
     return this.http.post(this.apiurl + 'api/v1/mapEntity/mapEmpUnderEmp', params, this.options);
   }
+
+  getEnquiryVisitReports(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/visitReportList', params, this.options);
+  }
+
+  getEnquiryVisitReportsDownload(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/visitReportListDownload', params, this.options);
+  }
+
+  getPjpVisitReports(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/pjpReportList', params, this.options);
+  }
+
+  getPjpVisitReportsDownload(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/pjpReportListDownload', params, this.options);
+  }
+
+  getPjpUnplannedVisitReports(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/pjpUnvisitReportList', params, this.options);
+  }
+
+  getPjpUnplannedVisitReportsDownload(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/pjpUnvisitReportListDownload', params, this.options);
+  }
+
+  getCalenderActivityList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/calenderActivity/list', params, this.options);
+  }
+
+  getOdometerReportList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/odometerManagement/getOdometerReadingList', params, this.options);
+  }
+
+  getAttendanceList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/leaveAttendence/listAttendence', params, this.options);
+  }
+
+  getLeaveList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/leaveAttendence/leaveList', params, this.options);
+  }
+
+  getBrandingList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/brandingManagement/getBrandList', params, this.options);
+  }
 }

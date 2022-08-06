@@ -4,6 +4,8 @@ const app_config = {
     // apiUrl: environment.apiUrl
     apiUrl: 'http://3.7.173.54:8281/',
     crmApiUrl: 'http://3.7.173.54:8290/',
-    googleAPIkey : 'AIzaSyBUYhk7JKoA5WTtvGiRCzbqAB6Q_jvc1fA'
+    googleAPIkey : 'AIzaSyBUYhk7JKoA5WTtvGiRCzbqAB6Q_jvc1fA',
+    downloadUrl : 'http://3.7.173.54',
+    imageUrl : 'http://3.7.173.54:8281'
 };
 export default app_config;

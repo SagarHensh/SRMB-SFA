@@ -16,8 +16,182 @@
                     <a href="javascript:void(0)" class="sidebar-link" (click)="goTo('dashboard')">
                         <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-1.svg"
                             alt="dashboard">
-                        <span class="align-middle">Dashboard</span>
+                        <span class="align-middle"> Dashboard</span>
                     </a>
+                </li>
+                <li class="sidebar-item">
+                    <a data-bs-target="#analytics_mnu" data-bs-toggle="collapse" class="sidebar-link collapsed"
+                        aria-expanded="false">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-1.svg"
+                            alt="dashboard">
+                        <span class="align-middle"> Analytics</span>
+                    </a>
+                    <ul id="analytics_mnu" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)" (click)="redirect('view-map')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Map Analytics</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Advance Analytics</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Build Own Report</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a data-bs-target="#report" data-bs-toggle="collapse" class="sidebar-link collapsed"
+                        aria-expanded="false">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-10.svg"
+                            alt="predictionreport">
+                        <span class="align-middle"> Reports ​</span>
+                    </a>
+                    <ul id="report" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)"
+                                (click)="redirect('registration-reports')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Registration</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)" (click)="redirect('odometer-reports')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Odometer Reading</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)"
+                                (click)="redirect('registration-reports')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Survey Report</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)"
+                                (click)="redirect('registration-reports')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> CSR Report</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a data-bs-target="#mapping_conf" class="sidebar-link" aria-expanded="false"
+                        (click)="goToScheme('employee-mapping')">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-5.svg"
+                            alt="masterlist">
+                        <span class="align-middle"> Mapping</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="javascript:void(0)" class="sidebar-link" (click)="redirect('view-calender')">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-7.svg"
+                            alt="opportunity">
+                        <span class="align-middle"> Calender</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="javascript:void(0)" class="sidebar-link">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-1.svg"
+                            alt="dashboard">
+                        <span class="align-middle"> Activity</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a data-bs-target="#visitreport" class="sidebar-link" aria-expanded="false" (click)="redirect('enquiry-list')">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-10.svg"
+                            alt="predictionreport">
+                        <span class="align-middle"> Enquiries​</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a data-bs-target="#pjp_mnu" data-bs-toggle="collapse" class="sidebar-link collapsed"
+                        aria-expanded="false" href="javascript:void(0)">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-3.svg"
+                            alt="contacts">
+                        <span class="align-middle"> Visits</span>
+                    </a>
+                    <ul id="pjp_mnu" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('create-pjp')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Create PJP</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('pjp-view-report')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> PJP Schedule</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)" (click)="redirect('visit-report')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Visit Report</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)"
+                                (click)="redirect('enquiry-visit-report')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Enquiry Report</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="javascript:void(0)" (click)="redirect('branding')">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-9.svg"
+                            alt="masterlist">
+                        <span class="align-middle"> Branding</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="javascript:void(0)">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/task-icon.svg"
+                            alt="masterlist">
+                        <span class="align-middle"> Expenses</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="javascript:void(0)">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-11.svg"
+                            alt="insightmanagement">
+                        <span class="align-middle"> Scheme</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a data-bs-target="#attendance" data-bs-toggle="collapse" class="sidebar-link collapsed"
+                        aria-expanded="false">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-2.svg"
+                            alt="masterlist">
+                        <span class="align-middle"> Self Service</span>
+                    </a>
+                    <ul id="attendance" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)" (click)="redirect('attendence')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Attendance</a>
+                        </li>
+                        <li class="sidebar-item ">
+                            <a class="sidebar-link" href="javascript:void(0)" (click)="redirect('leave-report')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Apply Leave</a>
+                        </li>
+                        <li class="sidebar-item ">
+                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('leave')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Raise Request</a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="sidebar-item">
@@ -25,7 +199,7 @@
                         aria-expanded="false">
                         <img class="d-inline-block align-middle me-2" src="assets/images/task-icon.svg"
                             alt="masterlist">
-                        <span class="align-middle">Master List</span>
+                        <span class="align-middle"> Master List</span>
                     </a>
                     <ul id="masterlist" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                         <li class="sidebar-item">
@@ -38,125 +212,80 @@
                                 <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
                                     alt="circle-list"> {{data.name}}</a>
                         </li>
-                        <!-- <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('dealer')">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Dealer</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('subDealer')">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Sub Dealer</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('distributor')">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Distributor</a>
-                        </li> -->
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('branding')">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Branding</a>
-                        </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('product')">
                                 <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
                                     alt="circle-list"> Product</a>
-                        </li> 
+                        </li>
                     </ul>
                 </li>
+
                 <li class="sidebar-item">
-                    <a data-bs-target="#attendance" data-bs-toggle="collapse" class="sidebar-link collapsed"
+                    <a data-bs-target="#settings" data-bs-toggle="collapse" class="sidebar-link collapsed"
                         aria-expanded="false">
-                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-2.svg"
-                            alt="masterlist">
-                        <span class="align-middle">Attendance & Leave</span>
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-12.svg"
+                            alt="settings">
+                        <span class="align-middle"> User Settings</span>
                     </a>
-                    <ul id="attendance" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                    <ul id="settings" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('attendance')">
+                            <a class="sidebar-link" href="javascript:void(0)">
                                 <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Attendance</a>
+                                    alt="circle-list"> Remarks</a>
                         </li>
-                        <li class="sidebar-item active">
-                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('leave')">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)">
                                 <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Leave</a>
+                                    alt="circle-list"> Email</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Contact Sync</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Mail Signature</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Notification</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Follow Up</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- <li class="sidebar-item">
+                    <a data-bs-target="#visitreport" data-bs-toggle="collapse" class="sidebar-link collapsed"
+                        aria-expanded="false">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-10.svg"
+                            alt="predictionreport">
+                        <span class="align-middle">Visit Reports ​</span>
+                    </a>
+                    <ul id="visitreport" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)"
+                                (click)="redirect('enquiry-visit-report')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list"> Enquiry Report</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)" (click)="redirect('visit-report')">
+                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
+                                    alt="circle-list">Planned/Unplanned Report</a>
                         </li>
 
 
                     </ul>
-                </li>
 
-
-                <li class="sidebar-item">
-                    <a data-bs-target="#pjp_mnu" data-bs-toggle="collapse" class="sidebar-link collapsed"
-                        aria-expanded="false" href="javascript:void(0)" class="sidebar-link">
-                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-3.svg"
-                            alt="contacts">
-                        <span class="align-middle">PJP</span>
-                    </a>
-                    <ul id="pjp_mnu" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('create-pjp')">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Create PJP</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)" (click)="goTo('pjp-view-report')">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Visit Report</a>
-                        </li>
-
-
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a data-bs-target="#mapping_conf" class="sidebar-link"
-                        aria-expanded="false" (click)="goToScheme('employee-mapping')">
-                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-5.svg"
-                            alt="masterlist">
-                        <span class="align-middle"> Mapping Configuration</span>
-                    </a>
-                    <!-- <ul id="mapping_conf" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="view-map.html">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Employee Zone Map</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="view-map.html">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Distributor Zone Map</a>
-                        </li>
-
-
-                    </ul> -->
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="" class="sidebar-link">
-                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-6.svg"
-                            alt="opportunity">
-                        <span class="align-middle">Notification Management</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="" class="sidebar-link">
-                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-7.svg"
-                            alt="opportunity">
-                        <span class="align-middle">Visit Planner/Calender</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="" class="sidebar-link">
-                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-8.svg"
-                            alt="opportunity">
-                        <span class="align-middle">New Customer Registration</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
+                </li> -->
+                <!-- <li class="sidebar-item">
                     <a data-bs-target="#branddinf" data-bs-toggle="collapse" class="sidebar-link collapsed"
                         aria-expanded="false">
                         <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-9.svg"
@@ -167,49 +296,34 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="">
                                 <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Vendor Master</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
                                     alt="circle-list"> Branding Requisition</a>
                         </li>
-
-
                     </ul>
-                </li>
-
+                </li> -->
 
                 <li class="sidebar-item">
-                    <a data-bs-target="#visitreport" class="sidebar-link" aria-expanded="false">
-                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-10.svg"
-                            alt="predictionreport">
-                        <span class="align-middle">Visit Reports ​</span>
+                    <a href="" class="sidebar-link">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-7.svg"
+                            alt="opportunity">
+                        <span class="align-middle"> Tour</span>
                     </a>
-
                 </li>
                 <li class="sidebar-item">
-                    <a data-bs-target="#scheme" data-bs-toggle="collapse" class="sidebar-link collapsed"
-                        aria-expanded="false">
-                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-11.svg"
-                            alt="insightmanagement">
-                        <span class="align-middle">Scheme</span>
+                    <a href="" class="sidebar-link">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/task-icon.svg"
+                            alt="opportunity">
+                        <span class="align-middle"> Feedback</span>
                     </a>
-                    <ul id="scheme" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Scheme Master</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)">
-                                <img class="d-inline-block align-middle me-2" src="assets/images/circle-list.svg"
-                                    alt="circle-list"> Scheme Zone Mapping</a>
-                        </li>
-
-
-                    </ul>
                 </li>
+
+                <!-- <li class="sidebar-item">
+                    <a href="" class="sidebar-link">
+                        <img class="d-inline-block align-middle me-2" src="assets/images/master-dash-6.svg"
+                            alt="opportunity">
+                        <span class="align-middle">Notification Management</span>
+                    </a>
+                </li>
+
 
                 <li class="sidebar-item">
                     <a data-bs-target="" class="sidebar-link" aria-expanded="false">
@@ -217,7 +331,7 @@
                             alt="insightmanagement">
                         <span class="align-middle">Configurations</span>
                     </a>
-                </li>
+                </li> -->
 
             </ul>
 

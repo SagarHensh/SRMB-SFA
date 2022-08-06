@@ -17,4 +17,12 @@ export class CrmService {
     // return token;
     return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6IjEiLCJ1c2VyVHlwZUlkIjoiMSIsInJlcXRpbWUiOjE2NTMzMTI2MzM4MDZ9LCJpYXQiOjE2NTMzMTI2MzN9.MjXLcad-PzFFd9_-KnI0xrSdjOKBsakP9Hyw0dpxZJo";
   }
+
+  getRegistrationList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/customerManagement/getlistOfNewRegCustomers', params, this.options);
+  }
+
+  getEnquiryList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/enqueryManagement/getEnqueryList', params, this.options);
+  }
 }

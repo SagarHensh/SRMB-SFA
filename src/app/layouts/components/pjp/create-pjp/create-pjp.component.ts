@@ -54,8 +54,11 @@ export class CreatePjpComponent implements OnInit {
 
   selectedPjpEmployeeDetails: any = "";
 
+  selectedDateDetails: any;
+
   ngOnInit(): void {
     this.load();
+    this.getCurrentDate();
     this.getAlltaskType();
     this.getAllLocationData();
     this.getAllContactCategoryType();
@@ -471,6 +474,49 @@ export class CreatePjpComponent implements OnInit {
 
   openDateCalenderModal() {
     this.modalService.open(this.selectDateModal, { size: 'md', centered: true, animation: true })
+  }
+
+  getCurrentDate() {
+    let allMonths = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+    var cd = new Date()
+    var day: any = cd.getDate();
+    day = day > 9 ? day : "0" + day;
+    let ds = this.getOrdinalNum(day);
+    var month = cd.getMonth() + 1;
+    let mm = month > 9 ? month : "0" + month;
+    var year = cd.getFullYear();
+
+    let val = {
+      selectedDate: year + "-" + mm + "-" + day,
+      selectedDateString: ds + " " + allMonths[month - 1] + " " + year
+    }
+
+    console.log("Final selected DAte::", val);
+    this.selectedDateDetails = val;
+
+
+  }
+
+  getOrdinalNum(n: any) {
+    return n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
+  }
+
+  setDate(value: any) {
+    console.log("Calender selecetd date::", value);
+    this.selectedDateDetails = value;
   }
 
 }

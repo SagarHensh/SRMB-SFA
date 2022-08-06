@@ -1,22 +1,30 @@
 <div class="calendar_header">
     <button class="switch-month switch-left" (click)="prevMonth()"> <i class="fa fa-chevron-left"></i></button>
-    <h2>{{currMonth}} {{currYear}}</h2>
+    <h2> {{currMonth}} {{currYear}}</h2>
+
     <button class="switch-month switch-right" (click)="nextMonth()"> <i class="fa fa-chevron-right"></i></button>
 </div>
+<h3>&nbsp;</h3>
 <table class="pjp-cal-tble">
-    <tr>
-        <th *ngFor="let ww of weekData">{{ww}}</th>
-    </tr>
-    <tr *ngFor="let data of monthBox">
-        <td *ngFor="let aa of data" style="text-align: center;">
-            <ng-container *ngIf="aa.day">
-                <ng-container *ngIf="aa.isToday">
-                    <span class="circle-with-text">{{aa.day}}</span>
+    <thead>
+        <tr>
+            <th *ngFor="let ww of weekData">{{ww}}</th>
+        </tr>
+    </thead>
+    <div style="padding:10px 0;"></div>
+    <tbody>
+        <tr *ngFor="let data of monthBox">
+            <td *ngFor="let aa of data" style="text-align: center;" (click)="selectedDateFormTable(aa)">
+                <ng-container *ngIf="aa.day">
+                    <ng-container *ngIf="dateInfo[0]==aa.year && dateInfo[1]==aa.month && dateInfo[2]==aa.day;else other_content">
+                        <span class="circle-with-text">{{aa.day}}</span>
+                    </ng-container>
+                    <ng-template #other_content><span>{{aa.day}}</span></ng-template>
+                    <!-- <ng-container *ngIf="dateInfo[0]!=aa.year && dateInfo[1]!=aa.month && dateInfo[2]!=aa.day">
+                        <span>{{aa.day}}</span>
+                    </ng-container> -->
                 </ng-container>
-                <ng-container *ngIf="!aa.isToday">
-                    <span >{{aa.day}}</span>
-                </ng-container>
-            </ng-container>
-        </td>
-    </tr>
+            </td>
+        </tr>
+    </tbody>
 </table>

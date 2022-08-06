@@ -73,26 +73,184 @@ export class StoreDataService {
     }
   ];
 
-  allContactTypeList : any = [
+  allContactTypeList: any = [
     {
-        "contactId": 9,
-        "firstName": "Ghosh",
-        "lastName": "Hardware",
-        "contactTypeName": "Distributor"
+      "contactId": 9,
+      "firstName": "Ghosh",
+      "lastName": "Hardware",
+      "contactTypeName": "Distributor"
     },
     {
-        "contactId": 10,
-        "firstName": "Kamal",
-        "lastName": "Hardware",
-        "contactTypeName": "Distributor"
+      "contactId": 10,
+      "firstName": "Kamal",
+      "lastName": "Hardware",
+      "contactTypeName": "Distributor"
     },
     {
-        "contactId":11,
-        "firstName": "Biswanath",
-        "lastName": "Steel",
-        "contactTypeName": "Distributor"
+      "contactId": 11,
+      "firstName": "Biswanath",
+      "lastName": "Steel",
+      "contactTypeName": "Distributor"
+    }
+  ];
+
+  allInfluencerList: any = [
+    {
+      "userId": 7,
+      "firstName": "sumit",
+      "lastName": "james",
+      "countryId": null,
+      "countryName": null,
+      "stateId": null,
+      "stateName": null,
+      "districtId": null,
+      "cityName": null,
+      "zoneId": null,
+      "zoneName": null,
+      "designationName": "Field Sales Executive"
+    },
+    {
+      "userId": 12,
+      "firstName": "Saroj",
+      "lastName": "Kumar",
+      "countryId": null,
+      "countryName": null,
+      "stateId": null,
+      "stateName": null,
+      "districtId": null,
+      "cityName": null,
+      "zoneId": null,
+      "zoneName": null,
+      "designationName": "HR"
+    },
+    {
+      "userId": 14,
+      "firstName": "Sourav",
+      "lastName": "Debnath",
+      "countryId": null,
+      "countryName": null,
+      "stateId": null,
+      "stateName": null,
+      "districtId": null,
+      "cityName": null,
+      "zoneId": null,
+      "zoneName": null,
+      "designationName": "Project Manager"
+    },
+    {
+      "userId": 15,
+      "firstName": "Debaditta",
+      "lastName": "Sarkar",
+      "countryId": "1",
+      "countryName": "India",
+      "stateId": "41",
+      "stateName": "West Bengal",
+      "districtId": "827,829",
+      "cityName": "Howrah,Kolkata",
+      "zoneId": "1,2,3,5,7,9",
+      "zoneName": "Bhawanipur,Garia,Mandirtola,North Zone,Saltlake,Santragachi",
+      "designationName": "Automation Tester"
     }
   ]
+
+  allDealerDummyList: any = [
+    {
+      "userId": 7,
+      "firstName": "sumit",
+      "lastName": "james",
+      "countryId": null,
+      "countryName": null,
+      "stateId": null,
+      "stateName": null,
+      "districtId": null,
+      "cityName": null,
+      "zoneId": null,
+      "zoneName": null,
+      "designationName": "Field Sales Executive",
+      "empCount": 3,
+      "sellerCount": 0,
+      "team": [
+        12,
+        14,
+        15
+      ]
+    },
+    {
+      "userId": 12,
+      "firstName": "Saroj",
+      "lastName": "Kumar",
+      "countryId": null,
+      "countryName": null,
+      "stateId": null,
+      "stateName": null,
+      "districtId": null,
+      "cityName": null,
+      "zoneId": null,
+      "zoneName": null,
+      "designationName": "HR",
+      "empCount": 3,
+      "sellerCount": 0,
+      "team": [
+        7,
+        14,
+        15
+      ]
+    },
+    {
+      "userId": 14,
+      "firstName": "Sourav",
+      "lastName": "Debnath",
+      "countryId": null,
+      "countryName": null,
+      "stateId": null,
+      "stateName": null,
+      "districtId": null,
+      "cityName": null,
+      "zoneId": null,
+      "zoneName": null,
+      "designationName": "Project Manager",
+      "empCount": 2,
+      "sellerCount": 0,
+      "team": [
+        12,
+        15
+      ]
+    },
+    {
+      "userId": 15,
+      "firstName": "Debaditta",
+      "lastName": "Sarkar",
+      "countryId": "1",
+      "countryName": "India",
+      "stateId": "41",
+      "stateName": "West Bengal",
+      "districtId": "827,829",
+      "cityName": "Howrah,Kolkata",
+      "zoneId": "1,2,3,5,7,9",
+      "zoneName": "Bhawanipur,Garia,Mandirtola,North Zone,Saltlake,Santragachi",
+      "designationName": "Automation Tester",
+      "empCount": 0,
+      "sellerCount": 0,
+      "team": []
+    }
+  ];
+
+  allPaginationDropdown = [{
+    "label": "50",
+    "value": "50"
+  }, {
+    "label": "100",
+    "value": "100"
+  }, {
+    "label": "150",
+    "value": "150"
+  }, {
+    "label": "200",
+    "value": "200"
+  }]
+
+  selectedDate: any = "";
+  selectedDateString: any = "";
 
   addMasterType(data: any) {
     this.masterType = data;
@@ -144,8 +302,34 @@ export class StoreDataService {
     return this.allEmployeeList;
   }
 
-  getAllContactTypeList(){
+  getAllContactTypeList() {
     return this.allContactTypeList;
+  }
+
+  getAllInfluencerList() {
+    return this.allInfluencerList;
+  }
+
+  getAllDealerList() {
+    return this.allDealerDummyList;
+  }
+
+  getPjpSelectedDateDetails() {
+    let data = {
+      date: this.selectedDate,
+      dateString: this.selectedDateString
+    }
+
+    return data;
+  }
+
+  getPaginationLimitList() {
+    return this.allPaginationDropdown;
+  }
+
+  getDefaultPaginationLimit(){
+    const limit = "50";
+    return limit;
   }
 
 
