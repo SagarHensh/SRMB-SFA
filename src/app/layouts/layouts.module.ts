@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MasterListComponent } from './components/master-list/master-list.component';
@@ -27,6 +28,8 @@ import { PjpViewReportComponent } from './components/pjp/pjp-view-report/pjp-vie
 import app_config from '../app.config';
 import { PjpMapComponent } from './components/pjp/pjp-map/pjp-map.component';
 import { PjpCalenderComponent } from './components/pjp/pjp-calender/pjp-calender.component';
+import { StackbarchartComponent } from './components/charts/stackbarchart/stackbarchart.component';
+import { LinechartComponent } from './components/charts/linechart/linechart.component';
 
 
 
@@ -50,7 +53,9 @@ import { PjpCalenderComponent } from './components/pjp/pjp-calender/pjp-calender
     CreatePjpComponent,
     PjpViewReportComponent,
     PjpMapComponent,
-    PjpCalenderComponent
+    PjpCalenderComponent,
+    StackbarchartComponent,
+    LinechartComponent
   ],
   imports: [
     FormsModule,
@@ -61,7 +66,8 @@ import { PjpCalenderComponent } from './components/pjp/pjp-calender/pjp-calender
     }),
     AgmDirectionModule,
     NgChartsModule,
-    NgbModule
+    NgbModule,
+    AutocompleteLibModule
   ]
 })
 export class LayoutsModule { }

@@ -62,6 +62,24 @@ export class GmapComponent implements OnInit {
   // }
 
 
+
+  mapReady(map : any) {
+    map.setOptions({
+      zoomControl: 'true',
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.TOP_RIGHT,
+      },
+      streetViewControl: true,
+      
+    });
+    //this.loader = true;
+    map.addListener('dragend', () => {
+      //console.log(this.centerLatitude, this.centerLongitude)
+      // do something with centerLatitude/centerLongitude
+      //api call to load dynamic marker for your application
+      //this.loader = false;
+    });
+  }
   
   ngOnInit() {
     //set google maps defaults

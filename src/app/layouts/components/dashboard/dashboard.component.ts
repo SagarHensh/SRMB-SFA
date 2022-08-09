@@ -1,206 +1,240 @@
-import { Component, OnInit } from '@angular/core';
-import { Chart, ChartConfiguration, ChartEvent, ChartType, ChartData } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
-import { NgChartsModule } from 'ng2-charts';
+import {Component, OnInit} from '@angular/core';
+import {Subject, Subscription} from "rxjs";
+import {DashboardService} from "../../../services/dashboard.service";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
-
-
-  public lineChartType: ChartType = 'line';
-  public lineChartData: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        data: [10, 30, 50, 19, 25, 44, -10, 80],
-        label: 'Series A',
-        // backgroundColor: 'red',
-        borderColor: '#6c5ffc',
-        pointBackgroundColor: '#6c5ffc',
-        pointBorderColor: '#6c5ffc',
-        pointHoverBackgroundColor: '#6c5ffc',
-        pointHoverBorderColor: '#6c5ffc',
-        // fill: 'origin',
-      },
-      {
-        data: [100, 33, 22, 19, 11, 49, 30, 75],
-        label: 'Series B',
-        // backgroundColor: 'rgba(77,83,96,0.2)',
-        borderColor: '#2fc3fb',
-        pointBackgroundColor: '#2fc3fb',
-        pointBorderColor: '#2fc3fb',
-        pointHoverBackgroundColor: '#2fc3fb',
-        pointHoverBorderColor: '#2fc3fb',
-        // fill: 'origin',
-      },
-    ],
-    labels: ['March', 'April', 'May', 'June', 'July', 'August', 'September', 'October']
-  };
-
-
-
-  public lineChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: "top"
-      }
-    },
-    animations: {
-      tension: {
-        duration: 4000,
-        easing: 'linear',
-        from: 1,
-        to: 0,
-        loop: true
-      }
+    isAutoCompleteHide = true;
+    filterList: any = [];
+    startDate = '2022-07-01';
+    endDate = '2022-08-20';
+    nextChartSub = new Subject<any>();
+    nextChartSubsp: Subscription = new Subscription();
+    totalVisit = 0;
+    totalVisitGrowth = 0;
+    totalBranding = 0;
+    brandingGrowth = 0;
+    targetVisit = 0;
+    targetVisitGrowth = 0;
+    uniqueVisit = 0;
+    uniqueVisitGrowth = 0;
+    targetAchievementData: any = [];
+    monthlyVisitData: any = [];
+    targetAchievementDataLabels: any = [{
+        name: 'Achievement',
+        data: [],
+        label: 'Achievement',
+        backgroundColor: 'green'
+    }, {
+        name: 'value',
+        data: [],
+        label: 'Target',
+        backgroundColor: 'blue'
+    }];
+    monthlyVisitDataLabels: any = [{
+        name: 'value',
+        data: [],
+        label: 'Customer',
+        backgroundColor: '#FF5C5C',
+        type: 'line',
+        isHide: false
+    }, {
+        name: 'influencer',
+        data: [],
+        label: 'Influencer',
+        backgroundColor: '#4A00E0',
+        type: 'line',
+        isHide: false
+    }, {
+        name: 'tvisit',
+        data: [],
+        label: 'Target',
+        backgroundColor: '#726E76',
+        type: 'bar',
+        isHide: false
+    }];
+    targetAchievementFilter: any = [{
+        isCheck: true,
+        name: 'Sales'
+    }, {
+        isCheck: false,
+        name: 'Visit'
+    }];
+    monthlyVisitFilter: any = [{
+        isCheck: true,
+        name: 'Customer'
+    }, {
+        isCheck: true,
+        name: 'Influencer'
+    }, {
+        isCheck: true,
+        name: 'Target'
+    }];
+    targetAchievementFilterVal: any = 'Sales';
+    monthlyVisitFilterVal: any = 'CUSTOMER';
+    product = '';
+    productList: any = [];
+    memberList: any = [];
+    member = '';
+    userId = 7;
+    isLoading = false;
+    constructor(private dashboardService: DashboardService) {
     }
-  };
 
-
-  // PolarArea
-  public polarAreaChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales', 'Telesales', 'Corporate Sales'];
-  public polarAreaChartData: ChartData<'polarArea'> = {
-    labels: this.polarAreaChartLabels,
-    datasets: [{
-      data: [11, 16, 7, 3, 14],
-      backgroundColor: [
-        'rgb(46, 193, 232)',
-        'rgb(94, 114, 228)',
-        'rgb(58, 65, 111)',
-        'rgb(168, 184, 216)',
-        'rgb(130, 214, 23)'
-      ],
-      label: 'Series 1'
-    }]
-  };
-  public polarAreaLegend = false;
-
-  public polarAreaChartType: ChartType = 'polarArea';
-  public polarChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    maintainAspectRatio: false,
-    animations: {
-      tension: {
-        duration: 1000,
-        easing: 'linear',
-        from: 1,
-        to: 0,
-        loop: true
-      }
+    ngOnInit(): void {
+        window.addEventListener('click', (event: any) => {
+            if (!(<HTMLInputElement>event.target).matches('.auto-search')) {
+                try {
+                    this.onFocusOutSearch();
+                } catch (e) {
+                    // console.log(e);
+                }
+            }
+        });
+        const initDate: any = this.dashboardService.getInitialDate();
+        this.startDate = initDate.startDate;
+        this.endDate = initDate.endDate;
+        this.getProductData();
+        this.getMinMaxOfLastMonth();
+        this.getDashboardData('totalVisit');
+        this.nextChartSubsp = this.nextChartSub.asObservable().subscribe((res: any) => {
+            this.getDashboardData('branding');
+            this.getDashboardData('targetVisit');
+            this.getDashboardData('uniqueVisit');
+            this.getDashboardData('targetAchievement');
+            this.getDashboardData('monthlyVisit');
+        });
     }
-  }
 
-  // events
-  public chartClicked({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-
-
-  //Bar Chart 
-
-  public barChartOptions: ChartConfiguration['options'] = {
-    indexAxis: 'y',
-    maintainAspectRatio: false,
-    elements: {
-      bar: {
-        borderWidth: 0,
-      }
-    },
-    responsive: true,
-
-    plugins: {
-      legend: {
-        position: 'bottom',
-      },
-      title: {
-        display: false,
-      }
+    ngOnDestroy(): void {
+        if (this.nextChartSubsp) {
+            this.nextChartSubsp.unsubscribe();
+        }
     }
-  };
-  public barChartType: ChartType = 'bar';
 
-  public barChartData: ChartData<'bar'> = {
-    labels: ["WON", "OPEN", "SUSPENDED", "LOST", "ABANDONED"],
-    datasets: [{
-      label: 'Opportunity value',
-      backgroundColor: 'rgba(63, 81, 181, 1)',
-      borderColor: 'rgb(47, 128, 237)',
-      barPercentage: 1,
-      barThickness: 15,
-      maxBarThickness: 15,
-      minBarLength: 2,
-      data: [700, 400, 200, 500, 400],
-    }]
-  };
+    getMinMaxOfLastMonth(): void {
+        this.dashboardService.getMinMaxOfLastMonth().subscribe((res: any) => {
+            if (res.success) {
+                this.startDate = res.response.startDate;
+                this.endDate = res.response.endDate;
+            }
+        })
+    }
 
+    onCallTypeChange(callType: string, chartType: string): void {
+        this.getDashboardData(chartType, callType, 1);
+    }
 
-  // Doughnut
-  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData: ChartData<'doughnut'> = {
-    labels: ["Prospecting $1.30M 51%",
-      "Qualification $0.80M 33%",
-      "Needs Analysis $0.10M 4%",
-      "Proposal $0.10M 4%",
-      "Negotiation $0.10M 6%"
-    ],
-    datasets: [{
-      data: [51, 33, 4, 4, 6],
-      backgroundColor: [
-        'rgb(63, 81, 181)',
-        'rgb(40, 169, 244)',
-        'rgb(98, 185, 102)',
-        'rgb(249, 206, 29)',
-        'rgb(251, 152, 2)'
-      ],
-    }]
-  };
-  public doughnutChartType: ChartType = 'doughnut';
+    submitFilter(): any {
+        if (this.startDate != '' && this.endDate != '' && new Date(this.startDate).getTime() > new Date(this.endDate).getTime()) {
+            return false;
+        }
+        this.getDashboardData('totalVisit');
+    }
 
-  public doughnutChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false
-      }
-    },
-    animations: {
-      tension: {
-        duration: 1000,
-        easing: 'linear',
-        from: 1,
-        to: 0,
-        loop: true
-      }
-    },
-    // scales: {
-    //   xAxes: [{
-    //     gridLines: {
-    //       display: false
-    //     }
-    //   }],
-    //   yAxes: [{
-    //     gridLines: {
-    //       display: false
-    //     }
-    //   }],
-    // }
-    // }
-  };
+    getDashboardData(chartType: string, callType: string = '', flag: number = 0): void {
+        let radioBtn = '';
+        if (chartType == 'targetAchievement') {
+            radioBtn = this.targetAchievementFilterVal.toUpperCase()
+        } else if (chartType == 'monthlyVisit') {
+            radioBtn = this.monthlyVisitFilterVal.toUpperCase()
+        }
+        const data = {
+            type: chartType,
+            startDate: this.startDate,
+            endDate: this.endDate,
+            calType: callType,
+            radioButton: radioBtn,
+            userId: this.userId
+        };
+        if (callType !== '') {
+            data.startDate = '';
+            data.endDate = '';
+        }
+        this.dashboardService.getDashboardData(data).subscribe((res: any) => {
+            if (res.success) {
+                // console.log(JSON.stringify(res));
+                if (chartType === 'totalVisit') {
+                    this.totalVisit = res.response.data;
+                    this.totalVisitGrowth = res.response.Growth;
+                    if (flag == 0) {
+                        this.nextChartSub.next({success: true});
+                    }
+                } else if (chartType === 'branding') {
+                    this.totalBranding = res.response.data;
+                    this.brandingGrowth = res.response.Growth;
+                } else if (chartType === 'targetVisit') {
+                    this.targetVisit = res.response.data;
+                    this.targetVisitGrowth = res.response.Growth;
+                } else if (chartType === 'uniqueVisit') {
+                    this.uniqueVisit = res.response.data;
+                    this.uniqueVisitGrowth = res.response.Growth;
+                } else if (chartType === 'targetAchievement') {
+                    this.targetAchievementData = res.response.data;
+                } else if (chartType === 'monthlyVisit') {
+                    this.monthlyVisitData = res.response.data;
+                }
+            } else {
+            }
+        })
+    }
 
-  ngOnInit(): void {
-  }
+    customFilterChanged(event: any, flag: number) {
+        if (flag === 1) {
+            this.targetAchievementFilterVal = event;
+            this.getDashboardData('targetAchievement');
+        } else if (flag === 2) {
+            this.monthlyVisitFilterVal = event;
+            this.getDashboardData('monthlyVisit');
+            this.monthlyVisitDataLabels[0].label = event;
+        }
+    }
+
+    getProductData() {
+        this.dashboardService.getProductData().subscribe((res: any) => {
+            if (res.success) {
+                this.productList = res.response;
+            }
+        });
+    }
+
+    selectMemberEvent(event: any) {
+        this.userId = event.userId;
+        this.member = event.name;
+        this.onFocusOutSearch();
+    }
+
+    onChangeSearch(event: any) {
+        const searchText = event.target.value;
+        this.isLoading = true;
+        const data = {
+            type: "memberName",
+            member: searchText,
+            clientId: this.dashboardService.getClientId()
+        };
+        this.dashboardService.getMemberData(data).subscribe((res: any) => {
+          if (res.success) {
+              this.isLoading = false;
+             /* for (const obj of res.response.data) {
+                  obj.search = event
+              }*/
+            this.memberList = res.response.data;
+          }
+        }, (err: any) => {
+            this.isLoading = false;
+        })
+    }
+
+    onFocusInSearch() {
+        this.isAutoCompleteHide = false;
+    }
+
+    onFocusOutSearch() {
+        this.isAutoCompleteHide = true;
+    }
 
 }

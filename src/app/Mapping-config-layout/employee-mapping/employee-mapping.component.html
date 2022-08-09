@@ -122,7 +122,7 @@
                                     <label class="form-check-label" for="assigned_groups"></label>
                                 </div>
                                 <div class="p_files">
-                                    <img src="assets/images/profl-pic.png" alt="create">
+                                    <img class="prf_img" src={{getProfileImage(data.profileImgUrl)}} alt="create">
                                     <div>
                                         <strong>{{data.firstName +" "+ data.lastName}}</strong>
                                         <span> Relationship : {{data.designationName}}</span>
@@ -158,7 +158,7 @@
                                     <label class="form-check-label" for="show_event">&nbsp;</label>
                                 </div>
                                 <div class="p_files">
-                                    <img src="assets/images/profl-pic.png" alt="create">
+                                    <img class="prf_img" src={{getProfileImage(data.profileImgUrl)}} alt="create">
                                     <div>
                                         <strong>{{data.firstName +" "+ data.lastName}}</strong>
                                         <span> Relationship : {{data.designationName}}</span>
@@ -338,7 +338,8 @@
                                 <div id="simplebarright" class="mm_files_out">
                                     <div class="mm_files">
                                         <div class="p_files" *ngFor="let data of resourceEmployeeList">
-                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <img class="prf_img" src={{getProfileImage(data.listData.profileImgUrl)}}
+                                                alt="create">
                                             <div class="wit_zon">
                                                 <strong>{{data.listData.firstName +" "+
                                                     data.listData.lastName}}</strong>
@@ -347,8 +348,9 @@
                                                         {{data.listData.zoneName}}</span>
                                                 </p>
                                             </div>
-                                            <button class="btn btn-nobg"><img src="assets/images/trash-sm.png"
-                                                    alt="create"></button>
+                                            <button class="btn btn-nobg">
+                                                <img src="assets/images/trash-sm.png" alt="create">
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -366,8 +368,10 @@
                                         <label for="district_name" class="form-label">State Name</label>
                                         <div class="input-group">
                                             <select class="form-select" aria-label="Default select example"
-                                                id="status_type">
-                                                <option selected="Select an options">Select from list
+                                                id="status_type" [(ngModel)]="hempStateId"
+                                                (change)="hempStateChange($event)">
+                                                <option value="">Select from list</option>
+                                                <option *ngFor="let data of stateArr" [value]="data.id">{{data.name}}
                                                 </option>
                                             </select>
                                         </div>
@@ -376,9 +380,12 @@
                                         <label for="district_name" class="form-label">District Name</label>
                                         <div class="input-group">
                                             <select class="form-select" aria-label="Default select example"
-                                                id="status_type">
-                                                <option selected="Select an options">Select from list
-                                                </option>
+                                                id="status_type" [(ngModel)]="hempDistrictId"
+                                                (change)="hempDistrictChange($event)">
+                                                <option value="">Select from list</option>
+                                                <option *ngFor="let data of hempDistrictArray" [value]="data.id">
+                                                    {{data.name}}</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -386,8 +393,10 @@
                                         <label for="district_name" class="form-label">Zone Name</label>
                                         <div class="input-group">
                                             <select class="form-select" aria-label="Default select example"
-                                                id="status_type">
-                                                <option selected="Select an options">Select from list
+                                                id="status_type" [(ngModel)]="hempZoneId"
+                                                (change)="hempZoneChange($event)">
+                                                <option value="">Select from list</option>
+                                                <option *ngFor="let data of hempZoneArr" [value]="data.id">{{data.name}}
                                                 </option>
                                             </select>
                                         </div>
@@ -396,7 +405,7 @@
                                         <label for="district_name" class="form-label">HierarchyType</label>
                                         <div class="input-group">
                                             <select class="form-select" aria-label="Default select example"
-                                                id="status_type">
+                                                id="status_type" [(ngModel)]="hempTypeId">
                                                 <option value="">Select from list</option>
                                                 <option *ngFor="let data of employeeDesignationList"
                                                     [value]="data.designationId">
@@ -411,9 +420,11 @@
 
                                         <div class="input-group srch_box">
                                             <input type="text" name="Customer name" class="form-control"
-                                                placeholder="Search by the name" id="">
-                                            <button class="btn btn-success"><i class="fa fa-search"></i>
-                                                &nbsp; Search </button>
+                                                placeholder="Search by the name" id="" [(ngModel)]="hempSearchText">
+                                            <button class="btn btn-success" (click)="onChangeHempSearchText()">
+                                                <i class="fa fa-search"></i>
+                                                &nbsp; Search
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -436,7 +447,8 @@
                                                 </div>
 
                                                 <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
+                                                    <img class="prf_img" src={{getProfileImage(data.profileImgUrl)}}
+                                                        alt="create">
                                                     <div>
                                                         <strong>{{data.firstName +" "+ data.lastName}}</strong>
                                                         <span>Relationship : {{data.designationName}}</span>

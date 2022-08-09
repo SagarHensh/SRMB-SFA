@@ -5977,7 +5977,7 @@ display: none;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	padding: 10px;
-	margin: -10px 0 0;
+	margin: 0 0;
 	border-radius: 5px 5px 0 0;
   }
   .team_mbr_hd i{
@@ -6439,8 +6439,319 @@ margin: 0 0 20px 0;
   }
 
   /* Target setting css end */
+/*06-08-2022 css*/
 
+.crd_dve_sec {
+	position: relative;
+}
 
+.crd_dve_sec a.dropdown-toggle.no-dropdown-arrow {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.hd_vvs h2 {
+	display: block;
+}
+
+.hd_vvs h3 {
+	display: block;
+}
+
+.hd_vvs {
+	margin-left: 20px;
+}
+
+.down_aro_dv li {
+	color: #757a7e;
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+.pnk_bg .hd_vvs h3,
+.pnk_bg .hd_vvs h2,
+.pnk_bg h4 {
+	color: #fff !important;
+}
+
+.down_aro_dv {
+	border-top: 1px solid #e7e7e7;
+	padding-top: 12px;
+}
+
+.grn_co h2 {
+	color: #15bea7 !important;
+}
+
+.blu_co h2 {
+	color: #1c6aa8 !important;
+}
+
+.orgn_co h2 {
+	color: #b5a933 !important;
+}
+
+.pnk_bg {
+	background: #ff7eb7 !important;
+}
+
+/*06-08-2022 css end*/
+
+  /* cal css */
+  .cal_btn button.orange-button{background: #ffba7b !important; color: #9d612a !important;}
+  .cal_btn button.green-button{background: #aadaff !important; color: #3c5a35 !important;}
+  .cal_btn button.pink-button{background: #eac8ff !important; color: #80559a !important;}
+  .cal_btn button.gray-button{background: #b3b1ff !important; color: #353468 !important;}
+  
+  .cal-view td {
+	border-bottom: 1px solid #dce4e8;
+	border-left: 1px solid #dce4e8;
+	border-right: 1px solid #dce4e8;
+	position: relative;
+  }
+  .cal-view th{
+	  text-align: center;
+	  border-top: 1px solid #dce4e8;
+	  border-left: 1px solid #dce4e8;
+	border-right: 1px solid #dce4e8;
+  }
+  
+  .cal-view th,
+  td {
+	  padding: 10px;
+  }
+  
+  .cal-view td {
+	  width: 14%;
+	  height: 80px;
+	  font-size: 14px;
+  }
+  
+  .cal-view .color-box {
+	  background-color: red;
+	  width: 100px;
+	  height: 30px;
+	  color: aliceblue;
+  }
+  
+  .cal-view .green-button {
+	  background-color: #4CAF50;
+	  border: none;
+	  color: white;
+	  padding: 1px 10px;
+	  text-align: left;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 12px;
+	  width: 100%;
+	  margin-top: 3%;
+	  height: 25px;
+  }
+  .cal-view .pink-button {
+	  background-color: #fe43ed;
+	  border: none;
+	  color: white;
+	  padding: 1px 10px;
+	  text-align: left;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 12px;
+	  width: 100%;
+	  margin-top: 3%;
+	  height: 25px;
+  }
+  .cal-view .gray-button {
+	  background-color: #cfcfcf;
+	  border: none;
+	  color: white;
+	  padding: 1px 10px;
+	  text-align: left;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 12px;
+	  width: 100%;
+	  margin-top: 3%;
+	  height: 25px;
+  }
+  .cal-view .orange-button {
+	  background-color: orange;
+	  border: none;
+	  color: white;
+	  padding: 1px 10px;
+	  text-align: left;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 12px;
+	  width: 100%;
+	  margin-top: 3%;
+	  height: 25px;
+  }
+ 
+  
+  
+  .addContactModal .modal .modal-content {
+	  border-radius: 20px;
+	  background: #F4F6FD;
+  }
+  
+  .addContactModal .modal-header {
+	  border: none;
+	  justify-content: center;
+	  padding: 15px 30px;
+  }
+  
+  .addContactModal.modal-header .btn-close {
+	  position: relative;
+	  top: 0;
+	  right: 0;
+	  margin: 0;
+  }
+  
+  .addContactModal .modal-body {
+	  padding: 0 30px;
+  }
+  .cal_btn button span.imp-imge {
+	right: 25px;
+	width: 15px;
+	height: 15px;
+  }
+  .cal_btn button span.imp-imge img {
+	width: 100%;
+  }
+  .cal-view button{position: relative; border-radius: 5px; font-size: 9px !important;}
+  .cal-view button span{font-size: 10px !important;}
+  .cal-view button span {
+	position: absolute;
+	right: 5px;
+	top: 4px;
+  }
+  .form-control.me-2.head_src {
+	background: #eee;
+  }
+  
+  /* .......... */
+  .styled-checkbox {
+	position: absolute;
+	opacity: 0;
+  }
+  .styled-checkbox + label {
+	position: relative;
+	cursor: pointer;
+	padding: 0;
+	font-size: 15px;
+line-height: 26px;
+  }
+  .styled-checkbox + label:before {
+	content: "";
+	margin-right: 10px;
+	display: inline-block;
+	vertical-align: text-top;
+	width: 24px;
+	height: 24px;
+	border-radius: 3px;
+	top: -2px;
+position: relative;
+  }
+  .lft_ck_box li:nth-child(1) .styled-checkbox + label::before{background: #aadaff;}
+  .lft_ck_box li:nth-child(2) .styled-checkbox + label::before{background: #bbc5cd;}
+  .lft_ck_box li:nth-child(3) .styled-checkbox + label::before{background: #b3b1ff;}
+  .lft_ck_box li:nth-child(4) .styled-checkbox + label::before{background: #eac8ff;}
+  .lft_ck_box li:nth-child(5) .styled-checkbox + label::before{background: #ffba7b;}
+
+  .lft_ck_box li:nth-child(1) .styled-checkbox:checked + label:after {box-shadow: 2px 0 0 #3e454b, 4px 0 0 #3e454b, 4px -2px 0 #3e454b, 4px -4px 0 #3e454b, 4px -6px 0 #3e454b, 4px -8px 0 #3e454b;background: #3e454b;}
+  .lft_ck_box li:nth-child(2) .styled-checkbox:checked + label:after {box-shadow: 2px 0 0 #0f385b, 4px 0 0 #0f385b, 4px -2px 0 #0f385b, 4px -4px 0 #0f385b, 4px -6px 0 #0f385b, 4px -8px 0 #0f385b;background: #0f385b;}
+  .lft_ck_box li:nth-child(3) .styled-checkbox:checked + label:after {box-shadow: 2px 0 0 #174165, 4px 0 0 #174165, 4px -2px 0 #174165, 4px -4px 0 #174165, 4px -6px 0 #174165, 4px -8px 0 #174165;background: #174165;}
+  .lft_ck_box li:nth-child(4) .styled-checkbox:checked + label:after {box-shadow: 2px 0 0 #174165, 4px 0 0 #174165, 4px -2px 0 #174165, 4px -4px 0 #174165, 4px -6px 0 #174165, 4px -8px 0 #174165;background: #174165;}
+  .lft_ck_box li:nth-child(5) .styled-checkbox:checked + label:after {box-shadow: 2px 0 0 #174165, 4px 0 0 #174165, 4px -2px 0 #174165, 4px -4px 0 #174165, 4px -6px 0 #174165, 4px -8px 0 #174165;background: #174165;}
+
+  .styled-checkbox:checked + label:before {
+	background: #f35429;
+  }
+  .styled-checkbox:disabled + label {
+	color: #b8b8b8;
+	cursor: auto;
+  }
+  .styled-checkbox:disabled + label:before {
+	box-shadow: none;
+	background: #ddd;
+  }
+  .styled-checkbox:checked + label:after {
+	content: "";
+	position: absolute;
+	left: 7px;
+top: 14px;
+	background: white;
+	width: 2px;
+	height: 2px;
+	box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+	transform: rotate(45deg);
+  }
+  .wkke {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+  }
+  .cal-view th {
+	text-align: center;
+	color: #a4a4a4;
+	font-size: 14px;
+	font-weight: 400;
+	text-transform: capitalize !important;
+	border-bottom: 0 !important;
+	border-radius: 0 !important;
+  }
+  .cal-view tr:first-child td{border-top: 0;}
+  /* .......... */
+  .wkke.curr_day {
+	background: #3dacff;
+	padding: 0 5px;
+	border-radius: 5px;
+	color: #fff;
+  }
+ .addContactModal.modal .make_shed li::after,
+.addContactModal.modal .make_shed li::before{display: none;}
+.addContactModal.modal .make_shed .add_scdlur li {
+	counter-increment: item;
+	margin-bottom: 0;
+	position: relative;
+  }
+  .modal .modal-header .team_mbr_hd .btn-close {
+	position: relative;
+	top: 7px;
+	right: 7px;
+  }
+  .pop_scrl{max-height: 400px; overflow-y: scroll; overflow-x: hidden;}
+  .modal .make_shed .modal-header, .modal .make_shed .modal-body {
+	padding: 20px 40px 0;
+  }
+  .team_mbr_hd.bluehdr {
+	background: #6dc1ff;
+  }
+  /* cal css end */
+
+  
+  .alart_popu_route .cnk_slect {
+	width: 60%;
+  }
+  .pay_flw_up .fa.fa-trash.text-danger {
+	background: url("../images/del-icon.png") 0 0 no-repeat;
+	width: 11px;
+height: 18px;
+}
+.pre_plan_vist .tabl_div_sec > div {
+	margin: 0;
+  }
+  .pre_plan_vist .tabl_div_sec > div.lnce {
+	width: 30%;
+  }
+  .pre_plan_vist .tabl_div_sec > div.mo_nm{width: 30%;}
+  .pre_plan_vist .tabl_div_sec {
+	justify-content: space-between;
+	flex-wrap: wrap;
+	width: 100%;
+  }
+.pay_flw_up .fa.fa-trash.text-danger::before {display: none;}
 /******************Responsive****************/
 
 @media screen and (max-width:1500px) {}

@@ -5,7 +5,11 @@
             <div class="col-md-12 d-lg-flex align-items-center
                     main-hdng">
                 <div class="col-md-6">
-                    <h3>Mapping Influncer with Dealer</h3>
+                    <h3>Mapping
+                        <ng-container *ngIf="mapHeaderLeft==1">{{mapLeftHeaderString}}</ng-container>
+                        <ng-container *ngIf="mapHeaderLeft==2">Influencer</ng-container>
+                        with {{mapHeader}}
+                    </h3>
                 </div>
                 <div class="col-md-6">
                     <div class="">
@@ -56,20 +60,25 @@
                     <div class="int_fac">
                         <div class="form-check d-inline-block
                                 align-middle me-3 mb-2">
-                            <input class="form-check-input" type="radio" name="leftType" id="assigned_users">
-                            <label class="form-check-label" for="assigned_users">Customer</label>
+                            <input class="form-check-input" type="radio" name="leftType" id="left-tab-1"
+                                *ngIf="mapHeaderLeft==1" checked (change)="changeMapLeftHeaderType('1')">
+                            <input class="form-check-input" type="radio" name="leftType" id="left-tab-1"
+                                *ngIf="mapHeaderLeft!=1" (change)="changeMapLeftHeaderType('1')">
+                            <label class="form-check-label" for="left-tab-1">Customer</label>
                         </div>
                         <div class="form-check d-inline-block
                                 align-middle mb-2">
-                            <input class="form-check-input" type="radio" name="leftType" id="assigned_groups"
-                                checked="">
-                            <label class="form-check-label" for="assigned_groups">Influncer</label>
+                            <input class="form-check-input" type="radio" name="leftType" id="left-tab"
+                                *ngIf="mapHeaderLeft==2" checked (change)="changeMapLeftHeaderType('2')">
+                            <input class="form-check-input" type="radio" name="leftType" id="left-tab"
+                                *ngIf="mapHeaderLeft!=2" (change)="changeMapLeftHeaderType('2')">
+                            <label class="form-check-label" for="left-tab">Influncer</label>
                         </div>
                     </div>
                 </div>
-                <div class="px-4">
+                <div class="px-4" *ngIf="mapHeader == 'Location'">
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <label for="district_name" class="form-label">State Name</label>
                             <div class="input-group">
                                 <select class="form-select" aria-label="Default select
@@ -80,7 +89,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <label for="district_name" class="form-label">District Name</label>
                             <div class="input-group">
                                 <select class="form-select" aria-label="Default select example" id="status_type"
@@ -91,26 +100,40 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- <div class="col-md-6 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <label for="district_name" class="form-label">Zone Name</label>
                             <div class="input-group">
-                                <select class="form-select" aria-label="Default select
-                                        example" id="status_type">
-                                    <option selected="Select an
-                                            options">Select from
-                                        list</option>
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="leftZoneId" (change)="leftZoneChange()">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of leftAllZone" [value]="data.id">{{data.name}}
+                                    </option>
                                 </select>
                             </div>
-                        </div> -->
-                        <div class="col-md-4 col-sm-12">
+                        </div>
+                        <div class="col-md-6 col-sm-12" *ngIf="mapHeaderLeft == 2">
                             <label for="district_name" class="form-label">Influncer
                                 Type</label>
                             <div class="input-group">
-                                <select class="form-select" aria-label="Default select
-                                        example" id="status_type">
-                                    <option selected="Select an
-                                            options">Select from
-                                        list</option>
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="leftTypeId" (change)="leftTypeChange($event)">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of leftAllType" [value]="data.contactTypeId">
+                                        {{data.contactTypeName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12" *ngIf="mapHeaderLeft == 1">
+                            <label for="district_name" class="form-label">Customer
+                                Type</label>
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="leftTypeId" (change)="leftTypeChange($event)">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of allDynamicTabType" [value]="data.contactTypeId">
+                                        {{data.contactTypeName}}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -120,8 +143,87 @@
                         <div class="col-md-12">
 
                             <div class="input-group srch_box">
-                                <input type="text" name="Customer name" class="form-control" placeholder="Search by the
-                                        name or number here" id="" [(ngModel)]="leftListSearchText">
+                                <input type="text" name="Customer name" class="form-control"
+                                    placeholder="Search by the name here" id="" [(ngModel)]="leftListSearchText">
+                                <button class="btn btn-success" (click)="leftSearchClick()">
+                                    <i class="fa fa-search"></i>
+                                    &nbsp; Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="px-4" *ngIf="mapHeader != 'Location'">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <label for="district_name" class="form-label">State Name</label>
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select
+                                        example" id="status_type" [(ngModel)]="leftStateId"
+                                    (change)="leftStateChange($event)">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of allState" [value]="data.id">{{data.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label for="district_name" class="form-label">District Name</label>
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="leftDistrictId" (change)="leftDistrictChange($event)">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of leftAllDistrict" [value]="data.id">{{data.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label for="district_name" class="form-label">Zone Name</label>
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="leftZoneId" (change)="leftZoneChange()">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of leftAllZone" [value]="data.id">{{data.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12" *ngIf="mapHeaderLeft == 2">
+                            <label for="district_name" class="form-label">Influncer
+                                Type</label>
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="leftTypeId" (change)="leftTypeChange($event)">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of leftAllType" [value]="data.contactTypeId">
+                                        {{data.contactTypeName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12" *ngIf="mapHeaderLeft == 1">
+                            <label for="district_name" class="form-label">Customer
+                                Type</label>
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="leftTypeId" (change)="leftTypeChange($event)">
+                                    <option value="">Select from list</option>
+                                    <option *ngFor="let data of allDynamicTabType" [value]="data.contactTypeId">
+                                        {{data.contactTypeName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 mb-2">
+                        <div class="col-md-12">
+
+                            <div class="input-group srch_box">
+                                <input type="text" name="Customer name" class="form-control"
+                                    placeholder="Search by the name here" id="" [(ngModel)]="leftListSearchText">
                                 <button class="btn btn-success" (click)="leftSearchClick()">
                                     <i class="fa fa-search"></i>
                                     &nbsp; Search
@@ -138,16 +240,16 @@
                                 <div class="cnk_slect">
                                     <div class="form-check d-inline-block align-middle me-3">
                                         <input class="form-check-input" type="radio" name="employee"
-                                            id="assigned_groups" [value]="data.userId"
+                                            id="assigned_groups" [value]="data.customerId"
                                             (change)="ChangeLeftSideInfluencerRadio($event)">
                                         <label class="form-check-label" for="assigned_groups"></label>
                                     </div>
                                     <div class="p_files">
-                                        <img src="assets/images/profl-pic.png" alt="create">
+                                        <img class="prf_img" src={{getProfileImage(data.profilePic)}} alt="create">
                                         <div class="wit_zon">
                                             <strong>{{data.firstName +" "+ data.lastName}}</strong>
                                             <p>
-                                                <span> Relationship : {{data.designationName}}</span>
+                                                <span> Relationship : {{data.contactTypeName}}</span>
                                                 <ng-container *ngIf="data.stateName != null">
                                                     <span> {{data.stateName}},
                                                         <ng-container *ngIf="data.zoneName != null"> Zone-
@@ -170,7 +272,60 @@
                         </div>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="isMappingTab == '2'">
+                <ng-container *ngIf="isMappingTab != '1'">
+                    <div class="px-4">
+                        <div id="simplebarright" class="sech_list_out">
+                            <!-- <ng-container *ngIf="(leftStateId == '' && leftDistrictId == '') || leftDistrictId == '' ">
+                                <div class="blr_sec"></div>
+                                <div class="sele bbnk">
+                                    <strong>State, District name need to select from above</strong>
+                                </div>
+                            </ng-container> -->
+                            <!-- <ng-container *ngIf="leftStateId != '' && leftDistrictId != ''"> -->
+                            <div class="sech_list" *ngFor="let data of leftInfluencerList">
+                                <div class="cnk_slect">
+                                    <div class="form-check date">
+                                        <ng-container *ngIf="data.isActive == 0">
+                                            <input class="form-check-input
+                                                me-2" type="checkbox" [value]="data.customerId" id="show_event"
+                                                (click)="selectInfDealerMapListData($event)" [checked]="false">
+                                        </ng-container>
+                                        <ng-container *ngIf="data.isActive == 1">
+                                            <input class="form-check-input
+                                                me-2" type="checkbox" [value]="data.customerId" id="show_event"
+                                                (click)="selectInfDealerMapListData($event)" [checked]="true">
+                                        </ng-container>
+                                        <label class="form-check-label" for="show_event">&nbsp;</label>
+                                    </div>
+                                    <div class="p_files">
+                                        <img class="prf_img" src={{getProfileImage(data.profilePic)}} alt="create">
+                                        <div class="wit_zon">
+                                            <strong>{{data.firstName +" "+ data.lastName}}</strong>
+                                            <p>
+                                                <span> Relationship : {{data.designationName}}</span>
+                                                <ng-container *ngIf="data.stateName != null">
+                                                    <span> {{data.stateName}},
+                                                        <ng-container *ngIf="data.zoneName != null"> Zone-
+                                                            {{data.zoneName}}
+                                                        </ng-container>
+                                                    </span>
+                                                </ng-container>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- </ng-container> -->
+
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="btn btn-primary me-2">Reset</button>
+                            <button class="btn btn-info" (click)="addMappingList()">Add</button>
+                        </div>
+                    </div>
+                </ng-container>
+                <!-- <ng-container *ngIf="isMappingTab == '3'">
                     <div class="px-4">
                         <div id="simplebarright" class="sech_list_out blnl_dv">
                             <ng-container *ngIf="(leftStateId == '' && leftDistrictId == '') || leftDistrictId == '' ">
@@ -196,7 +351,7 @@
                                             <label class="form-check-label" for="show_event">&nbsp;</label>
                                         </div>
                                         <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <img class="prf_img" src={{getProfileImage(data.profilePic)}} alt="create">
                                             <div class="wit_zon">
                                                 <strong>{{data.firstName +" "+ data.lastName}}</strong>
                                                 <p>
@@ -223,61 +378,7 @@
                             <button class="btn btn-info" (click)="addMappingList()">Add</button>
                         </div>
                     </div>
-                </ng-container>
-                <ng-container *ngIf="isMappingTab == '3'">
-                    <div class="px-4">
-                        <div id="simplebarright" class="sech_list_out blnl_dv">
-                            <ng-container *ngIf="(leftStateId == '' && leftDistrictId == '') || leftDistrictId == '' ">
-                                <div class="blr_sec"></div>
-                                <div class="sele bbnk">
-                                    <strong>State, District name need to select from above</strong>
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="leftStateId != '' && leftDistrictId != ''">
-                                <div class="sech_list" *ngFor="let data of leftInfluencerList">
-                                    <div class="cnk_slect">
-                                        <div class="form-check date">
-                                            <ng-container *ngIf="data.isActive == 0">
-                                                <input class="form-check-input
-                                                me-2" type="checkbox" [value]="data.userId" id="show_event"
-                                                    (click)="selectInfDealerMapListData($event)" [checked]="false">
-                                            </ng-container>
-                                            <ng-container *ngIf="data.isActive == 1">
-                                                <input class="form-check-input
-                                                me-2" type="checkbox" [value]="data.userId" id="show_event"
-                                                    (click)="selectInfDealerMapListData($event)" [checked]="true">
-                                            </ng-container>
-                                            <label class="form-check-label" for="show_event">&nbsp;</label>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div class="wit_zon">
-                                                <strong>{{data.firstName +" "+ data.lastName}}</strong>
-                                                <p>
-                                                    <span> Relationship : {{data.designationName}}</span>
-                                                    <ng-container *ngIf="data.stateName != null">
-                                                        <span> {{data.stateName}},
-                                                            <ng-container *ngIf="data.zoneName != null"> Zone-
-                                                                {{data.zoneName}}
-                                                            </ng-container>
-                                                        </span>
-                                                    </ng-container>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </ng-container>
-
-                        </div>
-                        <div class="d-flex justify-content-center mt-3"
-                            *ngIf="leftStateId != '' && leftDistrictId != ''">
-                            <button class="btn btn-primary me-2">Reset</button>
-                            <button class="btn btn-info" (click)="addMappingList()">Add</button>
-                        </div>
-                    </div>
-                </ng-container>
+                </ng-container> -->
             </div>
 
             <div class="col-md-7 col-sm-12 empl_mpnge lg_rit">
@@ -297,20 +398,21 @@
                                         Location
                                     </a>
                                 </li>
-                                <li>
+
+                                <li *ngFor="let data of showDynamicTabType">
                                     <a class="click_tab " data-bs-target="#pills_eod" role="tab" data-bs-toggle="tab"
-                                        id="eod" data-bs-toggle="pill" aria-controls="pills_eod" aria-selected="false"
-                                        (click)="onChangeMappingOption('2')">
-                                        Dealer
+                                        id="eod_cs" data-bs-toggle="pill" aria-controls="pills_eod"
+                                        aria-selected="false" (click)="onChangeMappingOption(data)">
+                                        {{data.contactTypeName}}
                                     </a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a class="click_tab" data-bs-target="#pills_delr" role="tab" data-bs-toggle="tab"
                                         id="delr" data-bs-toggle="pill" aria-controls="pills_delr" aria-selected="false"
                                         (click)="onChangeMappingOption('3')">
                                         Subdealer
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -437,7 +539,7 @@
                                 <div id="simplebarright" class="mm_files_out">
                                     <div class="mm_files">
                                         <div class="p_files" *ngFor="let data of infLocMapList">
-                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <img class="prf_img" src={{getProfileImage(data.listData.profilePic)}} alt="create">
                                             <div>
                                                 <strong>{{data.listData.firstName +" "+
                                                     data.listData.lastName}}</strong>
@@ -455,7 +557,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-center mt-3">
+                                <div class="d-flex justify-content-center mt-3" *ngIf="infLocMapList.length > 0">
                                     <button class="btn btn-primary me-2">Preview</button>
                                     <button class="btn btn-info" (click)="onSubmitLocationMapping()">Save Map</button>
                                 </div>
@@ -508,8 +610,9 @@
 
                                         <div class="input-group srch_box">
                                             <input type="text" name="Customer name" class="form-control"
-                                                placeholder="Search by the name" id="">
-                                            <button class="btn btn-success">
+                                                placeholder="Search by the name" id=""
+                                                [(ngModel)]="rightListSearchText">
+                                            <button class="btn btn-success" (click)="getSearchRight()">
                                                 <i class="fa fa-search"></i>
                                                 &nbsp; Search
                                             </button>
@@ -517,7 +620,7 @@
                                     </div>
                                 </div>
                                 <div id="simplebarright" class="web_hery_out">
-                                    <ng-container
+                                    <!-- <ng-container
                                         *ngIf="(rightStateId == '' && rightDistrictId == '') || rightDistrictId == '' ">
                                         <div class="hdweb bbnk">
                                             <strong>
@@ -532,62 +635,62 @@
 
                                                     <div class="form-check d-inline-block align-middle me-3">
                                                         <input class="form-check-input" type="radio" name="hemp1"
-                                                            id="assigned_groups" [value]="data.userId"
+                                                            id="assigned_groups" [value]="data.customerId"
                                                             (click)="onselectFromRightListRadio($event)">
                                                         <label class="form-check-label" for="assigned_groups"></label>
                                                     </div>
 
                                                     <div class="p_files">
-                                                        <img src="assets/images/profl-pic.png" alt="create">
+                                                        <img class = "prf_img" src={{getProfileImage(data.profilePic)}} alt="create">
                                                         <div>
                                                             <strong>{{data.firstName +" "+ data.lastName}}</strong>
-                                                            <span>Relationship : {{data.designationName}}</span>
+                                                            <span>Relationship : {{data.contactTypeName}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="can_sc_forday">
-                                                    <p>{{data.empCount}} member under his team</p>
+                                                    <p>{{data.teamCount}} member under his team</p>
                                                     <p> {{data.sellerCount}} seller under his zone</p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="rightStateId != '' && rightDistrictId != ''">
+                                    </ng-container> -->
+                                    <!-- <ng-container *ngIf="rightStateId != '' && rightDistrictId != ''"> -->
 
-                                        <div class="hdweb">
-                                            <strong>{{rightSelectedStateName}}, {{rightSelectedDistrictName}}</strong>
-                                            <!-- <span><img src="assets/images/close-icon.png"></span> -->
-                                        </div>
-                                        <div class="web_hery">
+                                    <!-- <div class="hdweb">
+                                        <strong>{{rightSelectedStateName}}, {{rightSelectedDistrictName}}</strong>
+                                    </div> -->
+                                    <div class="web_hery">
 
-                                            <div class="sech_list_webl justify-content-start"
-                                                *ngFor="let data of rightListData">
-                                                <div class="cnk_slect me-2">
+                                        <div class="sech_list_webl justify-content-start"
+                                            *ngFor="let data of rightListData">
+                                            <div class="cnk_slect me-2">
 
-                                                    <div class="form-check d-inline-block align-middle me-3">
-                                                        <input class="form-check-input" type="radio" name="hemp1"
-                                                            id="assigned_groups" [value]="data.userId"
-                                                            (click)="onselectFromRightListRadio($event)">
-                                                        <label class="form-check-label" for="assigned_groups"></label>
-                                                    </div>
-
-                                                    <div class="p_files">
-                                                        <img src="assets/images/profl-pic.png" alt="create">
-                                                        <div>
-                                                            <strong>{{data.firstName +" "+ data.lastName}}</strong>
-                                                            <span>Relationship : {{data.designationName}}</span>
-                                                        </div>
-                                                    </div>
+                                                <div class="form-check d-inline-block align-middle me-3">
+                                                    <input class="form-check-input" type="radio" name="hemp1"
+                                                        id="assigned_groups" [value]="data.customerId"
+                                                        (click)="onselectFromRightListRadio($event)">
+                                                    <label class="form-check-label" for="assigned_groups"></label>
                                                 </div>
 
-                                                <div class="can_sc_forday">
-                                                    <p>{{data.empCount}} member under his team</p>
-                                                    <p> {{data.sellerCount}} seller under his zone</p>
+                                                <div class="p_files">
+                                                    <img class="prf_img" src={{getProfileImage(data.profilePic)}}
+                                                        alt="create">
+                                                    <div>
+                                                        <strong>{{data.firstName +" "+ data.lastName}}</strong>
+                                                        <span>Relationship : {{data.contactTypeName}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
+
+                                            <div class="can_sc_forday">
+                                                <p>{{data.teamCount}} member under his team</p>
+                                                <p> {{data.sellerCount}} seller under his zone</p>
+                                            </div>
                                         </div>
-                                    </ng-container>
+                                    </div>
+                                    <!-- </ng-container> -->
                                 </div>
                                 <div class="red_map">
                                     <div class="red_mp_dnw">
@@ -611,7 +714,7 @@
                                 <div id="simplebarright" class="mm_files_out">
                                     <div class="mm_files">
                                         <div class="p_files" *ngFor="let data of mappingList">
-                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <img class="prf_img" src={{getProfileImage(data.profilePic)}} alt="create">
                                             <div class="wit_zon">
                                                 <strong>{{data.firstName +" "+ data.lastName}}</strong>
                                                 <p><span> Relationship : {{data.designationName}}</span>
@@ -706,7 +809,7 @@
                                                     </div>
 
                                                     <div class="p_files">
-                                                        <img src="assets/images/profl-pic.png" alt="create">
+                                                        <img class="prf_img" src={{getProfileImage(data.profilePic)}} alt="create">
                                                         <div>
                                                             <strong>{{data.firstName +" "+ data.lastName}}</strong>
                                                             <span>Relationship : {{data.designationName}}</span>
@@ -836,3 +939,47 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #successfullMap>
+    <!-- <div class="modal-dialog modal-dialog-centered modal-sm"> -->
+    <!-- <div class="modal-content"> -->
+    <div class="addContactModal">
+        <!-- <div class="modal-header"> -->
+        <!-- <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <button class="btn-close" (click)="closeModal()"></button>
+                    </div>
+                </div>
+            </div> -->
+        <!-- </div> -->
+        <div class="modal-body">
+            <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                <div class="row align-items-center">
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <button class="btn-close pjp_error_mod" (click)="closeModal()"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 alart_popu">
+
+                        <div class="alart_pop">
+                            <!-- <img class="d-inline-block align-middle" src="assets/images/alart-icon.png" alt=""> -->
+                            <p>
+                                <!-- <strong>Select Atleast one visit point</strong> -->
+                                <strong>Mapping Successfully</strong>
+                            </p>
+                        </div>
+                        <!-- <button class="btn btn-success" (click)="closeModal()">Ok</button> -->
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+</ng-template>

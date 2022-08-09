@@ -78,6 +78,7 @@ export class StoreDataService {
       "contactId": 9,
       "firstName": "Ghosh",
       "lastName": "Hardware",
+      "profileImage" : "",
       "contactTypeName": "Distributor"
     },
     {

@@ -69,21 +69,38 @@ export class CreatePjpComponent implements OnInit {
   }
 
   load() {
-    this.authUserData = this.common.getAuthUserData();
-    console.log("authUserL::", this.authUserData);
-    if (this.isSelf) {
-      this.selectedPjpEmployeeDetails = JSON.parse(this.authUserData);
+    let data: any = this.common.getAuthUserData();
+    // console.log("authUserL::", this.authUserData);
+    this.authUserData = JSON.parse(data);
+    this.getSelfUserDetails();
+    
+
+  }
+
+  getSelfUserDetails() {
+
+    let req = {
+      clientId: this.authUserData.clientId,
+      userId: this.authUserData.userId
     }
-    if (Object.keys(this.selectedPjpEmployeeDetails).length > 0) {
-      this.selectedEmpDeails = {
-        userId: this.selectedPjpEmployeeDetails.userId,
-        name: this.selectedPjpEmployeeDetails.firstName + " " + this.selectedPjpEmployeeDetails.lastName,
-        designation: "Project Manager",
-        profileImg: "",
-        datesOfPrePlanVisit: "0"
-      }
-      this.isSelected = true;
-    }
+      this.common.getpjpUserDetailsById(req).subscribe(res => {
+        console.log("All Zone ResPonse::", res);
+        if (res.error == 0 && res.respondcode == 200) {
+          if (this.isSelf) {
+            this.selectedPjpEmployeeDetails = res.data[0];
+          }
+          if (Object.keys(this.selectedPjpEmployeeDetails).length > 0) {
+            this.selectedEmpDeails = {
+              userId: this.selectedPjpEmployeeDetails.userId,
+              name: this.selectedPjpEmployeeDetails.userName,
+              designation: this.selectedPjpEmployeeDetails.designationName,
+              profileImg: this.selectedPjpEmployeeDetails.profileImgUrl,
+              datesOfPrePlanVisit: this.selectedPjpEmployeeDetails.datesOfPrePlanVisit,
+            }
+            this.isSelected = true;
+          }
+        }
+      })
 
   }
 
@@ -227,7 +244,7 @@ export class CreatePjpComponent implements OnInit {
         }
 
         this.common.getAllContactListTypeForPjp(obj).subscribe(res => {
-          // console.log("Contact list type ResPonse::", res);
+          console.log("Contact left list type ResPonse::", res);
           if (res.error == 0 && res.respondcode == 200) {
             if (res.data.contactList.length > 0) {
               this.allContactTypeList = res.data.contactList;
@@ -259,11 +276,11 @@ export class CreatePjpComponent implements OnInit {
 
   getAllVisitorListType() {
     let obj = {
-      clientId: "1",
+      clientId: this.authUserData.clientId,
       contactType: this.selectedContactCategory
     }
     this.common.getVisitorListTypeByContactId(obj).subscribe(res => {
-      // console.log("All Contact Category Type ResPonse::", res);
+      console.log("All Contact Category Type ResPonse::", res);
       if (res.error == 0 && res.respondcode == 200) {
         if (res.data.visitorList.length > 0) {
           this.allVisitorType = res.data.visitorList;

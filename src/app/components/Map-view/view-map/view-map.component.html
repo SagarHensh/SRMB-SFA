@@ -5,6 +5,7 @@
             <div class="col-md-12 d-lg-flex align-items-center main-hdng">
                 <div class="col-md-6">
                     <h3>View Map</h3>
+
                 </div>
                 <div class="col-md-6">
                     <div class="">
@@ -31,15 +32,19 @@
                                                 data-toggle="tooltip" data-bs-toggle="pill" data-placement="top"
                                                 data-custom-class="tooltip-dark" data-bs-target="#pills-live"
                                                 type="button" role="tab" aria-controls="pills-home" aria-selected="true"
-                                                title="Live Tracking"><span class="live-icon"></span> Live
-                                                Tracking</button>
+                                                title="Live Tracking" (click)="onChangeMainTab('1')">
+                                                <span class="live-icon"></span> Live
+                                                Tracking
+                                            </button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link js-btn-tooltip" id="pills-beat-tab"
                                                 data-toggle="tooltip" data-bs-toggle="pill" data-placement="top"
                                                 data-custom-class="tooltip-dark" data-bs-target="#pills-beat"
                                                 type="button" role="tab" aria-controls="pills-beat"
-                                                aria-selected="false" title="Beat Route"> Beat Route</button>
+                                                aria-selected="false" title="Beat Route" (click)="onChangeMainTab('2')">
+                                                Beat Route
+                                            </button>
 
                                         </li>
                                         <li class="nav-item" role="presentation">
@@ -47,13 +52,16 @@
                                                 data-bs-toggle="pill" data-toggle="tooltip" data-bs-toggle="pill"
                                                 data-placement="top" data-custom-class="tooltip-dark"
                                                 data-bs-target="#pills-sales" type="button" role="tab"
-                                                aria-controls="pills-lead" aria-selected="false" title="Sales">
-                                                Sales</button>
+                                                aria-controls="pills-lead" aria-selected="false" title="Sales"
+                                                (click)="onChangeMainTab('3')">
+                                                Sales
+                                            </button>
                                         </li>
                                         <li class="nav-item" role="presentation" style="display:none">
                                             <button class="nav-link" id="pills-ttt-tab" data-bs-toggle="pill"
                                                 data-bs-target="#pills-enq" type="button" role="tab"
-                                                aria-controls="pills-lead" aria-selected="false">eeee</button>
+                                                aria-controls="pills-lead" aria-selected="false">eeee
+                                            </button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link js-btn-tooltip" id="pills-area-tab"
@@ -61,8 +69,9 @@
                                                 data-placement="top" data-custom-class="tooltip-dark"
                                                 data-bs-target="#pills-area" type="button" role="tab"
                                                 aria-controls="pills-area" aria-selected="false"
-                                                title="Explore New Area"> Explore New
-                                                Area</button>
+                                                title="Explore New Area" (click)="onChangeMainTab('4')"> Explore New
+                                                Area
+                                            </button>
                                         </li>
 
                                     </ul>
@@ -191,7 +200,7 @@
                                     </div>
                                     <div class="map_trac_sc">
                                         <div class="map_dv">
-                                            <app-gmap></app-gmap>
+                                            <app-live-tracking-map-view (newItemEvent)="goToBit($event)"></app-live-tracking-map-view>
                                             <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                                         </div>
                                         <div class="map_record">
@@ -253,6 +262,7 @@
                                     </div>
                                     <div class="map_trac_sc">
                                         <div class="map_dv" id="routeMap">
+                                            <app-beat-route-map-view></app-beat-route-map-view>
                                             <!-- <iframe
                           src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
                           width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
@@ -349,6 +359,7 @@
                                     </div>
                                     <div class="map_trac_sc">
                                         <div class="map_dv" id="saleMap">
+                                            <app-sales-map-view></app-sales-map-view>
                                             <!-- <iframe
                           src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
                           width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
@@ -724,10 +735,11 @@
                                     </div>
                                     <div class="map_trac_sc">
                                         <div class="map_dv">
-                                            <iframe
+                                            <app-gmap></app-gmap>
+                                            <!-- <iframe
                                                 src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
                                                 width="100%" height="450" style="border:0;" allowfullscreen=""
-                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                                         </div>
                                         <div class="map_record salese">
 
@@ -845,10 +857,11 @@
                                     </div>
                                     <div class="map_trac_sc">
                                         <div class="map_dv">
-                                            <iframe
+                                            <app-gmap></app-gmap>
+                                            <!-- <iframe
                                                 src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
                                                 width="100%" height="450" style="border:0;" allowfullscreen=""
-                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                                         </div>
                                         <div class="map_record salese">
 
@@ -965,10 +978,11 @@
                                     </div>
                                     <div class="map_trac_sc">
                                         <div class="map_dv">
-                                            <iframe
+                                            <app-gmap></app-gmap>
+                                            <!-- <iframe
                                                 src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
                                                 width="100%" height="450" style="border:0;" allowfullscreen=""
-                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                                         </div>
                                         <div class="map_record salese">
 
@@ -1081,10 +1095,11 @@
                                     </div>
                                     <div class="map_trac_sc">
                                         <div class="map_dv">
-                                            <iframe
+                                            <app-new-area-map-view></app-new-area-map-view>
+                                            <!-- <iframe
                                                 src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
                                                 width="100%" height="450" style="border:0;" allowfullscreen=""
-                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                                         </div>
 
 

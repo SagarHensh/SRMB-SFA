@@ -1,0 +1,18 @@
+.custom-autocomplete{
+    position: absolute;
+    background: white;
+    z-index: 999;
+    box-shadow: 1px 6px 20px 0 #d9d9d9;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    width: 22.5%;
+}
+
+.custom-autocomplete li {
+    margin-bottom: 5px;
+    padding: 5px;
+    padding-left: 10px;
+}
+.custom-autocomplete li:hover {
+    background: lightgray;
+}

@@ -36,7 +36,7 @@ export class PlannedUnplannedReportsComponent implements OnInit {
       "offset": this.offset.toString()
     }
     this.common.getPjpVisitReports(req).subscribe(res => {
-      // console.log("PJP Visit response::", res);
+      console.log("Planned unplanned Visit response::", res);
       if (res.data.reportList.length > 0) {
         this.allReportList = res.data.reportList;
         this.totalRecords = res.data.totalCount;

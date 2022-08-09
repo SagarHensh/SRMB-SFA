@@ -1,0 +1,507 @@
+<main class="content">
+    <div class="container-fluid p-0">
+
+
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center main-hdng">
+                <div class="col-md-6">
+                    <h3>Survey Reports</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item">Reports</li>
+                                <li class="breadcrumb-item" aria-current="page">Survey Reports</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Search by customer name or number here">
+
+                </div>
+                <div class="col-md-9 text-end mt-n1">
+                    <ul class="d-inline-block ml-auto mt-3 mt-lg-0 mb-0">
+                        <li class="list-inline-item">
+                            <div class="dt_fld">Select Date Range</div>
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="dt_fld">
+                                <input type="date" placeholder="Search" class="form-control input-sm">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="dt_fld">
+                                <input type="date" placeholder="Search" class="form-control input-sm">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-success btn-lg">Search &nbsp;<i class="fa fa-search"
+                                    aria-hidden="true"></i></button>
+                        </li>
+                        <li class="list-inline-item">
+
+                            <div class="d-inline-block">
+                                <a class="btn btn-secondary-drk btn-lg d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-filter" aria-hidden="true"></i>
+                                    &nbsp;Filter Search &nbsp;
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end filter_secn_dv">
+                                    <div class="filter_secn">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Enquiry
+                                                    Source</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Select from
+                                                            List</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Enquery
+                                                    Type</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Select from
+                                                            List</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Enquired
+                                                    Product</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Select from
+                                                            List</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Enquery
+                                                    Location</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Select from
+                                                            List</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">District
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Zone</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-12">
+                                                <label for="district_name" class="form-label  text-black">
+                                                    Enquiery Status
+                                                    <div class="form-check d-inline-block align-middle me-1 ms-2">
+                                                        <input class="form-check-input" type="radio" name="assigned"
+                                                            id="flexRadioDefault15" value="igotsix" (click)="show01()">
+                                                        <label class="form-check-label text-black"
+                                                            for="assigned_users">Assigned</label>
+                                                    </div>
+                                                    <div class="form-check d-inline-block align-middle">
+                                                        <input class="form-check-input" type="radio" name="assigned"
+                                                            id="flexRadioDefault15" value="igotsix" (click)="show02()"
+                                                            checked="">
+                                                        <label class="form-check-label text-black"
+                                                            for="assigned_groups">Not Assigned</label>
+                                                    </div>
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div id="div01">
+                                            <div class="row hide asign_to_dv">
+                                                <div class="col-md-4">
+                                                    <label for="district_name" class="form-label">Employee
+                                                        Type</label>
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type">
+                                                            <option selected="Select an options">MO/TO
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="district_name" class="form-label">Employee
+                                                        Location</label>
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type">
+                                                            <option selected="Select an options">District
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="district_name" class="form-label">&nbsp;</label>
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type">
+                                                            <option selected="Select an options">Zone
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-end">
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-pink w-100">Reset</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-success w-100">Save &
+                                                        Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+                                <button id="switchList" (click)="toggleBtnList()" type="button"
+                                    class="btn btn-outline-dark btn-xs switchActiveList">
+                                    <img src="assets/images/list-view.svg" alt="list-view">
+                                </button>
+                                <button id="switchGrid" (click)="toggleBtnGrid()" type="button"
+                                    class="btn btn-outline-dark btn-xs">
+                                    <img src="assets/images/grid-view.svg" alt="list-view">
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                    <!-- <div class="d-inline-block">
+                        <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate" href="#"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="">Edit this organization</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change profile image</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Delete organization</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change record owner</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Print this details</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Assign task</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change assign user</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Add opportunity with this org.</a>
+                        </div>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12 ">
+
+                <div class="bg-white shadow_d py-4 px-4 rounded-3">
+                    <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="d-md-flex align-items-center mb-3">
+                            <div class="col-auto d-flex">
+                                <h3>Survey Reports</h3>
+                                <span class="sm-font text-primary" *ngIf="totalRecords !=0">{{totalRecords}} Records
+                                    Found</span>
+                            </div>
+                            <div class="col-auto d-block ms-auto">
+                                <div class="text-center">
+                                    <div class="dataTables_length" id="datatables-reponsive_length"
+                                        *ngIf="allReportList.length>0">
+                                        <label>Records per page <select name="datatables-reponsive_length"
+                                                aria-controls="datatables-reponsive" class="form-select form-select-sm"
+                                                [(ngModel)]="limit" (ngModelChange)="changeLimit()">
+                                                <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
+                                                    {{pg.label}}</option>
+                                            </select> {{startRecordNumber()}} - {{allReportList.length}}</label>
+                                        <label>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left">
+                                            </a>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right">
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group btn-group-sm ms-auto btn-download-group">
+                                <button type="button" class="btn btn-primary px-4 text-white">
+                                    Download List
+                                </button>
+                                <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                    Upload
+                                </button>
+                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
+                                <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="assets/images/filtering.svg" alt="filtering"></button>
+                                <div class="dropdown-menu dropdown-menu-end addDropdownhead">
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">State</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch1">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">District</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch2">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Zone</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch3">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Pincode</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch4">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Organization Name</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch5">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Contact Person Name</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch6">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Contact Person Phone No.</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch7">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Email</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch8">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Address</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch9">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Survey For</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch10">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Survey On</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Remarks</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="datatables-column-search-select-inputs"
+                                class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
+                                aria-describedby="datatables-column-search-select-inputs_info">
+                                <thead class="thead-dark">
+                                    <tr role="row">
+                                        <!-- <th width="40" style="background:#e8e8e8">&nbsp;</th> -->
+                                        <th colspan="4" class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            Location Information
+                                        </th>
+                                        <th colspan="5" class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            Organization Information
+                                        </th>
+                                        <th colspan="3" class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            Survey Information
+                                        </th>
+                                        <th style="background:#e8e8e8">&nbsp;</th>
+                                    </tr>
+                                    <tr role="row">
+                                        <th class="sorting align-middle">State</th>
+                                        <th class="sorting align-middle">District</th>
+                                        <th class="sorting align-middle">Zone</th>
+                                        <th class="sorting align-middle">Pincode</th>
+                                        <th class="sorting align-middle">Organization Name</th>
+                                        <th class="sorting align-middle">Contact Person Name</th>
+                                        <th class="sorting align-middle">Contact Person Phone No.</th>
+                                        <th class="sorting align-middle">Email</th>
+                                        <th class="sorting align-middle">Address</th>
+                                        <th class="sorting align-middle">Survey For</th>
+                                        <th class="sorting align-middle">Survey On</th>
+                                        <th class="sorting align-middle">Remarks</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let data of allReportList; let i = index">
+                                        <tr role="row" class="odd">
+                                            <td class="align-middle">{{data.stateName}}</td>
+                                            <td class="align-middle">{{data.cityName}}</td>
+                                            <td class="align-middle">{{data.zoneName}}</td>
+                                            <td class="align-middle">{{data.pincode}}</td>
+                                            <td class="align-middle">{{data.organizationName}}</td>
+                                            <td class="align-middle">{{data.ownerName}}</td>
+                                            <td class="align-middle">{{data.phone}}</td>
+                                            <td class="align-middle">{{data.email}}</td>
+                                            <td class="align-middle">{{data.address}}</td>
+                                            <td class="align-middle"></td>
+                                            <td class="align-middle">{{getDate(data.surveyDate)}}</td>
+                                            <td class="align-middle">{{data.remarks}}</td>
+                                            <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                    href="#"><i class="fa fa-eye"
+                                                        aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                    class="d-inline-block align-middle" href="#"> <img
+                                                        src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                    class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                                <div class="dropdown-menu dropdown-menu-end"> <a class="dropdown-item"
+                                                        href="">Edit this organization</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Change profile image</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Delete organization</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Change record owner</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Print this details</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Assign task</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Change assign user</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Add opportunity with this
+                                                        org.</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="d-xl-flex align-items-center mt-3">
+
+                            <div class="col-auto d-block">
+
+                                <div class="text-center">
+                                    <div class="dataTables_length" id="datatables-reponsive_length"
+                                        *ngIf="allReportList.length>0">
+                                        <label>Records per page <select name="datatables-reponsive_length"
+                                                aria-controls="datatables-reponsive" class="form-select form-select-sm"
+                                                [(ngModel)]="limit" (ngModelChange)="changeLimit()">
+                                                <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
+                                                    {{pg.label}}</option>
+                                            </select> {{startRecordNumber()}} - {{allReportList.length}}</label>
+                                        <label>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left">
+                                            </a>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right">
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>

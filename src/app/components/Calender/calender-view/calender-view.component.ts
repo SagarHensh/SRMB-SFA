@@ -218,22 +218,22 @@ export class CalenderViewComponent implements OnInit {
   }
 
   getAllMonthDetails() {
-    console.log("module::", this.calData.getMonthView());
+    // console.log("module::", this.calData.getMonthView());
     this.calData.setEventsDetails(this.eventData);
     this.monthView = this.calData.getMonthView();
     this.monthBox = this.monthView.view;
-    console.log("monthBox", this.monthBox);
-    this.weekData = ['SUN', 'MON', 'TUES', 'WEDNES', 'THURS', 'FRI', 'SATUR'];
+    // console.log("monthBox", this.monthBox);
+    this.weekData = ['Sun', 'Mon', 'Tues', 'Wednes', 'Thurs', 'Fri', 'Satur'];
     this.currDate = this.calData.getCurDate();
     this.currMonth = this.monthView.currentMonth;
     this.currYear = this.monthView.CurrentYear;
     this.getDateInfo(this.currDate);
-    console.log("Current Date ::", this.currDate)
+    // console.log("Current Date ::", this.currDate)
   }
 
   getDateInfo(value: any) {
     let aa: any = value.split("-");
-    console.log("Date info::", aa);
+    // console.log("Date info::", aa);
     this.dateInfo = aa;
     this.selectedDate = value;
     let ds = this.getOrdinalNum(aa[2]);
@@ -243,7 +243,7 @@ export class CalenderViewComponent implements OnInit {
       monthString: this.monthView.currentMonth,
       year: this.monthView.CurrentYear
     }
-    console.log("Obj::", this.monthView.currentMonth)
+    // console.log("Obj::", this.monthView.currentMonth)
     this.viewDateObj = obj;
     // this.selectedDateString = ds + " " + this.monthView.months[parseInt(aa[1]) - 1] + " " + aa[0];
     // console.log("Selected Date String::", this.selectedDateString);
@@ -299,7 +299,7 @@ export class CalenderViewComponent implements OnInit {
   }
 
   selectedDateFormTable(data: any) {
-    console.log("Calender seleceted Data::", data);
+    // console.log("Calender seleceted Data::", data);
     let month: any = data.month > 9 ? data.month : "0" + data.month;
     let value: any = data.year + "-" + month + "-" + data.day;
     return value;

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CrmService } from 'src/app/services/crm.service';
 
 @Component({
   selector: 'app-employee-mapping',
@@ -13,6 +14,7 @@ export class EmployeeMappingComponent implements OnInit {
   constructor(
     private route: Router,
     private common: CommonService,
+    private crm: CrmService,
     private modalService: NgbModal
   ) { }
 
@@ -47,7 +49,9 @@ export class EmployeeMappingComponent implements OnInit {
   // HierarchyUsage
 
   hempStateId: any = "";
+  hempDistrictArray: any = [];
   hempDistrictId: any = "";
+  hempZoneArr: any = [];
   hempZoneId: any = "";
   hempHierarchyTypeId: any = "";
   allHierarchyType: any = [];
@@ -56,15 +60,22 @@ export class EmployeeMappingComponent implements OnInit {
   hempId: any = "";
   allMappingHierarchyList: any = [];
   hempList: any = [];
+  imageUrl: any = "";
+  hempTypeId: any = "";
 
 
   ngOnInit(): void {
     this.getAllLocationData();
     this.schemePath = this.common.getLayoutSchemePath();
+    this.imageUrl = this.crm.getImageUrl();
     this.getEmployeeDataForMapping();
     this.getAllEmployeeDesignation();
     this.getHierarchyEmployeeList();
     this.getHierarchyEmployeeDataForMapping();
+  }
+
+  getProfileImage(img: any) {
+    return this.imageUrl + img;
   }
 
   getEmployeeDataForMapping() {
@@ -77,7 +88,7 @@ export class EmployeeMappingComponent implements OnInit {
       designationId: this.empDesignationId
     }
     this.common.getEmployeeMapData(obj).subscribe(res => {
-      // console.log("All Employee Response:", res);
+      console.log("All left Employee Response:", res);
       if (res.error == 0 && res.respondcode == 200) {
         let respObj = res.data;
         if (Object.keys(respObj).length > 0) {
@@ -398,6 +409,8 @@ export class EmployeeMappingComponent implements OnInit {
   onChangeEmployee(event: any) {
     // console.log(event.target.value);
     this.empMapId = event.target.value;
+    this.mapStateId = "";
+    this.mapCityId = "";
     this.getMapArrayData(this.stateArr);
     this.showDataInMap();
   }
@@ -567,9 +580,17 @@ export class EmployeeMappingComponent implements OnInit {
 
     this.common.setEmployeeMapData(reqObj).subscribe(res => {
       console.log("Submit empoyee location map response::", res)
-      // if (res.error == 0 && res.respondcode == 200) {
-      //   this.route.navigate(["/admin/dashboard"]);
-      // }
+      if (res.error == 0 && res.respondcode == 200) {
+
+        this.modalService.open(this.successfullMap, { size: 'sm', centered: true, animation: true });
+        setTimeout(() => {
+          this.getEmployeeDataForMapping();
+          this.getAllLocationData();
+          this.resourceEmployeeList = [];
+          this.resourceEmpLocMapList = [];
+          this.closeModal();
+        }, 1000)
+      }
     })
 
     // console.log("Main Location Arr::", reqObj);
@@ -618,10 +639,36 @@ export class EmployeeMappingComponent implements OnInit {
         firstName: data.firstName,
         lastName: data.lastName,
         designationName: data.designationName,
+        profileImgUrl: data.profileImgUrl,
         isActive: 0
       })
     })
     this.hempList = temp
+  }
+
+  hempStateChange(event: any) {
+    this.hempDistrictId = "";
+    this.hempZoneId = "";
+    this.hempDistrictArray = this.getDistrictData(this.hempStateId);
+
+    this.getHierarchyEmployeeList();
+  }
+
+  hempDistrictChange(value: any) {
+    // console.log("district::", this.empCityId);
+    this.hempZoneId = "";
+    this.hempZoneArr = this.getZoneData(this.hempStateId, this.hempDistrictId);
+
+    this.getHierarchyEmployeeList();
+  }
+
+  hempZoneChange(event: any) {
+    this.getHierarchyEmployeeList();
+
+  }
+
+  onChangeHempSearchText = () => {
+    this.getHierarchyEmployeeList();
   }
 
   getHierarchyEmployeeList() {
@@ -630,8 +677,9 @@ export class EmployeeMappingComponent implements OnInit {
       clientId: this.clientId,
       stateId: this.hempStateId,
       districtId: this.hempDistrictId,
+      zoneId: this.hempZoneId,
       name: this.hempSearchText,
-      designationId: ''
+      designationId: this.hempTypeId
     }
     this.common.getEmpParentForChild(obj).subscribe(res => {
       console.log("All Employee for hierarchy Response:", res);
@@ -658,6 +706,7 @@ export class EmployeeMappingComponent implements OnInit {
         firstName: data.firstName,
         lastName: data.lastName,
         designationName: data.designationName,
+        profileImgUrl: data.profileImgUrl,
         isActive: 0
       })
     })

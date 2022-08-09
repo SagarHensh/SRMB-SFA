@@ -23,15 +23,23 @@
 
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <input type="text" class="form-control"
                         placeholder="Search by visitor's or employee name or number here">
 
                 </div>
-                <div class="col-md-7 text-end mt-n1">
+                <div class="col-md-9 text-end mt-n1">
                     <ul class="d-inline-block ml-auto mt-3 mt-lg-0 mb-0">
                         <li class="list-inline-item">
                             <div class="dt_fld">Select Date Range</div>
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="dt_fld">
+                                <input type="date" placeholder="Search" class="form-control input-sm">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </li>
+                        <li class="list-inline-item">
                             <div class="dt_fld">
                                 <input type="date" placeholder="Search" class="form-control input-sm">
                                 <i class="fa fa-calendar"></i>
@@ -283,105 +291,65 @@
                                 <button type="button" class="btn btn-primary px-4 text-white" (click)="onDownload()">
                                     Download List
                                 </button>
-                                <!-- <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                <button type="button" class="btn btn-primary px-4 text-white">Bulk
                                     Upload
-                                </button> -->
-                                <!-- <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button> -->
-                                <!-- <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
+                                </button>
+                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
+                                <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="assets/images/filtering.svg" alt="filtering"></button> -->
-                                <!-- <div class="dropdown-menu dropdown-menu-end addDropdownhead">
+                                    <img src="assets/images/filtering.svg" alt="filtering">
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end addDropdownhead">
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Organizations name</span>
+                                        <span class="col-auto d-block">Employee name</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch1">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Owner</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch2">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Contact Person</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch3">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">State</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch4">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Phone</span>
+                                        <span class="col-auto d-block">District</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch5">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Deals</span>
+                                        <span class="col-auto d-block">User Type</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch6">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Contact person title</span>
+                                        <span class="col-auto d-block">Reading Date</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch2">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Start Reading</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch3">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">End Reading</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch4">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Total Travel</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch7">
                                         </div>
                                     </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">District</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch8">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Zone</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch9">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Annual revenue</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch10">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Lead Source</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Lead owner</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Assigned to</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                </div> -->
+                                    
+                                </div>
 
                             </div>
                         </div>
@@ -400,10 +368,10 @@
                                         <th style="background:#e8e8e8">&nbsp;</th>
                                     </tr>
                                     <tr role="row">
-                                        <th class="sorting align-middle">Name</th>
-                                        <th class="sorting align-middle">Date</th>
-                                        <th class="sorting align-middle">In Time</th>
-                                        <th class="sorting align-middle">Out Time</th>
+                                        <th class="sorting align-middle">Employee Name</th>
+                                        <th class="sorting align-middle">Reading Date</th>
+                                        <th class="sorting align-middle">Start Reading</th>
+                                        <th class="sorting align-middle">End Reading</th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
@@ -413,7 +381,7 @@
                                             <td class="align-middle">{{data.userName}}</td>
                                             <td class="align-middle">{{getDate(data.inTime)}}</td>
                                             <td class="align-middle">{{formatAMPM(data.inTime)}}</td>
-                                            <td class="align-middle">{{formatAMPM(data.inTime)}}</td>
+                                            <td class="align-middle">{{formatAMPM(data.outTime)}}</td>
 
                                             <td width="70" class="align-middle">
                                                 <a class="d-inline-block align-middle" href="javascript:void(0)"
@@ -532,17 +500,17 @@
             <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
                 <div class="row">
                     <div class="col-md-6 col-sm-6 add_pjp_pp">
-                        <h3>In Time Image</h3>
-                        <h4>Date : {{odometerImagesModal.inTimeDate}}</h4>
-                        <h4>In Time : {{odometerImagesModal.inTime}}</h4>
+                        <h3>Start Reading Image</h3>
+                        <h4>Reading Date : {{odometerImagesModal.inTimeDate}}</h4>
+                        <h4>Start Time : {{odometerImagesModal.inTime}}</h4>
                         <div *ngIf="odometerImagesModal.inTimePic != ''">
                             <img src={{odometerImagesModal.inTimePic}} alt="chevron-right">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6 add_pjp_pp">
-                        <h3>Out Time Image</h3>
-                        <h4>Date : {{odometerImagesModal.outTimeDate}}</h4>
-                        <h4>Out Time : {{odometerImagesModal.outTime}}</h4>
+                        <h3>End Reading Image</h3>
+                        <h4>Reading Date : {{odometerImagesModal.outTimeDate}}</h4>
+                        <h4>End Time : {{odometerImagesModal.outTime}}</h4>
                         <div *ngIf="odometerImagesModal.outTimePic != ''">
                             <img src={{odometerImagesModal.outTimePic}} alt="chevron-right">
                         </div>

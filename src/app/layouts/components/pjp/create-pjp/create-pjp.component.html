@@ -144,11 +144,10 @@
                                 (change)="onChangeContactCategory($event)">
                             <label class="form-check-label" for="assigned_users">{{category.name}}</label>
                         </div>
-                        <!-- <div class="form-check d-inline-block align-middle mb-2">
-                            <input class="form-check-input" type="radio" name="assigned" id="assigned_groups"
-                                checked="">
-                            <label class="form-check-label" for="assigned_groups">Influenceer</label>
-                        </div> -->
+                        <div class="form-check d-inline-block align-middle mb-2">
+                            <input class="form-check-input" type="radio" value="-1" name="contact_category_type" id="assigned_users" (change)="onChangeContactCategory($event)">
+                            <label class="form-check-label" for="assigned_users">Target</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -516,7 +515,7 @@
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col-sm-10">
-                        <h3 class="modal-title d-inline-block align-middle me-2">Shedule PJP Date</h3>
+                        <h3 class="modal-title d-inline-block align-middle me-2">Schedule PJP Date</h3>
 
                     </div>
                     <div class="col-sm-2 d-flex justify-content-end"><button type="button" aria-label="Close"

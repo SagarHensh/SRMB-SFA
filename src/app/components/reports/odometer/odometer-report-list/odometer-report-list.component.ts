@@ -28,7 +28,7 @@ export class OdometerReportListComponent implements OnInit {
   ngOnInit(): void {
     let data: any = this.common.getAuthUserData();
     this.authUserData = JSON.parse(data);
-    console.log("authuserData:: ", this.authUserData);
+    // console.log("authuserData:: ", this.authUserData);
     this.paginationLimitDropdown = this.store.getPaginationLimitList();
     this.limit = this.store.getDefaultPaginationLimit();
     this.getVisitReports()
@@ -85,19 +85,19 @@ export class OdometerReportListComponent implements OnInit {
 
   getDate(val: any) {
     var dt = new Date(val);
-    var day: any = dt.getDate();
+    var day: any = dt.getUTCDate();
     day = day > 9 ? day : "0" + day;
-    var month: any = dt.getMonth() + 1;
+    var month: any = dt.getUTCMonth() + 1;
     month = month > 9 ? month : "0" + month;
-    var year: any = dt.getFullYear();
+    var year: any = dt.getUTCFullYear();
     var finalDate = day + "-" + month + "-" + year
     return finalDate;
   }
 
   formatAMPM(val: any) {
     var date = new Date(val);
-    var hours: any = date.getHours();
-    var minutes: any = date.getMinutes();
+    var hours: any = date.getUTCHours();
+    var minutes: any = date.getUTCMinutes();
     var ampm: any = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'

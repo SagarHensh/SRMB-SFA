@@ -5,8 +5,11 @@ import { CalenderViewComponent } from './components/Calender/calender-view/calen
 import { ShowPlannerComponent } from './components/Calender/show-planner/show-planner.component';
 import { EnquiriesComponent } from './components/enquiries/enquiries.component';
 import { ViewMapComponent } from './components/Map-view/view-map/view-map.component';
+import { CsrReportListComponent } from './components/reports/CSR/csr-report-list/csr-report-list.component';
 import { OdometerReportListComponent } from './components/reports/odometer/odometer-report-list/odometer-report-list.component';
 import { RegistrationListComponent } from './components/reports/Registration/registration-list/registration-list.component';
+import { SurveyReportListComponent } from './components/reports/survey/survey-report-list/survey-report-list.component';
+import { SchemeListComponent } from './components/scheme/scheme-list/scheme-list.component';
 import { AttendenceListComponent } from './components/self-service/attendence-list/attendence-list.component';
 import { LeaveListComponent } from './components/self-service/leave/leave-list/leave-list.component';
 import { EnquiryReportsComponent } from './components/visit-reports/enquiry-reports/enquiry-reports.component';
@@ -63,6 +66,18 @@ const routes: Routes = [
   {
     path : "enquiry-list",
     component : EnquiriesComponent
+  },
+  {
+    path : "survey-report",
+    component : SurveyReportListComponent
+  },
+  {
+    path : "csr-report",
+    component : CsrReportListComponent
+  },
+  {
+    path : "scheme",
+    component : SchemeListComponent
   },
   { path: '#', loadChildren: () => import('./layouts/layouts.module').then(m => m.LayoutsModule) },
   { path: 'scheme', loadChildren: () => import('./Mapping-config-layout/mapping-config-layout.module').then(m => m.MappingConfigLayoutModule) }

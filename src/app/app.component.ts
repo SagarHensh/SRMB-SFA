@@ -29,43 +29,49 @@ export class AppComponent {
   }
 
   storeDataToLocalhost() {
-    let data = {
-      "firstName": "SRMB",
-      "lastName": "Admin",
-      "username": "Admin",
-      "userType": "1",
-      "profileImgUrl": null,
-      "clientId": 1,
-      "userId": 2,
-      "createdAt": "2022-05-27T12:47:25.000Z",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InJlcXRpbWUiOjE2NTk1MDY2NzM1ODh9LCJpYXQiOjE2NTk1MDY2NzN9.MaDQUtoMqDxPPnlzBaKNtmTQqd_OvJ-hCM1DK0nDaL0",
-      "clientSettings": [
-          {
-              "settingsType": "userLimit",
-              "settingsValue": "10"
-          },
-          {
-              "settingsType": "systemApprovalRequired",
-              "settingsValue": "1"
-          },
-          {
-              "settingsType": "opportunityAsSales",
-              "settingsValue": "0"
-          },
-          {
-              "settingsType": "productListing",
-              "settingsValue": "0"
-          },
-          {
-              "settingsType": "hasCRM",
-              "settingsValue": "1"
-          },
-          {
-              "settingsType": "hasSFA",
-              "settingsValue": "1"
-          }
-      ]
-  }
+    let data = 
+    {
+        "firstName": "SANJIT",
+        "lastName": "CHATTERJEE",
+        "username": "SANJIT",
+        "userType": "2",
+        "profileImgUrl": "/images/moneyheist1659537590017.jpg",
+        "clientId": 1,
+        "userId": 7,
+        "createdAt": "2022-08-03T14:39:51.000Z",
+        "countryId": 1,
+        "stateId": 41,
+        "districtId": null,
+        "cityId": 829,
+        "zoneId": null,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InJlcXRpbWUiOjE2NTk5NTQ5ODc3NDN9LCJpYXQiOjE2NTk5NTQ5ODd9.gU3lJ7JBvWSGUzaA53fFtfQHiibHSdsQKleEb6S2DQA",
+        "clientSettings": [
+            {
+                "settingsType": "userLimit",
+                "settingsValue": "30"
+            },
+            {
+                "settingsType": "systemApprovalRequired",
+                "settingsValue": "1"
+            },
+            {
+                "settingsType": "opportunityAsSales",
+                "settingsValue": "0"
+            },
+            {
+                "settingsType": "productListing",
+                "settingsValue": "0"
+            },
+            {
+                "settingsType": "hasCRM",
+                "settingsValue": "1"
+            },
+            {
+                "settingsType": "hasSFA",
+                "settingsValue": "1"
+            }
+        ]
+    }
 
     localStorage.setItem("AuthUserData", JSON.stringify(data));
   }

@@ -140,4 +140,36 @@ export class CommonService {
   getBrandingList(params: any): Observable<any> {
     return this.http.post(this.apiurl + 'api/v1/brandingManagement/getBrandList', params, this.options);
   }
+
+  getCsrReportList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/fetchCsrList', params, this.options);
+  }
+
+  getSurveyReportList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/survey/surveyReportList', params, this.options);
+  }
+
+  getInfluencorForLoc(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/mapEntity/getInfluencorForLoc', params, this.options);
+  }
+
+  getInfluencorType(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/mapEntity/getCustomerType', params, this.options);
+  }
+
+  getCustomerMapData(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/mapEntity/getCustomerMap', params, this.options);
+  }
+
+  getpjpUserDetailsById(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/getpjpUserDetailsById', params, this.options);
+  }
+
+  getMapCustomerLoc(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/mapEntity/mapCustomerLoc', params, this.options);
+  }
+
+  getMapParentChildCustomer(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/mapEntity/mapParentChildCustomer', params, this.options);
+  }
 }

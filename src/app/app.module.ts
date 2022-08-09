@@ -26,6 +26,13 @@ import { LeaveListComponent } from './components/self-service/leave/leave-list/l
 import { ViewMapComponent } from './components/Map-view/view-map/view-map.component';
 import { GmapComponent } from './components/Map-view/gmap/gmap.component';
 import { BrandingListComponent } from './components/Branding/branding-list/branding-list.component';
+import { BeatRouteMapViewComponent } from './components/Map-view/beat-route-map-view/beat-route-map-view.component';
+import { LiveTrackingMapViewComponent } from './components/Map-view/live-tracking-map-view/live-tracking-map-view.component';
+import { SalesMapViewComponent } from './components/Map-view/sales-map-view/sales-map-view.component';
+import { NewAreaMapViewComponent } from './components/Map-view/new-area-map-view/new-area-map-view.component';
+import { SurveyReportListComponent } from './components/reports/survey/survey-report-list/survey-report-list.component';
+import { CsrReportListComponent } from './components/reports/CSR/csr-report-list/csr-report-list.component';
+import { SchemeListComponent } from './components/scheme/scheme-list/scheme-list.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +53,13 @@ import { BrandingListComponent } from './components/Branding/branding-list/brand
     ViewMapComponent,
     GmapComponent,
     BrandingListComponent,
+    BeatRouteMapViewComponent,
+    LiveTrackingMapViewComponent,
+    SalesMapViewComponent,
+    NewAreaMapViewComponent,
+    SurveyReportListComponent,
+    CsrReportListComponent,
+    SchemeListComponent,
   ],
   imports: [
     BrowserModule,

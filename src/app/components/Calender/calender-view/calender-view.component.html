@@ -20,24 +20,28 @@
 
 
     <div class="btn-group btn-group-sm ms-auto  btn-download-group rit_gool">
+        <button class="me-2"><img src="assets/images/profile-icon.png"></button>
+        <input type="text" class="form-control me-2 head_src" placeholder="Find by Name / Number">
+        <button class="me-2"><img src="assets/images/search-icon-nw.png"></button> 
         <button class="me-2"><img src="assets/images/google-icon.png"></button>
         <button><img src="assets/images/sic-icon.png"></button>
     </div>
 </div>
 <div class="calndr_dives">
-    <div>
+    <div class="table-responsive">
         <table class="cal-view " style="width: 100%;">
             <tr>
-                <th *ngFor="let ww of weekData">{{ww}}DAY</th>
+                <th *ngFor="let ww of weekData">{{ww}}day</th>
             </tr>
             <tr *ngFor="let data of monthBox">
                 <td *ngFor="let aa of data" style="text-align: center;">
                     <ng-container *ngIf="aa.day">
-                        <span>{{aa.day}}</span><br />
+                        <span class="wkke">{{aa.day}}</span><br />
                         <ng-container *ngIf="isArray(aa.data)">
-                            <span *ngFor="let bb of eventNewArray(aa.data)" class="">
+                            <span *ngFor="let bb of eventNewArray(aa.data)" class="cal_btn">
                                 <button [ngClass]="bb.class" (click)="openSubOrdinateModal(bb, aa)" *ngIf="bb.count != 0">{{bb.name}}
                                     <span class="badge bg-primary">{{bb.count}}</span>
+                                    <span class="imp-imge"><img src="assets/images/li-icn-lst1.png"></span>
                                 </button><br />
                             </span>
                         </ng-container>
