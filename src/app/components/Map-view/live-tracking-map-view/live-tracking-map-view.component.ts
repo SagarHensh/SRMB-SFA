@@ -1,16 +1,22 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { employee_data } from 'src/app/dummyData';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-live-tracking-map-view',
   templateUrl: './live-tracking-map-view.component.html',
   styleUrls: ['./live-tracking-map-view.component.css']
 })
+
 export class LiveTrackingMapViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private common: CommonService) { }
 
   @Output() newItemEvent = new EventEmitter<any>();
-  zoom: number = 30;
+  @Output() sideDataEvent = new EventEmitter<any>();
+  clientId: any = "";
+  authUserData: any;
+  zoom: number = 20;
   lat: any = 22.5448;
   lng: any = 88.3426;
   public origin: any;
@@ -21,6 +27,7 @@ export class LiveTrackingMapViewComponent implements OnInit {
   latitude: any;
   longitude: any;
 
+
   icon = {
     url: 'assets/images/locn-md-icon.png',
     scaledSize: { height: 50, width: 40 }
@@ -28,146 +35,38 @@ export class LiveTrackingMapViewComponent implements OnInit {
 
 
 
-  markers: any = [
-    {
-      id: 1,
-      name: "PRANAB DAS",
-      phone: "9230066106",
-      email: "pranab.das@srmbsteel.com",
-      zone_id: 1,
-      district_id: 371,
-      state_id: 35,
-      lat: 22.587404900000003,
-      lng: 88.40787700000001,
-      emp_type_id: 1,
-      isPresent: 1,
-      isLate: 0,
-    },
-    {
-      id: 2,
-      name: "DEBOJIT GHOSH HAZRA",
-      phone: "9232353029",
-      email: "debojit.hazra@srmbsteel.com",
-      zone_id: 2,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 1,
-      lat: 22.553678594641333,
-      lng: 88.33806895000001,
-      isPresent: 1,
-      isLate: 0,
-    },
-    {
-      id: 3,
-      name: "SANJIB CHANDA",
-      phone: "9230066115",
-      email: "sanjib.chanda@srmbsteel.com",
-      zone_id: 3,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 1,
-      lat: 22.520037601882475,
-      lng: 88.36631055,
-      isPresent: 1,
-      isLate: 1,
-    },
-    {
-      id: 4,
-      name: "SANJIT CHATTERJEE",
-      phone: 9230066147,
-      email: "sanjit.chatterjee@srmbsteel.com",
-      zone_id: 4,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 1,
-      lat: 22.6211825,
-      lng: 88.3931409,
-      isPresent: 1,
-      isLate: 0,
-    },
-    {
-      id: 5,
-      name: "RAMENDRA BHATTACHARJEE",
-      phone: 8585081393,
-      email: "ramendra.bhattacharyya@srmbsteel.com",
-      zone_id: 1,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 1,
-      lat: 22.474126829557175,
-      lng: 88.32392655000001,
-      isPresent: 1,
-      isLate: 1,
-    },
-    {
-      id: 6,
-      name: "BIVAS PAL",
-      phone: 9230066102,
-      email: "bivas.pal@srmbsteel.com",
-      zone_id: 2,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 1,
-      lat: 22.474126829557175,
-      lng: 88.32392655000001,
-      isPresent: 0,
-      isLate: 0,
-    },
-    {
-      id: 7,
-      name: "DEBASISH GHOSH",
-      phone: 9903943311,
-      email: "bebasish.ghosh@srmbsteel.com",
-      zone_id: 3,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 2,
-      lat: 22.539049000000002,
-      lng: 88.3230111,
-      isPresent: 0,
-      isLate: 0,
-    },
-    {
-      id: 8,
-      name: "SIDDHARTHA SEN MAJUMDER",
-      phone: 9230011666,
-      email: "siddhartha.senmajumdar@srmbsteel.com",
-      zone_id: 4,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 2,
-      lat: 22.605972999999988,
-      lng: 88.386353,
-      isPresent: 1,
-      isLate: 0,
-    },
-    {
-      id: 9,
-      name: "SANTANU DUTTA",
-      phone: 9230066143,
-      email: "santanu.dutta@srmbsteel.com",
-      zone_id: 1,
-      district_id: 371,
-      state_id: 35,
-      lat: 22.569053800000024,
-      lng: 88.40904429999999,
-      emp_type_id: 2,
-      isPresent: 1,
-      isLate: 0,
-    }
-  ];
+  markers: any = [];
 
   polyline: any;
   polylines: any;
 
   maxSpeed = 40;
+  total: any = 0;
+  absent: any = 0;
+  late: any = 0;
+  present: any = 0;
+  leave: any = 0;
+  allEmployee: any = [];
 
-  // ngOnInit(): void {
-  //   this.getDirection();
-  // }
+  @Input() filterData: any;
 
 
+  ngOnChanges(changes: SimpleChanges) {
+    // console.log("Hello ChangesL::", changes)
+    let data: any = changes;
+    let filObj: any = {
+      state: data.filterData.currentValue.state == '' ? 0 : Number(data.filterData.currentValue.state),
+      type: data.filterData.currentValue.type == '' ? 0 : Number(data.filterData.currentValue.type),
+      district: data.filterData.currentValue.district == '' ? 0 : Number(data.filterData.currentValue.district),
+      zone: data.filterData.currentValue.zone == '' ? 0 : Number(data.filterData.currentValue.zone)
+    }
+    console.log("Final change data:", filObj);
+    this.getEmpployeeList(filObj)
+    // this.doSomething(changes.categoryId.currentValue);
+    // You can also use categoryId.previousValue and 
+    // categoryId.firstChange for comparing old and new values
 
+  }
   mapReady(map: any) {
     map.setOptions({
       zoomControl: 'true',
@@ -225,10 +124,13 @@ export class LiveTrackingMapViewComponent implements OnInit {
     //set current position
     this.setCurrentPosition();
 
-    //load Places Autocomplete
-    // this.mapsAPILoader.load().then(() => {
+    let data: any = this.common.getAuthUserData();
+    this.authUserData = JSON.parse(data);
+    if (Object.keys(data).length > 0) {
+      this.clientId = this.authUserData.clientId;
+    }
 
-    // });
+    this.getLiveTrackingEmployeeData();
   }
 
   getDirection() {
@@ -268,7 +170,7 @@ export class LiveTrackingMapViewComponent implements OnInit {
     var i = 0;
     var newPolyline: any = { path: [], color: 'red' };
     for (let point of this.polyline) {
-      console.log(point);
+      // console.log(point);
       // let aa = point;
       newPolyline.path.push(point);
       const speedChanged: any = this.polyline[i + 1]
@@ -284,7 +186,7 @@ export class LiveTrackingMapViewComponent implements OnInit {
       }
       i++;
     }
-    console.log(polylines);
+    // console.log(polylines);
     return polylines;
 
   }
@@ -297,5 +199,148 @@ export class LiveTrackingMapViewComponent implements OnInit {
         this.zoom = 30;
       });
     }
+  }
+
+  getLiveTrackingEmployeeData() {
+    let req = {
+      clientId: this.clientId
+    }
+    this.common.getUserLocationMapping(req).subscribe(res => {
+      console.log("Response Employee Mapp Data::", res);
+      if (res.error == 0 && res.respondcode == 200) {
+        let respObj = res.data;
+        if (Object.keys(respObj).length > 0) {
+          if (respObj.data.length > 0) {
+            let arr: any = [];
+            respObj.data.map((item: any) => {
+
+              arr.push({
+                id: item.userId,
+                name: item.firstName + " " + item.lastName,
+                phone: item.phone,
+                email: item.email,
+                zone_id: item.zoneId,
+                district_id: item.districtId,
+                state_id: item.stateId,
+                lat: item.lat,
+                lng: item.lng,
+                emp_type_id: item.designationId,
+                isPresent: item.isPresent,
+                isLate: item.isLate,
+
+              })
+            });
+            this.allEmployee = arr;
+            this.markers = arr;
+            this.getEmpployeeList(this.filterData)
+          }
+        }
+      }
+    })
+
+    // this.markers = employee_data;
+
+  }
+
+
+  getEmpployeeList(filter: any) {
+    let state: any = filter.state == '' ? 0 : Number(filter.state);
+    let type: any = filter.type == '' ? 0 : Number(filter.type);
+    let district: any = filter.district == '' ? 0 : Number(filter.district);
+    let zone: any = filter.zone == '' ? 0 : Number(filter.zone);
+
+    let empList: any = [];
+    let tEmpList = [];
+    let multiplier = 15;
+    let total = 0,
+      present = 0,
+      absent = 0,
+      late = 0;
+    let resp: any = {};
+    let EMP_LIST: any = this.allEmployee;
+    // if (type != 0) {
+    //   for (let i = 0; i < EMP_LIST.length; i++) {
+    //     console.log(type, EMP_LIST[i].emp_type_id);
+    //     if (type == EMP_LIST[i].emp_type_id) {
+    //       tEmpList.push(EMP_LIST[i]);
+    //     }
+    //   }
+    // } else {
+    //   tEmpList = EMP_LIST;
+    // }
+    // empList = tEmpList;
+    empList = EMP_LIST;
+    console.log("All Emp Listr Prev::", empList)
+    tEmpList = [];
+    if (state != 0) {
+      for (let i = 0; i < empList.length; i++) {
+        if (state == empList[i].state_id) {
+          tEmpList.push(empList[i]);
+        }
+      }
+    } else {
+      tEmpList = empList;
+    }
+    empList = tEmpList;
+    tEmpList = [];
+    if (district != 0) {
+      for (let i = 0; i < empList.length; i++) {
+        if (district == empList[i].district_id) {
+          tEmpList.push(empList[i]);
+        }
+      }
+    } else {
+      tEmpList = empList;
+    }
+    empList = tEmpList;
+    tEmpList = [];
+    if (zone != 0) {
+      for (let i = 0; i < empList.length; i++) {
+        if (zone == empList[i].zone_id) {
+          tEmpList.push(empList[i]);
+        }
+      }
+    } else {
+      tEmpList = empList;
+    }
+    empList = tEmpList;
+    // empList = this.markers;
+    console.log("Total Employee After Filter:: ", empList)
+    tEmpList = [];
+    total = empList.length;
+    for (let i = 0; i < empList.length; i++) {
+      if (empList[i].isPresent === 1) {
+        present++;
+        if (empList[i].isLate === 1) {
+          late++;
+        }
+      } else {
+        absent++;
+      }
+    }
+    let calAbsent = absent * multiplier;
+    let abst = calAbsent === 0 ? 0 : calAbsent - 3;
+    let lev = calAbsent === 0 ? 0 : 3;
+
+    this.total = total * multiplier;
+    this.absent = abst;
+    this.late = late * multiplier;
+    this.present = this.total - calAbsent;
+    this.leave = lev;
+    this.markers = empList;
+
+    console.log("EmpList::", this.markers)
+
+    let obj = {
+      total: this.total,
+      present: this.present,
+      absent: this.absent,
+      leave: this.leave,
+      late: this.late
+    }
+
+    console.log("get Data obj::", obj);
+
+    this.sideDataEvent.emit(obj);
   }
 }

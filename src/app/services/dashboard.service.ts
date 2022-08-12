@@ -71,7 +71,7 @@ export class DashboardService {
 
   getDashboardData(data: any): any{
     data.clientId = this.getClientId();
-    data.userId = this.getUserId();
+    // data.userId = this.getUserId();
     return this.http.post(this.DASHBOARD_API_ROOT + 'getSFADashboardData' , data, httpOptions);
   }
 

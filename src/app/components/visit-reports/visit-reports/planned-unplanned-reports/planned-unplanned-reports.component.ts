@@ -127,4 +127,9 @@ export class PlannedUnplannedReportsComponent implements OnInit {
     return Number(this.offset) + 1;
   }
 
+  textTruncateData(str : any){
+    let val : any = this.store.textTruncate(str, 15);
+    return val;
+  }
+
 }

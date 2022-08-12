@@ -1,21 +1,67 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fitBounds]="true" [disableDefaultUI]="true"
     (mapReady)="mapReady($event)">
-    <!-- <agm-direction [origin]="origin" [destination]="destination">
-    </agm-direction> -->
 
 
-    <agm-marker *ngFor="let m of markers; let i = index"
-    [agmFitBounds]="true"
-    (markerClick)="clickedMarker(m.label, i)" 
-    [latitude]="m.lat"
-    [longitude]="m.lng"  
-    [iconUrl]="$any(icon)"
-    >
-        <!-- [label]="m.label" -->
-        <!-- animation="BOUNCE" -->
-        <!-- iconUrl="http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png"  -->
+    <!-- Selected Employee Data -->
+    <agm-marker *ngIf="isSetEmployee" [agmFitBounds]="true" (mouseOver)="onMouseOver(infoWindow, selectedEmployeeData)"
+        (mouseOut)="onMouseOut(infoWindow, selectedEmployeeData)" [latitude]="selectedEmployeeData.lat"
+        [longitude]="selectedEmployeeData.lng" animation="BOUNCE">
+
+        <agm-info-window [disableAutoPan]="false" #infoWindow>
+            <div id="content">
+                <div id="siteNotice"></div>
+                <div id="bodyContent">
+                    <p><strong>Name : {{selectedEmployeeData.name}}</strong></p>
+                    <p><strong>Phone : {{selectedEmployeeData.phone}}</strong></p>
+                    <p><strong>Email : {{selectedEmployeeData.email}}</strong></p>
+                </div>
+            </div>
+        </agm-info-window>
+
+    </agm-marker>
+
+    <!-- Planned visited markers -->
+    <agm-marker *ngFor="let m of pvMarkers; let i = index" [agmFitBounds]="true" (markerClick)="clickedMarker(m)"
+        [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="$any(icongreen)" animation="DROP">
         <agm-info-window>
-            <strong>{{infoLabel}}</strong>
+            <div id="content">
+                <div id="siteNotice"></div>
+                <div id="bodyContent">
+                    <p><strong>Name : {{infoLabel.name}}</strong></p>
+                    <p><strong>Type : {{infoLabel.type}}</strong></p>
+                </div>
+            </div>
+        </agm-info-window>
+
+    </agm-marker>
+
+
+    <!-- Unplanned visited markers -->
+    <agm-marker *ngFor="let m of upvMarkers; let i = index" [agmFitBounds]="true" (markerClick)="clickedMarker(m)"
+        [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="$any(iconRed)" animation="DROP">
+        <agm-info-window>
+            <div id="content">
+                <div id="siteNotice"></div>
+                <div id="bodyContent">
+                    <p><strong>Name : {{infoLabel.name}}</strong></p>
+                    <p><strong>Type : {{infoLabel.type}}</strong></p>
+                </div>
+            </div>
+        </agm-info-window>
+
+    </agm-marker>
+
+    <!-- Not visited markers -->
+    <agm-marker *ngFor="let m of nvMarkers; let i = index" [agmFitBounds]="true" (markerClick)="clickedMarker(m)"
+        [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="$any(iconBlue)" animation="DROP">
+        <agm-info-window>
+            <div id="content">
+                <div id="siteNotice"></div>
+                <div id="bodyContent">
+                    <p><strong>Name : {{infoLabel.name}}</strong></p>
+                    <p><strong>Type : {{infoLabel.type}}</strong></p>
+                </div>
+            </div>
         </agm-info-window>
 
     </agm-marker>
@@ -25,8 +71,7 @@
             [strokeColor]="polyline.color">
             <!-- <agm-icon-sequence [fixedRotation]="false" [repeat]="'150px'" [offset]="'200'" [path]="'FORWARD_OPEN_ARROW'">
             </agm-icon-sequence> -->
-            <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.lat"
-                [longitude]="point.lng">
+            <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
         </agm-polyline>
     </ng-container>
@@ -35,8 +80,7 @@
             [strokeColor]="polyline.color">
             <!-- <agm-icon-sequence [fixedRotation]="false" [repeat]="'150px'" [offset]="'200'" [path]="'FORWARD_OPEN_ARROW'">
             </agm-icon-sequence> -->
-            <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.lat"
-                [longitude]="point.lng">
+            <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
         </agm-polyline>
     </ng-container>

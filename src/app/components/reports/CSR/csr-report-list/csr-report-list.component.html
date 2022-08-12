@@ -24,8 +24,7 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
                 <div class="col-md-3">
-                    <input type="text" class="form-control"
-                        placeholder="Search by customer name or number here">
+                    <input type="text" class="form-control" placeholder="Search by customer name or number here">
 
                 </div>
                 <div class="col-md-9 text-end mt-n1">
@@ -408,10 +407,10 @@
                                     <tr role="row">
                                         <th class="sorting align-middle">Customer Name</th>
                                         <th class="sorting align-middle">Customer Phone</th>
+                                        <th class="sorting align-middle">Customer Type</th>
                                         <th class="sorting align-middle">District</th>
-                                        <th class="sorting align-middle">Employee Name</th>
-                                        <th class="sorting align-middle">CSR Name</th>
-                                        <th class="sorting align-middle">Created at</th>
+                                        <th class="sorting align-middle">CSR Activity</th>
+                                        <th class="sorting align-middle">CSR Activity Date</th>
                                         <th class="sorting align-middle">Remarks</th>
                                         <th>&nbsp;</th>
                                     </tr>
@@ -421,11 +420,15 @@
                                         <tr role="row" class="odd">
                                             <td class="align-middle">{{data.customerName}}</td>
                                             <td class="align-middle">{{data.phoneNo}}</td>
+                                            <td class="align-middle">{{data.contactTypeName}}</td>
                                             <td class="align-middle">{{data.DistrictName}}</td>
-                                            <td class="align-middle">{{data.createdByUser}}</td>
                                             <td class="align-middle">{{data.csrName}}</td>
                                             <td class="align-middle">{{getDate(data.createDate)}}</td>
-                                            <td class="align-middle">{{data.remarks}}</td>
+                                            <td class="align-middle">
+                                                <span data-toggle="tooltip" title={{data.remarks}}>
+                                                    {{textTruncateData(data.remarks)}}
+                                                </span>
+                                            </td>
                                             <td width="70" class="align-middle"><a class="d-inline-block align-middle"
                                                     href="#"><i class="fa fa-eye"
                                                         aria-hidden="true"></i></a>&nbsp;&nbsp; <a

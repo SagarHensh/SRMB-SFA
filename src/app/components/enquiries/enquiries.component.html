@@ -35,13 +35,13 @@
                         <li class="list-inline-item">
                             <div class="dt_fld">
                                 <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
                                 <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
@@ -600,105 +600,168 @@
                                 <button type="button" class="btn btn-primary px-4 text-white" (click)="onDownload()">
                                     Download List
                                 </button>
-                                <!-- <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                <button type="button" class="btn btn-primary px-4 text-white">Bulk
                                     Upload
-                                </button> -->
-                                <!-- <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button> -->
-                                <!-- <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
+                                </button>
+                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
+                                <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="assets/images/filtering.svg" alt="filtering"></button> -->
-                                <!-- <div class="dropdown-menu dropdown-menu-end addDropdownhead">
+                                    <img src="assets/images/filtering.svg" alt="filtering"></button>
+                                <div class="dropdown-menu dropdown-menu-end addDropdownhead">
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Organizations name</span>
+                                        <span class="col-auto d-block">State</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch1">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Owner</span>
+                                        <span class="col-auto d-block">District</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch2">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Contact Person</span>
+                                        <span class="col-auto d-block">City/Village	</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch3">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">State</span>
+                                        <span class="col-auto d-block">Zone</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch4">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Phone</span>
+                                        <span class="col-auto d-block">Pincode</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch5">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Deals</span>
+                                        <span class="col-auto d-block">Organization Name</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch6">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Contact person title</span>
+                                        <span class="col-auto d-block">Organization Email</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch7">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">District</span>
+                                        <span class="col-auto d-block">Organization Address</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch8">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Zone</span>
+                                        <span class="col-auto d-block">Owner Name</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch9">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Annual revenue</span>
+                                        <span class="col-auto d-block">	Owner Phone No.</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch10">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Lead Source</span>
+                                        <span class="col-auto d-block">Owner Email</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch11">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Lead owner</span>
+                                        <span class="col-auto d-block">Owner Address</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch11">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Assigned to</span>
+                                        <span class="col-auto d-block">Enquiry Source</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch11">
                                         </div>
                                     </a>
-                                </div> -->
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Enquiry Type</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Enquiry Title</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Enquiry Date</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Enquiry Status</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Employee Name</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Employee Type</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Assigned date</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Approve date</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Remarks</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                </div>
 
                             </div>
                         </div>
@@ -721,7 +784,7 @@
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
                                             Owner Information
                                         </th>
-                                        <th colspan="4" class="sorting align-middle"
+                                        <th colspan="5" class="sorting align-middle"
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
                                             Enquiry Information
                                         </th>
@@ -749,6 +812,7 @@
                                         <th class="sorting align-middle">Owner Email</th>
                                         <th class="sorting align-middle">Owner Address</th>
                                         <th class="sorting align-middle">Enquiry Source</th>
+                                        <th class="sorting align-middle">Enquiry Type</th>
                                         <th class="sorting align-middle">Enquiry Title</th>
                                         <th class="sorting align-middle">Enquiry Date</th>
                                         <th class="sorting align-middle">Enquiry Status</th>
@@ -770,12 +834,21 @@
                                             <td class="align-middle">{{data.pinCode}}</td>
                                             <td class="align-middle">{{data.businessName}}</td>
                                             <td class="align-middle">{{data.businessEmail}}</td>
-                                            <td class="align-middle">{{data.businessAddress}}</td>
+                                            <td class="align-middle">
+                                                <span data-toggle="tooltip" title={{data.businessAddress}}>
+                                                    {{textTruncateData(data.businessAddress)}}
+                                                </span>
+                                            </td>
                                             <td class="align-middle">{{data.ownerFirstName}} {{data.ownerLastName}}
                                             </td>
                                             <td class="align-middle">{{data.ownerPhoneNo}}</td>
                                             <td class="align-middle">{{data.ownerEmail}}</td>
-                                            <td class="align-middle">{{data.address}}</td>
+                                            <td class="align-middle">
+                                                <span data-toggle="tooltip" title={{data.address}}>
+                                                    {{textTruncateData(data.address)}}
+                                                </span>
+                                            </td>
+                                            <td class="align-middle">{{data.enquerySource}}</td>
                                             <td class="align-middle">{{data.enquerySourceName}}</td>
                                             <td class="align-middle">{{data.enqueryTitle}}</td>
                                             <td class="align-middle">{{getDate(data.createdAt)}}</td>
@@ -786,7 +859,11 @@
                                             <td class="align-middle">{{data.employeeTypeName}}</td>
                                             <td class="align-middle">{{getDate(data.assignDatetime)}}</td>
                                             <td class="align-middle">{{getDate(data.approvedDatetime)}}</td>
-                                            <td class="align-middle">{{data.approvedRemark}}</td>
+                                            <td class="align-middle">
+                                                <span data-toggle="tooltip" title={{data.approvedRemark}}>
+                                                    {{textTruncateData(data.approvedRemark)}}
+                                                </span>
+                                            </td>
 
                                             <td width="70" class="align-middle"><a class="d-inline-block align-middle"
                                                     href="#"><i class="fa fa-eye"

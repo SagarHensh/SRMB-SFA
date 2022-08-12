@@ -1,0 +1,25 @@
+.liv .select_filt_dv {
+    width: 20%;
+    margin-right: 0px;
+    position: relative;
+    border: none;
+    border-radius: 0px;
+    padding-left: 0px;
+}
+
+.liv-button {
+    border-radius: 50% !important;
+    width: 50px !important;
+    height: 50px !important;
+    background-color: #cfcfcf !important;
+    border: none !important;
+}
+
+.liv-button.live-icon {
+    margin: 0px !important;
+    top: 0 !important;
+}
+
+.map_liv .active{
+    border: 1px solid blue !important;
+}

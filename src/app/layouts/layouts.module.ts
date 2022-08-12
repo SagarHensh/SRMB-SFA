@@ -30,6 +30,7 @@ import { PjpMapComponent } from './components/pjp/pjp-map/pjp-map.component';
 import { PjpCalenderComponent } from './components/pjp/pjp-calender/pjp-calender.component';
 import { StackbarchartComponent } from './components/charts/stackbarchart/stackbarchart.component';
 import { LinechartComponent } from './components/charts/linechart/linechart.component';
+import { ViewPjpDetailsComponent } from './components/pjp/view-pjp-details/view-pjp-details.component';
 
 
 
@@ -55,7 +56,8 @@ import { LinechartComponent } from './components/charts/linechart/linechart.comp
     PjpMapComponent,
     PjpCalenderComponent,
     StackbarchartComponent,
-    LinechartComponent
+    LinechartComponent,
+    ViewPjpDetailsComponent
   ],
   imports: [
     FormsModule,

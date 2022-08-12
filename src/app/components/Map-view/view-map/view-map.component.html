@@ -4,15 +4,15 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center main-hdng">
                 <div class="col-md-6">
-                    <h3>View Map</h3>
+                    <h3>Map Analytics</h3>
 
                 </div>
                 <div class="col-md-6">
                     <div class="">
                         <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
                             <ol class="breadcrumb justify-content-end">
-                                <li class="breadcrumb-item active">Dashboard</li>
-                                <li class="breadcrumb-item" aria-current="page">View Map</li>
+                                <!-- <li class="breadcrumb-item active">Dashboard</li> -->
+                                <li class="breadcrumb-item" aria-current="page">Map Analytics</li>
                             </ol>
                         </nav>
                     </div>
@@ -26,15 +26,20 @@
                         <div class="map_sec">
                             <div class="map_sec_top">
                                 <div class="map_sec_top_lft">
-                                    <ul class="nav nav-pills " id="pills-tab" role="tablist">
+                                    <ul class="nav nav-pills map_liv" id="pills-tab" role="tablist">
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link js-btn-tooltip active" id="pills-live-tab"
                                                 data-toggle="tooltip" data-bs-toggle="pill" data-placement="top"
                                                 data-custom-class="tooltip-dark" data-bs-target="#pills-live"
                                                 type="button" role="tab" aria-controls="pills-home" aria-selected="true"
-                                                title="Live Tracking" (click)="onChangeMainTab('1')">
-                                                <span class="live-icon"></span> Live
-                                                Tracking
+                                                title="Live Tracking" (click)="onChangeMainTab('1')" style="
+                                                border-radius: 50% !important;
+                                                width: 50px !important;
+                                                height: 50px !important;
+                                                background-color: #cfcfcf !important;
+                                                border: none;">
+                                                <span class="live-icon" style="margin: 0px !important;
+                                                top: 0 !important;"></span>
                                             </button>
                                         </li>
                                         <li class="nav-item" role="presentation">
@@ -42,8 +47,17 @@
                                                 data-toggle="tooltip" data-bs-toggle="pill" data-placement="top"
                                                 data-custom-class="tooltip-dark" data-bs-target="#pills-beat"
                                                 type="button" role="tab" aria-controls="pills-beat"
-                                                aria-selected="false" title="Beat Route" (click)="onChangeMainTab('2')">
-                                                Beat Route
+                                                aria-selected="false" title="Beat Route" (click)="onChangeMainTab('2')"
+                                                style="
+                                               border-radius: 50% !important;
+                                               width: 50px !important;
+                                               height: 50px !important;
+                                               background-color: #cfcfcf !important;
+                                               background:url(assets/icons/icon1.png) no-repeat center;
+                                               background-size: 25px;
+                                               padding-left: 0px;
+                                            border:none ">
+
                                             </button>
 
                                         </li>
@@ -53,8 +67,16 @@
                                                 data-placement="top" data-custom-class="tooltip-dark"
                                                 data-bs-target="#pills-sales" type="button" role="tab"
                                                 aria-controls="pills-lead" aria-selected="false" title="Sales"
-                                                (click)="onChangeMainTab('3')">
-                                                Sales
+                                                (click)="onChangeMainTab('3')" style="
+                                               border-radius: 50% !important;
+                                               width: 50px !important;
+                                               height: 50px !important;
+                                               background-color: #cfcfcf !important;
+                                               background:url(assets/icons/icon2.png) no-repeat center;
+                                               background-size: 25px;
+                                               padding-left: 0px;
+                                                border: none;">
+
                                             </button>
                                         </li>
                                         <li class="nav-item" role="presentation" style="display:none">
@@ -69,8 +91,15 @@
                                                 data-placement="top" data-custom-class="tooltip-dark"
                                                 data-bs-target="#pills-area" type="button" role="tab"
                                                 aria-controls="pills-area" aria-selected="false"
-                                                title="Explore New Area" (click)="onChangeMainTab('4')"> Explore New
-                                                Area
+                                                title="Explore New Area" (click)="onChangeMainTab('4')" style="
+                                               border-radius: 50% !important;
+                                               width: 50px !important;
+                                               height: 50px !important;
+                                               background-color: #cfcfcf !important;
+                                               background:url(assets/icons/icon3.png) no-repeat center;
+                                               background-size: 25px;
+                                               padding-left: 0px;
+                                                border: none;">
                                             </button>
                                         </li>
 
@@ -78,11 +107,11 @@
 
                                 </div>
                                 <div class="map_sec_top_rit">
-                                    <ul class="nav nav-pills ttt" id="pills-tab" role="tablist">
+                                    <ul class="nav nav-pills" id="pills-tab" role="tablist" [ngStyle]="{'display': mainTab == 3 ? 'flex' : 'none' }" [hidden]="isSalesClick">
 
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="pills-lead-tab"
-                                                onclick="setSalesType(1)">Lead</button>
+                                                (click)="setSalesType(1)">Lead</button>
                                             <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
                                                 href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="assets/images/menu-vertical.svg" alt="trash"></a>
@@ -100,7 +129,7 @@
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="pills-enq-tab"
-                                                onclick="setSalesType(0)">Enquiry</button>
+                                                (click)="setSalesType(0)">Enquiry</button>
                                             <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
                                                 href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="assets/images/menu-vertical.svg" alt="trash"></a>
@@ -120,7 +149,7 @@
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="pills-opt-tab"
-                                                onclick="setSalesType(2)">Opportunity</button>
+                                                (click)="setSalesType(2)">Opportunity</button>
                                             <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
                                                 href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="assets/images/menu-vertical.svg" alt="trash"></a>
@@ -137,7 +166,7 @@
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="pills-rcnt-tab"
-                                                onclick="setSalesType(3)">Closed</button>
+                                                (click)="setSalesType(3)">Closed</button>
                                             <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
                                                 href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="assets/images/menu-vertical.svg" alt="trash"></a>
@@ -149,7 +178,7 @@
                                         </li>
                                     </ul>
 
-                                    <div class="lead_profil" style="display: none">
+                                    <div class="lead_profil"  [ngStyle]="{'display': isSalesClick ? 'block' : 'none' }">
                                         <span class="pppic"><img src="assets/images/profile-img.svg"></span>
                                         <div class="nme_desg">
                                             <button>Assign Task</button>
@@ -174,12 +203,125 @@
                                 <div class="tab-pane fade show active" id="pills-live" role="tabpanel"
                                     aria-labelledby="pills-live-tab">
                                     <div class="map_srch">
-                                        <div class="wrapper_div">
-                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                                                <select id="selectEmployeeType">
-                                                </select>
+                                        <div class="wrapper_div liv">
+                                            <div class="select_filt_dv">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="empTypeId"
+                                                        (change)="onChangeEmployeeDesignationType()">
+                                                        <option value="0">Select Employee Type</option>
+                                                        <option *ngFor="let data of employeeDesignationList"
+                                                            [value]="data.designationId">
+                                                            {{data.designationName}}</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
+                                            <div class="select_filt_dv">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="stateId"
+                                                        (change)="onStateChange()">
+                                                        <option value="0">Select State</option>
+                                                        <option *ngFor="let data of allState" [value]="data.id">
+                                                            {{data.name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="select_filt_dv">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="districtId"
+                                                        (change)="onDistrictChange()">
+                                                        <option value="0">Select District</option>
+                                                        <option *ngFor="let data of allDistrict" [value]="data.id">
+                                                            {{data.name}}</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="select_filt_dv">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="zoneId" (change)="onZoneChange()">
+                                                        <option value="0">Select Zone</option>
+                                                        <option *ngFor="let data of allZone" [value]="data.id">
+                                                            {{data.name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="select_filt_dv">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option value="0">Select Rating</option>
+                                                        <option *ngFor="let data of allRating" [value]="data">
+                                                            {{data}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row">
+                                                <div class="col-md-3 col-sm-12">
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="empTypeId"
+                                                            (change)="onChangeEmployeeDesignationType()">
+                                                            <option value="">Select Employee Type</option>
+                                                            <option *ngFor="let data of employeeDesignationList"
+                                                                [value]="data.designationId">
+                                                                {{data.designationName}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-sm-12">
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="stateId"
+                                                            (change)="onStateChange()">
+                                                            <option value="">Select State</option>
+                                                            <option *ngFor="let data of allState" [value]="data.id">{{data.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-sm-12">
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="districtId"
+                                                            (change)="onDistrictChange()">
+                                                            <option value="">Select District</option>
+                                                            <option *ngFor="let data of allDistrict" [value]="data.id">
+                                                                {{data.name}}</option>
+            
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-sm-12">
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="zoneId"
+                                                            (change)="onZoneChange()">
+                                                            <option value="">Select Zone</option>
+                                                            <option *ngFor="let data of allZone" [value]="data.id">{{data.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-sm-12">
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="zoneId"
+                                                            (change)="onZoneChange()">
+                                                            <option value="">Select Zone</option>
+                                                            <option *ngFor="let data of allZone" [value]="data.id">{{data.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
                                                 <select id="selectStateName">
                                                 </select>
                                             </div>
@@ -190,34 +332,61 @@
                                             <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
                                                 <select id="selectZone">
                                                 </select>
-                                            </div>
-                                            <div class="select_filt_dv">
-                                                <select id="selectrating">
-                                                    <option>3.5 and Above</option>
-                                                </select>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                     <div class="map_trac_sc">
-                                        <div class="map_dv">
-                                            <app-live-tracking-map-view (newItemEvent)="goToBit($event)"></app-live-tracking-map-view>
+                                        <div class="map_dv" style="width: 85%">
+                                            <app-live-tracking-map-view [filterData]="filter"
+                                                (newItemEvent)="goToBit($event)" (sideDataEvent)="setSideData($event)">
+                                            </app-live-tracking-map-view>
                                             <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                                         </div>
-                                        <div class="map_record">
-                                            <div class="map_rec_con col_bl"> <strong id="fsaTotal">0</strong>
-                                                <p>Field force</p>
+                                        <div class="map_record" style="width: 14%">
+                                            <div class="map_rec_con col_bl" style="
+                                            background: url(assets/icons/icon4.png) no-repeat 20px;
+                                            background-color: #3dacff;
+                                            border-radius: 20px;
+                                            height: 100px;">
+                                                <p style="margin: 25px 0 0;">Field force</p>
+                                                <strong id="fsaTotal"
+                                                    style="margin: 0px 0 0px;">{{sideData.total}}</strong>
                                             </div>
-                                            <div class="map_rec_con col_gr"> <strong id="fsaPresent">0</strong>
-                                                <p>On Duty</p>
+                                            <div class="map_rec_con col_gr" style="
+                                            background: url(assets/icons/icon5.png) no-repeat 20px;
+                                            background-color: #89dfd3;
+                                            border-radius: 20px;
+                                            height: 100px;">
+                                                <p style="margin: 25px 0 0;">On Duty</p>
+                                                <strong id="fsaPresent"
+                                                    style="margin: 0px 0 0px;">{{sideData.present}}</strong>
                                             </div>
-                                            <div class="map_rec_con col_rd"> <strong id="fsaAbsent">0</strong>
-                                                <p>Absent</p>
+                                            <div class="map_rec_con col_rd" style="
+                                            background: url(assets/icons/icon6.png) no-repeat 20px;
+                                            background-color: #ff7eb8;
+                                            border-radius: 20px;
+                                            height: 100px;">
+                                                <p style="margin: 25px 0 0;">Absent</p>
+                                                <strong id="fsaAbsent"
+                                                    style="margin: 0px 0 0px;">{{sideData.absent}}</strong>
                                             </div>
-                                            <div class="map_rec_con col_yl"> <strong id="fsaLeave">0</strong>
-                                                <p>On Leave</p>
+                                            <div class="map_rec_con col_yl" style="
+                                            background: url(assets/icons/icon7.png) no-repeat 20px;
+                                            background-color: #ffb26b;
+                                            border-radius: 20px;
+                                            height: 100px;">
+                                                <p style="margin: 25px 0 0;">On Leave</p>
+                                                <strong id="fsaLeave"
+                                                    style="margin: 0px 0 0px;">{{sideData.leave}}</strong>
                                             </div>
-                                            <div class="map_rec_con col_gry"> <strong id="fsaLate">0</strong>
-                                                <p>Late</p>
+                                            <div class="map_rec_con col_gry" style="
+                                            background: url(assets/icons/icon8.png) no-repeat 20px;
+                                            background-color: #ff627e;
+                                            border-radius: 20px;
+                                            height: 100px;">
+                                                <p style="margin: 25px 0 0;">Late</p>
+                                                <strong id="fsaLate"
+                                                    style="margin: 0px 0 0px;">{{sideData.late}}</strong>
                                             </div>
                                         </div>
                                     </div>
@@ -225,21 +394,44 @@
                                 <div class="tab-pane fade show" id="pills-beat" role="tabpanel"
                                     aria-labelledby="pills-beat-tab">
                                     <div class="map_srch">
-                                        <div class="wrapper_div">
-                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                                                <select id="selectEmployeeType1">
-                                                </select>
+                                        <!-- <div class="wrapper_div liv"> -->
+                                        <!-- <div class="select_filt_dv">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="stateId"
+                                                        (change)="onStateChange()">
+                                                        <option value="0">Select State</option>
+                                                        <option *ngFor="let data of allState" [value]="data.id">
+                                                            {{data.name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                                                <select id="selectEmptList">
-                                                </select>
-                                            </div>
-                                            <div class="select_filt_dv date_fil">
-                                                <div class="form-group">
+                                            <div class="select_filt_dv">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="districtId"
+                                                        (change)="onDistrictChange()">
+                                                        <option value="0">Select District</option>
+                                                        <option *ngFor="let data of allDistrict" [value]="data.id">
+                                                            {{data.name}}</option>
 
-                                                    <input type="date" placeholder="MM/DD/YYYY" /><i
-                                                        class="fa fa-calendar"></i>
+                                                    </select>
+                                                </div>
+                                            </div> -->
+                                        <!-- <div class="select_filt_dv date_fil">
+                                                
 
+
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <input type="date" class="form-control"
+                                                            style="height: 40px;">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="date" class="form-control"
+                                                            style="height: 40px;">
+                                                    </div>
                                                 </div>
 
 
@@ -257,54 +449,108 @@
                                                     <input type="text" name="daterange"
                                                         value="01/01/2018 - 01/15/2018" /><i class="fa fa-calendar"></i>
                                                 </div>
+                                            </div> -->
+
+
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-12">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="empTypeId">
+                                                        <option value="0">Select Employee Type</option>
+                                                        <option *ngFor="let data of employeeDesignationList"
+                                                            [value]="data.designationId">
+                                                            {{data.designationName}}</option>
+                                                    </select>
+                                                </div>
                                             </div>
+                                            <div class="col-md-3 col-sm-12">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="selectedEmployeeId">
+                                                        <option value="0">Select Employee Name</option>
+                                                        <option *ngFor="let data of allEmployee" [value]="data.id">
+                                                            {{data.name}}</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-12">
+                                                <input type="date" class="form-control" style="height: 30px;">
+                                            </div>
+                                            <div class="col-md-3 col-sm-12">
+                                                <!-- <div class="select_filt_dv pjp_actl"> -->
+                                                <div class="pjp_dv"><strong>PV</strong><span
+                                                        class="pv_col">&nbsp;</span></div>
+                                                <div class="pjp_dv"><strong>UPV</strong><span
+                                                        class="uv_col">&nbsp;</span></div>
+                                                <div class="pjp_dv"><strong>NV</strong><span class="nv_col"
+                                                        style="background: black;">&nbsp;</span></div>
+                                                <!-- </div> -->
+                                            </div>
+                                            <!-- <div class="col-md-2 col-sm-12">
+                                                        <input type="date" class="form-control"
+                                                            style="height: 30px;">
+                                                </div> -->
                                         </div>
+                                        <!-- </div> -->
                                     </div>
                                     <div class="map_trac_sc">
-                                        <div class="map_dv" id="routeMap">
-                                            <app-beat-route-map-view></app-beat-route-map-view>
+                                        <div class="map_dv" id="routeMap" style="width: 84%;">
+                                            <app-beat-route-map-view [selectedEmployeeData]="selectedEmployeeData">
+                                            </app-beat-route-map-view>
                                             <!-- <iframe
                           src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
                           width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                           referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                                         </div>
-                                        <div class="map_record pv_upv_dv">
-                                            <div class="map_rec_con pv_upv col_bl">
+                                        <div class="map_record pv_upv_dv" style="width: 15%;">
+                                            <div class="map_rec_con pv_upv col_bl" style="background-color: #3dacff;
+                                            border-radius: 20px;
+                                            height: 100px;">
                                                 <ul>
-                                                    <li><strong id="pvCount">PV - 0 </strong></li>
-                                                    <li><strong id="uvcount">UPV - 0 </strong></li>
+                                                    <li><strong id="pvCount">PV - {{pv}} </strong></li>
+                                                    <li><strong id="uvcount">UPV - {{upv}} </strong></li>
                                                 </ul>
                                                 <p>Visit Type Count</p>
                                             </div>
-                                            <div class="map_rec_con col_gr">
+                                            <div class="map_rec_con col_gr" style="background-color: #89dfd3;
+                                            border-radius: 20px;
+                                            height: 140px;">
                                                 <ul>
-                                                    <li><strong id="cusDlr">DLR–0 </strong></li>
-                                                    <li><strong id="cusDst">DST–0 </strong></li>
-                                                    <li><strong id="cusSd">SD–0 </strong></li>
+                                                    <li><strong id="cusDlr">DLR–{{customerCount.dl}} </strong></li>
+                                                    <li><strong id="cusDst">DST–{{customerCount.dist}} </strong></li>
+                                                    <li><strong id="cusSd">SD–{{customerCount.sdl}} </strong></li>
                                                     <li><strong id="cusSdst">S DST–0 </strong></li>
                                                 </ul>
                                                 <p>Customer Count </p>
                                             </div>
-                                            <div class="map_rec_con col_yl">
+                                            <div class="map_rec_con col_yl" style="background-color: #ffb26b;
+                                            border-radius: 20px;
+                                            height: 140px;">
                                                 <ul>
-                                                    <li><strong id="ncusDlr">DLR–0 </strong></li>
-                                                    <li><strong id="ncusDst">DST–0 </strong></li>
-                                                    <li><strong id="ncusSd">SD–0 </strong></li>
+                                                    <li><strong id="ncusDlr">DLR–{{newCustCount.dl}}</strong></li>
+                                                    <li><strong id="ncusDst">DST–{{newCustCount.dist}} </strong></li>
+                                                    <li><strong id="ncusSd">SD–{{newCustCount.sdl}} </strong></li>
                                                     <li><strong id="ncusSdst">S DST–0 </strong></li>
                                                 </ul>
                                                 <p>New Customer Count</p>
                                             </div>
-                                            <div class="map_rec_con col_gry">
+                                            <div class="map_rec_con col_gry" style="background-color: #ff7eb8;
+                                            border-radius: 20px;
+                                            height: 100px;">
                                                 <ul>
-                                                    <li><strong id="nMas">Mason–5 </strong></li>
-                                                    <li><strong id="nIFB">IFB–8 </strong></li>
+                                                    <li><strong id="nMas">Mason–{{meetingCount.mason}} </strong></li>
+                                                    <li><strong id="nIFB">IFB–{{meetingCount.ifb}} </strong></li>
                                                 </ul>
                                                 <p>Meeting count </p>
                                             </div>
-                                            <div class="map_rec_con col_rd">
+                                            <div class="map_rec_con col_rd" style="background-color: #ff627e;
+                                            border-radius: 20px;
+                                            height: 100px;">
                                                 <ul>
-                                                    <li><strong id="tMas">Mason–5 </strong></li>
-                                                    <li><strong id="tIFB">IFB–8 </strong></li>
+                                                    <li><strong id="tMas">Mason–{{totalInfCount.mason}} </strong></li>
+                                                    <li><strong id="tIFB">IFB–{{totalInfCount.ifb}} </strong></li>
                                                 </ul>
                                                 <p>Total influencer count </p>
                                             </div>
@@ -313,178 +559,282 @@
                                 </div>
                                 <div class="tab-pane fade show" id="pills-sales" role="tabpanel"
                                     aria-labelledby="pills-sales-tab">
-                                    <div class="map_srch">
-                                        <div class="wrapper_div">
-                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                                                <select id="selectStateName2">
-                                                </select>
-                                            </div>
-                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                                                <select id="selectDistrictName2">
-
-                                                </select>
-                                            </div>
-                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                                                <select id="selectZone2">
-
-                                                </select>
-                                            </div>
-                                            <div class="select_filt_dv" id="dayDiv">
-                                                <select id="selectDay4">
-                                                    <option value="">Customer Type</option>
-                                                </select>
-                                            </div>
-                                            <div class="select_filt_dv" id="dayDiv">
-                                                <select id="selectVertical1">
-                                                    <option value="">Retail</option>
-                                                    <option value="">Project</option>
-                                                </select>
-                                            </div>
-                                            <!-- <div class="select_filt_dv ratting" id="ratDiv">
-                          <span>Rating 3.5 and Above</span>
-                        </div> -->
-                                            <div class="select_filt_dv" id="dayDiv">
-                                                <select id="selectBrand1">
-                                                    <option value="">Brand</option>
-                                                    <option value="">Realedge</option>
-                                                    <option value="">SRMB TMT</option>
-                                                    <option value="">TOP Tech</option>
-                                                </select>
-                                            </div>
-
-
-
-
-                                        </div>
-                                    </div>
-                                    <div class="map_trac_sc">
-                                        <div class="map_dv" id="saleMap">
-                                            <app-sales-map-view></app-sales-map-view>
-                                            <!-- <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
-                          width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                          referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-                                        </div>
-                                        <div class="map_record salese">
-
-                                            <div class="lead_dv">
-                                                <h4>Total Count</h4>
-                                                <p><strong id="saleCount">0
-                                                    </strong></p>
-                                            </div>
-                                            <div class="lead_dv">
-                                                <h4>Type count
-                                                </h4>
-                                                <div class="slse_dv">
-                                                    <ul>
-                                                        <li id="saleDlrCount">DLR - 0 </li>
-                                                        <li id="saleDstCount">DST - 0 </li>
-                                                        <li id="saleSdCount">SD - 0</li>
-                                                    </ul>
-
-
-                                                </div>
-                                            </div>
-                                            <div class="lead_dv">
-                                                <h4>Hierarchy
-
-                                                </h4>
-
-                                                <div class="opp_hier">
-                                                    <div class="progress">
-                                                        <ul id="progUl">
-                                                            <li>
-                                                                <div class="opp_hier_in">
-                                                                    <div class="progress-bar bg-success"
-                                                                        role="progressbar" aria-valuenow="25"
-                                                                        aria-valuemin="0" aria-valuemax="100"
-                                                                        style="width:25%;" id="leadProg"></div>
-                                                                    <div class="prog_dv"></div>
-                                                                    <!-- <span>Opp. Count</span> -->
-                                                                </div>
-                                                                <span>Lead</span>
-                                                            </li>
-                                                            <li>
-                                                                <div class="opp_hier_in">
-                                                                    <div class="progress-bar bg-danger"
-                                                                        role="progressbar" aria-valuenow="50"
-                                                                        aria-valuemin="0" aria-valuemax="100"
-                                                                        style="width:50%;" id="enqProg"></div>
-                                                                    <div class="prog_dv"></div>
-                                                                    <!-- <span>Opp. Count</span> -->
-                                                                </div>
-                                                                <span>Enquiry</span>
-                                                            </li>
-                                                            <li>
-                                                                <div class="opp_hier_in">
-                                                                    <div class="progress-bar bg-black"
-                                                                        role="progressbar" aria-valuenow="75"
-                                                                        aria-valuemin="0" aria-valuemax="100"
-                                                                        style="width:75%;" id="oppProg"></div>
-                                                                    <div class="prog_dv"></div>
-                                                                    <!-- <span>Opp. Count</span> -->
-                                                                </div>
-                                                                <span>Opportunity</span>
-                                                            </li>
-                                                            <li>
-                                                                <div class="opp_hier_in">
-                                                                    <div class="progress-bar bg-warning"
-                                                                        role="progressbar" aria-valuenow="100"
-                                                                        aria-valuemin="0" aria-valuemax="100"
-                                                                        style="width:100%;" id="rcProg"></div>
-                                                                    <div class="prog_dv"></div>
-                                                                    <!-- <span>Opp. Count</span> -->
-                                                                </div>
-                                                                <span>Recently Converted</span>
-                                                            </li>
-                                                        </ul>
+                                    <ng-container *ngIf="!isSalesClick">
+                                        <div class="map_srch">
+                                            <div class="wrapper_div liv">
+                                                <div class="select_filt_dv">
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="stateId"
+                                                            (change)="onStateChange()">
+                                                            <option value="0">Select State</option>
+                                                            <option *ngFor="let data of allState" [value]="data.id">
+                                                                {{data.name}}
+                                                            </option>
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <div>
+                                                <div class="select_filt_dv">
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="districtId"
+                                                            (change)="onDistrictChange()">
+                                                            <option value="0">Select District</option>
+                                                            <option *ngFor="let data of allDistrict" [value]="data.id">
+                                                                {{data.name}}</option>
 
+                                                        </select>
+                                                    </div>
                                                 </div>
+                                                <div class="select_filt_dv">
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="zoneId"
+                                                            (change)="onZoneChange()">
+                                                            <option value="0">Select Zone</option>
+                                                            <option *ngFor="let data of allZone" [value]="data.id">
+                                                                {{data.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="select_filt_dv">
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type">
+                                                            <option value="0">Select Vertical</option>
+                                                            <option value="">Retail</option>
+                                                            <option value="">Project</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="select_filt_dv">
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type">
+                                                            <option value="0">Select Brand</option>
+                                                            <option value="">Realedge</option>
+                                                            <option value="">SRMB TMT</option>
+                                                            <option value="">TOP Tech</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+
 
                                             </div>
                                         </div>
+                                        <div class="map_trac_sc">
+                                            <div class="map_dv" id="saleMap">
+                                                <app-sales-map-view [salesMarkerData]="salesMarker"  (salesItemEvent)="goToSalesSecond($event)">
+                                                </app-sales-map-view>
+                                            </div>
+                                            <div class="map_record salese">
 
-                                    </div>
+                                                <div class="lead_dv">
+                                                    <h4>Total Count</h4>
+                                                    <p><strong id="saleCount">{{saleSideData.totalCount}}
+                                                        </strong></p>
+                                                </div>
+                                                <div class="lead_dv">
+                                                    <h4>Type count
+                                                    </h4>
+                                                    <div class="slse_dv">
+                                                        <ul>
+                                                            <li id="saleDlrCount">DLR - {{saleSideData.dlCount}} </li>
+                                                            <li id="saleDstCount">DST - {{saleSideData.dstCount}} </li>
+                                                            <li id="saleSdCount">SD - {{saleSideData.sdCount}}</li>
+                                                        </ul>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="lead_dv">
+                                                    <h4>Hierarchy
+
+                                                    </h4>
+
+                                                    <div class="opp_hier">
+                                                        <div class="progress">
+                                                            <ul id="progUl">
+                                                                <li *ngIf="salesTabData.isLead">
+                                                                    <div class="opp_hier_in">
+                                                                        <div class="progress-bar bg-success"
+                                                                            role="progressbar" aria-valuenow="25"
+                                                                            aria-valuemin="0" aria-valuemax="100"
+                                                                            style="width:25%;" id="leadProg"></div>
+                                                                        <div class="prog_dv"></div>
+                                                                        <!-- <span>Opp. Count</span> -->
+                                                                    </div>
+                                                                    <span>Lead</span>
+                                                                </li>
+                                                                <li *ngIf="salesTabData.isEnquiry">
+                                                                    <div class="opp_hier_in">
+                                                                        <div class="progress-bar bg-danger"
+                                                                            role="progressbar" aria-valuenow="50"
+                                                                            aria-valuemin="0" aria-valuemax="100"
+                                                                            style="width:55%;" id="enqProg"></div>
+                                                                        <div class="prog_dv"></div>
+                                                                        <!-- <span>Opp. Count</span> -->
+                                                                    </div>
+                                                                    <span>Enquiry</span>
+                                                                </li>
+                                                                <li *ngIf="salesTabData.isOpportunity">
+                                                                    <div class="opp_hier_in">
+                                                                        <div class="progress-bar bg-black"
+                                                                            role="progressbar" aria-valuenow="75"
+                                                                            aria-valuemin="0" aria-valuemax="100"
+                                                                            style="width:12%;" id="oppProg"></div>
+                                                                        <div class="prog_dv"></div>
+                                                                        <!-- <span>Opp. Count</span> -->
+                                                                    </div>
+                                                                    <span>Opportunity</span>
+                                                                </li>
+                                                                <li *ngIf="salesTabData.isClosed">
+                                                                    <div class="opp_hier_in">
+                                                                        <div class="progress-bar bg-warning"
+                                                                            role="progressbar" aria-valuenow="100"
+                                                                            aria-valuemin="0" aria-valuemax="100"
+                                                                            style="width:8%;" id="rcProg"></div>
+                                                                        <div class="prog_dv"></div>
+                                                                        <!-- <span>Opp. Count</span> -->
+                                                                    </div>
+                                                                    <span>Recently Converted</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="isSalesClick">
+
+                                        <div class="map_srch">
+                                            <div class="wrapper_div">
+                                            </div>
+                                        </div>
+                                        <div class="map_trac_sc">
+                                            <div class="map_dv">
+                                                <iframe
+                                                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
+                                                    width="100%" height="450" style="border:0;" allowfullscreen=""
+                                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            </div>
+                                            <div class="map_record leaddetls">
+
+                                                <div class="bar_pr">
+                                                    <ol>
+                                                        <li class="active"><strong><span>Initiation</span>
+                                                                10-05-2022</strong></li>
+                                                        <li class="active"><strong><span>Follow up</span>
+                                                                10-05-2022</strong> </li>
+                                                        <li class="active"><strong><span>Assigned</span>
+                                                                10-05-2022</strong>
+                                                        </li>
+                                                        <li class="active"><strong><span>Call</span> 10-05-2022</strong>
+                                                        </li>
+                                                        <li class="active"><strong><span>Visited</span>
+                                                                10-05-2022</strong>
+                                                        </li>
+                                                        <li class="active"><strong><span>Follow Up</span>
+                                                                10-05-2022</strong></li>
+                                                        <li class="active"><strong><span>Visited</span>
+                                                                10-05-2022</strong>
+                                                        </li>
+                                                        <li class="ask"><strong><span>Email</span> 10-05-2022</strong>
+                                                        </li>
+
+                                                    </ol>
+                                                </div>
+                                                <div class="bar-rit">
+                                                    <div class="lead_dv">
+                                                        <h4>Prediction Score</h4>
+                                                        <p><strong id="saleCount">70%</strong></p>
+                                                    </div>
+                                                    <div class="lead_dv ldinf">
+                                                        <h4>Lead information</h4>
+                                                        <ul>
+                                                            <li>
+                                                                Dealer
+                                                            </li>
+                                                            <li>
+                                                                Opportunity
+                                                            </li>
+                                                            <li>
+                                                                Negotiation
+                                                            </li>
+
+
+
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="lead_dv">
+                                                        <h4>Recommendation</h4>
+                                                        <ul>
+                                                            <li>
+                                                                <strong> Regular Follow Up </strong>
+                                                            </li>
+                                                            <li>
+                                                                <strong>ASM Visit Required </strong>
+                                                            </li>
+
+
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="lead_dv">
+                                                        <h4>Prospect value</h4>
+                                                        <p>
+                                                            <strong>
+                                                                5,00,0000 INR
+                                                            </strong>
+
+
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="lead_dv">
+                                                        <h4>Loyality Score</h4>
+                                                        <p>
+                                                            <strong>
+                                                                80%
+                                                            </strong>
+
+
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="lead_dv">
+                                                        <h4>Compitator Activity</h4>
+                                                        <p>
+                                                            <strong>
+                                                                Yes
+                                                            </strong>
+
+
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </ng-container>
                                 </div>
                                 <div class="tab-pane  fade show" id="pills-enq" role="tabpanel"
                                     aria-labelledby="pills-enq-tab">
                                     <div class="map_srch">
                                         <div class="wrapper_div">
-                                            <!-- <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                          <select id="selectStateName3">
-                            <option value="ACA"></option>
-                            <option value="BNI"></option>
-                            <option value="CRI"></option>
-                            <option value="DCA"></option>
-                            <option value="ENI"></option>
-                            <option value="FRI"></option>
-                          </select>
-                        </div>
-                        <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                          <select id="selectDistrictName3">
-                            <option value="ACA"></option>
-                            <option value="BNI"></option>
-                            <option value="CRI"></option>
-                            <option value="DCA"></option>
-                            <option value="ENI"></option>
-                            <option value="FRI"></option>
-                          </select>
-                        </div>
-                        <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                          <select id="selectZone3">
-                            <option value="ACA"></option>
-                            <option value="BNI"></option>
-                            <option value="CRI"></option>
-                            <option value="DCA"></option>
-                            <option value="ENI"></option>
-                            <option value="FRI"></option>
-                          </select>
-                        </div>
-
--->
                                         </div>
                                     </div>
                                     <div class="map_trac_sc">
@@ -820,7 +1170,7 @@
                                 <div class="tab-pane  fade show" id="pills-opt" role="tabpanel"
                                     aria-labelledby="pills-opt-tab">
                                     <div class="map_srch">
-                                        <div class="wrapper_div">
+                                        <div class="wrapper_div liv">
                                             <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
                                                 <select id="selectStateName5">
                                                     <option value="ACA"></option>
@@ -1064,36 +1414,67 @@
                                 <div class="tab-pane  fade show" id="pills-area" role="tabpanel"
                                     aria-labelledby="pills-area-tab">
                                     <div class="map_srch">
-                                        <div class="wrapper_div">
-                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                                                <select id="selectStateName7">
-                                                </select>
-                                            </div>
-                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                                                <select id="selectDistrictName7">
-                                                </select>
-                                            </div>
-                                            <div class="select_filt_dv"><i class="fa fa-search" aria-hidden="true"></i>
-                                                <select id="selectZone7">
-                                                </select>
+                                        <div class="wrapper_div liv">
+                                            <div class="select_filt_dv">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="stateId"
+                                                        (change)="onStateChange()">
+                                                        <option value="0">Select State</option>
+                                                        <option *ngFor="let data of allState" [value]="data.id">
+                                                            {{data.name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="select_filt_dv">
-                                                <select id="selectVertical2">
-                                                    <option value="Retail"></option>
-                                                    <option value="Project"></option>
-                                                </select>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="districtId"
+                                                        (change)="onDistrictChange()">
+                                                        <option value="0">Select District</option>
+                                                        <option *ngFor="let data of allDistrict" [value]="data.id">
+                                                            {{data.name}}</option>
+
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="select_filt_dv">
-                                                <select id="selectBrand2">
-                                                    <option value="">Realedge</option>
-                                                    <option value="">SRMB TMT</option>
-                                                    <option value="">TOP Tech</option>
-                                                </select>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="zoneId" (change)="onZoneChange()">
+                                                        <option value="0">Select Zone</option>
+                                                        <option *ngFor="let data of allZone" [value]="data.id">
+                                                            {{data.name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="select_filt_dv">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option value="0">Select Vertical</option>
+                                                        <option value="">Retail</option>
+                                                        <option value="">Project</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="select_filt_dv">
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option value="0">Select Brand</option>
+                                                        <option value="">Realedge</option>
+                                                        <option value="">SRMB TMT</option>
+                                                        <option value="">TOP Tech</option>
+                                                    </select>
+                                                </div>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <div class="map_trac_sc">
+                                    <div class="map_trac_sc" style="height: 450px;">
                                         <div class="map_dv">
                                             <app-new-area-map-view></app-new-area-map-view>
                                             <!-- <iframe

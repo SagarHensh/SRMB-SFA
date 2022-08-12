@@ -78,7 +78,7 @@ export class StoreDataService {
       "contactId": 9,
       "firstName": "Ghosh",
       "lastName": "Hardware",
-      "profileImage" : "",
+      "profileImage": "",
       "contactTypeName": "Distributor"
     },
     {
@@ -328,10 +328,24 @@ export class StoreDataService {
     return this.allPaginationDropdown;
   }
 
-  getDefaultPaginationLimit(){
+  getDefaultPaginationLimit() {
     const limit = "50";
     return limit;
   }
+
+
+
+  textTruncate(str: any, length: any) {
+    if (length == null) {
+      length = 100;
+    }
+    let ending: any = "...";
+    if (str.length > length) {
+      return str.substring(0, length - ending.length) + ending;
+    } else {
+      return str;
+    }
+  };
 
 
 }

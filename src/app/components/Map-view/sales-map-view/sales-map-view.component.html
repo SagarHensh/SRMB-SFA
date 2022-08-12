@@ -1,28 +1,102 @@
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fitBounds]="true" [disableDefaultUI]="true"
-    (mapReady)="mapReady($event)">
+<agm-map [zoom]="zoom" [fitBounds]="true" [disableDefaultUI]="true" (mapReady)="mapReady($event)">
     <!-- <agm-direction [origin]="origin" [destination]="destination">
     </agm-direction> -->
 
+    <!-- [iconUrl]="$any(icon)" -->
 
-    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat"
-        [longitude]="m.lng" [agmFitBounds]="true" [iconUrl]="$any(icon)">
-        <!-- [label]="m.label" -->
-        <!-- animation="BOUNCE" -->
-        <!-- iconUrl="http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png"  -->
-        <agm-info-window>
+    <!-- <agm-marker *ngFor="let m of markers; let i = index" 
+    [latitude]="m.lat"
+    [longitude]="m.lng" 
+    [agmFitBounds]="true" 
+    (mouseOver)="onMouseOver(infoWindow, m)" 
+    (mouseOut)="onMouseOut(infoWindow, m)"
+    (markerClick)="clickedMarker(m)"
+    >
+        <agm-info-window [disableAutoPan]="false" #infoWindow>
             <strong>{{infoLabel}}</strong>
+            <div id="content">
+                <div id="siteNotice"></div>
+                <div id="bodyContent">
+                    <p><strong>Name : {{infoData.name}}</strong></p>
+                    <p><strong>Phone : {{infoData.phone}}</strong></p>
+                    <p><strong>Email : {{infoData.email}}</strong></p>
+                </div>
+            </div>
         </agm-info-window>
 
-    </agm-marker>
+    </agm-marker> -->
+    <!-- =========================== -->
 
-    <ng-container>
-        <agm-polyline *ngFor="let polyline of polylines;let i = index;" [strokeWeight]="5"
-            [strokeColor]="polyline.color">
-            <!-- <agm-icon-sequence [fixedRotation]="false" [repeat]="'150px'" [offset]="'200'" [path]="'FORWARD_OPEN_ARROW'">
-            </agm-icon-sequence> -->
-            <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.latitude"
-                [longitude]="point.longitude">
-            </agm-polyline-point>
-        </agm-polyline>
+    <!-- Planned visited markers -->
+    <ng-container *ngIf="btnFlag.isOpportunity">
+        <agm-marker *ngFor="let m of opportunityMarker; let i = index" [agmFitBounds]="true"
+            (markerClick)="clickedMarker(m)" [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="$any(iconBlue)"
+            animation="DROP" (mouseOver)="onMouseOver(infoWindow, m)" (mouseOut)="onMouseOut(infoWindow, m)">
+            <agm-info-window #infoWindow>
+                <div id="content">
+                    <div id="siteNotice"></div>
+                    <div id="bodyContent">
+                        <p><strong>Name : {{infoData.name}}</strong></p>
+                        <p><strong>Type : {{infoData.type}}</strong></p>
+                    </div>
+                </div>
+            </agm-info-window>
+
+        </agm-marker>
     </ng-container>
+
+    <!-- Planned visited markers -->
+    <ng-container *ngIf="btnFlag.isClosed">
+        <agm-marker *ngFor="let m of closedMarker; let i = index" [agmFitBounds]="true" (markerClick)="clickedMarker(m)"
+            [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="$any(iconYlw)" animation="DROP"
+            (mouseOver)="onMouseOver(infoWindow, m)" (mouseOut)="onMouseOut(infoWindow, m)">
+            <agm-info-window #infoWindow>
+                <div id="content">
+                    <div id="siteNotice"></div>
+                    <div id="bodyContent">
+                        <p><strong>Name : {{infoData.name}}</strong></p>
+                        <p><strong>Type : {{infoData.type}}</strong></p>
+                    </div>
+                </div>
+            </agm-info-window>
+
+        </agm-marker>
+    </ng-container>
+
+    <!-- Unplanned visited markers -->
+    <ng-container *ngIf="btnFlag.isLead">
+        <agm-marker *ngFor="let m of leadMarker; let i = index" [agmFitBounds]="true" (markerClick)="clickedMarker(m)"
+            [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="$any(icongreen)" animation="DROP"
+            (mouseOver)="onMouseOver(infoWindow, m)" (mouseOut)="onMouseOut(infoWindow, m)">
+            <agm-info-window #infoWindow>
+                <div id="content">
+                    <div id="siteNotice"></div>
+                    <div id="bodyContent">
+                        <p><strong>Name : {{infoData.name}}</strong></p>
+                        <p><strong>Type : {{infoData.type}}</strong></p>
+                    </div>
+                </div>
+            </agm-info-window>
+
+        </agm-marker>
+    </ng-container>
+
+    <!-- Not visited markers -->
+    <ng-container *ngIf="btnFlag.isEnquiry">
+        <agm-marker *ngFor="let m of enquiryMarker; let i = index" [agmFitBounds]="true"
+            (markerClick)="clickedMarker(m)" [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="$any(iconRed)"
+            animation="DROP" (mouseOver)="onMouseOver(infoWindow, m)" (mouseOut)="onMouseOut(infoWindow, m)">
+            <agm-info-window #infoWindow>
+                <div id="content">
+                    <div id="siteNotice"></div>
+                    <div id="bodyContent">
+                        <p><strong>Name : {{infoData.name}}</strong></p>
+                        <p><strong>Type : {{infoData.type}}</strong></p>
+                    </div>
+                </div>
+            </agm-info-window>
+
+        </agm-marker>
+    </ng-container>
+
 </agm-map>

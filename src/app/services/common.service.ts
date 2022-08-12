@@ -24,7 +24,7 @@ export class CommonService {
   }
 
   getLayoutHomePath() {
-    return "/#/";
+    return "/user/";
   }
 
   getLayoutSchemePath() {
@@ -171,5 +171,13 @@ export class CommonService {
 
   getMapParentChildCustomer(params: any): Observable<any> {
     return this.http.post(this.apiurl + 'api/v1/mapEntity/mapParentChildCustomer', params, this.options);
+  }
+
+  getUserLocationMapping(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/mapEntity/mapUserLocationMapping', params, this.options);
+  }
+
+  getMasterEmployeeList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/getemployeelist', params, this.options);
   }
 }

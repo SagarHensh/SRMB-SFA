@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import app_config from 'src/app/app.config';
 import { CommonService } from 'src/app/services/common.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
@@ -11,7 +12,8 @@ import { StoreDataService } from 'src/app/services/store-data.service';
 export class PjpViewReportComponent implements OnInit {
 
   constructor(private common: CommonService,
-    private store: StoreDataService) { }
+    private store: StoreDataService,
+    private route : Router) { }
 
   authUserData: any;
   allReportList: any = [];
@@ -101,6 +103,15 @@ export class PjpViewReportComponent implements OnInit {
 
   startRecordNumber() {
     return Number(this.offset) + 1;
+  }
+
+  goToDetails() {
+    this.route.navigate([this.common.getLayoutHomePath() + 'pjp-view-details'])
+  }
+
+  textTruncateData(str : any){
+    let val : any = this.store.textTruncate(str, 15);
+    return val;
   }
 
 }

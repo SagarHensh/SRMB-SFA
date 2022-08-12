@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ActivityPageComponent } from './components/Activity/activity-page/activity-page.component';
 import { BrandingListComponent } from './components/Branding/branding-list/branding-list.component';
 import { CalenderViewComponent } from './components/Calender/calender-view/calender-view.component';
 import { ShowPlannerComponent } from './components/Calender/show-planner/show-planner.component';
@@ -79,7 +80,11 @@ const routes: Routes = [
     path : "scheme",
     component : SchemeListComponent
   },
-  { path: '#', loadChildren: () => import('./layouts/layouts.module').then(m => m.LayoutsModule) },
+  {
+    path : "activity",
+    component : ActivityPageComponent
+  },
+  { path: 'user', loadChildren: () => import('./layouts/layouts.module').then(m => m.LayoutsModule) },
   { path: 'scheme', loadChildren: () => import('./Mapping-config-layout/mapping-config-layout.module').then(m => m.MappingConfigLayoutModule) }
 ];
 

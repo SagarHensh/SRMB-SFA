@@ -85,6 +85,7 @@ export class AppComponent {
 
   logout() {
     this.route.navigate([""]);
+    window.location.href="http://3.7.173.54/sfaLogin/";
   }
 
   goTo(path: any) {

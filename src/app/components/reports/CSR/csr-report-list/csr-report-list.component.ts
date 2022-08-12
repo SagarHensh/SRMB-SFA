@@ -42,7 +42,7 @@ export class CsrReportListComponent implements OnInit {
       "district": ""
     }
     this.common.getCsrReportList(req).subscribe(res => {
-      // console.log("CSR response::", res);
+      console.log("CSR response::", res);
       if (res.respondcode == 200) {
         let respObj: any = res.data;
         if (respObj.data.length > 0) {
@@ -135,6 +135,11 @@ export class CsrReportListComponent implements OnInit {
 
   startRecordNumber() {
     return Number(this.offset) + 1;
+  }
+
+  textTruncateData(str : any){
+    let val : any = this.store.textTruncate(str, 15);
+    return val;
   }
 
 

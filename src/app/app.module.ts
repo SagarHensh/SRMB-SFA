@@ -33,6 +33,7 @@ import { NewAreaMapViewComponent } from './components/Map-view/new-area-map-view
 import { SurveyReportListComponent } from './components/reports/survey/survey-report-list/survey-report-list.component';
 import { CsrReportListComponent } from './components/reports/CSR/csr-report-list/csr-report-list.component';
 import { SchemeListComponent } from './components/scheme/scheme-list/scheme-list.component';
+import { ActivityPageComponent } from './components/Activity/activity-page/activity-page.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { SchemeListComponent } from './components/scheme/scheme-list/scheme-list
     SurveyReportListComponent,
     CsrReportListComponent,
     SchemeListComponent,
+    ActivityPageComponent,
   ],
   imports: [
     BrowserModule,
