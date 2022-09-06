@@ -20,12 +20,46 @@ export class PlannedUnplannedReportsComponent implements OnInit {
   offset: any = "0";
   totalRecords: any = "";
 
+  //-------------------- For Filter-----------------//
+
+  searchName = "";
+  fromDate = "";
+  toDate = "";
+  customerName = "";
+  contactType = "" as any;
+  timePeriod = "";
+  months = "";
+  customerVisitType = "" as any;
+  staticDropDown = true;
+  nextTimeFlag = false;
+  pastTimeFlag = false;
+  staticDropDownCustType:boolean = true;
+  customerTypelistFlag:boolean = false;
+  phoneNo = "";
+  state = "" as any;
+  city = "" as any;
+  zone = "" as any;
+  visitType = "" as any;
+  visitStatus = "" as any;
+  allContactCategoryType:any = [];
+  allVisitorType:any = [];
+  contactTypeList:any =[];
+  stateList:any = [];
+  cityList:any = [];
+  zoneList:any = [];
+  visitStatusList:any = [];
+
+
   ngOnInit(): void {
     let data: any = this.common.getAuthUserData();
     this.authUserData = JSON.parse(data);
     this.paginationLimitDropdown = this.store.getPaginationLimitList();
     this.limit = this.store.getDefaultPaginationLimit();
     this.getVisitReports();
+    this.getContactType();
+    this.getState();
+    this.getVisitList();
+    this.getAllContactCategoryType();
   }
 
   getVisitReports() {
@@ -33,8 +67,23 @@ export class PlannedUnplannedReportsComponent implements OnInit {
       "clientId": this.authUserData.clientId,
       "userId": this.authUserData.userId,
       "limit": this.limit.toString(),
-      "offset": this.offset.toString()
-    }
+      "offset": this.offset.toString(),
+      "searchName": this.searchName,
+      "searchFrom":this.fromDate,
+      "searchTo":this.toDate,
+      "timePeriod": this.timePeriod,
+      "months": this.months,
+      "masterCustomerType": this.customerVisitType,
+      "searchTextCustomerName":this.customerName,
+      "searchTextCustomerPhone":this.phoneNo,
+      "contactType":this.contactType,
+      "stateId":this.state,
+      "cityId":this.city,
+      "zoneId":this.zone,
+      "visitType":this.visitType,
+      "visitStatus":this.visitStatus
+    };
+    console.log("Request data for visit report listing>>>>>>>>",req);
     this.common.getPjpVisitReports(req).subscribe(res => {
       console.log("Planned unplanned Visit response::", res);
       if (res.data.reportList.length > 0) {
@@ -130,6 +179,183 @@ export class PlannedUnplannedReportsComponent implements OnInit {
   textTruncateData(str : any){
     let val : any = this.store.textTruncate(str, 15);
     return val;
+  }
+
+  //------------------------ For Filter------------------------//
+
+  getContactType(){
+    const data = {
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+    };
+    this.common.getContactType(data).subscribe((res:any)=>{
+      console.log("contact type res>>>>>>",res);
+      if(res.respondcode == 200){
+        this.contactTypeList = res.data;
+      }
+    })
+  }
+
+  getState(){
+    const data ={
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+      "countryId":this.authUserData.countryId
+    };
+    this.common.getAllStates(data).subscribe((res:any)=>{
+      console.log("state res>>>>>>>>>",res);
+      if(res.respondcode == 200){
+        this.stateList = res.data.stateList;
+      }
+    })
+  }
+
+  getCity(){
+    const data ={
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+      "stateId":this.state
+    };
+    this.common.getAllDistrictByState(data).subscribe((res:any)=>{
+      console.log("city res>>>>>>>>>",res);
+      if(res.respondcode == 200){
+        this.cityList = res.data.districtList;
+      }
+    })
+  }
+  getZone(){
+    const data ={
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+      "cityId":this.city
+    };
+    this.common.getAllZoneByCity(data).subscribe((res:any)=>{
+      console.log("zone res>>>>>>>>>",res);
+      if(res.respondcode == 200){
+        this.zoneList = res.data.zoneList;
+      }
+    })
+  }
+
+  getVisitList(){
+    const data = {
+      "clientId": this.authUserData.clientId
+    };
+    this.common.getVisitList(data).subscribe((res:any)=>{
+      console.log("visit status list>>>>>>> res",res);
+      if(res.respondcode == 200){
+        this.visitStatusList = res.data;
+      }
+    })
+  }
+
+  changeState(){
+    this.getCity();
+  }
+  changeCity(){
+    this.getZone();
+  }
+  
+
+
+  searchByDateRange(){
+    this.getVisitReports();
+  }
+
+  resetDate(){
+    this.fromDate = "";
+    this.toDate = "";
+    this.getVisitReports();
+  }
+
+  reset(){
+    this.customerName = "";
+    this.phoneNo = "";
+    this.timePeriod = "";
+    this.months = "";
+    this.customerVisitType = "";
+    this.contactType = "";
+    this.visitType = "";
+    this.visitStatus = "";
+    this.state = "";
+    this.city = "";
+    this.zone = "";
+    this.getVisitReports();
+  }
+
+  saveSearch(){
+    this.getVisitReports();
+  }
+
+  pastTimePeriod(){
+    this.timePeriod = "";
+    this.months = "";
+    this.staticDropDown = false;
+    this.nextTimeFlag = false;
+    this.pastTimeFlag = true;
+    this.timePeriod = "past";
+    this.months = "lastOneMonth";
+  }
+
+  nextTimePeriod(){
+    this.timePeriod = "";
+    this.months = "";
+    this.staticDropDown = false;
+    this.pastTimeFlag = false;
+    this.nextTimeFlag = true;
+    this.timePeriod = "next";
+    this.months = "nextOneMonth";
+  }
+
+
+  getAllContactCategoryType() {
+    this.common.getAllContactCategory({}).subscribe(res => {
+       console.log("All Contact Category Type 22ResPonse::", res);
+      if (res.error == 0 && res.respondcode == 200) {
+        if (res.data.contactList.length > 0) {
+          this.allContactCategoryType = res.data.contactList;
+        }
+      }
+    })
+
+  }
+
+  getAllVisitorListType() {
+    let obj = {
+      clientId: this.authUserData.clientId,
+      contactType: this.customerVisitType
+    };
+    console.log("request data for visitor list>>>>",obj);
+    this.common.getVisitorListTypeByContactId(obj).subscribe(res => {
+      this.allVisitorType = [];
+      console.log("All Contact Category Type ResPonse::", res);
+      if (res.error == 0 && res.respondcode == 200) {
+        if (res.data.visitorList.length > 0) {
+          this.allVisitorType = res.data.visitorList;
+        } else {
+          this.allVisitorType = [];
+        }
+      }
+    })
+
+  }
+
+  onChangeContactCategory(event:any){
+    this.customerVisitType = event;
+    //console.log("visitor id>>>>>>>>>",this.customerVisitType);
+    this.staticDropDownCustType = false;
+    this.customerTypelistFlag  = true;
+    this.getAllVisitorListType();
+  }
+
+  searchIndividual(event:any){
+    if(event.target.value.length >1){
+      this.searchName = event.target.value;
+      this.getVisitReports();
+    } else{
+      this.searchName = "";
+      this.getVisitReports(); 
+    }
   }
 
 }

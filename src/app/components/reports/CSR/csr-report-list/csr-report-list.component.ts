@@ -15,16 +15,38 @@ export class CsrReportListComponent implements OnInit {
   authUserData: any;
   allReportList: any = [];
   paginationLimitDropdown: any = [];
-  limit: any = "";
-  offset: any = "0";
+  limit = 50;
+  offset = 0;
   totalRecords: any = "";
+
+  //------------------ For Filter ------------------//
+  searchName = "";
+  fromDate = "";
+  toDate = "";
+  custName = "";
+  custType = "" as any;
+  state = "" as any;
+  city = "" as any;
+  csrType = "" as any;
+  contactTypeList:any = [];
+  stateList:any =[];
+  cityList:any =[];
+  csrList:any = [];
+
+//-------------------- For Pagination---------------------//
+
+isdisable: boolean = false;
+isPrevious: boolean = true;
 
   ngOnInit(): void {
     let data: any = this.common.getAuthUserData();
     this.authUserData = JSON.parse(data);
     this.paginationLimitDropdown = this.store.getPaginationLimitList();
-    this.limit = this.store.getDefaultPaginationLimit();
-    this.getVisitReports()
+   // this.limit = this.store.getDefaultPaginationLimit();
+    this.getVisitReports();
+    this.getContactType();
+    this.getState();
+    this.getCSRActivity();
   }
 
   getVisitReports() {
@@ -34,13 +56,16 @@ export class CsrReportListComponent implements OnInit {
       "limit": this.limit.toString(),
       "offset": this.offset.toString(),
       "userType": this.authUserData.userType,
-      "csrType": "",
-      "customerType": "",
-      "customerName": "",
-      "phoneNo": "",
-      "remarks": "",
-      "district": ""
-    }
+      "searchName": this.searchName,
+      "searchFrom": this.fromDate,
+      "searchTo": this.toDate,
+      "csrTypeId": this.csrType,
+      "customerTypeId": this.custType,
+      "customerName": this.custName,
+      "stateId": this.state,
+      "cityId": this.city
+    };
+    console.log("Request Data for csr report>>>>>>>>",req);
     this.common.getCsrReportList(req).subscribe(res => {
       console.log("CSR response::", res);
       if (res.respondcode == 200) {
@@ -49,6 +74,8 @@ export class CsrReportListComponent implements OnInit {
           this.allReportList = respObj.data;
           this.totalRecords = respObj.count;
         } else {
+          this.offset = this.offset > 0 ? this.offset - this.limit : this.offset;
+          this.isdisable = true;
           this.allReportList = [];
           this.totalRecords = 0;
         }
@@ -112,13 +139,14 @@ export class CsrReportListComponent implements OnInit {
     this.getVisitReports();
   }
 
-  onDownload = () => {
+  onDownload() {
     let req = {
       "clientId": this.authUserData.clientId,
       "userId": this.authUserData.userId,
       "limit": this.limit.toString(),
       "offset": this.offset.toString()
     }
+
     // this.common.getEnquiryVisitReportsDownload(req).subscribe(res => {
     //   // console.log("Download res", res);
     //   if (res.data != "") {
@@ -131,6 +159,7 @@ export class CsrReportListComponent implements OnInit {
     //     document.body.removeChild(a);
     //   }
     // })
+
   }
 
   startRecordNumber() {
@@ -140,6 +169,120 @@ export class CsrReportListComponent implements OnInit {
   textTruncateData(str : any){
     let val : any = this.store.textTruncate(str, 15);
     return val;
+  }
+
+  //-------------------------  For Filter-------------------------//
+
+
+  getContactType() {
+    const data = {
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+    };
+    this.common.getContactType(data).subscribe((res: any) => {
+     // console.log("contact type res>>>>>>", res);
+      if (res.respondcode == 200) {
+        this.contactTypeList = res.data;
+      }
+    })
+  }
+
+
+  getState() {
+    const data = {
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+      "countryId": this.authUserData.countryId
+    };
+    this.common.getAllStates(data).subscribe((res: any) => {
+      //console.log("state res>>>>>>>>>", res);
+      if (res.respondcode == 200) {
+        this.stateList = res.data.stateList;
+      }
+    })
+  }
+
+  getCity() {
+    const data = {
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+      "stateId": this.state
+    };
+    this.common.getAllDistrictByState(data).subscribe((res: any) => {
+      //console.log("city res>>>>>>>>>", res);
+      if (res.respondcode == 200) {
+        this.cityList = res.data.districtList;
+      }
+    })
+  }
+
+  getCSRActivity(){
+    const data ={
+      "clientId": this.authUserData.clientId
+    };
+    this.common.csrActivity(data).subscribe((res:any)=>{
+      if(res.success){
+        this.csrList = res.response.listData; 
+      }
+    })
+  }
+
+  changeState() {
+    this.getCity();
+  }
+
+  searchByDateRange(){
+    this.getVisitReports();
+  }
+
+  resetDate(){
+    this.fromDate = "";
+    this.toDate = "";
+    this.getVisitReports();
+  }
+
+  saveSearch(){
+    this.getVisitReports();
+  }
+
+  reset(){
+    this.custName = "";
+    this.custType = "";
+    this.state = "";
+    this.city = "";
+    this.csrType = "";
+    this.getVisitReports();
+  }
+
+
+  searchIndividual(event:any){
+    if(event.target.value.length >1){
+      this.searchName = event.target.value;
+      this.getVisitReports();
+    } else{
+      this.searchName = "";
+      this.getVisitReports(); 
+    }
+  }
+
+  //------------------------ For pagination--------------------//
+
+  previous() {
+    this.isdisable = false;
+    this.offset = this.offset > 0 ? this.offset - this.limit : 0;
+    this.offset = this.offset < 0 ? 0 : this.offset;
+    this.getVisitReports();
+    if (this.offset <= 0) {
+      this.isPrevious = true;
+    }
+
+  }
+
+  next() {
+    console.log("isdisable::::::::::::::",this.isdisable);
+    this.isPrevious = false;
+    this.offset = this.offset + this.limit;
+    this.getVisitReports();
   }
 
 

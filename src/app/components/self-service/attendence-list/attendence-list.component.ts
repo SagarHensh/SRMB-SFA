@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import app_config from 'src/app/app.config';
 import { CommonService } from 'src/app/services/common.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
+import { CrmService } from 'src/app/services/crm.service';
 
 @Component({
   selector: 'app-attendence-list',
@@ -11,8 +12,9 @@ import { StoreDataService } from 'src/app/services/store-data.service';
 export class AttendenceListComponent implements OnInit {
 
   constructor(
-    private common : CommonService,
-    private store : StoreDataService
+    private common: CommonService,
+    private store: StoreDataService,
+    private crm: CrmService
   ) { }
 
   authUserData: any;
@@ -24,6 +26,24 @@ export class AttendenceListComponent implements OnInit {
   @ViewChild('subordinateListModal') subordinateListModal: any;
   odometerImagesModal: any;
 
+  //-------------- For  Filter-----------------//
+
+  searchName = "";
+  fromDate = "";
+  toDate = "";
+  userName = "";
+  empType = "";
+  state = "";
+  city = "";
+  empStatus = "" as any;
+  employeeTypeList: any = [];
+  stateList: any = [];
+  cityList: any = [];
+  zoneList: any = [];
+
+
+
+
 
   ngOnInit(): void {
     let data: any = this.common.getAuthUserData();
@@ -31,7 +51,9 @@ export class AttendenceListComponent implements OnInit {
     console.log("authuserData:: ", this.authUserData);
     this.paginationLimitDropdown = this.store.getPaginationLimitList();
     this.limit = this.store.getDefaultPaginationLimit();
-    this.getVisitReports()
+    this.getVisitReports();
+    this.getEnquiryReportData();
+    this.getAllState();
   }
 
   getVisitReports() {
@@ -40,10 +62,16 @@ export class AttendenceListComponent implements OnInit {
       "userId": this.authUserData.userId,
       "limit": this.limit.toString(),
       "offset": this.offset.toString(),
-      "searchFrom":"",
-      "searchTo":"",
-      "userName":""
-    }
+      "searchName": this.searchName,
+      "searchFrom": this.fromDate,
+      "searchTo": this.toDate,
+      "userName": this.userName,
+      "designationId": this.empType,
+      "stateId": this.state,
+      "cityId": this.city,
+      "status": this.empStatus.toString()
+    };
+    console.log("Request dat for attendance listing>>>>>>>>>>>>>>>>", req);
     this.common.getAttendanceList(req).subscribe(res => {
       console.log("Attendance Report response::", res);
       if (res.respondcode == 200) {
@@ -124,29 +152,109 @@ export class AttendenceListComponent implements OnInit {
     this.getVisitReports();
   }
 
-  onDownload = () => {
+  onDownload() {
     let req = {
       "clientId": this.authUserData.clientId,
       "userId": this.authUserData.userId,
       "limit": this.limit.toString(),
       "offset": this.offset.toString()
     }
-    // this.common.getEnquiryVisitReportsDownload(req).subscribe(res => {
-    //   // console.log("Download res", res);
-    //   if (res.data != "") {
-    //     var file_path = app_config.downloadUrl + res.data;
-    //     var a = document.createElement('a');
-    //     a.href = file_path;
-    //     a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
-    //     document.body.appendChild(a);
-    //     a.click();
-    //     document.body.removeChild(a);
-    //   }
-    // })
+    this.common.getAttendanceReportsDownload(req).subscribe((res: any) => {
+
+      console.log("Download res", res);
+      if (res.data.path != "") {
+        var file_path = app_config.downloadUrlSFA + res.data.path;
+        var a = document.createElement('a');
+        a.href = file_path;
+       // a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    })
   }
 
   startRecordNumber() {
     return Number(this.offset) + 1;
+  }
+
+  //------------------------------ For Filter----------------------//
+
+  getEnquiryReportData() {
+
+    const data = {
+      userId: this.authUserData.userId,
+      clientId: this.authUserData.clientId
+    }
+    this.crm.getEnquiryData(data).subscribe((res: any) => {
+      console.log("For Filter res>>>>>>>>>>>>>", res);
+      if (res.success) {
+        this.employeeTypeList = res.response.employeeType;
+      }
+    })
+  }
+  getAllState() {
+    const data = {
+      countryId: this.authUserData.countryId
+    };
+    console.log("Request data for state>>>>>>>>>",data);
+    this.common.getAllStates(data).subscribe((res: any) => {
+      console.log("Satate>>>>>>>", res);
+      if (res.respondcode == 200) {
+        this.stateList = res.data.stateList;
+      }
+    })
+  }
+
+  stateChange() {
+    this.getAllCity();
+  }
+
+  getAllCity() {
+    const data = {
+      stateId: this.state
+    };
+    this.common.getAllDistrictByState(data).subscribe((res: any) => {
+      console.log("City res", res);
+      if (res.respondcode == 200) {
+        this.cityList = res.data.districtList;
+      }
+    })
+  }
+
+  saveSearch() {
+    this.getVisitReports();
+  }
+
+  searchByDateRange() {
+    this.getVisitReports();
+  }
+
+  resetDate() {
+    this.fromDate = "";
+    this.toDate = "";
+    this.getVisitReports();
+  }
+
+  reset() {
+    this.fromDate = "";
+    this.toDate = "";
+    this.userName = "";
+    this.empType = "";
+    this.state = "";
+    this.city = "";
+    this.empStatus = "";
+    this.getVisitReports();
+  }
+
+  searchIndividual(event:any){
+    if(event.target.value.length >1){
+      this.searchName = event.target.value;
+      this.getVisitReports();
+    } else{
+      this.searchName = "";
+      this.getVisitReports(); 
+    }
   }
 
 }

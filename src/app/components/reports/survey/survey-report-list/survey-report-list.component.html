@@ -24,7 +24,7 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
                 <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Search by customer name or number here">
+                    <input type="text" class="form-control" placeholder="Search by organization name or contact name or  phone number or email or address here" (keyup) = "searchIndividual($event)">
 
                 </div>
                 <div class="col-md-9 text-end mt-n1">
@@ -34,19 +34,25 @@
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
-                                <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="fromDate">
+                                <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
-                                <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="toDate">
+                                <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
-                            <button class="btn btn-success btn-lg">Search &nbsp;<i class="fa fa-search"
-                                    aria-hidden="true"></i></button>
+                            <button class="btn btn-success btn-lg" (click)="searchByDateRange()">Search &nbsp;<i
+                                    class="fa fa-search" aria-hidden="true"></i></button>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <button class="btn btn-pink w-100" (click)="resetDate()">Reset</button>
                         </li>
                         <li class="list-inline-item">
 
@@ -61,54 +67,61 @@
                                     <div class="filter_secn">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquiry
-                                                    Source</label>
+                                                <label for="organization_name" class="form-label">Organization Name
+                                                </label>
                                                 <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
-                                                    </select>
+                                                    <input type="text" class="form-control" placeholder="search"
+                                                        [(ngModel)]="orgName">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquery
-                                                    Type</label>
+                                                <label for="district_name" class="form-label">Contact
+                                                    Name</label>
                                                 <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
-                                                    </select>
+                                                    <input type="text" class="form-control" placeholder="search"
+                                                        [(ngModel)]="contactName">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquired
-                                                    Product</label>
+                                                <label for="district_name" class="form-label">State
+                                                </label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
+                                                        id="status_type" [(ngModel)]="state" (change)="changeState()">
+                                                        <option value="">Select an options
+                                                        </option>
+                                                        <option *ngFor="let item of stateList" [value]="item.stateId">
+                                                            {{item.stateName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
 
 
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquery
-                                                    Location</label>
+                                            <div class="col-md-4 pt-2">
+                                                <label for="district_name" class="form-label">District
+                                                </label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
+                                                        id="status_type" [(ngModel)]="city">
+                                                        <option value="">Select an options
+                                                        </option>
+
+                                                        <option *ngFor="let item of cityList" [value]="item.cityId">
+                                                            {{item.cityName}}</option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 pt-2">
+                                                <label for="district_name" class="form-label">Address
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="search"
+                                                        [(ngModel)]="address">
                                                 </div>
                                             </div>
 
 
-                                            <div class="col-md-4">
+                                            <!-- <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
@@ -117,10 +130,10 @@
                                                         </option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
 
-                                            <div class="col-md-4">
+                                            <!-- <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
@@ -128,9 +141,9 @@
                                                         <option selected="Select an options">Zone</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
-                                        <div class="row mt-3">
+                                        <!-- <div class="row mt-3">
                                             <div class="col-md-12">
                                                 <label for="district_name" class="form-label  text-black">
                                                     Enquiery Status
@@ -150,8 +163,10 @@
                                                 </label>
 
                                             </div>
-                                        </div>
-                                        <div id="div01">
+                                        </div> -->
+
+
+                                        <!-- <div id="div01">
                                             <div class="row hide asign_to_dv">
                                                 <div class="col-md-4">
                                                     <label for="district_name" class="form-label">Employee
@@ -187,18 +202,20 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
+
+
                                         <div class="row d-flex justify-content-end">
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-pink w-100">Reset</button>
+                                                    <button class="btn btn-pink w-100" (click)="reset()">Reset</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-success w-100">Save &
+                                                    <button class="btn btn-success w-100" (click)="saveSearch()">Save &
                                                         Search</button>
                                                 </div>
                                             </div>

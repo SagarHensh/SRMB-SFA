@@ -4,14 +4,21 @@
     </agm-direction> -->
 
 
-    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat"
+    <agm-marker *ngFor="let m of markers; let i = index"  (mouseOver)="onMouseOver(infoWindow, m)" (mouseOut)="onMouseOut(infoWindow, m)" [latitude]="m.lat"
         [longitude]="m.lng" [agmFitBounds]="true" 
         [iconUrl]="$any(icon)">
         <!-- [label]="m.label" -->
         <!-- animation="BOUNCE" -->
         <!-- iconUrl="http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png"  -->
-        <agm-info-window>
+        <agm-info-window [disableAutoPan]="false" #infoWindow>
             <strong>{{infoLabel}}</strong>
+            <div id="content">
+                <div id="siteNotice"></div>
+                <div id="bodyContent">
+                    <p><strong>Name : {{infoData.name}}</strong></p>
+                    <p><strong>Type : {{infoData.type}}</strong></p>
+                </div>
+            </div>
         </agm-info-window>
 
     </agm-marker>
@@ -21,8 +28,8 @@
             [strokeColor]="polyline.color">
             <!-- <agm-icon-sequence [fixedRotation]="false" [repeat]="'150px'" [offset]="'200'" [path]="'FORWARD_OPEN_ARROW'">
             </agm-icon-sequence> -->
-            <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.latitude"
-                [longitude]="point.longitude">
+            <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.lat"
+                [longitude]="point.lng">
             </agm-polyline-point>
         </agm-polyline>
     </ng-container>

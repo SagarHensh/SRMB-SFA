@@ -64,7 +64,7 @@
                             <div class="col-lg-4">
                                 <div class="can_sc">
                                     <a (click)="openDateCalenderModal()" href="javascript:void(0)">
-                                        <strong>{{selectedDateDetails.selectedDateString}}</strong>
+                                        <strong>{{selectedPjpDate}}</strong>
                                         <span>You are selected this date for PJP</span>
                                     </a>
                                     <span class="ref_btn">
@@ -73,41 +73,53 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-8">
                                 <div class="execut_sc p_files" *ngIf="!isSelf">
                                     <ng-container *ngIf="!isSelected">
                                         <img src="assets/images/no-profil-pic.png">
                                         <div class="execut_sc_in ">
                                             <strong>Select Employee</strong>
-                                            <span>Marketing Executive for the PJP</span>
+                                            <!-- <span>Marketing Executive for the PJP</span> -->
                                         </div>
                                     </ng-container>
                                     <ng-container *ngIf="isSelected">
-                                        <img src="assets/images/no-profil-pic.png">
-                                        <div class="execut_sc_in ">
+                                        <img class="prf_img" src={{getProfileImage(selectedEmpDeails.profileImg)}}
+                                            alt="create">
+                                        <div class="execut_sc_in " style="width: 40%;">
                                             <strong>{{selectedEmpDeails.name}}</strong>
                                             <span>{{selectedEmpDeails.designation}}</span>
+                                        </div>
+                                        <div class="can_sc forday" style="width: 30%;">
+                                            <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                                            <strong>{{selectedEmpDeails.datesOfPrePlanVisit}} days</strong>
+                                            <span>Preplan Visit</span>
                                         </div>
                                     </ng-container>
                                     <div>
                                         <a class="p_files_edt_icm" href="javascript:void(0)"
-                                            (click)="openSubOrdinateModal()"><img src="assets/images/create.svg"
-                                                alt="create">
+                                            (click)="openSubOrdinateModal()">
+                                            <img src="assets/images/create.svg" alt="create">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="execut_sc p_files" *ngIf="isSelf">
                                     <ng-container *ngIf="isSelected">
-                                        <img src="assets/images/no-profil-pic.png">
-                                        <div class="execut_sc_in ">
+                                        <img class="prf_img" src={{getProfileImage(selectedEmpDeails.profileImg)}}
+                                            alt="create">
+                                        <div class="execut_sc_in " style="width: 40%;">
                                             <strong>{{selectedEmpDeails.name}}</strong>
                                             <span>{{selectedEmpDeails.designation}}</span>
+                                        </div>
+                                        <div class="can_sc forday" style="width: 30%;">
+                                            <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                                            <strong>{{selectedEmpDeails.datesOfPrePlanVisit}} days</strong>
+                                            <span>Preplan Visit</span>
                                         </div>
                                     </ng-container>
                                 </div>
 
                             </div>
-                            <div class="col-lg-4">
+                            <!-- <div class="col-lg-4">
                                 <div class="q_files">
                                     <label for="district_name" class="form-label">Task Type</label>
                                     <div class="input-group">
@@ -120,7 +132,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -141,11 +153,13 @@
                             class="form-check d-inline-block align-middle me-3 mb-2">
                             <input class="form-check-input" type="radio" value={{category.slNo}}
                                 name="contact_category_type" id="assigned_users"
-                                (change)="onChangeContactCategory($event)">
+                                (change)="onChangeContactCategory($event)"
+                                [checked]="selectedContactCategory == category.slNo">
                             <label class="form-check-label" for="assigned_users">{{category.name}}</label>
                         </div>
                         <div class="form-check d-inline-block align-middle mb-2">
-                            <input class="form-check-input" type="radio" value="-1" name="contact_category_type" id="assigned_users" (change)="onChangeContactCategory($event)">
+                            <input class="form-check-input" type="radio" value="-1" name="contact_category_type"
+                                id="assigned_users" (change)="onChangeContactCategory($event)">
                             <label class="form-check-label" for="assigned_users">Target</label>
                         </div>
                     </div>
@@ -263,9 +277,10 @@
                                                     <label class="form-check-label" for="show_event">&nbsp;</label>
                                                 </div>
                                                 <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
+                                                    <img class="prf_img" src={{getProfileImage(data.profilePic)}}
+                                                        alt="create">
                                                     <div>
-                                                        <strong>{{data.firstName}} {{data.lastName}}</strong>
+                                                        <strong>{{data.name}}</strong>
                                                         <span>Relationship : {{data.contactTypeName}}</span>
                                                     </div>
                                                 </div>
@@ -299,9 +314,10 @@
                                     <ng-container *ngIf="visitArray.length > 0">
                                         <ng-container *ngFor="let visit of visitArray; let i = index">
                                             <div class="p_files">
-                                                <img src="assets/images/profl-pic.png" alt="create">
+                                                <img class="prf_img" src={{getProfileImage(visit.profilePic)}}
+                                                    alt="create">
                                                 <div>
-                                                    <strong>{{visit.firstName}} {{visit.lastName}}</strong>
+                                                    <strong>{{visit.name}}</strong>
                                                     <span>Relationship : {{visit.contactTypeName}}</span>
                                                 </div>
                                             </div>
@@ -341,6 +357,26 @@
                                     </ng-container>
 
                                     <div class="pre_plan_vist">
+                                        <h4>Preplan Visit</h4>
+                                        <div class="tabl_div_sec" *ngFor="let plan of preplanDataByCustomer">
+                                            <div class="cle"><i class="fa fa-calendar"
+                                                    aria-hidden="true"></i>{{getDate(plan.plannedDate)}}</div>
+                                            <div class="mo_nm"><i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                <div>
+                                                    <strong>{{plan.name}}</strong>
+                                                    <span>{{plan.designationName}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="lnce">
+                                                <!-- <i class="fa fa-question" aria-hidden="true"></i> -->
+                                                <div>
+                                                    <strong>{{getTaskCategoryString(plan.purposeId)}}</strong><span>{{plan.purposeNote}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pre_plan_vist">
 
                                         <div class="note_sc">
                                             <p>You have selected <strong class="text-primary">3</strong>
@@ -361,8 +397,7 @@
 
 
                 </div>
-                <a class="btn btn-primary vewpjp" data-bs-target="#addContactModal3" data-bs-toggle="modal"
-                    data-bs-dismiss="modal" href="javascript:void(0)">Create PJP</a>
+                <a class="btn btn-primary vewpjp" href="javascript:void(0)" (click)="viewPjpRouteMap()">Create PJP</a>
 
             </div>
         </div>
@@ -440,7 +475,8 @@
                                                 <label class="form-check-label" for="assigned_groups"></label>
                                             </div>
                                             <div class="p_files">
-                                                <img src="assets/images/profl-pic.png" alt="create">
+                                                <img class="prf_img" src={{getProfileImage(data.profileImg)}}
+                                                    alt="create">
                                                 <div>
                                                     <strong>{{data.name}}</strong>
                                                     <span>{{data.designation}}</span>
@@ -454,40 +490,38 @@
 
 
                                         </div>
-                                        <div class="vst_rsgn">
+                                        <div class="vst_rsgn" [id]="'accordionExamplebuisness'+data.userId">
 
                                             <span class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#collapsebuisnessTwo"
-                                                aria-expanded="false" aria-controls="collapsebuisnessTwo">View
+                                                data-bs-toggle="collapse"
+                                                [attr.data-bs-target]="'#collapsebuisnessTwo'+data.userId"
+                                                aria-expanded="false"
+                                                [attr.aria-controls]="'collapsebuisnessTwo'+data.userId">View
                                                 details</span>
 
                                         </div>
 
                                     </div>
-                                    <div id="collapsebuisnessTwo" class="accordion-collapse collapse"
-                                        aria-labelledby="headingbuisnessTwo" data-bs-parent="#accordionExamplebuisness">
+                                    <div [id]="'collapsebuisnessTwo'+data.userId" class="accordion-collapse collapse"
+                                        [attr.aria-labelledby]="'headingbuisnessTwo'+data.userId"
+                                        [attr.data-bs-parent]="'#accordionExamplebuisness'+data.userId">
                                         <div class="accordion-body">
                                             <div class="pre_plan_vist">
                                                 <h4>Preplan Visit</h4>
-
                                                 <div class="tabl_div_sec" *ngFor="let plan of data.allPrePlanVisit">
-
                                                     <div class="cle"><i class="fa fa-calendar"
-                                                            aria-hidden="true"></i>{{plan.date}}</div>
+                                                            aria-hidden="true"></i>{{getDate(plan.plannedDate)}}</div>
                                                     <div class="mo_nm"><i class="fa fa-map-marker"
                                                             aria-hidden="true"></i>
-                                                        <div><strong>{{plan.visitorName}}</strong><span>{{plan.district}},
+                                                        <div><strong>{{plan.name}}</strong><span>{{plan.district}},
                                                                 {{plan.zone}}</span></div>
                                                     </div>
                                                     <div class="lnce"><i class="fa fa-question" aria-hidden="true"></i>
                                                         <div>
-                                                            <strong>{{plan.task}}</strong><span>{{plan.description}}</span>
+                                                            <strong>{{plan.categoryName}}</strong><span>{{plan.purposeNote}}</span>
                                                         </div>
                                                     </div>
-
                                                 </div>
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -530,13 +564,13 @@
                         <div class="can_sc">
                             <a data-bs-target="#addContactModal1" data-bs-toggle="modal" data-bs-dismiss="modal"
                                 href="javascript:void(0)">
-                                <strong>6th January 2021</strong>
+                                <strong>{{selectedDateDetails.selectedDateString}}</strong>
                                 <span>You are selected this date for PJP</span>
                             </a>
 
 
                         </div>
-                        <button class="btn btn-success">Save</button>
+                        <button class="btn btn-success" (click)="savePjpDate()">Save</button>
                     </div>
                 </div>
                 <div class="row">
@@ -619,6 +653,38 @@
 <!-- </div> -->
 
 
+<!-- ....................... success modal................... -->
+<ng-template #createPjpModal>
+    <div class="addContactModal">
+        <div class="modal-body">
+            <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                <div class="row align-items-center">
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <button class="btn-close pjp_error_mod" (click)="closeModal()"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 alart_popu">
+
+                        <div class="alart_pop">
+                            <img class="d-inline-block align-middle" src="assets/images/tict-icon.png" alt="">
+                            <p>
+                                <strong>{{errorString}}</strong>
+                            </p>
+                        </div>
+                        <button class="btn btn-success" (click)="closeModal()">Ok</button>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
 <ng-template #addContactModal4>
     <!-- <div id="addContactModal4" tabindex="-1" aria-labelledby="addContactModal" class="modal fade addContactModal"
     aria-hidden="true">
@@ -652,7 +718,7 @@
                                             <div class="col-lg-5">
                                                 <div class="can_sc">
                                                     <a href="javascript:void(0)">
-                                                        <strong>6th January 2021</strong>
+                                                        <strong>{{selectedPjpDate}}</strong>
                                                         <span>You are selected this date for PJP</span>
                                                     </a>
 
@@ -661,18 +727,20 @@
                                             </div>
                                             <div class="col-lg-5">
                                                 <div class="execut_sc p_files">
-                                                    <img src="assets/images/profl-pic.png">
+                                                    <img class="prf_img"
+                                                        src={{getProfileImage(selectedEmpDeails.profileImg)}}
+                                                        alt="create">
                                                     <div class="execut_sc_in ">
                                                         <span>You are selected</span>
-                                                        <strong>Ramen Das</strong>
-                                                        <span>Marketing Executive for the PJP</span>
+                                                        <strong>{{selectedEmpDeails.name}}</strong>
+                                                        <span>{{selectedEmpDeails.designation}}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="can_sc forday">
                                                     <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                    <strong>4 days</strong>
+                                                    <strong>{{selectedEmpDeails.datesOfPrePlanVisit}} days</strong>
                                                     <span>Preplan Visit</span>
 
 
@@ -696,17 +764,17 @@
                                             <ul>
                                                 <li>
                                                     <img src="assets/images/glob-al.png" alt="create">
-                                                    <strong>West Bengal</strong>
+                                                    <strong>{{modalState}}</strong>
                                                 </li>
 
                                                 <li>
                                                     <img src="assets/images/glob-a2.png" alt="create">
-                                                    <strong>Bankura</strong>
+                                                    <strong>{{modalDistrict}}</strong>
                                                 </li>
-                                                <li>
+                                                <!-- <li>
                                                     <img src="assets/images/glob-a1.png" alt="create">
                                                     <strong>Zone - 3</strong>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>
@@ -716,14 +784,15 @@
                                         <strong>Selected Visitor</strong>
                                     </div>
                                     <div class="scrol_div">
-                                        <div class="sech_list">
+                                        <div class="sech_list" *ngFor="let data of pjpDataArr ">
                                             <div class="cnk_slect">
 
                                                 <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
+                                                    <img class="prf_img" src={{getProfileImage(data.profilePic)}}
+                                                        alt="create">
                                                     <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
+                                                        <strong>{{data.name}}</strong>
+                                                        <span>Relationship : {{data.contactTypeName}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -731,215 +800,18 @@
 
                                                 <i class="fa fa-question text-black" aria-hidden="true"></i>
                                                 <strong>Visit Reason</strong>
-                                                <p>Payment Collection</p>
+                                                <p>{{data.pjpData[0].taskName}}</p>
 
                                             </div>
-                                            <div class="can_sc forday">
+                                            <!-- <div class="can_sc forday">
                                                 <i class="fa fa-circle text-success" aria-hidden="true"></i>
                                                 <strong>3time visited</strong>
                                                 <span>during last 30 days</span>
-
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="vst_rsgn_pay">
-
-                                                <i class="fa fa-question text-black" aria-hidden="true"></i>
-                                                <strong>Visit Reason</strong>
-                                                <p>Payment Collection</p>
-
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>3time visited</strong>
-                                                <span>during last 30 days</span>
-
-
-                                            </div>
+                                            </div> -->
 
 
                                         </div>
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
 
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="vst_rsgn_pay">
-
-                                                <i class="fa fa-question text-black" aria-hidden="true"></i>
-                                                <strong>Visit Reason</strong>
-                                                <p>Payment Collection</p>
-
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>3time visited</strong>
-                                                <span>during last 30 days</span>
-
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="vst_rsgn_pay">
-
-                                                <i class="fa fa-question text-black" aria-hidden="true"></i>
-                                                <strong>Visit Reason</strong>
-                                                <p>Payment Collection</p>
-
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>3time visited</strong>
-                                                <span>during last 30 days</span>
-
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="vst_rsgn_pay">
-
-                                                <i class="fa fa-question text-black" aria-hidden="true"></i>
-                                                <strong>Visit Reason</strong>
-                                                <p>Payment Collection</p>
-
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>3time visited</strong>
-                                                <span>during last 30 days</span>
-
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="vst_rsgn_pay">
-
-                                                <i class="fa fa-question text-black" aria-hidden="true"></i>
-                                                <strong>Visit Reason</strong>
-                                                <p>Payment Collection</p>
-
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>3time visited</strong>
-                                                <span>during last 30 days</span>
-
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="vst_rsgn_pay">
-
-                                                <i class="fa fa-question text-black" aria-hidden="true"></i>
-                                                <strong>Visit Reason</strong>
-                                                <p>Payment Collection</p>
-
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>3time visited</strong>
-                                                <span>during last 30 days</span>
-
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="sech_list">
-                                            <div class="cnk_slect">
-
-                                                <div class="p_files">
-                                                    <img src="assets/images/profl-pic.png" alt="create">
-                                                    <div>
-                                                        <strong>Ghosh Hardware &amp; Iron</strong>
-                                                        <span>Relationship : Dealer</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="vst_rsgn_pay">
-
-                                                <i class="fa fa-question text-black" aria-hidden="true"></i>
-                                                <strong>Visit Reason</strong>
-                                                <p>Payment Collection</p>
-
-                                            </div>
-                                            <div class="can_sc forday">
-                                                <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                                                <strong>3time visited</strong>
-                                                <span>during last 30 days</span>
-
-
-                                            </div>
-
-
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -949,14 +821,14 @@
 
                                 <div class="rout_map sec_dv" style="height: 450px;">
                                     <!-- <img src="assets/images/route-map.png"> -->
-                                    <app-pjp-map></app-pjp-map>
+                                    <app-pjp-map [mainData]="pjpDataArr"></app-pjp-map>
                                 </div>
 
 
                             </div>
                             <div class="d-flex justify-content-center mt-3 mb-3">
-                                <button class="btn btn-pink">Edit</button>
-                                <button class="btn btn-success">Confirm& Save</button>
+                                <button class="btn btn-pink" (click)="closeModal()">Edit</button>
+                                <button class="btn btn-success" (click)="createPjp()">Confirm& Save</button>
                             </div>
                         </div>
 

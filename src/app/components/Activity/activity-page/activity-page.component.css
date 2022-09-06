@@ -1,0 +1,19 @@
+.inner {
+    width: 50%;
+    margin: 0 auto;
+}
+
+::ng-deep .carousel-inner {
+    width: 80%;
+    margin: 0 auto;
+    /* background-color: #fff ; */
+    height: 100px;
+
+}
+
+.picsum-img-wrapper {
+    height: 100px;
+    width: 100px;
+    background-color: white;
+    margin-left: 10px;
+}

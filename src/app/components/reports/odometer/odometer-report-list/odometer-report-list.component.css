@@ -24,3 +24,10 @@
 .addContactModal .modal-body {
     padding: 0 30px;
 }
+
+.modal_image{
+
+    height: 300px;
+    width: 100%;
+    border-radius: 10px;
+}

@@ -107,7 +107,9 @@
 
                                 </div>
                                 <div class="map_sec_top_rit">
-                                    <ul class="nav nav-pills" id="pills-tab" role="tablist" [ngStyle]="{'display': mainTab == 3 ? 'flex' : 'none' }" [hidden]="isSalesClick">
+                                    <ul class="nav nav-pills" id="pills-tab" role="tablist"
+                                        [ngStyle]="{'display': mainTab == 3 ? 'flex' : 'none' }"
+                                        [hidden]="isSalesClick">
 
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="pills-lead-tab"
@@ -178,7 +180,7 @@
                                         </li>
                                     </ul>
 
-                                    <div class="lead_profil"  [ngStyle]="{'display': isSalesClick ? 'block' : 'none' }">
+                                    <div class="lead_profil" [ngStyle]="{'display': isSalesClick ? 'block' : 'none' }">
                                         <span class="pppic"><img src="assets/images/profile-img.svg"></span>
                                         <div class="nme_desg">
                                             <button>Assign Task</button>
@@ -627,18 +629,27 @@
                                         </div>
                                         <div class="map_trac_sc">
                                             <div class="map_dv" id="saleMap">
-                                                <app-sales-map-view [salesMarkerData]="salesMarker"  (salesItemEvent)="goToSalesSecond($event)">
+                                                <app-sales-map-view [salesMarkerData]="salesMarker"
+                                                    (salesItemEvent)="goToSalesSecond($event)">
                                                 </app-sales-map-view>
                                             </div>
                                             <div class="map_record salese">
 
-                                                <div class="lead_dv">
-                                                    <h4>Total Count</h4>
+                                                <div class="lead_dv" style="
+                                                border-radius: 20px;
+                                                background: #3dacff;">
+                                                    <h4 style="
+                                                    background: #3dacff;
+                                                    border-radius: 15px;">Total Count</h4>
                                                     <p><strong id="saleCount">{{saleSideData.totalCount}}
                                                         </strong></p>
                                                 </div>
-                                                <div class="lead_dv">
-                                                    <h4>Type count
+                                                <div class="lead_dv" style="
+                                                background: #89dfd3;
+                                                border-radius: 20px;">
+                                                    <h4 style="
+                                                    background: #89dfd3;
+                                                    border-radius: 20px;">Type count
                                                     </h4>
                                                     <div class="slse_dv">
                                                         <ul>
@@ -650,13 +661,19 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="lead_dv">
-                                                    <h4>Hierarchy
+                                                <div class="lead_dv" style="
+                                                border-radius: 20px;
+                                                background: #ff627e;">
+                                                    <h4 style="
+                                                    background: #ff627e;
+                                                    border-radius: 20px;">Hierarchy
 
                                                     </h4>
 
                                                     <div class="opp_hier">
-                                                        <div class="progress">
+                                                        <div class="progress" style="
+                                                        background: #ff7eb8;
+                                                        border-radius: 20px;">
                                                             <ul id="progUl">
                                                                 <li *ngIf="salesTabData.isLead">
                                                                     <div class="opp_hier_in">
@@ -754,20 +771,36 @@
                                                     </ol>
                                                 </div>
                                                 <div class="bar-rit">
-                                                    <div class="lead_dv">
-                                                        <h4>Prediction Score</h4>
+                                                    <div class="lead_dv" style="
+                                                    border-radius: 20px;
+                                                    background: #3dacff;">
+                                                        <h4 style="
+                                                        background: #3dacff;
+                                                        border-radius: 15px;">Prediction Score</h4>
                                                         <p><strong id="saleCount">70%</strong></p>
                                                     </div>
-                                                    <div class="lead_dv ldinf">
-                                                        <h4>Lead information</h4>
-                                                        <ul>
-                                                            <li>
+                                                    <div class="lead_dv ldinf" style="
+                                                    background: #89dfd3;
+                                                    border-radius: 20px;">
+                                                        <h4 style="
+                                                        background: #89dfd3;
+                                                        border-radius: 20px;">Lead information</h4>
+                                                        <ul  style="
+                                                        background: #89dfd3;
+                                                        border-radius: 20px;">
+                                                            <li style="
+                                                            background: #89dfd3;
+                                                            border-radius: 20px;">
                                                                 Dealer
                                                             </li>
-                                                            <li>
+                                                            <li style="
+                                                            background: #89dfd3;
+                                                            border-radius: 20px;">
                                                                 Opportunity
                                                             </li>
-                                                            <li>
+                                                            <li style="
+                                                            background: #89dfd3;
+                                                            border-radius: 20px;">
                                                                 Negotiation
                                                             </li>
 
@@ -776,13 +809,21 @@
 
                                                         </ul>
                                                     </div>
-                                                    <div class="lead_dv">
-                                                        <h4>Recommendation</h4>
+                                                    <div class="lead_dv" style="
+                                                    border-radius: 20px;
+                                                    background: #ffb26b;">
+                                                        <h4 style="
+                                                        background: #ffb26b;
+                                                        border-radius: 20px;">Recommendation</h4>
                                                         <ul>
-                                                            <li>
+                                                            <li style="
+                                                            background: #ffb26b;
+                                                            border-radius: 20px;">
                                                                 <strong> Regular Follow Up </strong>
                                                             </li>
-                                                            <li>
+                                                            <li style="
+                                                            background: #ffb26b;
+                                                            border-radius: 20px;">
                                                                 <strong>ASM Visit Required </strong>
                                                             </li>
 
@@ -790,8 +831,12 @@
 
                                                         </ul>
                                                     </div>
-                                                    <div class="lead_dv">
-                                                        <h4>Prospect value</h4>
+                                                    <div class="lead_dv" style="
+                                                    border-radius: 20px;
+                                                    background: #ff7eb8;">
+                                                        <h4 style="
+                                                        border-radius: 20px;
+                                                        background: #ff7eb8;">Prospect value</h4>
                                                         <p>
                                                             <strong>
                                                                 5,00,0000 INR
@@ -801,8 +846,12 @@
                                                         </p>
 
                                                     </div>
-                                                    <div class="lead_dv">
-                                                        <h4>Loyality Score</h4>
+                                                    <div class="lead_dv" style="
+                                                    border-radius: 20px;
+                                                    background: #ff627e;">
+                                                        <h4 style="
+                                                        border-radius: 20px;
+                                                        background: #ff627e;">Loyality Score</h4>
                                                         <p>
                                                             <strong>
                                                                 80%
@@ -812,8 +861,12 @@
                                                         </p>
 
                                                     </div>
-                                                    <div class="lead_dv">
-                                                        <h4>Compitator Activity</h4>
+                                                    <div class="lead_dv" style="
+                                                    border-radius: 20px;
+                                                    background: #ff2c53;">
+                                                        <h4 style="
+                                                        border-radius: 20px;
+                                                        background: #ff2c53;">Compitator Activity</h4>
                                                         <p>
                                                             <strong>
                                                                 Yes

@@ -18,7 +18,7 @@ export class CrmService {
     return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6IjEiLCJ1c2VyVHlwZUlkIjoiMSIsInJlcXRpbWUiOjE2NTMzMTI2MzM4MDZ9LCJpYXQiOjE2NTMzMTI2MzN9.MjXLcad-PzFFd9_-KnI0xrSdjOKBsakP9Hyw0dpxZJo";
   }
 
-  getImageUrl(){
+  getImageUrl() {
     return app_config.crmApiUrl;
   }
 
@@ -26,7 +26,29 @@ export class CrmService {
     return this.http.post(this.apiurl + 'api/v1/customerManagement/getlistOfNewRegCustomers', params, this.options);
   }
 
+  // getEnquiryList(params: any): Observable<any> {
+  //   return this.http.post(this.apiurl + 'api/v1/enqueryManagement/getEnqueryList', params, this.options);
+  // }
+
   getEnquiryList(params: any): Observable<any> {
-    return this.http.post(this.apiurl + 'api/v1/enqueryManagement/getEnqueryList', params, this.options);
+    return this.http.post(this.apiurl + 'api/v1/enqueryManagement/getEnqueryListForSFA', params, this.options);
   }
+
+  //-------------------------- For Enquiry Report Filter-------------------//
+
+  getEnquiryData(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/enqueryManagement/landingPageSelections', data, this.options);
+  }
+  getState(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/state/getState', data, this.options);
+  }
+
+  getDistrict(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/city/getCity', data, this.options);
+  }
+  getZone(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/zone/getZone', data, this.options);
+  }
+
+
 }

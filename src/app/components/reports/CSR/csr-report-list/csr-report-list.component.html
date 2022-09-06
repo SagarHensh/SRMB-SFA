@@ -24,7 +24,7 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
                 <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Search by customer name or number here">
+                    <input type="text" class="form-control" placeholder="Search by customer name or number here" (keyup) = "searchIndividual($event)">
 
                 </div>
                 <div class="col-md-9 text-end mt-n1">
@@ -34,19 +34,23 @@
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
-                                <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <input type="date" placeholder="Search" class="form-control input-sm" [(ngModel)] = "fromDate">
+                                <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
-                                <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <input type="date" placeholder="Search" class="form-control input-sm" [(ngModel)] = "toDate">
+                                <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
-                            <button class="btn btn-success btn-lg">Search &nbsp;<i class="fa fa-search"
+                            <button class="btn btn-success btn-lg" (click) = "searchByDateRange()">Search &nbsp;<i class="fa fa-search"
                                     aria-hidden="true"></i></button>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <button class="btn btn-pink w-100" (click)="resetDate()">Reset</button>
                         </li>
                         <li class="list-inline-item">
 
@@ -61,76 +65,66 @@
                                     <div class="filter_secn">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquiry
-                                                    Source</label>
+                                                <label for="customer_name" class="form-label">Customer Name
+                                                    </label>
                                                 <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
-                                                    </select>
+                                                    <input type="text" class="form-control" placeholder="search" [(ngModel)] = "custName">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquery
+                                                <label for="customer_type" class="form-label">Customer
                                                     Type</label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquired
-                                                    Product</label>
-                                                <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
+                                                        id="cust_id" [(ngModel)] ="custType">
+                                                        <option value="">Select an options</option>
+                                                        <option *ngFor = "let item of contactTypeList" [value]="item.custTypId">{{item.custTypName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
 
 
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquery
-                                                    Location</label>
+                                                <label for="state_name" class="form-label">State
+                                                    </label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
+                                                        id="state_id" [(ngModel)] = "state" (change) ="changeState()">
+                                                        <option value="">Select an options</option>
+                                                        <option *ngFor = "let item of stateList" [value] = "item.stateId">{{item.stateName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
 
 
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                            <div class="col-md-4 pt-2">
+                                                <label for="district_name" class="form-label">District</label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">District
+                                                        id="city_id" [(ngModel)] = "city">
+                                                        <option value="">Select an options
                                                         </option>
+                                                        <option *ngFor ="let item of cityList" [value] = "item.cityId">{{item.cityName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
 
 
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                            <div class="col-md-4 pt-2">
+                                                <label for="district_name" class="form-label">CSR Activity</label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Zone</option>
+                                                        id="csr_type" [(ngModel)] ="csrType">
+                                                        <option value="">Select an options</option>
+                                                        <option *ngFor = "let item of csrList" [value]="item.id">{{item.csrTypeName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
+
                                         </div>
-                                        <div class="row mt-3">
+
+
+                                        <!-- <div class="row mt-3">
                                             <div class="col-md-12">
                                                 <label for="district_name" class="form-label  text-black">
                                                     Enquiery Status
@@ -150,8 +144,9 @@
                                                 </label>
 
                                             </div>
-                                        </div>
-                                        <div id="div01">
+                                        </div> -->
+
+                                        <!-- <div id="div01">
                                             <div class="row hide asign_to_dv">
                                                 <div class="col-md-4">
                                                     <label for="district_name" class="form-label">Employee
@@ -187,18 +182,19 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
+
                                         <div class="row d-flex justify-content-end">
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-pink w-100">Reset</button>
+                                                    <button class="btn btn-pink w-100" (click) ="reset()">Reset</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-success w-100">Save &
+                                                    <button class="btn btn-success w-100" (click) ="saveSearch()">Save &
                                                         Search</button>
                                                 </div>
                                             </div>
@@ -273,20 +269,40 @@
                                                 [(ngModel)]="limit" (ngModelChange)="changeLimit()">
                                                 <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
                                                     {{pg.label}}</option>
-                                            </select> {{startRecordNumber()}} - {{allReportList.length}}</label>
-                                        <label>
+                                            </select> 
+                                            
+                                            <!-- {{startRecordNumber()}} - {{allReportList.length}} -->
+
+                                            {{startRecordNumber()}} - {{offset + limit}}
+                                        
+                                        
+                                        </label>
+
+
+                                        <!-- <label>
                                             <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
                                                 <img src="assets/images/chevron-left.svg" alt="chevron-left">
                                             </a>
                                             <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
                                                 <img src="assets/images/chevron-right.svg" alt="chevron-right">
                                             </a>
+                                        </label> -->
+
+                                        <label>
+                                            <button class="px-1 d-inline-block align-middle" [disabled]="isPrevious" (click)="previous()">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left">
+                                            </button>
+                                            <button class="px-1 d-inline-block align-middle" [disabled]="isdisable" (click)="next()">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right">
+                                            </button>
                                         </label>
+
+
                                     </div>
                                 </div>
                             </div>
                             <div class="btn-group btn-group-sm ms-auto btn-download-group">
-                                <button type="button" class="btn btn-primary px-4 text-white">
+                                <button type="button" class="btn btn-primary px-4 text-white" (click)="onDownload()">
                                     Download List
                                 </button>
                                 <button type="button" class="btn btn-primary px-4 text-white">Bulk
@@ -298,21 +314,21 @@
                                     <img src="assets/images/filtering.svg" alt="filtering"></button>
                                 <div class="dropdown-menu dropdown-menu-end addDropdownhead">
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Organizations name</span>
+                                        <span class="col-auto d-block">Customer name</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch1">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Owner</span>
+                                        <span class="col-auto d-block">Customer Phone</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch2">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Contact Person</span>
+                                        <span class="col-auto d-block">Customer Type</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch3">
                                         </div>
@@ -326,33 +342,33 @@
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Phone</span>
+                                        <span class="col-auto d-block">District</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch5">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Deals</span>
+                                        <span class="col-auto d-block">CSR Activity</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch6">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Contact person title</span>
+                                        <span class="col-auto d-block">CSR Activity Date</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch7">
                                         </div>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">District</span>
+                                        <span class="col-auto d-block">Remarks</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch8">
                                         </div>
                                     </a>
-                                    <div class="dropdown-divider"></div>
+                                    <!-- <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-md-flex align-items-center" href="#">
                                         <span class="col-auto d-block">Zone</span>
                                         <div class="form-check form-switch col-auto d-block ms-auto">
@@ -386,7 +402,7 @@
                                         <div class="form-check form-switch col-auto d-block ms-auto">
                                             <input class="form-check-input" type="checkbox" id="switch11">
                                         </div>
-                                    </a>
+                                    </a> -->
                                 </div>
 
                             </div>

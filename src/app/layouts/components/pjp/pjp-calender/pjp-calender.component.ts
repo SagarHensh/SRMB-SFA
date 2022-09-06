@@ -43,6 +43,7 @@ export class PjpCalenderComponent implements OnInit {
   dateInfo: any = [];
   selectedDate: any = "";
   selectedDateString: any = "";
+  currentDateString: any = "";
   @Output() selectedDateEvent = new EventEmitter<any>();
 
   ngOnInit(): void {
@@ -69,11 +70,13 @@ export class PjpCalenderComponent implements OnInit {
     this.dateInfo = aa;
     this.selectedDate = value;
     let ds = this.getOrdinalNum(aa[2])
-    this.selectedDateString = ds + " " + this.monthView.months[parseInt(aa[1])-1] + " " + aa[0];
+    this.selectedDateString = ds + " " + this.monthView.months[parseInt(aa[1]) - 1] + " " + aa[0];
+    this.currentDateString = ds + " " + this.monthView.months[parseInt(aa[1]) - 1] + " " + aa[0];
     console.log("Selected Date String::", this.selectedDateString);
-    let data={
-      selectedDate : this.selectedDate,
-      selectedDateString : this.selectedDateString
+    let data = {
+      selectedDate: this.selectedDate,
+      selectedDateString: this.selectedDateString,
+      current_Date_string: this.currentDateString
     }
     this.selectedDateEvent.emit(data);
   }
@@ -103,8 +106,14 @@ export class PjpCalenderComponent implements OnInit {
     this.dateInfo[0] = data.year;
     this.dateInfo[1] = data.month;
     this.dateInfo[2] = data.day;
+    let obj = {
+      selectedDate: this.selectedDate,
+      selectedDateString: this.selectedDateString,
+      current_Date_string: this.currentDateString
+    }
+    this.selectedDateEvent.emit(obj);
   }
-  getOrdinalNum(n : any) {
+  getOrdinalNum(n: any) {
     return n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
   }
 

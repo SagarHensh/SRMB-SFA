@@ -22,12 +22,38 @@ export class EnquiriesComponent implements OnInit {
   offset: any = "0";
   totalRecords: any = "";
 
+  //---------------- For Filter----------//
+  searchName = "";
+  isAssigned :boolean = false;
+  enquirySourceList:any = [];
+  enquiryTypeList:any = [];
+  productList:any = [];
+  countryList:any = [];
+  stateList:any = [];
+  districtList:any = [];
+  zoneList:any = [];
+  employeeTypeList:any = [];
+  stateId = "" as any;
+  cityId = "" as any;
+  zoneId = "" as any;
+  
+  enquirySourceText = "";
+  enquiryTypeText = "";
+  employeeType = "";
+  fromDate = "";
+  toDate = "";
+
+//-------------------------//
+
+
   ngOnInit(): void {
     let data: any = this.common.getAuthUserData();
     this.authUserData = JSON.parse(data);
     this.paginationLimitDropdown = this.store.getPaginationLimitList();
     this.limit = this.store.getDefaultPaginationLimit();
-    this.getVisitReports()
+    this.getVisitReports();
+    this.getEnquiryReportData();
+    this.getStatesByCountryId();
   }
 
   getVisitReports() {
@@ -36,8 +62,18 @@ export class EnquiriesComponent implements OnInit {
       "userId": this.authUserData.userId,
       "userType": this.authUserData.userType,
       "limit": this.limit.toString(),
-      "offset": this.offset.toString()
-    }
+      "offset": this.offset.toString(),
+      "searchName": this.searchName,
+      "enquirySourceText":this.enquirySourceText,
+      "enquiryTypeText":this.enquiryTypeText,
+      "employeeType":this.employeeType,
+      "state":this.stateId,
+      "city":this.cityId,
+      "zone":this.zoneId,
+      "searchFrom":this.fromDate,
+      "searchTo":this.toDate
+    };
+    console.log("Request Data for Enquery listing>>>>>>>",req);
     this.crm.getEnquiryList(req).subscribe(res => {
       console.log("Enquiry list response::", res);
       if(res.status == 200){
@@ -55,16 +91,18 @@ export class EnquiriesComponent implements OnInit {
   }
 
 
-  show01() {
-    let elem: any;
-    elem = document.getElementById('div01');
-    elem.style.display = 'block';
-  }
-  show02() {
-    let elem: any;
-    elem = document.getElementById('div01');
-    elem.style.display = 'none';
-  }
+  // show01() {
+  //   let elem: any;
+  //   elem = document.getElementById('div01');
+  //   elem.style.display = 'block';
+  // }
+
+
+  // show02() {
+  //   let elem: any;
+  //   elem = document.getElementById('div01');
+  //   elem.style.display = 'none';
+  // }
 
   toggleBtnList() {
     var tb: any = document.getElementById("switchList");
@@ -114,23 +152,25 @@ export class EnquiriesComponent implements OnInit {
   }
 
   onDownload = () => {
+    console.log("download function");
     let req = {
       "clientId": this.authUserData.clientId,
       "userId": this.authUserData.userId,
       "limit": this.limit.toString(),
+      "userType": this.authUserData.userType,
       "offset": this.offset.toString()
     }
-    this.common.getEnquiryVisitReportsDownload(req).subscribe(res => {
-      // console.log("Download res", res);
-      if (res.data != "") {
-        var file_path = app_config.downloadUrl + res.data;
-        var a = document.createElement('a');
-        a.href = file_path;
-        a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
+    
+    this.common.getEnquiryReportDownload(req).subscribe((res:any)=>{
+      console.log("res>>>>>>>>>>>",res);
+      if (res.response.file != "") {
+            var file_path = app_config.downloadUrlCRM + res.response.dir + res.response.file;
+            var a = document.createElement('a');
+            a.href = file_path;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }
     })
   }
 
@@ -143,5 +183,124 @@ export class EnquiriesComponent implements OnInit {
     return val;
   }
 
+  //------------------------------ For Filter-----------------------//
+
+
+  filterSearch(){
+    console.log("enquirySourceText>>>>>>>>",this.enquirySourceText);
+    console.log("enquiryTypeText>>>>>>>>>>>>",this.enquiryTypeText);
+    console.log("employeeType>>>>>>>>>>>>",this.employeeType);
+    console.log("state>>>>>>>>>>>>",this.stateId);
+    console.log("city>>>>>>>>>>>>",this.cityId);
+    console.log("zone>>>>>>>>>>>>",this.zoneId);
+  }
+
+  show01(){
+    this.isAssigned = true;
+  }
+  show02(){
+    this.isAssigned = false;
+    this.employeeType = "";
+  }
+
+
+  getEnquiryReportData(){
+    
+    const data  = {
+      userId:  this.authUserData.userId,
+      clientId: this.authUserData.clientId
+    }
+    this.crm.getEnquiryData(data).subscribe((res:any)=>{
+      console.log("For Filter res>>>>>>>>>>>>>",res);
+      if(res.success){
+        this.enquirySourceList = res.response.enquirySource;
+        this.enquiryTypeList = res.response.enquiryType;
+        this.employeeTypeList = res.response.employeeType;
+      }
+    })
+  }
+
+  getStatesByCountryId(){
+    const data  = {
+      userId:  this.authUserData.userId,
+      clientId: this.authUserData.clientId,
+      countryId: this.authUserData.countryId
+    };
+    this.crm.getState(data).subscribe((res:any)=>{
+      if(res.success){
+        this.stateList = res.response;
+        console.log("State list>>>>",this.stateList);
+      }
+    })
+  }
+
+  stateChange(){
+    this.getDistrictByStateId();
+  }
+  getDistrictByStateId(){
+    const data  = {
+      userId:  this.authUserData.userId,
+      clientId: this.authUserData.clientId,
+      stateId: this.stateId
+    };
+    this.crm.getDistrict(data).subscribe((res:any)=>{
+      console.log("district>>>>>>>>>>",res);
+      if(res.success){
+        this.districtList = res.response;
+      }
+    })
+  }
+
+  districtChange(){
+    this.getZoneByDistrictId();
+  }
+
+  getZoneByDistrictId(){
+    const data  = {
+      userId:  this.authUserData.userId,
+      clientId: this.authUserData.clientId,
+      cityId: this.cityId
+    };
+    this.crm.getZone(data).subscribe((res:any)=>{
+      if(res.success){
+        this.zoneList = res.response;
+      }
+    })
+  }
+
+  search(){
+    this.getVisitReports();
+  }
+  reset(){
+    this.enquirySourceText = "";
+    this.enquiryTypeText = "";
+    this.employeeType = "";
+    this.stateId = "";
+    this.cityId = "";
+    this.zoneId = "";
+    this.getVisitReports();
+  }
+
+  searchDateRange(){
+    this.getVisitReports();
+  }
+
+  resetDate(){
+    this.fromDate = "";
+    this.toDate ="";
+    this.getVisitReports();
+  }
+
+  searchIndividual(event:any){
+    if(event.target.value.length >1){
+      this.searchName = event.target.value;
+      this.getVisitReports();
+    } else{
+      this.searchName = "";
+      this.getVisitReports(); 
+    }
+  }
 
 }
+
+      

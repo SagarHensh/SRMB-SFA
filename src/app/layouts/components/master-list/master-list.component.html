@@ -13,7 +13,7 @@
                         <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
                             <ol class="breadcrumb justify-content-end">
                                 <li class="breadcrumb-item active">Master List</li>
-                                <li class="breadcrumb-item" aria-current="page">Dealer List</li>
+                                <li class="breadcrumb-item" aria-current="page">{{title}} List</li>
                             </ol>
                         </nav>
                     </div>
@@ -25,7 +25,7 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
                 <div class="col-md-6">
-                    <a class="btn btn-dark btn-lg me-3" href="javascript:void(0)">Edit Page Layout</a>
+                    <!-- <a class="btn btn-dark btn-lg me-3" href="javascript:void(0)">Edit Page Layout</a> -->
 
                 </div>
                 <div class="col-md-6 text-end mt-n1">
@@ -111,11 +111,13 @@
                             </div>
                             <div class="btn-group btn-group-sm ms-auto  btn-download-group">
 
-                                <select class="btn btn-primary px-4 text-white">
+                                <!-- <select class="btn btn-primary px-4 text-white">
                                     <option>
                                         Download List
                                     </option>
-                                </select>
+                                </select> -->
+
+                                <button type="button" class="btn btn-primary px-4 text-white" (click) = "downloadList()">Download List</button>
                                 <button type="button" class="btn btn-primary px-4 text-white">Bulk Upload</button>
                                 <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -237,31 +239,35 @@
                                             <input type="checkbox" id="customCheck1">
                                         </th>
                                         <th class="align-middle">
-                                            <select class="form-select">
-                                                <option value="All">All</option>
+                                            <select class="form-select" (change) = "changeState($event)" [(ngModel)] = "state">
+                                                <option value = "">All</option>
+                                                <option *ngFor = "let item of stateList" [value] = "item.stateId">{{item.stateName}}</option>
                                             </select>
                                         </th>
-                                        <th class="align-middle"><select class="form-select">
-                                                <option value="All">All</option>
+                                        <th class="align-middle"><select class="form-select" (change) = "changeCity($event)" [(ngModel)] = "city">
+                                                <option value = "">All</option>
+                                                <option *ngFor = "let item of cityList" [value] = "item.cityId">{{item.cityName}}</option>
                                             </select> </th>
                                         <th class="align-middle">
-                                            <input type="text" placeholder="Search" class="form-control input-sm">
+                                            <input type="text" placeholder="Search" class="form-control input-sm" (keyup) ="searchByName($event)">
                                         </th>
                                         <th class="align-middle">
-                                            <input type="text" placeholder="Search" class="form-control input-sm">
+                                            <input type="text" placeholder="Search" class="form-control input-sm" (keyup) ="searchByPhone($event)">
                                         </th>
                                         <th class="align-middle">
-                                            <input type="text" placeholder="Search" class="form-control input-sm">
+                                            <input type="text" placeholder="Search" class="form-control input-sm" (keyup) ="searchByOrgName($event)">
                                         </th>
                                         <th class="align-middle">
-                                            <input type="text" placeholder="Search" class="form-control input-sm">
+                                            <input type="text" placeholder="Search" class="form-control input-sm" (keyup) ="searchByOwnerName($event)">
                                         </th>
                                         <th class="align-middle">
-                                            <select class="form-select">
-                                                <option value="All">All</option>
+                                            <select class="form-select" (change) = "changeByStatus($event)" [(ngModel)] = "searchStatus">
+                                                <option value="">All</option>
+                                                <option [value] = "1">Active</option>
+                                                <option [value] = "0">Inactive</option>
                                             </select>
                                         </th>
-                                        <th>&nbsp;</th>
+                                        <th>&nbsp;&nbsp;</th>
 
 
 

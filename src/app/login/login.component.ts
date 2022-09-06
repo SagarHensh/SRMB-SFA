@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonService } from '../services/common.service';
-import { NgModule } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
+import { LoginService } from '../services/login.service';
+
 
 @Component({
   selector: 'app-login',
@@ -10,29 +11,46 @@ import { NgModule } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router,
-    private common: CommonService) { }
+  email: any = '';
+  password: any = ''; 
+  notifier: NotifierService;
 
-  email = "";
-  password = "";
-  isEmailErr = false;
-  isPasswordErr = false;
+  constructor(
+    notifier: NotifierService,
+    private router: Router,
+    private rest: LoginService) {
+      this.notifier = notifier
+     }
 
   ngOnInit(): void {
   }
+  title = 'sfaLogin';
 
-  login() {
-    this.router.navigate(["/admin/dashboard"]);
-    // let reqObj = {
-    //   email: "skh@gmail.com",
-    //   password: "password"
-    // }
-    // this.common.signin(reqObj).subscribe(res => {
-    //   console.log("API Response sign in : ", res);
-    //   if (res.error == 0 && res.respondcode == 200) {
-    //     this.router.navigate(["/admin/dashboard"]);
-    //   }
-    // })
+  signIn() {
+    // this.router.navigate(["/pages/user/dashboard"])
+    if (this.email.trim() === '' || this.password === '') {
+      this.notifier.notify('error', 'Please enter Email and password');
+      return;
+    }
+    const data = {
+      email: this.email,
+      password: this.password
+    };
+    this.rest.signIn(data).subscribe((res: any) => {
+      // this.common.removeLoaderUni();
+      if (res.success) {
+        console.log("response Login===>", res)
+        // localStorage.setItem('userId', res.response.id);
+        // localStorage.setItem('userName', res.response.name);
+        localStorage.setItem("AuthUserData", JSON.stringify(res.response[0]))
+        this.router.navigate(["/pages/user/dashboard"]);
+        // window.location.href="http://3.7.173.54/sfa/";
+
+      } else {
+        this.notifier.notify('error', res.message);
+      }
+    }
+    );
   }
 
 }

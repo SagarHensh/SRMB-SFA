@@ -24,7 +24,7 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
                 <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Search by employee name here">
+                    <input type="text" class="form-control" placeholder="Search by employee name here" (keyup) = "searchIndividual($event)">
 
                 </div>
                 <div class="col-md-9 text-end mt-n1">
@@ -33,14 +33,19 @@
                             <div class="dt_fld">Select Date Range</div>
                         </li>
                         <li class="list-inline-item">
-                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm"></div>
+                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm" [(ngModel)] = "fromDate">
+                            </div>
                         </li>
                         <li class="list-inline-item">
-                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm"></div>
+                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm" [(ngModel)] = "toDate">
+                            </div>
                         </li>
                         <li class="list-inline-item">
-                            <button class="btn btn-success btn-lg">Search &nbsp;<i class="fa fa-search"
+                            <button class="btn btn-success btn-lg" (click) = "searchByDateRange()">Search &nbsp;<i class="fa fa-search"
                                     aria-hidden="true"></i></button>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-pink w-100" (click)="resetDate()">Reset</button>
                         </li>
                         <!-- <li class="list-inline-item">
                             <button class="btn btn-pink btn-lg">Sync</button>
@@ -62,34 +67,44 @@
                                         <div id="div01">
                                             <div class="row hide asign_to_dv">
                                                 <div class="col-md-3">
+                                                    <label for="emp_name" class="form-label">Employee
+                                                        Name</label>
+                                                    <div class="input-group">
+                                                       <input type="text" class="form-control" placeholder="search" [(ngModel)] ="userName">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
                                                     <label for="district_name" class="form-label">Employee
                                                         Type</label>
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
-                                                            id="status_type">
-                                                            <option selected="Select an options">MO/TO
+                                                            id="status_type" [(ngModel)] = "empType">
+                                                            <option value="">Select an options
                                                             </option>
+                                                            <option *ngFor = "let item of employeeTypeList" [value] = "item.designationId">{{item.designationName}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <label for="district_name" class="form-label">Employee
-                                                        Location</label>
+                                                    <label for="district_name" class="form-label">State
+                                                        </label>
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
-                                                            id="status_type">
-                                                            <option selected="Select an options">State
+                                                            id="status_type" (change) = "stateChange()" [(ngModel)] = "state">
+                                                            <option value="">Select an options
                                                             </option>
+                                                            <option *ngFor = "let item of stateList" [value]="item.stateId">{{item.stateName}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <label for="district_name" class="form-label">&nbsp;</label>
+                                                    <label for="district_name" class="form-label">District</label>
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
-                                                            id="status_type">
-                                                            <option selected="Select an options">District
+                                                            id="status_type" [(ngModel)] = "city">
+                                                            <option value="">Select an options
                                                             </option>
+                                                            <option *ngFor = "let item of cityList" [value]="item.cityId">{{item.cityName}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -98,9 +113,11 @@
                                                         Status</label>
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
-                                                            id="status_type">
-                                                            <option selected="Select an options">District
+                                                            id="status_type" [(ngModel)] = "empStatus">
+                                                            <option value="">Select an options
                                                             </option>
+                                                            <option [value] = "1">Approved</option>
+                                                            <option [value] = "0">Not Approved</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -111,13 +128,13 @@
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-pink w-100">Reset</button>
+                                                    <button class="btn btn-pink w-100" (click) = "reset()">Reset</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-success w-100">Save &
+                                                    <button class="btn btn-success w-100" (click) = "saveSearch()">Save &
                                                         Search</button>
                                                 </div>
                                             </div>
@@ -304,7 +321,7 @@
                                     </tr>
                                     <tr role="row">
                                         <th class="sorting align-middle">Employee Name</th>
-                                        <th class="sorting align-middle">User Type</th>
+                                        <th class="sorting align-middle">Employee Type</th>
                                         <th class="sorting align-middle">State</th>
                                         <th class="sorting align-middle">District</th>
                                         <th class="sorting align-middle">Login Date</th>

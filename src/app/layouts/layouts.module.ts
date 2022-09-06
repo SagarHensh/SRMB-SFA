@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MasterListComponent } from './components/master-list/master-list.component';
@@ -33,6 +34,46 @@ import { LinechartComponent } from './components/charts/linechart/linechart.comp
 import { ViewPjpDetailsComponent } from './components/pjp/view-pjp-details/view-pjp-details.component';
 
 
+const customNotifierOptions: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: 'right',
+      distance: 12
+    },
+    vertical: {
+      position: 'top',
+      distance: 54,
+      gap: 10
+    }
+  },
+  theme: 'material',
+  behaviour: {
+    autoHide: 2000,
+    onClick: 'hide',
+    onMouseover: 'pauseAutoHide',
+    showDismissButton: true,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: 'slide',
+      speed: 300,
+      easing: 'ease'
+    },
+    hide: {
+      preset: 'fade',
+      speed: 300,
+      easing: 'ease',
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: 'ease'
+    },
+    overlap: 150
+  }
+};
 
 @NgModule({
   declarations: [
@@ -69,7 +110,8 @@ import { ViewPjpDetailsComponent } from './components/pjp/view-pjp-details/view-
     AgmDirectionModule,
     NgChartsModule,
     NgbModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    NotifierModule.withConfig(customNotifierOptions),
   ]
 })
 export class LayoutsModule { }

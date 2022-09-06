@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'
+
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { PageComponent } from './page/page.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonService } from './services/common.service';
@@ -34,12 +34,55 @@ import { SurveyReportListComponent } from './components/reports/survey/survey-re
 import { CsrReportListComponent } from './components/reports/CSR/csr-report-list/csr-report-list.component';
 import { SchemeListComponent } from './components/scheme/scheme-list/scheme-list.component';
 import { ActivityPageComponent } from './components/Activity/activity-page/activity-page.component';
+import { StockReportComponent } from './components/reports/stock-report/stock-report.component';
+
+
+const customNotifierOptions: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: 'right',
+      distance: 12
+    },
+    vertical: {
+      position: 'top',
+      distance: 54,
+      gap: 10
+    }
+  },
+  theme: 'material',
+  behaviour: {
+    autoHide: 2000,
+    onClick: 'hide',
+    onMouseover: 'pauseAutoHide',
+    showDismissButton: true,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: 'slide',
+      speed: 300,
+      easing: 'ease'
+    },
+    hide: {
+      preset: 'fade',
+      speed: 300,
+      easing: 'ease',
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: 'ease'
+    },
+    overlap: 150
+  }
+};
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    PageComponent,
+    // LoginComponent,
+    // PageComponent,
     SidebarComponent,
     EnquiryReportsComponent,
     EnquiryVisitReportComponent,
@@ -62,6 +105,7 @@ import { ActivityPageComponent } from './components/Activity/activity-page/activ
     CsrReportListComponent,
     SchemeListComponent,
     ActivityPageComponent,
+    StockReportComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +118,7 @@ import { ActivityPageComponent } from './components/Activity/activity-page/activ
       apiKey: 'AIzaSyBUYhk7JKoA5WTtvGiRCzbqAB6Q_jvc1fA',
     }),
     AgmDirectionModule,
+    NotifierModule.withConfig(customNotifierOptions),
   ],
   providers: [CommonService],
   bootstrap: [AppComponent]

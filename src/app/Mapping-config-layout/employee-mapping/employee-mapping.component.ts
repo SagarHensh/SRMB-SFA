@@ -37,7 +37,7 @@ export class EmployeeMappingComponent implements OnInit {
   mapZoneId: any = "";
   mappingArray: any = [];
   empMappingArr: any = [];
-  clientId: any = "1";
+  clientId: any = "";
   employeeList: any = [];
   empMapId: any = "";
   employeeDesignationList: any = [];
@@ -62,9 +62,13 @@ export class EmployeeMappingComponent implements OnInit {
   hempList: any = [];
   imageUrl: any = "";
   hempTypeId: any = "";
+  authUserData: any;
 
 
   ngOnInit(): void {
+    let data: any = this.common.getAuthUserData();
+    this.authUserData = JSON.parse(data);
+    this.clientId = this.authUserData.clientId;
     this.getAllLocationData();
     this.schemePath = this.common.getLayoutSchemePath();
     this.imageUrl = this.crm.getImageUrl();

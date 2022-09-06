@@ -10,6 +10,8 @@ export class CommonService {
 
   constructor(private http: HttpClient) { }
   public apiurl: string = app_config.apiUrl;
+  public apiurlCRM: string = app_config.crmApiUrl;
+
   public options = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.getToken()}` }) };
 
 
@@ -20,15 +22,20 @@ export class CommonService {
   }
 
   getAuthUserData() {
+    // return localStorage.getItem("AuthUserData");
     return localStorage.getItem("AuthUserData");
   }
 
   getLayoutHomePath() {
-    return "/user/";
+    return "/pages/user/";
   }
 
   getLayoutSchemePath() {
-    return "/scheme/";
+    return "/pages/scheme/";
+  }
+
+  getPagesPath() {
+    return "/pages/";
   }
 
   signin(params: any): Observable<any> {
@@ -180,4 +187,79 @@ export class CommonService {
   getMasterEmployeeList(params: any): Observable<any> {
     return this.http.post(this.apiurl + 'api/v1/getemployeelist', params, this.options);
   }
+
+  getUserTargetList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/getUserTargetList', params, this.options);
+  }
+
+  getpjpCustomerList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/getpjpCustomerList', params, this.options);
+  }
+
+  getSubordinateUser(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/pjpmanagement/getSubordinateData', params, this.options);
+  }
+  //-------------------Visit Report Filter----------------//
+
+  getContactType(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/customer/getCustomerTypeList', data, this.options);
+  }
+  getVisitList(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/pjpmanagement/getVisitStatusList', data, this.options);
+  }
+
+  //--------------------- Filter---- 24/08/2022 ----------------//
+
+  getStockReportList(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/stockManagement/reportList', data, this.options);
+  }
+
+  getOdometerReportsDownload(params: any): Observable<any> {
+
+    return this.http.post(this.apiurl + 'api/v1/odometerManagement/exportAPI', params, this.options);
+  }
+
+  //----------------------------- 25/08/2022-------------------------//
+
+  getEnquiryReportDownload(data: any) {
+    return this.http.post(this.apiurlCRM + 'api/v1/enqueryManagement/exportEnquiry', data, this.options);
+  }
+
+  getRegistrationReportDownload(data: any) {
+    return this.http.post(this.apiurlCRM + 'api/v1/customerManagement/download', data, this.options);
+  }
+
+  getAttendanceReportsDownload(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/leaveAttendence/attendenceExport', data, this.options);
+  }
+
+  //--------------------------------- 26/08/2022------------------------------//
+
+  getStockReportDownload(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/stockManagement/downloadStockReport', data, this.options);
+  }
+
+  csrActivity(data: any) {
+    return this.http.post(this.apiurlCRM + 'api/v1/mstCsrType/list', data, this.options);
+  }
+  //--------------------------------------- 30/08/2022-----------------------------//
+
+  contactTypeListDownload(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/contact/exportApi', data, this.options);
+  }
+
+  employeeListDownload(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/mapEntity/exportEmp', data, this.options);
+  }
+
+  // ........................ 31/08/2022 .............
+
+  getPjvByCustomerId(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/pjpmanagement/getPjvByCustomerId', data, this.options);
+  }
+  pjvCreate(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/pjpmanagement/pjvCreate', data, this.options);
+  }
+
+
 }

@@ -9,6 +9,8 @@ export class ActivityPageComponent implements OnInit {
 
   constructor() { }
 
+  images: any = ["assets/images/activity-page-icon1.png", "assets/images/activity-page-icon2.png", "assets/images/activity-page-icon3.png"];
+
   ngOnInit(): void {
   }
 

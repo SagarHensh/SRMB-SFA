@@ -19,12 +19,27 @@ export class SurveyReportListComponent implements OnInit {
   offset: any = "0";
   totalRecords: any = "";
 
+  //---------------------- For Filter-----------------------//
+
+  searchName = "";
+  fromDate = "";
+  toDate = "";
+  orgName = "";
+  contactName = "";
+  state = "" as any;
+  city = "" as any;
+  address = "";
+  stateList:any = [];
+  cityList:any = [];
+
   ngOnInit(): void {
     let data: any = this.common.getAuthUserData();
     this.authUserData = JSON.parse(data);
     this.paginationLimitDropdown = this.store.getPaginationLimitList();
     this.limit = this.store.getDefaultPaginationLimit();
-    this.getVisitReports()
+    this.getVisitReports();
+    this.getState();
+    this.getCity();
   }
 
   getVisitReports() {
@@ -34,11 +49,16 @@ export class SurveyReportListComponent implements OnInit {
       "limit": this.limit.toString(),
       "offset": this.offset.toString(),
       "userType": this.authUserData.userType,
+      "searchName": this.searchName,
       "userName":"",
-      "customerName":"",
-      "searchFrom":"",
-      "searchTo":""
-    }
+      "customerName": this.contactName,
+      "searchFrom": this.fromDate,
+      "searchTo": this.toDate,
+      "orgTextName" : this.orgName,
+      "stateId": this.state,
+      "cityId": this.city
+    };
+    console.log("Request Data for survey report",req);
     this.common.getSurveyReportList(req).subscribe(res => {
       console.log("Survey response::", res);
       if (res.respondcode == 200) {
@@ -133,6 +153,77 @@ export class SurveyReportListComponent implements OnInit {
 
   startRecordNumber() {
     return Number(this.offset) + 1;
+  }
+
+
+  //----------------------------- For Filter--------------------------//
+
+
+  getState() {
+    const data = {
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+      "countryId": this.authUserData.countryId
+    };
+    this.common.getAllStates(data).subscribe((res: any) => {
+      //console.log("state res>>>>>>>>>", res);
+      if (res.respondcode == 200) {
+        this.stateList = res.data.stateList;
+      }
+    })
+  }
+
+  getCity() {
+    const data = {
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+      "stateId": this.state
+    };
+    this.common.getAllDistrictByState(data).subscribe((res: any) => {
+      //console.log("city res>>>>>>>>>", res);
+      if (res.respondcode == 200) {
+        this.cityList = res.data.districtList;
+      }
+    })
+  }
+
+  changeState() {
+    this.getCity();
+  }
+
+
+  searchByDateRange(){
+    this.getVisitReports();
+  }
+
+
+  resetDate(){
+    this.fromDate = "";
+    this.toDate = "";
+    this.getVisitReports();
+  }
+
+  saveSearch(){
+    this.getVisitReports();
+  }
+
+  reset(){
+    this.orgName = "";
+    this.contactName = "";
+    this.state = "";
+    this.city = "";
+    this.address = "";
+    this.getVisitReports();
+  }
+
+  searchIndividual(event:any){
+    if(event.target.value.length >1){
+      this.searchName = event.target.value;
+      this.getVisitReports();
+    } else{
+      this.searchName = "";
+      this.getVisitReports(); 
+    }
   }
 
 }

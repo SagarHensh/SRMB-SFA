@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
+import app_config from 'src/app/app.config';
 import { StoreDataService } from 'src/app/services/store-data.service';
+import { CrmService } from 'src/app/services/crm.service';
 
 @Component({
   selector: 'app-employee',
@@ -9,17 +11,31 @@ import { StoreDataService } from 'src/app/services/store-data.service';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor(private common : CommonService,
-    private store : StoreDataService) { }
+  constructor(private common: CommonService,
+    private store: StoreDataService, private crm: CrmService) { }
 
   authUserData: any;
   countryId: any = "1";
   clientId: any = "";
-  employeeList : any = [];
+  employeeList: any = [];
   paginationLimitDropdown: any = [];
-  limit: any = "";
+  limit: any = 10;
   offset: any = "0";
   totalRecords: any = 0;
+
+  //---------------- For Filter----------------//
+  searchName = "";
+  fromDate = "";
+  toDate = "";
+  empName = "";
+  empType = "";
+  state = "" as any;
+  city = "" as any;
+  employeeTypeList: any = [];
+  stateList: any = [];
+  cityList: any = [];
+
+
 
   ngOnInit(): void {
     let data: any = this.common.getAuthUserData();
@@ -28,17 +44,25 @@ export class EmployeeComponent implements OnInit {
     this.paginationLimitDropdown = this.store.getPaginationLimitList();
     this.limit = this.store.getDefaultPaginationLimit();
     this.getEmployeeData();
+    this.getEnquiryReportData();
+    this.getState();
   }
 
   getEmployeeData() {
     let obj = {
       countryId: this.authUserData.countryId,
       clientId: this.authUserData.clientId,
-      stateId: "",
-      districtId: "",
-      name: "",
-      designationId: ""
-    }
+      limit: this.limit,
+      offset: this.offset.toString(),
+      searchName: this.searchName,
+      searchFrom: this.fromDate,
+      searchTo: this.toDate,
+      stateId: this.state,
+      districtId: this.city,
+      name: this.empName,
+      designationId: this.empType
+    };
+    console.log("Request Data for employee data", obj);
     this.common.getEmployeeMapData(obj).subscribe(res => {
       console.log("All left Employee Response:", res);
       if (res.error == 0 && res.respondcode == 200) {
@@ -121,29 +145,110 @@ export class EmployeeComponent implements OnInit {
     this.getEmployeeData();
   }
 
-  onDownload = () => {
+  onDownload() {
     let req = {
       "clientId": this.authUserData.clientId,
       "userId": this.authUserData.userId,
       "limit": this.limit.toString(),
       "offset": this.offset.toString()
-    }
-    // this.common.getEnquiryVisitReportsDownload(req).subscribe(res => {
-    //   // console.log("Download res", res);
-    //   if (res.data != "") {
-    //     var file_path = app_config.downloadUrl + res.data;
-    //     var a = document.createElement('a');
-    //     a.href = file_path;
-    //     a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
-    //     document.body.appendChild(a);
-    //     a.click();
-    //     document.body.removeChild(a);
-    //   }
-    // })
+    };
+
+    this.common.employeeListDownload(req).subscribe((res: any) => {
+      console.log("employee res>>>>>>>>>", res);
+      if (res.data.path != "") {
+        var file_path = app_config.downloadUrlSFA + res.data.path;
+        var a = document.createElement('a');
+        a.href = file_path;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    })
   }
 
   startRecordNumber() {
     return Number(this.offset) + 1;
+  }
+
+  //--------------------- For Filter -----------------//
+
+  getEnquiryReportData() {
+
+    const data = {
+      userId: this.authUserData.userId,
+      clientId: this.authUserData.clientId
+    }
+    this.crm.getEnquiryData(data).subscribe((res: any) => {
+      console.log("For Filter res>>>>>>>>>>>>>", res);
+      if (res.success) {
+        this.employeeTypeList = res.response.employeeType;
+      }
+    })
+  }
+
+  getState() {
+    const data = {
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+      "countryId": this.authUserData.countryId
+    };
+    this.common.getAllStates(data).subscribe((res: any) => {
+      console.log("state res>>>>>>>>>", res);
+      if (res.respondcode == 200) {
+        this.stateList = res.data.stateList;
+      }
+    })
+  }
+
+  getCity() {
+    const data = {
+      "clientId": this.authUserData.clientId,
+      "userId": this.authUserData.userId,
+      "stateId": this.state
+    };
+    this.common.getAllDistrictByState(data).subscribe((res: any) => {
+      console.log("city res>>>>>>>>>", res);
+      if (res.respondcode == 200) {
+        this.cityList = res.data.districtList;
+      }
+    })
+  }
+
+  changeState() {
+    this.getCity();
+  }
+
+  searchIndividual(event: any) {
+    if (event.target.value.length > 1) {
+      this.searchName = event.target.value;
+      this.getEmployeeData();
+    } else {
+      this.searchName = "";
+      this.getEmployeeData();
+    }
+  }
+  searchByDateRange() {
+    this.getEmployeeData();
+  }
+  resetDate() {
+    this.fromDate = "";
+    this.toDate = "";
+    this.getEmployeeData();
+  }
+
+  saveSearch() {
+    this.getEmployeeData();
+  }
+
+  reset() {
+    this.fromDate = "";
+    this.toDate = "";
+    this.searchName = "";
+    this.empName = "";
+    this.empType = "";
+    this.state = "";
+    this.city = "";
+    this.getEmployeeData();
   }
 
 }

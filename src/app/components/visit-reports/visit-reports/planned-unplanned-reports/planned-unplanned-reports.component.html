@@ -25,7 +25,7 @@
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
                 <div class="col-md-3">
                     <input type="text" class="form-control"
-                        placeholder="Search by visitor's or employee name or number here">
+                        placeholder="Search by customer name or contact number or visited by here" (keyup) = "searchIndividual($event)">
 
                 </div>
                 <div class="col-md-9 text-end mt-n1">
@@ -35,19 +35,23 @@
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
-                                <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <input type="date" placeholder="Search" class="form-control input-sm" [(ngModel)] ="fromDate">
+                                <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
-                                <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <input type="date" placeholder="Search" class="form-control input-sm" [(ngModel)] ="toDate">
+                                <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
-                            <button class="btn btn-success btn-lg">Search &nbsp;<i class="fa fa-search"
+                            <button class="btn btn-success btn-lg" (click) = "searchByDateRange()">Search &nbsp;<i class="fa fa-search"
                                     aria-hidden="true"></i></button>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-pink w-100" (click)="resetDate()">Reset</button>
+
                         </li>
                         <li class="list-inline-item">
 
@@ -62,76 +66,182 @@
                                     <div class="filter_secn">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquiry
-                                                    Source</label>
+                                                <label for="customer_name" class="form-label">Customer Name</label>
                                                 <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
-                                                    </select>
+                                                    <input type="text" class="form-control"  placeholder="search" [(ngModel)] ="customerName">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquery
-                                                    Type</label>
+                                                <label for="phone_number" class="form-label">Phone Number</label>
                                                 <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
-                                                    </select>
+                                                    <input type="text" class="form-control"  placeholder="search" [(ngModel)] ="phoneNo">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquired
-                                                    Product</label>
-                                                <div class="input-group">
+                                                <label for="district_name" class="form-label">
+                                                    Time Period
+                                                    <div class="form-check d-inline-block align-middle me-1 ms-2">
+                                                        <input class="form-check-input" type="radio" name="assigned"
+                                                            id="assigned_users" (change)="pastTimePeriod()">
+                                                        <label class="form-check-label"
+                                                            for="assigned_users">Past</label>
+                                                    </div>
+                                                    <div class="form-check d-inline-block align-middle">
+                                                        <input class="form-check-input" type="radio" name="assigned"
+                                                            id="assigned_groups" (change)="nextTimePeriod()">
+                                                        <label class="form-check-label"
+                                                            for="assigned_groups">Next</label>
+                                                    </div>
+                                                </label>
+
+                                                <div class="input-group" *ngIf="staticDropDown">
                                                     <select class="form-select" aria-label="Default select example"
                                                         id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
+                                                        <option selected="Select an options">Select an options
+                                                        </option>
                                                     </select>
                                                 </div>
-                                            </div>
 
-
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquery
-                                                    Location</label>
-                                                <div class="input-group">
+                                                <div class="input-group" *ngIf="pastTimeFlag">
                                                     <select class="form-select" aria-label="Default select example"
                                                         id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
+                                                        <option selected="Select an options">Last One Month
+                                                        </option>
                                                     </select>
                                                 </div>
-                                            </div>
 
-
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">&nbsp;</label>
-                                                <div class="input-group">
+                                                <div class="input-group" *ngIf="nextTimeFlag">
                                                     <select class="form-select" aria-label="Default select example"
                                                         id="status_type">
-                                                        <option selected="Select an options">District
+                                                        <option value="Select an options">Next One Month
                                                         </option>
                                                     </select>
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-4 pt-2">
 
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">&nbsp;</label>
-                                                <div class="input-group">
+                                                <!-- <label for="district_name" class="form-label">
+                                                    <div class="form-check d-inline-block align-middle me-1 ms-2">
+                                                        <input class="form-check-input" type="radio" name="customer"
+                                                            id="assigned_users1" (change)="customerTypeCheck()">
+                                                        <label class="form-check-label"
+                                                            for="assigned_users1">Customer</label>
+                                                    </div>
+                                                    <div class="form-check d-inline-block align-middle">
+                                                        <input class="form-check-input" type="radio" name="customer"
+                                                            id="assigned_groups1" (change)="influenceerTypeCheck()">
+                                                        <label class="form-check-label"
+                                                            for="assigned_groups1">Influenceer</label>
+                                                    </div>
+                                                </label> -->
+
+                                                <div *ngFor="let category of allContactCategoryType;"
+                                                    class="form-check d-inline-block align-middle me-3">
+                                                    <input class="form-check-input" type="radio" value={{category.slNo}}
+                                                        name="contact_category_type" id="assigned_users"
+                                                        (change)="onChangeContactCategory(category.slNo)">
+                                                    <label class="form-check-label"
+                                                        for="assigned_users">{{category.name}}</label>
+                                                </div>
+                                                <div class="input-group" *ngIf="staticDropDownCustType">
                                                     <select class="form-select" aria-label="Default select example"
                                                         id="status_type">
-                                                        <option selected="Select an options">Zone</option>
+                                                        <option selected="Select an options">Select an options
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-group" *ngIf="customerTypelistFlag">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="contactType">
+                                                        <option value="">Select an options</option>
+                                                        <option *ngFor="let item of allVisitorType"
+                                                            [value]="item.contactTypeId">{{item.contactTypeName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- <div class="col-md-4">
+                                                <label for="customer_type" class="form-label">Customer
+                                                    Type</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="cust_type" [(ngModel)] = "contactType">
+                                                        <option value="">Select from
+                                                            List</option>
+                                                            <option *ngFor = "let item of contactTypeList" [value] = "item.custTypId">{{item.custTypName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div> -->
+
+                                            <div class="col-md-4">
+                                                <label for="visit_type" class="form-label">Visit Type</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="visittype" [(ngModel)] = "visitType">
+                                                        <option value="">Select from
+                                                            List</option>
+                                                            <option [value]="0">Planned</option>
+                                                            <option [value]="1">Unplanned</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="visit_status" class="form-label">Visit Status</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="visit_sts" [(ngModel)] ="visitStatus">
+                                                        <option value="">Select from
+                                                            List</option>
+                                                            <option  *ngFor = "let item of visitStatusList" [value]="item.id">{{item.name}}</option>                                                            
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4 mt-2">
+                                                <label for="district_name" class="form-label">State
+                                                    </label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="state_list" (change) = "changeState()" [(ngModel)] = "state">
+                                                        <option value="">Select from
+                                                            List</option>
+                                                            <option *ngFor = "let item of stateList" [value] = "item.stateId">{{item.stateName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4 mt-2">
+                                                <label for="district_name" class="form-label">District</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="district_list" [(ngModel)] = "city" (change) = "changeCity()">
+                                                        <option value="">Select from
+                                                            List
+                                                        </option>
+                                                        <option *ngFor = "let item of cityList" [value]="item.cityId">{{item.cityName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4 mt-2">
+                                                <label for="district_name" class="form-label">Zone</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="zone_list" [(ngModel)] = "zone">
+                                                        <option value="">Select from
+                                                            List</option>
+                                                            <option *ngFor = "let item of zoneList" [value] = "item.zoneId">{{item.zoneName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mt-3">
+
+                                        <!-- <div class="row mt-3">
                                             <div class="col-md-12">
                                                 <label for="district_name" class="form-label  text-black">
                                                     Enquiery Status
@@ -151,8 +261,9 @@
                                                 </label>
 
                                             </div>
-                                        </div>
-                                        <div id="div01">
+                                        </div> -->
+
+                                        <!-- <div id="div01">
                                             <div class="row hide asign_to_dv">
                                                 <div class="col-md-4">
                                                     <label for="district_name" class="form-label">Employee
@@ -188,18 +299,18 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="row d-flex justify-content-end">
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-pink w-100">Reset</button>
+                                                    <button class="btn btn-pink w-100" (click) = "reset()">Reset</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-success w-100">Save &
+                                                    <button class="btn btn-success w-100" (click) = "saveSearch()">Save &
                                                         Search</button>
                                                 </div>
                                             </div>

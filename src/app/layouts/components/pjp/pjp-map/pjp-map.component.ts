@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-pjp-map',
@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class PjpMapComponent implements OnInit {
 
   constructor() { }
+  @Input() mainData : any;
   zoom: number = 30;
   lat: any = 22.5448;
   lng: any = 88.3426;
@@ -56,10 +57,29 @@ export class PjpMapComponent implements OnInit {
   polylines : any;
 
   maxSpeed = 40;
+  infoData : any={
+    name: '',
+    type: '',
+    userId: ''
+  };
+  
 
-  // ngOnInit(): void {
-  //   this.getDirection();
-  // }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // console.log("Hello ChangesL::", changes)
+    let data:any = changes;
+    this.markers= data.mainData.currentValue;
+    let arr : any = [];
+    this.markers.map((data:any)=>{
+      arr.push({
+        id : data.contactId,
+        lat : Number(data.lat),
+        lng : Number(data.lng)
+      })
+    })
+    this.polyline = arr;
+    this.polylines = this.rebuildPolylines()
+  }
 
 
   
@@ -69,34 +89,34 @@ export class PjpMapComponent implements OnInit {
     this.latitude = 22.5448;
     this.longitude = 88.3426;
 
-    this.polyline = [
-        {
-            latitude:  22.5448,
-            longitude: 88.3426,
-            speed: 50
-        },
-         {
-            latitude:  22.5653,
-            longitude: 88.3519,
-            speed: 20
-        },
-        {
-            latitude: 22.5728,
-            longitude: 88.3445,
-            speed: 20
-        },
-        {
-            latitude: 22.5553,
-            longitude: 88.3312,
-             speed: 20
-        },
-        {
-            latitude:  22.5448,
-            longitude: 88.3426,
-            speed: 20
-        }
-    ]
-    this.polylines = this.rebuildPolylines();
+    // this.polyline = [
+    //     {
+    //         latitude:  22.5448,
+    //         longitude: 88.3426,
+    //         speed: 50
+    //     },
+    //      {
+    //         latitude:  22.5653,
+    //         longitude: 88.3519,
+    //         speed: 20
+    //     },
+    //     {
+    //         latitude: 22.5728,
+    //         longitude: 88.3445,
+    //         speed: 20
+    //     },
+    //     {
+    //         latitude: 22.5553,
+    //         longitude: 88.3312,
+    //          speed: 20
+    //     },
+    //     {
+    //         latitude:  22.5448,
+    //         longitude: 88.3426,
+    //         speed: 20
+    //     }
+    // ]
+    // this.polylines = this.rebuildPolylines();
  
     
     //set current position
@@ -111,15 +131,26 @@ export class PjpMapComponent implements OnInit {
   getDirection() {
     this.origin = { lat: 24.799448, lng: 120.979021 };
     this.destination = { lat: 24.799524, lng: 120.975017 };
-
-    // Location within a string
-    // this.origin = 'Taipei Main Station';
-    // this.destination = 'Taiwan Presidential Office';
   }
 
   clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+    // console.log(`clicked the marker: ${label || index}`)
     this.infoLabel = label;
+  }
+
+  onMouseOver(infoWindow: any, val: any) {
+    infoWindow.open();
+    let obj: any = {
+      name: val.name,
+      type: val.contactTypeName,
+      userId: val.contactId
+    }
+    // console.log("fhghg:", obj)
+    this.infoData = obj;
+  }
+
+  onMouseOut(infoWindow: any, val: any) {
+    infoWindow.close();
   }
 
   mapClicked($event: MouseEvent) {

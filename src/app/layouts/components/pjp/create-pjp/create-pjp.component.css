@@ -23,3 +23,9 @@
 .addContactModal .modal-body {
     padding: 0 30px;
 }
+.prf_img{
+    height: 50px;
+    border-radius: 50%;
+    width: 50px;
+
+}

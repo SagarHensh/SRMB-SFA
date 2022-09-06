@@ -1,24 +1,55 @@
-<!-- <button class="login_btn" (click)="login()">Login</button> -->
-<div class="wrapper fadeInDown"
-    style="background-image: url('assets/office5.jpg'); background-size: cover; background-repeat: no-repeat;">
-    <div id="formContent">
-        <!-- Tabs Titles -->
-        <!-- Icon -->
-        <div class="fadeIn first">
-            <img src="assets/NavyaITlogo.png" id="icon" alt="User Icon" style="display: inline;" />
-        </div>
-        <!-- Login Form -->
-        <div>
-            <input type="text" id="login" class="fadeIn second" placeholder="login" [(ngModel)]="email">
-            <!-- <span class="error-msg" [hidden]="!isEmailErr">Email is required</span> -->
-            <input type="password" id="password" class="fadeIn third" placeholder="password" [(ngModel)]="password">
-            <!-- <span class="error-msg" [hidden]="!isPasswordErr">Password is required</span> -->
-            <button class="btn btn-primary mb-2" (click)="login()">Log In</button>
-        </div>
-        <!-- Remind Password -->
-        <div id="formFooter">
-            <!--      <a class="underlineHover">Forgot Password?</a>-->
-        </div>
 
+<div class="log_se">
+    <div class="container bg-white shadow-lg p-5 con_dv">
+
+        <div class="main_div">
+
+
+            <div class="top_prt_sc">
+                <div><img src="assets/images/logo.png"></div>
+                <div><img src="assets/images/logo2.png"></div>
+            </div>
+            <div class="man_log">
+                <img class="hd_to" src="assets/images/img-top1.png">
+                <div class="man_log_in">
+                    <div class="wlc_txt">
+                        <h3>Welcome to Sales Force Automation</h3>
+                        <p>we are using 2500 users all over the world, login and be a part of our sysytem</p>
+                        <h4>Chalo Becho SRMB</h4>
+                    </div>
+                    <div class="wlc_logne">
+                        <h3><span>SFA</span> Login</h3>
+                        <div class="sfa_log">
+                            <div class="log_scne">
+                                <label>Your User ID</label>
+                                <input type="text" class="form-control" name="email"
+                                    placeholder="Enter your User ID here" [(ngModel)]="email" style="padding: 0.375rem 0.75rem;">
+                            </div>
+                            <div class="log_scne">
+                                <label>Your Password</label>
+                                <input type="password" class="form-control" placeholder="**********"
+                                    [(ngModel)]="password" style="padding: 0.375rem 0.75rem;">
+                            </div>
+                            <div class="forgt_dv">
+                                <button>Forget Password</button>
+                                <p>If you forgot your password click on the link above you will get your password reset
+                                    link at your mail address</p>
+                            </div>
+                            <button class="btn logine" (click)="signIn()">Login</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="btm_sc">
+            <a href="">Privacy Policy | </a>
+            <a href="">Cookie policy</a>
+        </div>
     </div>
+
 </div>
+<notifier-container></notifier-container>

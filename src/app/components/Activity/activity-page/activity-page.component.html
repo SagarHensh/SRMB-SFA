@@ -1,1 +1,536 @@
-<img src="assets/ActivityDetail.png" alt="activity" style="width: 100%;">
+<!-- <img src="assets/ActivityDetail.png" alt="activity" style="width: 100%;"> -->
+
+<!--Container Main start-->
+<main class="content">
+    <div class="container-fluid p-0 pjp_vw_rpt_dv">
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center main-hdng">
+                <div class="col-md-6">
+                    <h3>Activity</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item" aria-current="page">Activity</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="date_caro">
+                    <!-- <img src="assets/images/date-image.png"> -->
+                    <ngb-carousel *ngIf="images" [showNavigationArrows]="true" [showNavigationIndicators]="false">
+                        <!-- <div class="inner"> -->
+                        <ng-template ngbSlide *ngFor="let img of images">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img" alt="Random first slide">
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <!-- </div> -->
+                    </ngb-carousel>
+                </div>
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="col-md-8">
+                <div class="actvty_hed">
+                    <h4>Activity of Shyamal Das</h4>
+                    <strong>August 10 2021</strong>
+                </div>
+                <div class="actvty_blw">
+
+                    <div class="actvty_blw_dv">
+                        <div class="ctvty_lf">
+                            <span class="ctvty_lf_to">9:00 am</span>
+                            <span class="ctvty_lf_mid">9:30 am</span>
+                        </div>
+                        <div class="ctvty_rt">
+                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon1.png">
+                            </div>
+                            <div class="ctvty_rt_icon_mid">
+                                <span>9:30 am</span>
+                                <p>System Login</p>
+                            </div>
+                            <div class="ctvty_rt_icon_stat">
+                                Login
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="actvty_blw_dv">
+                        <div class="ctvty_lf">
+                            <span class="ctvty_lf_to">9:00 am</span>
+                            <span class="ctvty_lf_mid">9:30 am</span>
+                        </div>
+                        <div class="ctvty_rt">
+                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon2.png">
+                            </div>
+                            <div class="ctvty_rt_icon_mid">
+                                <span>Soumen Sarkar</span>
+                                <p>Dealer Working area <strong>Bankura</strong> | West Bengal</p>
+                            </div>
+                            <div class="ctvty_rt_icon_stat">
+                                Visit
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="actvty_blw_dv">
+                        <div class="ctvty_lf">
+                            <span class="ctvty_lf_to">9:00 am</span>
+                            <span class="ctvty_lf_mid">9:30 am</span>
+                        </div>
+                        <div class="ctvty_rt">
+                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon3.png">
+                            </div>
+                            <div class="ctvty_rt_icon_mid">
+                                <span>Online Meeting</span>
+                                <p>Meeting with <strong>Bankura</strong> team zone 3</p>
+                            </div>
+                            <div class="ctvty_rt_icon_stat">
+                                Team Meeting
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="actvty_blw_dv">
+                        <div class="ctvty_lf">
+                            <span class="ctvty_lf_to">9:00 am</span>
+                            <span class="ctvty_lf_mid">9:30 am</span>
+                        </div>
+                        <div class="ctvty_rt">
+                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon4.png">
+                            </div>
+                            <div class="ctvty_rt_icon_mid">
+                                <span>9:30 am</span>
+                                <p>System Login</p>
+                            </div>
+                            <div class="ctvty_rt_icon_stat">
+                                Login
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="actvty_blw_dv">
+                        <div class="ctvty_lf">
+                            <span class="ctvty_lf_to">9:00 am</span>
+                            <span class="ctvty_lf_mid">9:30 am</span>
+                        </div>
+                        <div class="ctvty_rt">
+                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon5.png">
+                            </div>
+                            <div class="ctvty_rt_icon_mid">
+                                <span>9:30 am</span>
+                                <p>System Login</p>
+                            </div>
+                            <div class="ctvty_rt_icon_stat">
+                                Login
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="actvty_blw_dv">
+                        <div class="ctvty_lf">
+                            <span class="ctvty_lf_to">9:00 am</span>
+                            <span class="ctvty_lf_mid">9:30 am</span>
+                        </div>
+                        <div class="ctvty_rt">
+                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon6.png">
+                            </div>
+                            <div class="ctvty_rt_icon_mid">
+                                <span>9:30 am</span>
+                                <p>System Login</p>
+                            </div>
+                            <div class="ctvty_rt_icon_stat">
+                                Login
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="actvty_blw_dv">
+                        <div class="ctvty_lf">
+                            <span class="ctvty_lf_to">9:00 am</span>
+                            <span class="ctvty_lf_mid">9:30 am</span>
+                        </div>
+                        <div class="ctvty_rt">
+                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon1.png">
+                            </div>
+                            <div class="ctvty_rt_icon_mid">
+                                <span>9:30 am</span>
+                                <p>System Login</p>
+                            </div>
+                            <div class="ctvty_rt_icon_stat">
+                                Login
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="actvty_blw_dv">
+                        <div class="ctvty_lf">
+                            <span class="ctvty_lf_to">9:00 am</span>
+                            <span class="ctvty_lf_mid">9:30 am</span>
+                        </div>
+                        <div class="ctvty_rt">
+                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon1.png">
+                            </div>
+                            <div class="ctvty_rt_icon_mid">
+                                <span>9:30 am</span>
+                                <p>System Login</p>
+                            </div>
+                            <div class="ctvty_rt_icon_stat">
+                                Login
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="actvty_blw_dv">
+                        <div class="ctvty_lf">
+                            <span class="ctvty_lf_to">9:00 am</span>
+                            <span class="ctvty_lf_mid">9:30 am</span>
+                        </div>
+                        <div class="ctvty_rt">
+                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon1.png">
+                            </div>
+                            <div class="ctvty_rt_icon_mid">
+                                <span>9:30 am</span>
+                                <p>System Login</p>
+                            </div>
+                            <div class="ctvty_rt_icon_stat">
+                                Login
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="acti_emplyee">
+
+
+                    <div class="activity_detail">
+                        <h4>Employee</h4>
+                        <div class="acti_emplyee_tab">
+                            <ul class="nav nav-pills nav-tabs" id="pills-tab" role="tablist">
+                                <li><a class="click_tab active" id="sub_ord_div" data-bs-target="#pills_self" role="tab"
+                                        data-bs-toggle="pill" aria-controls="pills_self" aria-selected="true">Self</a>
+                                </li>
+                                <li><a class="click_tab" data-bs-target="#pills_subord" role="tab" data-bs-toggle="tab"
+                                        id="sub_ord" data-bs-toggle="pill" aria-controls="pills_subord"
+                                        aria-selected="false">Subordinate</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" id="pills-tabContent">
+                                <div role="tabpanel" class="tab-pane fade active show" id="pills_self"
+                                    aria-labelledby="sub_ord_div">
+                                    <div class="input-group srch_box">
+                                        <input type="text" name="Customer name" class="form-control"
+                                            placeholder="Search by Employee name or location, zone" id="">
+                                        <button><i class="fa fa-search"></i></button>
+                                    </div>
+                                    <div class="scr_emplee">
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade mt-2" id="pills_subord" role="tabpanel"
+                                    aria-labelledby="sub_ord">
+                                    <div class="input-group srch_box">
+                                        <input type="text" name="Customer name" class="form-control"
+                                            placeholder="Search by Employee name or location, zone" id="">
+                                        <button><i class="fa fa-search"></i></button>
+                                    </div>
+                                    <div class="scr_emplee">
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Ghosh Hardware</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                        <div class="p_files">
+                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <div>
+                                                <strong>Soumen Sarkar</strong>
+                                                <span>Designation : Sales Executive</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="emp_act_detl">
+                    <div>
+                        <h5>Detail Information</h5>
+                        <div class="emp_act_detl_in">
+                            <ul>
+                                <li>
+                                    <img src="assets/images/activity-page-icon7.png">
+                                    <span>10:00 - 10:30 am</span>
+                                    <strong>10<sup>th</sup> August 2021</strong>
+                                </li>
+                                <li>
+                                    <img src="assets/images/activity-page-icon3.png">
+                                    <span>Important :</span>
+                                    <strong>Meet to the Dealer</strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="emp_act_detl_in_d">
+                            <div class="p_files">
+                                <img src="assets/images/profl-pic.png" alt="create">
+                                <div>
+                                    <strong>Soumen Sarkar</strong>
+                                    <p>Dealer Working area <strong>Bankura</strong> | West Bengal</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="visit_cont_detl">
+                            <strong>Visit Note </strong>
+                            <span>22-01-2021</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id est ac
+                                ipsum cursus feugiat. NuIla mi metus, suscipit nec venenatis non, ultricies
+                                quis nulla. Proin tincidunt eros in urna venenatis interdum. NuIla facilisi.
+                                Suspendisse in nunc nunc. Integer pulvinar nec tortor non placerat. NuIlam
+                                ornare lorem ligula, vitae bibendum quam elementum sed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
