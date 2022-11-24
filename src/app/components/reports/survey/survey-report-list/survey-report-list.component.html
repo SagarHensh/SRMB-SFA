@@ -24,7 +24,7 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
                 <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Search by organization name or contact name or  phone number or email or address here" (keyup) = "searchIndividual($event)">
+                    <!-- <input type="text" class="form-control" placeholder="Search by organization name or contact name or  phone number or email or address here" (keyup) = "searchIndividual($event)"> -->
 
                 </div>
                 <div class="col-md-9 text-end mt-n1">
@@ -52,17 +52,17 @@
                         </li>
 
                         <li class="list-inline-item">
-                            <button class="btn btn-pink w-100" (click)="resetDate()">Reset</button>
+                            <button class="btn btn-pink btn-lg" (click)="resetDate()">Reset</button>
                         </li>
                         <li class="list-inline-item">
 
                             <div class="d-inline-block">
-                                <a class="btn btn-secondary-drk btn-lg d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                <!-- <a class="btn btn-secondary-drk btn-lg d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                    href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-filter" aria-hidden="true"></i>
                                     &nbsp;Filter Search &nbsp;
                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                </a>
+                                </a> -->
                                 <div class="dropdown-menu dropdown-menu-end filter_secn_dv">
                                     <div class="filter_secn">
                                         <div class="row">
@@ -306,102 +306,32 @@
                                 <button type="button" class="btn btn-primary px-4 text-white">
                                     Download List
                                 </button>
-                                <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                <!-- <button type="button" class="btn btn-primary px-4 text-white">Bulk
                                     Upload
                                 </button>
-                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
-                                <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="assets/images/filtering.svg" alt="filtering"></button>
-                                <div class="dropdown-menu dropdown-menu-end addDropdownhead">
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">State</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch1">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">District</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch2">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Zone</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch3">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Pincode</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch4">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Organization Name</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch5">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Contact Person Name</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch6">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Contact Person Phone No.</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch7">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Email</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch8">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Address</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch9">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Survey For</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch10">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Survey On</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Remarks</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                </div>
+                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button> -->
 
+                                <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="assets/images/filtering.svg" alt="filtering">
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end addDropdownhead">
+                                    <ng-container *ngFor="let th of tableHeader ; let i=index">
+                                        <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                            <span class="col-auto d-block">{{th.title}}</span>
+                                            <div class="form-check form-switch col-auto d-block ms-auto">
+                                                <input class="form-check-input" type="checkbox" id="switch1"
+                                                    [checked]="th.isView" (click)="changeTableView($event, i)">
+                                            </div>
+                                        </a>
+                                        <ng-container *ngIf="i < tableHeader.length-1">
+                                            <div class="dropdown-divider"></div>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive odometer_div">
                             <table id="datatables-column-search-select-inputs"
                                 class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
                                 aria-describedby="datatables-column-search-select-inputs_info">
@@ -416,14 +346,23 @@
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
                                             Organization Information
                                         </th>
-                                        <th colspan="3" class="sorting align-middle"
+                                        <th colspan="4" class="sorting align-middle"
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
                                             Survey Information
                                         </th>
-                                        <th style="background:#e8e8e8">&nbsp;</th>
+                                        <!-- <th style="background:#e8e8e8">&nbsp;</th> -->
                                     </tr>
                                     <tr role="row">
-                                        <th class="sorting align-middle">State</th>
+
+                                        <ng-container *ngFor="let th of tableHeader">
+                                            <th class="sorting align-middle" *ngIf="th.isView">{{th.title}}
+                                            </th>
+                                        </ng-container>
+
+
+
+
+                                        <!-- <th class="sorting align-middle">State</th>
                                         <th class="sorting align-middle">District</th>
                                         <th class="sorting align-middle">Zone</th>
                                         <th class="sorting align-middle">Pincode</th>
@@ -434,14 +373,23 @@
                                         <th class="sorting align-middle">Address</th>
                                         <th class="sorting align-middle">Survey For</th>
                                         <th class="sorting align-middle">Survey On</th>
-                                        <th class="sorting align-middle">Remarks</th>
+                                        <th class="sorting align-middle">Remarks</th> -->
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <ng-container *ngFor="let data of allReportList; let i = index">
                                         <tr role="row" class="odd">
-                                            <td class="align-middle">{{data.stateName}}</td>
+
+                                            <ng-container *ngFor="let th of tableHeader; let t = index">
+                                                <td class="align-middle" *ngIf="th.isView">{{tableDataView(data, t)}}
+                                                </td>
+                                            </ng-container>
+
+
+
+
+                                            <!-- <td class="align-middle">{{data.stateName}}</td>
                                             <td class="align-middle">{{data.cityName}}</td>
                                             <td class="align-middle">{{data.zoneName}}</td>
                                             <td class="align-middle">{{data.pincode}}</td>
@@ -452,7 +400,9 @@
                                             <td class="align-middle">{{data.address}}</td>
                                             <td class="align-middle"></td>
                                             <td class="align-middle">{{getDate(data.surveyDate)}}</td>
-                                            <td class="align-middle">{{data.remarks}}</td>
+                                            <td class="align-middle">{{data.remarks}}</td> -->
+
+
                                             <td width="70" class="align-middle"><a class="d-inline-block align-middle"
                                                     href="#"><i class="fa fa-eye"
                                                         aria-hidden="true"></i></a>&nbsp;&nbsp; <a

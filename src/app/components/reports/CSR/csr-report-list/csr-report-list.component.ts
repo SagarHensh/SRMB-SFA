@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
-
+import{CSR_REPORT} from 'src/app/TableHeader';
 @Component({
   selector: 'app-csr-report-list',
   templateUrl: './csr-report-list.component.html',
@@ -18,6 +18,7 @@ export class CsrReportListComponent implements OnInit {
   limit = 50;
   offset = 0;
   totalRecords: any = "";
+  tableHeader:any=[];
 
   //------------------ For Filter ------------------//
   searchName = "";
@@ -37,8 +38,15 @@ export class CsrReportListComponent implements OnInit {
 
 isdisable: boolean = false;
 isPrevious: boolean = true;
+isTable: any = 1;
+currentPage = 1;
+totalPage = 1;
+
+startPage: any = 0;
+endPage: any = 0;
 
   ngOnInit(): void {
+    this.tableHeader=CSR_REPORT;
     let data: any = this.common.getAuthUserData();
     this.authUserData = JSON.parse(data);
     this.paginationLimitDropdown = this.store.getPaginationLimitList();
@@ -65,7 +73,7 @@ isPrevious: boolean = true;
       "stateId": this.state,
       "cityId": this.city
     };
-    console.log("Request Data for csr report>>>>>>>>",req);
+    // console.log("Request Data for csr report>>>>>>>>",req);
     this.common.getCsrReportList(req).subscribe(res => {
       console.log("CSR response::", res);
       if (res.respondcode == 200) {
@@ -73,15 +81,38 @@ isPrevious: boolean = true;
         if (respObj.data.length > 0) {
           this.allReportList = respObj.data;
           this.totalRecords = respObj.count;
+          this.totalPage = Math.ceil(this.totalRecords / this.limit);
+          this.startPage = Number(this.offset) + 1;
+          this.endPage = Number(this.offset) + Number(this.allReportList.length);
         } else {
           this.offset = this.offset > 0 ? this.offset - this.limit : this.offset;
           this.isdisable = true;
           this.allReportList = [];
           this.totalRecords = 0;
+          this.totalPage = 1;
+          this.startPage = 1;
+          this.endPage = 1;
         }
 
       }
     })
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPage) {
+      // alert("Offset "+ this.offset)
+      this.currentPage++;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.getVisitReports();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.getVisitReports();
+    }
   }
 
 
@@ -101,6 +132,7 @@ isPrevious: boolean = true;
     tb.classList.toggle("switchActiveList");
     var tbX: any = document.getElementById('switchGrid');
     tbX.classList.remove("switchActivegrid");
+    this.isTable = 1;
   }
 
   toggleBtnGrid() {
@@ -108,6 +140,7 @@ isPrevious: boolean = true;
     tb.classList.toggle("switchActivegrid");
     var tbX: any = document.getElementById('switchList');
     tbX.classList.remove("switchActiveList");
+    this.isTable = 0;
   }
 
   getDate(val: any) {
@@ -284,6 +317,41 @@ isPrevious: boolean = true;
     this.offset = this.offset + this.limit;
     this.getVisitReports();
   }
+
+  tableDataView(data: any, pos: any) {
+    let str: any = "";
+    if (pos == 0) {
+      str = data.customerName
+    }else if(pos == 1){
+      str = data.phoneNo
+    }else if(pos == 2){
+      str = data.contactTypeName
+    }else if(pos == 3){
+      str = data.DistrictName
+    }
+    else if(pos == 4){
+      str = data.csrName
+    }
+    else if(pos == 5){
+      str = data.createDate
+    }else if(pos == 6){
+      str = data.remarks
+    }
+
+        return str;
+}
+
+changeTableView(event: any, pos: any) {
+  this.tableHeader.map((data: any, i: any) => {
+    if (i == pos) {
+      if (event.target.checked) {
+        data.isView = true;
+      } else {
+        data.isView = false;
+      }
+    }
+  })
+}
 
 
 }

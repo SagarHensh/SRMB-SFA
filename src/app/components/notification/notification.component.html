@@ -1,0 +1,18 @@
+<div class="col-12" style="padding-left: 280px;padding-bottom:20px;padding-top:20px;">
+    <h2>Notification List</h2>
+</div>
+
+<div class="container" *ngFor="let data of allNotificationList">
+    
+   
+    <div class="header">
+        <img src={{data.image}} alt="bell" >
+        <h4>{{data.subject}}</h4></div>
+
+    <div class="mainbody">
+
+
+        <p>{{data.body}}</p>
+    </div>
+   
+</div>

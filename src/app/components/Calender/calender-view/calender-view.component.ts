@@ -147,6 +147,14 @@ export class CalenderViewComponent implements OnInit {
     this.getCalenderListData();
   }
 
+
+
+  // onSubmit() {
+  //   // alert("this")
+  //   console.log(this.onSubmit)
+  // }
+
+
   getCalenderListData() {
     let req = {
       "clientId": "1",

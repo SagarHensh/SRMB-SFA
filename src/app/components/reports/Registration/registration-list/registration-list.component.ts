@@ -5,6 +5,7 @@ import { CrmService } from 'src/app/services/crm.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
 import { REGISTRATION_REPROT } from 'src/app/TableHeader';
 import { NotifierService } from 'angular-notifier';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-registration-list',
@@ -16,7 +17,8 @@ export class RegistrationListComponent implements OnInit {
   constructor(private common: CommonService,
     private crm: CrmService,
     private store: StoreDataService,
-    private notifier : NotifierService) { }
+    private notifier : NotifierService,
+    private spinner: NgxSpinnerService) { }
 
   authUserData: any;
   allReportList: any = [];
@@ -62,6 +64,7 @@ export class RegistrationListComponent implements OnInit {
   }
 
   getVisitReports() {
+    this.spinner.show();
     let req = {
       "clientId": this.authUserData.clientId,
       "userId": this.authUserData.userId,
@@ -91,12 +94,14 @@ export class RegistrationListComponent implements OnInit {
           this.totalPage = Math.ceil(this.totalRecords / this.limit);
           this.startPage = Number(this.offset) + 1;
           this.endPage = Number(this.offset) + Number(this.allReportList.length);
+          this.spinner.hide();
         } else {
           this.allReportList = [];
           this.totalRecords = 0;
           this.totalPage = 1;
           this.startPage = 1;
           this.endPage = 1;
+          this.spinner.hide();
         }
 
       }
@@ -211,7 +216,7 @@ export class RegistrationListComponent implements OnInit {
     this.common.getRegistrationReportDownload(req).subscribe((res: any) => {
       //console.log("registration report download res>>>>>>>>>>>", res);
       if (res.response.path.file != "") {
-        var file_path = app_config.downloadUrlCRM + res.response.path.dir + res.response.path.file;
+        var file_path = app_config.downloadUrlCRM + res.response.path.dir + res.response.excelPath;
         var a = document.createElement('a');
         a.href = file_path;
         document.body.appendChild(a);

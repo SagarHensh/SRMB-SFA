@@ -20,6 +20,11 @@ export class CrmService {
 
   getImageUrl() {
     return app_config.crmApiUrl;
+    // return app_config.imageUrl;
+  }
+
+  getSFAImageUrl() {
+    return app_config.imageUrl;
   }
 
   getRegistrationList(params: any): Observable<any> {
@@ -48,6 +53,27 @@ export class CrmService {
   }
   getZone(data: any) {
     return this.http.post(this.apiurl + 'api/v1/zone/getZone', data, this.options);
+  }
+
+  logOut(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/user/logout', data, this.options);
+  }
+
+  getProductList(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/mstProduct/getAllData', data, this.options);
+  }
+
+  masterUpdate(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/customerManagement/updateNewRegCustomer', data, this.options);
+  }
+  //------------------- 19.09.2022 --------------------//
+
+  addMaster(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/customerManagement/addNewRegCustomer', data, this.options);
+  }
+
+  uploadFile(data: any) {
+    return this.http.post(this.apiurl + 'v1/imageupload', data, this.options);
   }
 
 

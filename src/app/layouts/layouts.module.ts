@@ -7,6 +7,7 @@ import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MasterListComponent } from './components/master-list/master-list.component';
@@ -32,6 +33,7 @@ import { PjpCalenderComponent } from './components/pjp/pjp-calender/pjp-calender
 import { StackbarchartComponent } from './components/charts/stackbarchart/stackbarchart.component';
 import { LinechartComponent } from './components/charts/linechart/linechart.component';
 import { ViewPjpDetailsComponent } from './components/pjp/view-pjp-details/view-pjp-details.component';
+import { InfluencerListComponent } from './components/master-list/influencer/influencer-list/influencer-list.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -98,7 +100,8 @@ const customNotifierOptions: NotifierOptions = {
     PjpCalenderComponent,
     StackbarchartComponent,
     LinechartComponent,
-    ViewPjpDetailsComponent
+    ViewPjpDetailsComponent,
+    InfluencerListComponent
   ],
   imports: [
     FormsModule,
@@ -112,6 +115,7 @@ const customNotifierOptions: NotifierOptions = {
     NgbModule,
     AutocompleteLibModule,
     NotifierModule.withConfig(customNotifierOptions),
+    NgxSpinnerModule,
   ]
 })
 export class LayoutsModule { }

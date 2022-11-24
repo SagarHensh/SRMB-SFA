@@ -16,6 +16,7 @@ import { LeaveComponent } from '../components/attendance-nleave/leave/leave.comp
 import { CreatePjpComponent } from '../components/pjp/create-pjp/create-pjp.component';
 import { PjpViewReportComponent } from '../components/pjp/pjp-view-report/pjp-view-report.component';
 import { ViewPjpDetailsComponent } from '../components/pjp/view-pjp-details/view-pjp-details.component';
+import { InfluencerListComponent } from '../components/master-list/influencer/influencer-list/influencer-list.component';
 
 const routes: Routes = [
   {
@@ -77,7 +78,11 @@ const routes: Routes = [
       {
         path : 'pjp-view-details',
         component : ViewPjpDetailsComponent
-      }
+      },
+      {
+        path : 'influencer',
+        component : InfluencerListComponent
+      },
     ]
   }
 ];

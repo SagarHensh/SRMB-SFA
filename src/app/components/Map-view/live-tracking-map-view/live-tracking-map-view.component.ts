@@ -49,6 +49,13 @@ export class LiveTrackingMapViewComponent implements OnInit {
   allEmployee: any = [];
 
   @Input() filterData: any;
+  filter: any = {
+    state: "",
+    type: "",
+    district: "",
+    zone: "",
+    rating: ""
+  };
 
 
   ngOnChanges(changes: SimpleChanges) {
@@ -58,13 +65,13 @@ export class LiveTrackingMapViewComponent implements OnInit {
       state: data.filterData.currentValue.state == '' ? 0 : Number(data.filterData.currentValue.state),
       type: data.filterData.currentValue.type == '' ? 0 : Number(data.filterData.currentValue.type),
       district: data.filterData.currentValue.district == '' ? 0 : Number(data.filterData.currentValue.district),
-      zone: data.filterData.currentValue.zone == '' ? 0 : Number(data.filterData.currentValue.zone)
+      zone: data.filterData.currentValue.zone == '' ? 0 : Number(data.filterData.currentValue.zone),
+      rating: data.filterData.currentValue.rating == '' ? 0 : Number(data.filterData.currentValue.rating)
     }
     console.log("Final change data:", filObj);
-    this.getEmpployeeList(filObj)
-    // this.doSomething(changes.categoryId.currentValue);
-    // You can also use categoryId.previousValue and 
-    // categoryId.firstChange for comparing old and new values
+    this.filter = filObj;
+    // this.getEmpployeeList(filObj);
+    this.getLiveTrackingEmployeeData();
 
   }
   mapReady(map: any) {
@@ -129,7 +136,6 @@ export class LiveTrackingMapViewComponent implements OnInit {
     if (Object.keys(data).length > 0) {
       this.clientId = this.authUserData.clientId;
     }
-
     this.getLiveTrackingEmployeeData();
   }
 
@@ -203,10 +209,15 @@ export class LiveTrackingMapViewComponent implements OnInit {
 
   getLiveTrackingEmployeeData() {
     let req = {
-      clientId: this.clientId
+      clientId: this.authUserData.clientId,
+      stateId: this.filter.state,
+      districtId: this.filter.district,
+      zoneId: this.filter.zone,
+      designationId: this.filter.type,
+      rating: this.filter.rating
     }
     this.common.getUserLocationMapping(req).subscribe(res => {
-      console.log("Response Employee Mapp Data::", res);
+      // console.log("Response Employee Mapp Data::", res);
       if (res.error == 0 && res.respondcode == 200) {
         let respObj = res.data;
         if (Object.keys(respObj).length > 0) {
@@ -227,11 +238,15 @@ export class LiveTrackingMapViewComponent implements OnInit {
                 emp_type_id: item.designationId,
                 isPresent: item.isPresent,
                 isLate: item.isLate,
-
+                onLeave: item.onLeave
               })
             });
             this.allEmployee = arr;
             this.markers = arr;
+            this.getEmpployeeList(this.filterData)
+          } else {
+            this.allEmployee = [];
+            this.markers = [];
             this.getEmpployeeList(this.filterData)
           }
         }
@@ -248,14 +263,16 @@ export class LiveTrackingMapViewComponent implements OnInit {
     let type: any = filter.type == '' ? 0 : Number(filter.type);
     let district: any = filter.district == '' ? 0 : Number(filter.district);
     let zone: any = filter.zone == '' ? 0 : Number(filter.zone);
+    let rating: any = filter.rating == '' ? 0 : Number(filter.rating);
 
     let empList: any = [];
     let tEmpList = [];
-    let multiplier = 15;
+    let multiplier = 1;
     let total = 0,
       present = 0,
       absent = 0,
-      late = 0;
+      late = 0,
+      leave = 0;
     let resp: any = {};
     let EMP_LIST: any = this.allEmployee;
     // if (type != 0) {
@@ -270,7 +287,7 @@ export class LiveTrackingMapViewComponent implements OnInit {
     // }
     // empList = tEmpList;
     empList = EMP_LIST;
-    console.log("All Emp Listr Prev::", empList)
+    // console.log("All Emp Listr Prev::", empList)
     tEmpList = [];
     if (state != 0) {
       for (let i = 0; i < empList.length; i++) {
@@ -305,31 +322,38 @@ export class LiveTrackingMapViewComponent implements OnInit {
     }
     empList = tEmpList;
     // empList = this.markers;
-    console.log("Total Employee After Filter:: ", empList)
+    // console.log("Total Employee After Filter:: ", empList)
     tEmpList = [];
     total = empList.length;
+    let showEmpArr = [];
     for (let i = 0; i < empList.length; i++) {
       if (empList[i].isPresent === 1) {
         present++;
+        showEmpArr.push(empList[i]);
         if (empList[i].isLate === 1) {
           late++;
+          showEmpArr.push(empList[i]);
         }
+      } else if (empList[i].onLeave === 1) {
+        leave++;
       } else {
         absent++;
       }
     }
     let calAbsent = absent * multiplier;
-    let abst = calAbsent === 0 ? 0 : calAbsent - 3;
-    let lev = calAbsent === 0 ? 0 : 3;
+    // console.log("calAbsent:", calAbsent)
+    let abst = calAbsent == 0 ? 0 : calAbsent;
+    // let lev = calAbsent == 0 ? 0 : calAbsent;
 
     this.total = total * multiplier;
     this.absent = abst;
     this.late = late * multiplier;
-    this.present = this.total - calAbsent;
-    this.leave = lev;
-    this.markers = empList;
+    this.present = this.total - calAbsent - leave;
+    this.leave = leave;
+    // this.markers = empList;
+    this.markers = showEmpArr;
 
-    console.log("EmpList::", this.markers)
+    // console.log("EmpList::", this.markers)
 
     let obj = {
       total: this.total,
@@ -339,7 +363,7 @@ export class LiveTrackingMapViewComponent implements OnInit {
       late: this.late
     }
 
-    console.log("get Data obj::", obj);
+    // console.log("get Data obj::", obj);
 
     this.sideDataEvent.emit(obj);
   }

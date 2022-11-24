@@ -17,3 +17,71 @@
     background-color: white;
     margin-left: 10px;
 }
+
+.prf_img {
+    height: 50px;
+    border-radius: 50%;
+    width: 50px;
+}
+
+/* .btn.btn-lg {
+    font-size: 14px;
+    line-height: 18px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 4px;
+} */
+
+.btn-pink {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 4px;
+    width: 135%;
+    font-family: 'Inter', sans-serif;
+    background: #e984b1;
+    border-color: #e984b1;
+    color: #fff;
+}
+
+/* =============== Modal CSS ======================== */
+
+.addContactModal .modal .modal-content {
+    border-radius: 20px;
+    background: #F4F6FD;
+}
+
+.addContactModal .modal-header {
+    border: none;
+    justify-content: center;
+    padding: 15px 30px;
+    /* box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.03);
+	background: #ffffff;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px; */
+}
+
+.addContactModal.modal-header .btn-close {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin: 0;
+}
+
+.addContactModal .modal-body {
+    padding: 0 30px;
+}
+
+.prf_img {
+    height: 50px;
+    border-radius: 50%;
+    width: 50px;
+}
+
+
+
+agm-map {
+    height: 500px;
+}

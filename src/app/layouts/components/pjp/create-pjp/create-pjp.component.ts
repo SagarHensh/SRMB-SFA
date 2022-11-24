@@ -23,23 +23,14 @@ export class CreatePjpComponent implements OnInit {
   allVisitorType: any;
   visitorType: any = "";
   allDistrictType: any = [];
-  districtType: any = "829";
+  districtType: any = "";
   allZoneType: any;
   zoneType: any = "";
   allContactCategoryType: any;
   selectedContactCategory: any = "";
   allContactTypeList: any = [];
   contactType: any;
-  allTaskType: any = [
-    {
-      taskId: "1",
-      taskName: "Follow Up"
-    },
-    {
-      taskId: "2",
-      taskName: "Visit"
-    }
-  ];
+  allTaskType: any = [];
   selectedTaskType: any = "";
   isSelf: any = true;
   isContactList: any = false;
@@ -67,6 +58,7 @@ export class CreatePjpComponent implements OnInit {
 
   selectedDateDetails: any;
   imageUrl: any = "";
+  sfaImageUrl: any = "";
   selectedPjpDate: any = "";
 
   preplanDataByCustomer: any = [];
@@ -91,7 +83,7 @@ export class CreatePjpComponent implements OnInit {
   ngOnInit(): void {
     this.load();
     this.getCurrentDate();
-    // this.getAlltaskType();
+    this.getAllVisitorTaskType();
     this.getAllLocationData();
     this.getAllContactCategoryType();
     this.getAllVisitorListType();
@@ -104,15 +96,22 @@ export class CreatePjpComponent implements OnInit {
     let data: any = this.common.getAuthUserData();
     // console.log("authUserL::", this.authUserData);
     this.authUserData = JSON.parse(data);
+    this.districtType = this.authUserData.districtId;
     this.getSelfUserDetails();
     this.imageUrl = this.crm.getImageUrl();
-
+    this.sfaImageUrl = this.crm.getSFAImageUrl();
 
   }
+
+
 
   getProfileImage(img: any) {
     // console.log(this.imageUrl + img);
     return this.imageUrl + img;
+  }
+
+  getSfaProfileImage(img: any) {
+    return this.sfaImageUrl + img;
   }
 
   getSelfUserDetails() {
@@ -122,7 +121,7 @@ export class CreatePjpComponent implements OnInit {
       userId: this.authUserData.userId
     }
     this.common.getpjpUserDetailsById(req).subscribe(res => {
-      console.log("Self User Details::", res);
+      // console.log("Self User Details::", res);
       if (res.error == 0 && res.respondcode == 200) {
         if (this.isSelf) {
           this.selectedPjpEmployeeDetails = res.data[0];
@@ -351,7 +350,7 @@ export class CreatePjpComponent implements OnInit {
 
   getAllContactCategoryType() {
     this.common.getAllContactCategory({}).subscribe(res => {
-      // console.log("All Contact Category Type ResPonse::", res);
+      console.log("All Contact Category Type ResPonse::", res);
       if (res.error == 0 && res.respondcode == 200) {
         if (res.data.contactList.length > 0) {
           this.allContactCategoryType = res.data.contactList;
@@ -370,7 +369,7 @@ export class CreatePjpComponent implements OnInit {
       contactType: this.selectedContactCategory
     }
     this.common.getVisitorListTypeByContactId(obj).subscribe(res => {
-      console.log("All Contact Category Type ResPonse::", res);
+      console.log("All Visitor Type ResPonse::", res);
       if (res.error == 0 && res.respondcode == 200) {
         if (res.data.visitorList.length > 0) {
           this.allVisitorType = res.data.visitorList;
@@ -382,23 +381,33 @@ export class CreatePjpComponent implements OnInit {
 
   }
 
-  // getAlltaskType() {
-  //   let obj = {}
-  //   this.common.getAllTaskCategory(obj).subscribe(res => {
-  //     // console.log("taskType all::", res);
-  //     if (res.error == 0 && res.respondcode == 200) {
-  //       if (res.data.taskList.length > 0) {
-  //         this.allTaskType = res.data.taskList;
-  //       } else {
-  //         this.allTaskType = [];
-  //       }
-  //     }
-  //   })
+  getAllVisitorTaskType() {
+    let obj = {
+      clientId: this.authUserData.clientId
+    }
+    this.common.getVisitorType(obj).subscribe(response => {
+      let res: any = response;
+      console.log("Visitor taskType all::", res);
+      if (res.error == 0 && res.respondcode == 200) {
+        if (res.data.length > 0) {
+          let arr : any = [];
+          res.data.map((data:any)=>{
+            arr.push({
+              taskId : data.contactTypeId,
+              taskName : data.contactTypeName
+            })
+          })
+          this.allTaskType = arr;
+        } else {
+          this.allTaskType = [];
+        }
+      }
+    })
 
-  // }
+  }
 
   onChangeVisitorType(value: any) {
-    console.log("Visitor Type::", value)
+    // console.log("Visitor Type::", value)
     this.visitorType = value;
     // ===============================
     this.getContactTypeList();
@@ -521,7 +530,7 @@ export class CreatePjpComponent implements OnInit {
 
   getAllSubordinateList() {
     let arr = this.store.getAllEmployeeList();
-    console.log("sub arr::", arr)
+    // console.log("sub arr::", arr)
     this.allSubordinateList = arr;
   }
 
@@ -536,7 +545,7 @@ export class CreatePjpComponent implements OnInit {
     this.common.getSubordinateUser(req).subscribe(res => {
       this.allSubordinateList = [];
       if (res.error == 0 && res.respondcode == 200) {
-        console.log("All suborinate List:", res.data);
+        // console.log("All suborinate List:", res.data);
         if (res.data.length > 0) {
           res.data.map((data: any) => {
             this.allSubordinateList.push({
@@ -778,7 +787,7 @@ export class CreatePjpComponent implements OnInit {
 
   createPjp() {
     this.closeModal();
-    
+
     this.common.pjvCreate(this.finalAddPjpReq).subscribe(res => {
       let response: any = res;
       if (response.error == 0) {
@@ -793,7 +802,7 @@ export class CreatePjpComponent implements OnInit {
     })
   }
 
-  reset(){
+  reset() {
     this.visitArray = [];
     this.preplanDataByCustomer = [];
     this.pjpDataArr = [];

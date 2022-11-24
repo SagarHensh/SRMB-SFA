@@ -115,7 +115,7 @@
                                             <button class="nav-link" id="pills-lead-tab"
                                                 (click)="setSalesType(1)">Lead</button>
                                             <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="assets/images/menu-vertical.svg" alt="trash"></a>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <a class="dropdown-item" href="javascript:void(0)">Hot</a>
@@ -133,7 +133,7 @@
                                             <button class="nav-link" id="pills-enq-tab"
                                                 (click)="setSalesType(0)">Enquiry</button>
                                             <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="assets/images/menu-vertical.svg" alt="trash"></a>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <a class="dropdown-item" href="javascript:void(0)">Recently Added <input
@@ -153,7 +153,7 @@
                                             <button class="nav-link" id="pills-opt-tab"
                                                 (click)="setSalesType(2)">Opportunity</button>
                                             <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="assets/images/menu-vertical.svg" alt="trash"></a>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <a class="dropdown-item" href="javascript:void(0)">Stage</a>
@@ -170,7 +170,7 @@
                                             <button class="nav-link" id="pills-rcnt-tab"
                                                 (click)="setSalesType(3)">Closed</button>
                                             <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="assets/images/menu-vertical.svg" alt="trash"></a>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <a class="dropdown-item" href="javascript:void(0)">Recently Closed
@@ -256,7 +256,8 @@
                                             <div class="select_filt_dv">
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
+                                                        id="status_type" [(ngModel)]="rating"
+                                                        (change)="onRatingChange()">
                                                         <option value="0">Select Rating</option>
                                                         <option *ngFor="let data of allRating" [value]="data">
                                                             {{data}}
@@ -458,7 +459,8 @@
                                             <div class="col-md-3 col-sm-12">
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type" [(ngModel)]="empTypeId">
+                                                        id="status_type" [(ngModel)]="empTypeId"
+                                                        (ngModelChange)="changeEmployeeDesignationBeatRoute()">
                                                         <option value="0">Select Employee Type</option>
                                                         <option *ngFor="let data of employeeDesignationList"
                                                             [value]="data.designationId">
@@ -469,7 +471,8 @@
                                             <div class="col-md-3 col-sm-12">
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type" [(ngModel)]="selectedEmployeeId">
+                                                        id="status_type" [(ngModel)]="selectedEmployeeId"
+                                                        (ngModelChange)="changeEmployeeNameBeatRoute()">
                                                         <option value="0">Select Employee Name</option>
                                                         <option *ngFor="let data of allEmployee" [value]="data.id">
                                                             {{data.name}}</option>
@@ -478,7 +481,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-3 col-sm-12">
-                                                <input type="date" class="form-control" style="height: 30px;">
+                                                <input type="date" class="form-control" style="height: 30px;"
+                                                    [(ngModel)]="selectedDate" (ngModelChange)="changeDateBeatRoute()">
                                             </div>
                                             <div class="col-md-3 col-sm-12">
                                                 <!-- <div class="select_filt_dv pjp_actl"> -->
@@ -499,7 +503,8 @@
                                     </div>
                                     <div class="map_trac_sc">
                                         <div class="map_dv" id="routeMap" style="width: 84%;">
-                                            <app-beat-route-map-view [selectedEmployeeData]="selectedEmployeeData">
+                                            <app-beat-route-map-view [selectedEmployeeData]="selectedEmployeeData"
+                                                [filterData]="filterBeat" (sideDataEvent)="setBeatSideData($event)">
                                             </app-beat-route-map-view>
                                             <!-- <iframe
                           src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29481.76412488799!2d88.36415975!3d22.5334108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1655879633704!5m2!1sen!2sin"
@@ -508,33 +513,39 @@
                                         </div>
                                         <div class="map_record pv_upv_dv" style="width: 15%;">
                                             <div class="map_rec_con pv_upv col_bl" style="background-color: #3dacff;
-                                            border-radius: 20px;
-                                            height: 100px;">
+                                            border-radius: 20px;" *ngIf="visitType.length>0">
                                                 <ul>
-                                                    <li><strong id="pvCount">PV - {{pv}} </strong></li>
-                                                    <li><strong id="uvcount">UPV - {{upv}} </strong></li>
+                                                    <li *ngFor="let data of visitType">
+                                                        <strong id="pvCount">{{data.title.toUpperCase()}} -
+                                                            {{data.value}} </strong>
+                                                    </li>
+                                                    <!-- <li><strong id="uvcount">UPV - {{upv}} </strong></li> -->
                                                 </ul>
                                                 <p>Visit Type Count</p>
                                             </div>
                                             <div class="map_rec_con col_gr" style="background-color: #89dfd3;
-                                            border-radius: 20px;
-                                            height: 140px;">
+                                            border-radius: 20px;" *ngIf="customerCount.length>0">
                                                 <ul>
-                                                    <li><strong id="cusDlr">DLR–{{customerCount.dl}} </strong></li>
-                                                    <li><strong id="cusDst">DST–{{customerCount.dist}} </strong></li>
+                                                    <li *ngFor="let data of customerCount">
+                                                        <strong id="cusDlr">{{data.title.toUpperCase()}} -
+                                                            {{data.value}} </strong>
+                                                    </li>
+                                                    <!-- <li><strong id="cusDst">DST–{{customerCount.dist}} </strong></li>
                                                     <li><strong id="cusSd">SD–{{customerCount.sdl}} </strong></li>
-                                                    <li><strong id="cusSdst">S DST–0 </strong></li>
+                                                    <li><strong id="cusSdst">S DST–0 </strong></li> -->
                                                 </ul>
                                                 <p>Customer Count </p>
                                             </div>
                                             <div class="map_rec_con col_yl" style="background-color: #ffb26b;
                                             border-radius: 20px;
-                                            height: 140px;">
+                                            height: 140px;" *ngIf="newCustCount.length>0">
                                                 <ul>
-                                                    <li><strong id="ncusDlr">DLR–{{newCustCount.dl}}</strong></li>
-                                                    <li><strong id="ncusDst">DST–{{newCustCount.dist}} </strong></li>
+                                                    <li *ngFor="let data of newCustCount">
+                                                        <strong id="ncusDlr">{{data.title}}–{{data.value}}</strong>
+                                                    </li>
+                                                    <!-- <li><strong id="ncusDst">DST–{{newCustCount.dist}} </strong></li>
                                                     <li><strong id="ncusSd">SD–{{newCustCount.sdl}} </strong></li>
-                                                    <li><strong id="ncusSdst">S DST–0 </strong></li>
+                                                    <li><strong id="ncusSdst">S DST–0 </strong></li> -->
                                                 </ul>
                                                 <p>New Customer Count</p>
                                             </div>
@@ -548,11 +559,13 @@
                                                 <p>Meeting count </p>
                                             </div>
                                             <div class="map_rec_con col_rd" style="background-color: #ff627e;
-                                            border-radius: 20px;
-                                            height: 100px;">
+                                            border-radius: 20px;" *ngIf="totalInfCount.length>0">
                                                 <ul>
-                                                    <li><strong id="tMas">Mason–{{totalInfCount.mason}} </strong></li>
-                                                    <li><strong id="tIFB">IFB–{{totalInfCount.ifb}} </strong></li>
+                                                    <li *ngFor="let data of totalInfCount">
+                                                        <strong id="tMas">{{data.title.toUpperCase()}} - {{data.value}}
+                                                        </strong>
+                                                    </li>
+                                                    <!-- <li><strong id="tIFB">IFB–{{totalInfCount.ifb}} </strong></li> -->
                                                 </ul>
                                                 <p>Total influencer count </p>
                                             </div>
@@ -568,7 +581,7 @@
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
                                                             id="status_type" [(ngModel)]="stateId"
-                                                            (change)="onStateChange()">
+                                                            (change)="changeSalesState()">
                                                             <option value="0">Select State</option>
                                                             <option *ngFor="let data of allState" [value]="data.id">
                                                                 {{data.name}}
@@ -580,7 +593,7 @@
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
                                                             id="status_type" [(ngModel)]="districtId"
-                                                            (change)="onDistrictChange()">
+                                                            (change)="onDistrictChangeSalesTab()">
                                                             <option value="0">Select District</option>
                                                             <option *ngFor="let data of allDistrict" [value]="data.id">
                                                                 {{data.name}}</option>
@@ -592,7 +605,7 @@
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
                                                             id="status_type" [(ngModel)]="zoneId"
-                                                            (change)="onZoneChange()">
+                                                            (change)="onZoneChangeSalesTab()">
                                                             <option value="0">Select Zone</option>
                                                             <option *ngFor="let data of allZone" [value]="data.id">
                                                                 {{data.name}}
@@ -604,9 +617,9 @@
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
                                                             id="status_type">
-                                                            <option value="0">Select Vertical</option>
-                                                            <option value="">Retail</option>
-                                                            <option value="">Project</option>
+                                                            <!-- <option value="0">Select Vertical</option> -->
+                                                            <option value="1">Retail</option>
+                                                            <!-- <option value="">Project</option> -->
                                                         </select>
                                                     </div>
                                                 </div>
@@ -629,7 +642,7 @@
                                         </div>
                                         <div class="map_trac_sc">
                                             <div class="map_dv" id="saleMap">
-                                                <app-sales-map-view [salesMarkerData]="salesMarker"
+                                                <app-sales-map-view [salesMarkerData]="salesMarker"  [filterData]="filterSales"
                                                     (salesItemEvent)="goToSalesSecond($event)">
                                                 </app-sales-map-view>
                                             </div>
@@ -785,7 +798,7 @@
                                                         <h4 style="
                                                         background: #89dfd3;
                                                         border-radius: 20px;">Lead information</h4>
-                                                        <ul  style="
+                                                        <ul style="
                                                         background: #89dfd3;
                                                         border-radius: 20px;">
                                                             <li style="

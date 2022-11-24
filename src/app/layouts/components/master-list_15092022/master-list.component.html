@@ -1,0 +1,850 @@
+<!--Container Main start-->
+<main class="content">
+    <ngx-spinner type="ball-scale-multiple" [fullScreen]="false"></ngx-spinner>
+    <div class="container-fluid p-0">
+
+
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center main-hdng">
+                <div class="col-md-6">
+                    <h3>{{title}} Master</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item active">Master List</li>
+                                <li class="breadcrumb-item" aria-current="page">{{title}} List</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
+                <div class="col-md-2">
+                    <input type="text" class="form-control" placeholder="Search by name or phone number or organization name here" (keyup)="searchIndividual($event)">
+
+                </div>
+                <div class="col-md-10 text-end mt-n1">
+                    <ul class="d-inline-block ml-auto mt-3 mt-lg-0 mb-0">
+                        <li class="list-inline-item">
+                            <div class="dt_fld">Select Date Range</div>
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="fromDate"></div>
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="toDate"></div>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-success btn-lg" (click)="searchByDateRange()">Search &nbsp;<i
+                                    class="fa fa-search" aria-hidden="true"></i></button>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <button class="btn btn-pink btn-lg" (click)="resetDate()">Reset</button>
+
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-success btn-lg" data-bs-target="#addContactModal"
+                                data-bs-toggle="modal" data-bs-dismiss="modal" (click)="addNew()">Add New</button>
+                        </li>
+
+                        <!-- <li class="list-inline-item">
+                            <button class="btn btn-success btn-lg" data-bs-target="#addContactModal"
+                                data-bs-toggle="modal" data-bs-dismiss="modal">Add New</button>
+                        </li> -->
+                        <!-- --------------------- For Filter----------------------->
+
+                        <li class="list-inline-item">
+
+                            <div class="d-inline-block">
+                                <a class="btn btn-secondary-drk btn-lg d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-filter" aria-hidden="true"></i>
+                                    &nbsp;Filter Search &nbsp;
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end filter_secn_dv">
+                                    <div class="filter_secn">
+                                        <div id="div01">
+                                            <div class="row hide asign_to_dv">
+                                                <div class="col-md-3">
+                                                    <label for="organization_name" class="form-label">Organization
+                                                        Name</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder="search"
+                                                            [(ngModel)]="searchOrgName">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="owner_name" class="form-label">Owner
+                                                        Name</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder="search"
+                                                            [(ngModel)]="searchOwnerName">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="contact_name" class="form-label">Contact
+                                                        Name</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder="search"
+                                                            [(ngModel)]="searchContactName">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="contact_name" class="form-label">Phone
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder="search"
+                                                            [(ngModel)]="searchPhone">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 pt-2">
+                                                    <label for="status_name" class="form-label">Status
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="searchStatus">
+                                                            <option value="">Select an options
+                                                            </option>
+                                                            <option value="1">Active</option>
+                                                            <option value="0">Inactive</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 pt-2">
+                                                    <label for="state_name" class="form-label">State</label>
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="state"
+                                                            (change)="changeState()">
+                                                            <option value="">Select an options
+                                                            </option>
+                                                            <option *ngFor="let item of stateList"
+                                                                [value]="item.stateId">{{item.stateName}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 pt-2">
+                                                    <label for="district_name" class="form-label">District
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type" [(ngModel)]="city">
+                                                            <option value="">Select an options
+                                                            </option>
+                                                            <option *ngFor="let item of cityList" [value]="item.cityId">
+                                                                {{item.cityName}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-end">
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-pink w-100" (click)="reset()">Reset</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-success w-100" (click)="saveSearch()">Save &
+                                                        Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+
+
+                        <li class="list-inline-item">
+                            <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+                                <button id="switchList" (click)="toggleBtnList()" type="button"
+                                    class="btn btn-outline-dark btn-xs switchActiveList">
+                                    <img src="assets/images/list-view.svg" alt="list-view">
+                                </button>
+                                <button id="switchGrid" (click)="toggleBtnGrid()" type="button"
+                                    class="btn btn-outline-dark btn-xs">
+                                    <img src="assets/images/grid-view.svg" alt="list-view">
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="d-inline-block">
+                        <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                            href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="">Edit this {{title}}</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)">Change profile image</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)">Delete {{title}}</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)">Change record owner</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)">Print this details</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)">Assign task</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)">Change assign user</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)">Add opportunity with this org.</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12 ">
+
+                <div class="bg-white shadow_d py-4 px-4 rounded-3">
+                    <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="d-md-flex align-items-center mb-3">
+                            <div class="col-auto d-flex">
+                                <h3>{{title}} List</h3><span class="sm-font text-primary">{{totalListData}} Records
+                                    Found</span>
+                            </div>
+                            <div class="col-auto d-block ms-auto">
+                                <div class="text-center">
+                                    <div class="dataTables_length" id="datatables-reponsive_length">
+                                        <label>Records per page <select name="datatables-reponsive_length"
+                                                aria-controls="datatables-reponsive" class="form-select form-select-sm"
+                                                [(ngModel)]="limit" (ngModelChange)="changeLimit()">
+                                                <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
+                                                    {{pg.label}}</option>
+                                            </select>
+                                            {{startPage}} - {{endPage}}
+                                        </label>
+
+                                        <label>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="prevPage()">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left"></a>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="nextPage()">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right"></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group btn-group-sm ms-auto  btn-download-group">
+
+                                <!-- <select class="btn btn-primary px-4 text-white">
+                                    <option>
+                                        Download List
+                                    </option>
+                                </select> -->
+
+                                <button type="button" class="btn btn-primary px-4 text-white"
+                                    (click)="downloadList()">Download List</button>
+                                <button type="button" class="btn btn-primary px-4 text-white">Bulk Upload</button>
+                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
+                                <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="assets/images/filtering.svg" alt="filtering"></button>
+
+                                <div class="dropdown-menu dropdown-menu-end addDropdownhead">
+
+
+                                    <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">State</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch1">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">District</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch2">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <!-- <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">Contact Person</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch3">
+                                        </div>
+                                    </a> -->
+
+                                    <!-- <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">Deals</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch6">
+                                        </div>
+                                    </a> -->
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">Contact Name</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch7">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">Phone</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch8">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">Organization Name</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch9">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">Owner Name</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch10">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">Status</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <!-- <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">Lead owner</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                        <span class="col-auto d-block">Assigned to</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive odometer_div">
+                            <table id="datatables-column-search-select-inputs"
+                                class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
+                                aria-describedby="datatables-column-search-select-inputs_info">
+                                <thead class="thead-dark">
+                                    <tr role="row">
+                                        <th width="40px">&nbsp;</th>
+                                        <th class="sorting align-middle">State</th>
+                                        <th class="sorting align-middle">District</th>
+                                        <th class="sorting align-middle">Name</th>
+                                        <th class="sorting align-middle">Phone</th>
+                                        <th class="sorting align-middle">Organization Name</th>
+                                        <th class="sorting align-middle">Owner Name</th>
+                                        <th class="sorting align-middle">Status</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <!-- <tfoot>
+                                    <tr>
+                                        <th class="align-middle">
+                                            <input type="checkbox" id="customCheck1">
+                                        </th>
+
+                                        <th class="align-middle">
+                                            <select class="form-select" (change) = "changeState($event)" [(ngModel)] = "state">
+                                                <option value = "">All</option>
+                                                <option *ngFor = "let item of stateList" [value] = "item.stateId">{{item.stateName}}</option>
+                                            </select>
+                                        </th>
+                                        <th class="align-middle"><select class="form-select" (change) = "changeCity($event)" [(ngModel)] = "city">
+                                                <option value = "">All</option>
+                                                <option *ngFor = "let item of cityList" [value] = "item.cityId">{{item.cityName}}</option>
+                                            </select> </th>
+                                        <th class="align-middle">
+                                            <input type="text" placeholder="Search" class="form-control input-sm" (keyup) ="searchByName($event)">
+                                        </th>
+                                        <th class="align-middle">
+                                            <input type="text" placeholder="Search" class="form-control input-sm" (keyup) ="searchByPhone($event)">
+                                        </th>
+                                        <th class="align-middle">
+                                            <input type="text" placeholder="Search" class="form-control input-sm" (keyup) ="searchByOrgName($event)">
+                                        </th>
+                                        <th class="align-middle">
+                                            <input type="text" placeholder="Search" class="form-control input-sm" (keyup) ="searchByOwnerName($event)">
+                                        </th>
+                                        <th class="align-middle">
+                                            <select class="form-select" (change) = "changeByStatus($event)" [(ngModel)] = "searchStatus">
+                                                <option value="">All</option>
+                                                <option [value] = "1">Active</option>
+                                                <option [value] = "0">Inactive</option>
+                                            </select>
+                                        </th>
+                                        <th>&nbsp;&nbsp;</th>
+
+
+
+                                    </tr>
+                                </tfoot> -->
+                                <tbody>
+
+                                    <tr role="row" class="odd" *ngFor="let data of listData">
+                                        <td class="align-middle" width="2%"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%">
+                                            <a href="javascript:void(0)">{{data.stateName}}</a>
+                                        </td>
+                                        <td class="align-middle" width="7%">{{data.cityName}}</td>
+                                        <td class="align-middle">{{data.name}}</td>
+                                        <td class="align-middle">{{data.phoneNumber}}</td>
+                                        <td class="align-middle">
+                                            <ng-container *ngIf="data.organizationName == null">N/A</ng-container>
+                                            <ng-container *ngIf="data.organizationName != null ">
+                                                {{data.organizationName}}</ng-container>
+                                        </td>
+                                        <td class="align-middle">
+                                            <ng-container *ngIf="data.ownerName == null">N/A</ng-container>
+                                            <ng-container *ngIf="data.ownerName != null ">
+                                                {{data.ownerName}}</ng-container>
+                                        </td>
+                                        <td class="align-middle" *ngIf="data.status == '0'">InActive</td>
+                                        <td class="align-middle" *ngIf="data.status == '1'">Active</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="javascript:void(0)">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="javascript:void(0)" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" (click)="editMaster(data.contactId)">Edit this
+                                                    {{title}}</a>
+
+                                                <!-- <div class="dropdown-divider"></div> -->
+
+                                                <!-- <a class="dropdown-item" href="javascript:void(0)">Change profile
+                                                    image</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Delete
+                                                    organization</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Change record
+                                                    owner</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Print this
+                                                    details</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Assign task</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Change assign
+                                                    user</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)">Add opportunity with
+                                                    this org.</a> -->
+
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-xl-flex align-items-center mt-3">
+
+                            <div class="col-auto d-block">
+
+                                <div class="text-center">
+                                    <div class="dataTables_length" id="datatables-reponsive_length">
+                                        <label>Records per page <select name="datatables-reponsive_length"
+                                                aria-controls="datatables-reponsive" class="form-select form-select-sm"
+                                                [(ngModel)]="limit" (ngModelChange)="changeLimit()">
+                                                <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
+                                                    {{pg.label}}</option>
+                                            </select>
+                                            {{startPage}} - {{endPage}}
+                                        </label>
+                                        <label>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="prevPage()">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left"></a>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="nextPage()">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right"></a>
+                                            <label>
+                                            </label>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<ng-template #masterListModal>
+    <div class="addContactModal">
+        <div class="modal-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <h3 class="modal-title d-inline-block align-middle me-2" *ngIf="!modalFlag">Add {{title}}</h3>
+                        <h3 class="modal-title d-inline-block align-middle me-2" *ngIf="modalFlag">Update {{title}}
+                        </h3>
+                    </div>
+                    <div class="col-sm-2 d-flex justify-content-end"><button type="button" data-bs-dismiss="modal"
+                            aria-label="Close" class="btn-close" (click)="closeModal()"></button></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <label for="contact Type" class="form-label"><span class="text-danger">*</span>Contact Type
+                        </label>
+                        <div class="input-group">
+                            <select class="form-select" aria-label="Default select example" id="cust_type"
+                                [(ngModel)]="contactType" disabled>
+                                <option value="">Select an option
+                                </option>
+                                <option *ngFor="let item of contactTypeList" [value]="item.custTypId">
+                                    {{item.custTypName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="erpCode" class="form-label"><span class="text-danger"></span>ERP Code</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="ERPCode" [(ngModel)]="erpCode">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="role_title" class="form-label">
+                            <span class="text-danger">*</span>First Name
+                        </label>
+                        <div class="input-group">
+                            <input type="text" name="fname" class="form-control" id="user_fname" [(ngModel)]="fName">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="role_title" class="form-label">
+                            <span class="text-danger">*</span>Last Name
+                        </label>
+                        <div class="input-group">
+                            <input type="text" name="lname" class="form-control" id="user_lname" [(ngModel)]="lName">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="gender" class="form-label">
+                            <span class="text-danger"></span>Gender
+                        </label>
+                        <div class="input-group">
+                            <select class="form-select" aria-label="Default select example" id="status_type"
+                                [(ngModel)]="gender">
+                                <option value="">Select an option</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="role_title" class="form-label">
+                            <span class="text-danger"></span>Date of Birth
+                        </label>
+                        <div class="input-group">
+                            <input type="date" name="dob" class="form-control" id="user_dob" [(ngModel)]="dob"
+                                [max]="validateDob()">
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <label for="phone number" class="form-label"><span class="text-danger">*</span>Phone Number
+                        </label>
+                        <div *ngFor="let obj of contactPhone;let i=index">
+                            <div class="input-group">
+                                <input type="text" class="form-control" [(ngModel)]="obj.item"
+                                    onkeypress="if(this.value.length >9) return false; if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.keyCode != 9)  return false;">
+                                <button class="btn btn-outline-danger input-group-height" *ngIf="contactPhone.length >1"
+                                    (click)="removePhoneNumber(i)">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <!-- <div id="newBuisnessFieldAdd"></div> -->
+                            <div class="btn btn-link p-0 add_field mb-2" (click)="addContactPhone()"
+                                *ngIf="contactPhone.length < 2" style="text-decoration: none;">+
+                                Add</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email
+                        </label>
+                        <div *ngFor="let obj of contactEmail; let i= index;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" [(ngModel)]="obj.item">
+                                <button class="btn btn-outline-danger " *ngIf="contactEmail.length >1"
+                                    (click)="removeContactEmail(i)">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <!-- <div id="newBuisnessFieldAdd"></div> -->
+                            <div class="btn btn-link p-0 add_field mb-2" (click)="addContactEmail()"
+                                *ngIf="contactEmail.length < 2" style="text-decoration: none;">+
+                                Add</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="designation" class="form-label">
+                            <span class="text-danger"></span>Title
+                        </label>
+                        <div class="input-group">
+                            <div class="input-group">
+                                <input type="text" name="title" class="form-control" [(ngModel)]="contactTitle">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="address" class="form-label"><span class="text-danger">*</span>Address
+                        </label>
+                        <div class="input-group">
+                            <textarea type="text" class="form-control" [(ngModel)]="contactAddress"></textarea>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!modalFlag">
+                        <div class="col-md-6">
+                            <label for="state" class="form-label">
+                                <span class="text-danger">*</span>State
+                            </label>
+
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="state" (change)="changeState()">
+                                    <option value="">Select an option</option>
+                                    <option *ngFor="let item of stateList" [value]="item.stateId">{{item.stateName}}
+                                    </option>
+                                </select>
+                            </div>
+
+
+                            <!-- <ng-multiselect-dropdown [placeholder]="'select state'" [settings]="dropdownSettings"
+                            [data]="stateListDropdown" [(ngModel)]="selectedStates" (onSelect)="onItemSelectState($event)"
+                            (onSelectAll)="onSelectAllState($event)" (onDeSelect)="onItemDeSelect($event)">
+                        </ng-multiselect-dropdown> -->
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="city" class="form-label">
+                                <span class="text-danger">*</span>District/City
+                            </label>
+
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="contactCity" (change)="getZoneByCityId()">
+                                    <option value="">Select an option</option>
+                                    <option *ngFor="let item of cityList" [value]="item.cityId">{{item.cityName}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <!-- <ng-multiselect-dropdown [placeholder]="'select city'" [settings]="dropdownSettings"
+                            [data]='cityListDropdown' [(ngModel)]="selectedCitys" (onSelect)="onItemSelectCity($event)"
+                            (onSelectAll)="onSelectAllCity($event)">
+                        </ng-multiselect-dropdown> -->
+
+
+                        </div>
+                        <div class="col-md-6 pt-2">
+                            <label for="zone" class="form-label">
+                                <span class="text-danger">*</span>Zone
+                            </label>
+                            <div class="input-group">
+                                <select class="form-select" aria-label="Default select example" id="status_type"
+                                    [(ngModel)]="contactZone">
+                                    <option value="">Select an option</option>
+                                    <option *ngFor="let item of zoneList" [value]="item.zoneId">{{item.zoneName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="landmark" class="form-label">
+                            <span class="text-danger"></span>Landmark
+                        </label>
+                        <div class="input-group">
+                            <input type="text" name="landmark" class="form-control" id="user_landmark"
+                                [(ngModel)]="landmark">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="role_title" class="form-label">
+                            <span class="text-danger">*</span>Geo Location
+                        </label>
+                        <div class="input-group">
+                            <input type="text" name="geo" class="form-control" id="user_geo" [(ngModel)]="geoLoc">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="role_title" class="form-label">
+                            <span class="text-danger">*</span>Lattitude
+                        </label>
+                        <div class="input-group">
+                            <input type="text" name="lat" class="form-control" id="user_lattitude"
+                                [(ngModel)]="lattitude"
+                                onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which != 8) if(event.which !=46) if(event.keyCode != 9)  return false;">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="role_title" class="form-label">
+                            <span class="text-danger">*</span>Longitude
+                        </label>
+                        <div class="input-group">
+                            <input type="text" name="long" class="form-control" id="user_longitude"
+                                [(ngModel)]="longitude"
+                                onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which !=46) if(event.which != 8) if(event.keyCode != 9)  return false;">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="pincode" class="form-label">
+                            <span class="text-danger">*</span>Pin Code
+                        </label>
+                        <div class="input-group">
+                            <input type="text" name="pincode" class="form-control" id="user_pincode"
+                                [(ngModel)]="pincode"
+                                onkeypress="if(event.which < 48 || event.which > 57 ) if(event.which !=46) if(event.which != 8) if(event.keyCode != 9)  return false;">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="residentialAddress" class="form-label">
+                            <span class="text-danger"></span>Residential Address
+                        </label>
+                        <div class="input-group">
+                            <textarea class="form-control" aria-label="Default select example" id="residentialAddress"
+                                [(ngModel)]="residentAddress">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="description" class="form-label">
+                            <span class="text-danger"></span>Description
+                        </label>
+                        <div class="input-group">
+                            <textarea class="form-control" aria-label="Default select example" id="description"
+                                [(ngModel)]="description">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="businessname"><span class="text-danger">*</span>Customer Business Name</label>
+                        <div class="input-group">
+                            <input type="text" name="bussiness_Name" class="form-control"
+                                [(ngModel)]="custBusinessName">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="yearofestd"><span class="text-danger"></span>Year Of Established</label>
+                        <div class="input-group">
+                            <input type="date" name="yearofestd" class="form-control" [(ngModel)]="yearOfEstd"
+                                [max]="validateDob()">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="godownloc"><span class="text-danger"></span>Godown Location</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="godownloc" [(ngModel)]="godownLoc">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="godowncap"><span class="text-danger"></span>Godown Capacity(Mt.)</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="godowncap" [(ngModel)]="godownCapacity">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="advanced"><span class="text-danger"></span>Advanced Limit</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="advanced" [(ngModel)]="advanced">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="appliedcreditlimit"><span class="text-danger"></span>Applied Credit
+                            Limit</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="appliedcreditlimit"
+                                [(ngModel)]="appliedCrLimit">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="primaryitem"><span class="text-danger"></span>Primary Item</label>
+                        <div class="input-group">
+                            <select class="form-select" name="primayitem" [(ngModel)]="primaryItem">
+                                <option value="">Select an option</option>
+                                <option *ngFor="let item of productList" [ngValue]="item.productId">
+                                    {{item.productName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <div class="d-block mb-4"><span class="text-danger"></span> Profile Image</div>
+                        <div class="d-inline-block align-middle me-4">
+                            <img src="assets/images/placeholder.png" alt="placeholder" *ngIf="!fileUploadStatus">
+                            <img [src]=imageSrc alt="placeholder" height="100" width="100" *ngIf="fileUploadStatus">
+                            <!-- <img [src]=fileUpload alt="placeholder" height="100" width="100" *ngIf="fileUploadStatus"> -->
+
+                        </div>
+
+                        <div class="d-inline-block align-middle position-relative image-box upl_opn_dv">
+                            <span>{{orgFileName}}</span>
+                            <div class="input-button-wrap d-flex w-100 file-div pt-3">
+                                <!-- <label class="input-button" for="upload">Upload File</label> -->
+                                <input id="upload" type="file" (change)="uploadFile()" accept=".png,.jpg,.jpeg">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12  pt-4 text-center">
+                        <button type="button" class="btn btn-success" (click)="addMaster()"
+                            *ngIf="!modalFlag">Create</button>
+                        <button type="button" class="btn btn-success" (click)="update()"
+                            *ngIf="modalFlag">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<notifier-container></notifier-container>

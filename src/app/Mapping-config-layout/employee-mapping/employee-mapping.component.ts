@@ -110,7 +110,8 @@ export class EmployeeMappingComponent implements OnInit {
 
   getAllLocationData() {
     let obj = {
-      countryId: this.countryId
+      countryId: this.countryId,
+      clientId : this.clientId
     }
     this.common.getLocationHierarchy(obj).subscribe(res => {
       // console.log("Response:", res);

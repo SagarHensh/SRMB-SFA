@@ -13,10 +13,10 @@ export class ViewMapComponent implements OnInit {
     private common: CommonService
   ) { }
 
-  totalSalesCount : any = 0;
-  totalSalesDist : any = 0;
-  totalSalesDealer : any = 0;
-  totalSaleSubdl : any = 0;
+  totalSalesCount: any = 0;
+  totalSalesDist: any = 0;
+  totalSalesDealer: any = 0;
+  totalSaleSubdl: any = 0;
   countryId: any = "1";
   clientId: any = "";
   authUserData: any;
@@ -36,12 +36,21 @@ export class ViewMapComponent implements OnInit {
     "4.5 and above",
     "5"
   ];
+  rating: any = "0";
+
   filter: any = {
     type: this.empTypeId,
     state: this.stateId,
     district: this.districtId,
     zone: this.zoneId
   };
+
+  filterBeat: any = {
+    designation: "",
+    empId: "",
+    date: this.getCurrentDate()
+  };
+
   sideData: any = {
     total: 0,
     present: 0,
@@ -57,31 +66,24 @@ export class ViewMapComponent implements OnInit {
   allEmployee: any = [];
   selectedEmployeeId: any;
 
+  // ============================
+
+  visitType: any = [];
+
   totalVisit: any = 0;
   pv: any = 0;
   upv: any = 0;
 
-  customerCount: any = {
-    dist: 0,
-    dl: 0,
-    sdl: 0
-  }
+  customerCount: any = [];
 
-  newCustCount: any = {
-    dist: 0,
-    dl: 0,
-    sdl: 0
-  }
+  newCustCount: any = []
 
   meetingCount: any = {
     mason: 0,
     ifb: 0
   };
 
-  totalInfCount: any = {
-    mason: 0,
-    ifb: 0
-  };
+  totalInfCount: any = [];
 
 
 
@@ -109,14 +111,32 @@ export class ViewMapComponent implements OnInit {
     clMrkr: this.closedMarker
   }
 
-  salesTabData:any={
-    isLead : true,
-    isOpportunity : true,
-    isEnquiry : true,
-    isClosed : true
+  salesTabData: any = {
+    isLead: true,
+    isOpportunity: true,
+    isEnquiry: true,
+    isClosed: true
   }
 
-  saleSideData : any ;
+
+  filterSales: any = {
+    state: this.stateId,
+    district: this.districtId,
+    zone: this.zoneId
+  };
+
+  saleSideData: any = {
+    totalCount: 0,
+    dlCount: 0,
+    dstCount: 0,
+    sdCount: 0
+  };
+  selectedDate: any = "";
+  allBeatSideData: any;
+
+  allSalesMapData: any;
+
+
 
   ngOnInit(): void {
     let data: any = this.common.getAuthUserData();
@@ -124,16 +144,20 @@ export class ViewMapComponent implements OnInit {
     if (Object.keys(data).length > 0) {
       this.clientId = this.authUserData.clientId;
     }
-    this.genSalesMap();
+    this.getLiveTrackingEmployeeData();
+    // this.genSalesMap();
+    this.getSalesMapData()
     this.getAllEmployeeDesignation();
     this.getAllLocationData();
-    this.getLiveTrackingEmployeeData();
+    // this.getLiveTrackingEmployeeData();
     this.getValueForVisit();
+    this.selectedDate = this.getCurrentDate();
   }
 
   ngAfterViewInit() {
     this.getValueForVisit();
-    this.genSalesMap();
+    // this.genSalesMap();
+    this.getSalesMapData()
 
   }
 
@@ -218,15 +242,18 @@ export class ViewMapComponent implements OnInit {
   }
 
   goToBit(event: any) {
-    console.log("Selected Employee Data::", event);
+    // this.getLiveTrackingEmployeeData();
+    // console.log("Selected Employee Data::", event);
+    // console.log("ALl Employee Data:", this.allEmployee)
     this.onChangeMainTab(2);
     this.selectedEmployeeData = event;
     this.empTypeId = event.emp_type_id;
     this.selectedEmployeeId = event.id;
+    // console.log("Selected Employee Id:", this.selectedEmployeeId)
   }
 
   goToSalesSecond(event: any) {
-    console.log("Event Sales map data::", event);
+    // console.log("Event Sales map data::", event);
     this.isSalesClick = true;
   }
 
@@ -248,12 +275,31 @@ export class ViewMapComponent implements OnInit {
   }
 
   onChangeEmployeeDesignationType() {
-    console.log("Employee Type ::", this.empTypeId);
+    // console.log("Employee Type ::", this.empTypeId);
+    this.filter = {
+      type: this.empTypeId,
+      state: this.stateId,
+      district: this.districtId,
+      zone: this.zoneId,
+      rating: this.rating
+    }
+    this.getLiveTrackingEmployeeData()
+  }
+
+  onRatingChange() {
+    this.filter = {
+      type: this.empTypeId,
+      state: this.stateId,
+      district: this.districtId,
+      zone: this.zoneId,
+      rating: this.rating
+    }
   }
 
   getAllLocationData() {
     let obj = {
-      countryId: this.countryId
+      countryId: this.countryId,
+      clientId: this.clientId
     }
     this.common.getLocationHierarchy(obj).subscribe(res => {
       // console.log("Response:", res);
@@ -301,7 +347,8 @@ export class ViewMapComponent implements OnInit {
       type: this.empTypeId,
       state: this.stateId,
       district: this.districtId,
-      zone: this.zoneId
+      zone: this.zoneId,
+      rating: this.rating
     }
   }
 
@@ -312,7 +359,8 @@ export class ViewMapComponent implements OnInit {
       type: this.empTypeId,
       state: this.stateId,
       district: this.districtId,
-      zone: this.zoneId
+      zone: this.zoneId,
+      rating: this.rating
     }
   }
 
@@ -322,7 +370,8 @@ export class ViewMapComponent implements OnInit {
       type: this.empTypeId,
       state: this.stateId,
       district: this.districtId,
-      zone: this.zoneId
+      zone: this.zoneId,
+      rating: this.rating
     }
   }
 
@@ -341,12 +390,73 @@ export class ViewMapComponent implements OnInit {
 
   }
 
+  setBeatSideData(event: any) {
+
+    console.log("Side data from Beat::", event);
+    this.allBeatSideData = event;
+    this.visitType = [];
+    this.customerCount = [];
+    this.totalInfCount = [];
+    this.newCustCount = [];
+
+    if (Object.keys(this.allBeatSideData.visitType).length > 0) {
+      // console.log("All Obj Array>>>>>>>>>>>>", Object.keys(this.allBeatSideData.visitType));
+      let arr: any = Object.keys(this.allBeatSideData.visitType);
+      arr.map((data: any) => {
+        this.visitType.push({
+          title: data,
+          value: this.allBeatSideData.visitType[data]
+        })
+      });
+      // console.log("New Visit Type Arry::", this.visitType)
+    }
+
+    if (Object.keys(this.allBeatSideData.customer).length > 0) {
+      // console.log("All Obj Array>>>>>>>>>>>>", Object.keys(this.allBeatSideData.customer));
+      let arr: any = Object.keys(this.allBeatSideData.customer);
+      arr.map((data: any) => {
+        this.customerCount.push({
+          title: data,
+          value: this.allBeatSideData.customer[data]
+        })
+      });
+    }
+
+    if (Object.keys(this.allBeatSideData.newcustomer).length > 0) {
+      // console.log("All Obj Array>>>>>>>>>>>>", Object.keys(this.allBeatSideData.customer));
+      let arr: any = Object.keys(this.allBeatSideData.newcustomer);
+      arr.map((data: any) => {
+        this.newCustCount.push({
+          title: data,
+          value: this.allBeatSideData.newcustomer[data]
+        })
+      });
+    }
+
+    if (Object.keys(this.allBeatSideData.influencer).length > 0) {
+      // console.log("All Obj Array>>>>>>>>>>>>", Object.keys(this.allBeatSideData.customer));
+      let arr: any = Object.keys(this.allBeatSideData.influencer);
+      arr.map((data: any) => {
+        this.totalInfCount.push({
+          title: data,
+          value: this.allBeatSideData.influencer[data]
+        })
+      });
+    }
+
+  }
+
   getLiveTrackingEmployeeData() {
     let req = {
-      clientId: this.clientId
+      clientId: this.clientId,
+      stateId: this.stateId,
+      districtId: this.districtId,
+      zoneId: this.zoneId,
+      designationId: this.empTypeId,
+      rating: this.rating
     }
     this.common.getUserLocationMapping(req).subscribe(res => {
-      console.log("All Employee Data::", res);
+      console.log("All Employee Data from View-map ::", res);
       if (res.error == 0 && res.respondcode == 200) {
         let respObj = res.data;
         if (Object.keys(respObj).length > 0) {
@@ -371,6 +481,8 @@ export class ViewMapComponent implements OnInit {
               })
             });
             this.allEmployee = arr;
+          } else {
+            this.allEmployee = []
           }
         }
       }
@@ -428,7 +540,7 @@ export class ViewMapComponent implements OnInit {
     let closedMarker: any = [];
 
 
-    for (let i = 0; i < empList.length-10; i++) {
+    for (let i = 0; i < empList.length - 10; i++) {
       if (empList[i].lat !== undefined && empList[i].lng !== undefined) {
         if (empList[i].custType == "DLR") {
           dlrCount++;
@@ -473,10 +585,10 @@ export class ViewMapComponent implements OnInit {
     this.totalSaleSubdl = sdCount;
 
     this.saleSideData = {
-      totalCount : totCount,
-      dlCount : dlrCount,
-      dstCount : dstCount,
-      sdCount : sdCount
+      totalCount: totCount,
+      dlCount: dlrCount,
+      dstCount: dstCount,
+      sdCount: sdCount
     }
 
     this.salesMarker = {
@@ -484,75 +596,227 @@ export class ViewMapComponent implements OnInit {
       ldMrkr: this.leadMarker,
       enMrkr: this.enquiryMarker,
       clMrkr: this.closedMarker,
-      btnData : this.salesTabData
-      
+      btnData: this.salesTabData
+
     }
 
   }
 
-  setSalesType(id:any){
-    if(id == 1){
-      this.salesTabData={
-        isLead : true,
-        isOpportunity : false,
-        isEnquiry :false,
-        isClosed : false
+  setSalesType(id: any) {
+    if (this.allSalesMapData != undefined) {
+      if (id == 1) {
+        this.salesTabData = {
+          isLead: true,
+          isOpportunity: false,
+          isEnquiry: false,
+          isClosed: false
+        }
+        this.saleSideData = {
+          totalCount: this.allSalesMapData.lead.total,
+          dlCount: this.allSalesMapData.lead.contact.Dealer,
+          dstCount: this.allSalesMapData.lead.contact.Distributor,
+          sdCount: this.allSalesMapData.lead.contact['Sub-Dealer'],
+        }
+      } else if (id == 0) {
+        this.salesTabData = {
+          isLead: false,
+          isOpportunity: false,
+          isEnquiry: true,
+          isClosed: false
+        }
+        this.saleSideData = {
+          totalCount: this.allSalesMapData.enquiry.total,
+          dlCount: this.allSalesMapData.enquiry.contact.Dealer,
+          dstCount: this.allSalesMapData.enquiry.contact.Distributor,
+          sdCount: this.allSalesMapData.enquiry.contact['Sub-Dealer'],
+        }
+      } else if (id == 2) {
+        this.salesTabData = {
+          isLead: false,
+          isOpportunity: true,
+          isEnquiry: false,
+          isClosed: false
+        }
+        this.saleSideData = {
+          totalCount: this.allSalesMapData.opportunity.total,
+          dlCount: this.allSalesMapData.opportunity.contact.Dealer,
+          dstCount: this.allSalesMapData.opportunity.contact.Distributor,
+          sdCount: this.allSalesMapData.opportunity.contact['Sub-Dealer'],
+        }
+      } else if (id == 3) {
+        this.salesTabData = {
+          isLead: false,
+          isOpportunity: false,
+          isEnquiry: false,
+          isClosed: true
+        }
+        this.saleSideData = {
+          totalCount: this.allSalesMapData.closed.total,
+          dlCount: this.allSalesMapData.closed.contact.Dealer,
+          dstCount: this.allSalesMapData.closed.contact.Distributor,
+          sdCount: this.allSalesMapData.closed.contact['Sub-Dealer'],
+        }
       }
-      this.saleSideData={
-        totalCount : Math.ceil(this.totalSalesCount *(25/100)),
-        dlCount : Math.ceil(this.totalSalesDealer *(25/100)),
-        dstCount : Math.ceil(this.totalSalesDist *(25/100)),
-        sdCount : Math.ceil(this.totalSaleSubdl *(25/100)),
-      }
-    } else if(id == 0){
-      this.salesTabData={
-        isLead : false,
-        isOpportunity : false,
-        isEnquiry : true,
-        isClosed : false
-      }
-      this.saleSideData={
-        totalCount : Math.ceil(this.totalSalesCount *(55/100)),
-        dlCount : Math.ceil(this.totalSalesDealer *(55/100)),
-        dstCount : Math.ceil(this.totalSalesDist *(55/100)),
-        sdCount : Math.ceil(this.totalSaleSubdl *(55/100)),
-      }
-    } else if(id == 2){
-      this.salesTabData={
-        isLead : false,
-        isOpportunity : true,
-        isEnquiry : false,
-        isClosed : false
-      }
-      this.saleSideData={
-        totalCount : Math.ceil(this.totalSalesCount *(12/100)),
-        dlCount : Math.ceil(this.totalSalesDealer *(12/100)),
-        dstCount : Math.ceil(this.totalSalesDist *(12/100)),
-        sdCount : Math.ceil(this.totalSaleSubdl *(12/100)),
-      }
-    } else if(id == 3){
-      this.salesTabData={
-        isLead : false,
-        isOpportunity : false,
-        isEnquiry : false,
-        isClosed : true
-      }
-      this.saleSideData={
-        totalCount : Math.ceil(this.totalSalesCount *(8/100)),
-        dlCount : Math.ceil(this.totalSalesDealer *(8/100)),
-        dstCount : Math.ceil(this.totalSalesDist *(8/100)),
-        sdCount : Math.ceil(this.totalSaleSubdl *(8/100)),
+
+      this.salesMarker = {
+        opMrkr: this.opportunityMarker,
+        ldMrkr: this.leadMarker,
+        enMrkr: this.enquiryMarker,
+        clMrkr: this.closedMarker,
+        btnData: this.salesTabData
       }
     }
 
-    this.salesMarker = {
-      opMrkr: this.opportunityMarker,
-      ldMrkr: this.leadMarker,
-      enMrkr: this.enquiryMarker,
-      clMrkr: this.closedMarker,
-      btnData : this.salesTabData
-    }
-    
   }
+
+  getCurrentDate() {
+    var dt = new Date();
+    var day: any = dt.getDate();
+    day = day > 9 ? day : "0" + day;
+    var month: any = dt.getMonth() + 1;
+    month = month > 9 ? month : "0" + month;
+    var year: any = dt.getFullYear();
+    // var finalDate = day + "-" + month + "-" + year;
+    var finalDate = year + "-" + month + "-" + day;
+    return finalDate;
+  }
+
+  changeEmployeeDesignationBeatRoute() {
+    // console.log("Selected Employee Designation", this.empTypeId);
+    this.filterBeat = {
+      designation: this.empTypeId,
+      empId: this.selectedEmployeeId,
+      date: this.selectedDate
+    }
+    this.getLiveTrackingEmployeeData();
+  }
+
+  changeEmployeeNameBeatRoute() {
+    // console.log("Selected Employee Name", this.selectedEmployeeId);
+    this.filterBeat = {
+      designation: this.empTypeId,
+      empId: this.selectedEmployeeId,
+      date: this.selectedDate
+    }
+  }
+
+  changeDateBeatRoute() {
+    // console.log("Selected Date", this.selectedDate);
+    this.filterBeat = {
+      designation: this.empTypeId,
+      empId: this.selectedEmployeeId,
+      date: this.selectedDate
+    }
+  }
+
+  changeSalesState() {
+    this.allDistrict = this.getDistrictData(this.stateId);
+    this.districtId = "0";
+    this.allZone = [];
+    this.zoneId = "0";
+    this.filterSales = {
+      state: this.stateId,
+      district: this.districtId,
+      zone: this.zoneId
+    }
+
+    this.getSalesMapData()
+  }
+
+  onDistrictChangeSalesTab() {
+    this.allZone = this.getZoneData(this.stateId, this.districtId);
+    this.zoneId = "0";
+    this.filterSales = {
+      state: this.stateId,
+      district: this.districtId,
+      zone: this.zoneId
+    }
+
+    this.getSalesMapData()
+  }
+
+  onZoneChangeSalesTab() {
+    // console.log("Selected Zone Id::", this.zoneId);
+    this.filterSales = {
+      state: this.stateId,
+      district: this.districtId,
+      zone: this.zoneId
+    }
+
+    this.getSalesMapData()
+  }
+
+  getSalesMapData() {
+    let req = {
+      clientId: this.authUserData.clientId,
+      userId: this.authUserData.userId,
+      stateId: this.filter.state,
+      districtId: this.filter.district,
+      zoneId: this.filter.zone
+    }
+
+    this.common.getCrmSalesMap(req).subscribe((res: any) => {
+      console.log("Sales Map Data::", res)
+      if (res.respondcode == 200) {
+        this.allSalesMapData = res.data;
+        let opportunityMarker: any = [];
+        let leadMarker: any = [];
+        let enquiryMarker: any = [];
+        let closedMarker: any = [];
+        let dlrCount = 0;
+        let dstCount = 0;
+        let sdCount = 0;
+        let empList: any = [];
+        empList = res.data.map;
+
+        for (let i = 0; i < empList.length - 10; i++) {
+          if (empList[i].lat !== undefined && empList[i].lng !== undefined) {
+            if (empList[i].contactType == "Dealer") {
+              dlrCount++;
+            } else if (empList[i].contactType == "Distributor") {
+              dstCount++;
+            } else if (empList[i].contactType == "Sub-Dealer") {
+              sdCount++;
+            }
+            let colorCode = "#EC1F24";
+            if (empList[i].type == "Lead") {
+              colorCode = "#1DD94D";
+              this.leadMarker.push(empList[i]);
+            } else if (empList[i].type == "Opportunity") {
+              colorCode = "#000000";
+              this.opportunityMarker.push(empList[i]);
+            } else if (empList[i].type == "Recently Converted") {
+              colorCode = "#F1BB00";
+              this.closedMarker.push(empList[i]);
+            } else {
+              this.enquiryMarker.push(empList[i]);
+            }
+          }
+        }
+        this.totalSalesCount = res.data.total;
+        this.totalSalesDist = dstCount;
+        this.totalSalesDealer = dlrCount;
+        this.totalSaleSubdl = sdCount;
+
+        this.saleSideData = {
+          totalCount: this.totalSalesCount,
+          dlCount: dlrCount,
+          dstCount: dstCount,
+          sdCount: sdCount
+        }
+
+        this.salesMarker = {
+          opMrkr: this.opportunityMarker,
+          ldMrkr: this.leadMarker,
+          enMrkr: this.enquiryMarker,
+          clMrkr: this.closedMarker,
+          btnData: this.salesTabData
+
+        }
+      }
+    })
+  }
+
+
 
 }

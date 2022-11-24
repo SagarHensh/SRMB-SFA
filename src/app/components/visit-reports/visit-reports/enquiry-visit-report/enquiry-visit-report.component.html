@@ -5,14 +5,14 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center main-hdng">
                 <div class="col-md-6">
-                    <h3>Enquiry Visit Reports</h3>
+                    <h3>Enquiry Visit </h3>
                 </div>
                 <div class="col-md-6">
                     <div class="">
                         <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
                             <ol class="breadcrumb justify-content-end">
-                                <li class="breadcrumb-item">Visit Reports</li>
-                                <li class="breadcrumb-item" aria-current="page">Enquiry Visit Report</li>
+                                <li class="breadcrumb-item">Visits</li>
+                                <li class="breadcrumb-item" aria-current="page">Enquiry Visit </li>
                             </ol>
                         </nav>
                     </div>
@@ -34,7 +34,7 @@
                             <div class="dt_fld">Select Date Range</div>
                             <div class="dt_fld">
                                 <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
@@ -253,7 +253,7 @@
                     <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                         <div class="d-md-flex align-items-center mb-3">
                             <div class="col-auto d-flex">
-                                <h3>Enquiry Visit Report</h3>
+                                <h3>Enquiry Visit </h3>
                                 <span class="sm-font text-primary" *ngIf="totalRecords !=0">{{totalRecords}} Records
                                     Found</span>
                             </div>
@@ -280,10 +280,10 @@
                             </div>
                             <div class="btn-group btn-group-sm ms-auto btn-download-group">
                                 <div class="d-inline-block">
-                                    <button type="button"
+                                    <!-- <button type="button"
                                         class="btn btn-pink no-border d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                        href="#" data-bs-toggle="dropdown" aria-expanded="false">Assign
-                                        Leads</button>
+                                        href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">Assign
+                                        Leads</button> -->
                                     <div class="dropdown-menu dropdown-menu-end ass_filpo">
                                         <div class="top_scen px-4">
                                             <div class="text-black select_asign pt-3 pb-2"><input type="checkbox"
@@ -695,7 +695,7 @@
 
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive odometer_div">
                             <table id="datatables-column-search-select-inputs"
                                 class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
                                 aria-describedby="datatables-column-search-select-inputs_info">

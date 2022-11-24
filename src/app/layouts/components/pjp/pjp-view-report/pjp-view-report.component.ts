@@ -6,6 +6,7 @@ import { StoreDataService } from 'src/app/services/store-data.service';
 import { CrmService } from 'src/app/services/crm.service';
 import { NotifierService } from 'angular-notifier';
 import { PJP_SCHEDULE_REPORT } from 'src/app/TableHeader';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-pjp-view-report',
@@ -18,7 +19,8 @@ export class PjpViewReportComponent implements OnInit {
     private store: StoreDataService,
     private crm: CrmService,
     private route: Router,
-    private notifier: NotifierService) { }
+    private notifier: NotifierService,
+    private spinner: NgxSpinnerService) { }
 
   authUserData: any;
   allReportList: any = [];
@@ -61,6 +63,7 @@ export class PjpViewReportComponent implements OnInit {
   totalPage = 1;
   startPage: any = 0;
   endPage: any = 0;
+  isTable: any = 1;
 
 
 
@@ -85,6 +88,7 @@ export class PjpViewReportComponent implements OnInit {
     tb.classList.toggle("switchActiveList");
     var tbX: any = document.getElementById('switchGrid');
     tbX.classList.remove("switchActivegrid");
+    this.isTable = 1;
   }
 
   toggleBtnGrid() {
@@ -92,9 +96,11 @@ export class PjpViewReportComponent implements OnInit {
     tb.classList.toggle("switchActivegrid");
     var tbX: any = document.getElementById('switchList');
     tbX.classList.remove("switchActiveList");
+    this.isTable = 0;
   }
 
   getVisitReports() {
+    this.spinner.show();
     let req = {
       "clientId": this.authUserData.clientId,
       "userId": this.authUserData.userId,
@@ -132,6 +138,7 @@ export class PjpViewReportComponent implements OnInit {
         this.startPage = 1;
         this.endPage = 1;
       }
+      this.spinner.hide();
     })
   }
 
@@ -345,10 +352,10 @@ export class PjpViewReportComponent implements OnInit {
       clientId: this.authUserData.clientId,
       contactType: this.customerVisitType
     };
-    console.log("request data for visitor list>>>>", obj);
+    // console.log("request data for visitor list>>>>", obj);
     this.common.getVisitorListTypeByContactId(obj).subscribe(res => {
       this.allVisitorType = [];
-      console.log("All Contact Category Type ResPonse::", res);
+      // console.log("All Contact Category Type ResPonse::", res);
       if (res.error == 0 && res.respondcode == 200) {
         if (res.data.visitorList.length > 0) {
           this.allVisitorType = res.data.visitorList;

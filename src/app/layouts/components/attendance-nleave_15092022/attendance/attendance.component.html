@@ -1,0 +1,534 @@
+<!--Container Main start-->
+<main class="content">
+    <div class="container-fluid p-0">
+
+
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center main-hdng">
+                <div class="col-md-6">
+                    <h3>Attendance</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item active">Attendance & Leave</li>
+                                <li class="breadcrumb-item" aria-current="page">Attendance</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
+                <div class="col-md-6">
+                    <a class="btn btn-dark btn-lg me-3" href="#">Edit Page Layout</a>
+
+                </div>
+                <div class="col-md-6 text-end mt-n1">
+                    <ul class="d-inline-block ml-auto mt-3 mt-lg-0 mb-0">
+                        <li class="list-inline-item">
+                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm"><i
+                                    class="fa fa-calendar"></i></div>
+                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm"><i
+                                    class="fa fa-calendar"></i></div>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-pink btn-lg">Sync</button>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-success btn-lg" data-bs-target="#addContactModal"
+                                data-bs-toggle="modal" data-bs-dismiss="modal">Add New</button>
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+                                <button id="switchList" onclick="toggleBtnList()" type="button"
+                                    class="btn btn-outline-dark btn-xs switchActiveList">
+                                    <img src="assets/images/list-view.svg" alt="list-view">
+                                </button>
+                                <button id="switchGrid" onclick="toggleBtnGrid()" type="button"
+                                    class="btn btn-outline-dark btn-xs">
+                                    <img src="assets/images/grid-view.svg" alt="list-view">
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="d-inline-block">
+                        <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate" href="#"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="">Edit this organization</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change profile image</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Delete organization</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change record owner</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Print this details</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Assign task</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change assign user</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Add opportunity with this org.</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12 ">
+
+                <div class="bg-white shadow_d py-4 px-4 rounded-3">
+                    <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="d-md-flex align-items-center mb-3">
+                            <div class="col-auto d-flex">
+                                <h3>Employee List</h3><span class="sm-font text-primary">730 Records
+                                    Found</span>
+                            </div>
+                            <div class="col-auto d-block ms-auto">
+                                <div class="text-center">
+                                    <div class="dataTables_length" id="datatables-reponsive_length">
+                                        <label>Records per page <select name="datatables-reponsive_length"
+                                                aria-controls="datatables-reponsive" class="form-select form-select-sm">
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="30">20</option>
+                                                <option value="30">30</option>
+                                                <option value="50">50</option>
+                                            </select> 1 - 10</label>
+                                        <label>
+                                            <a class="px-1 d-inline-block align-middle" href="#">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left"></a>
+                                            <a class="px-1 d-inline-block align-middle" href="#">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right"></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group btn-group-sm ms-auto  btn-download-group">
+
+                                <select class="btn btn-primary px-4 text-white">
+                                    <option>
+                                        Download List
+                                    </option>
+                                </select>
+                                <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                    Upload</button>
+                                <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="assets/images/filtering.svg" alt="filtering"></button>
+                                <div class="dropdown-menu dropdown-menu-end addDropdownhead">
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Organizations name</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch1">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Owner</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch2">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Contact Person</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch3">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">State</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch4">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Phone</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch5">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Deals</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch6">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Contact person title</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch7">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">District</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch8">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Zone</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch9">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Annual revenue</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch10">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Lead Source</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Lead owner</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Assigned to</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="datatables-column-search-select-inputs"
+                                class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
+                                aria-describedby="datatables-column-search-select-inputs_info">
+                                <thead class="thead-dark">
+                                    <tr role="row">
+                                        <th width="40px">&nbsp;</th>
+                                        <th class="sorting align-middle">Employee Name</th>
+                                        <th class="sorting align-middle">Login Time</th>
+                                        <th class="sorting align-middle">Login Lat.Long.</th>
+                                        <th class="sorting align-middle">Out Time</th>
+                                        <th class="sorting align-middle">Out Lat.Long.</th>
+                                        <th class="sorting align-middle">User Type</th>
+                                        <th class="sorting align-middle">District Person</th>
+                                        <th class="sorting align-middle">Verified</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th class="align-middle"><input type="checkbox" id="customCheck1">
+                                        </th>
+                                        <th class="align-middle"><input type="text" placeholder="Search"
+                                                class="form-control input-sm"> </th>
+                                        <th class="align-middle"></th>
+                                        <th class="align-middle"></th>
+                                        <th class="align-middle"></th>
+                                        <th class="align-middle"></th>
+                                        <th class="align-middle"><input type="text" placeholder="Search"
+                                                class="form-control input-sm"></th>
+                                        <th class="align-middle"><select class="form-select">
+                                                <option value="All">All</option>
+                                            </select></th>
+                                        <th class="sorting align-middle">Not Verified</th>
+                                        <th>&nbsp;</th>
+
+
+
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+
+                                    <tr role="row" class="odd">
+                                        <td class="align-middle" width="2%"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%"><a href="">Amlan Sarkar</a></td>
+                                        <td class="align-middle" width="7%">9:48 am</td>
+                                        <td class="align-middle">22.9251493, 88.4336283</td>
+                                        <td class="align-middle">10:05 pm</td>
+                                        <td class="align-middle">22.9492373, 88.8537523</td>
+                                        <td class="align-middle">MO/TO</td>
+                                        <td class="align-middle">North 24 Parganas</td>
+                                        <td class="align-middle">Not Verified</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/eye-icon.svg" alt="create"></a>&nbsp;
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="">Edit this organization</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Change profile image</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Delete organization</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Change record owner</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Print this details</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Assign task</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Change assign user</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Add opportunity with this
+                                                    org.</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr role="row" class="even">
+                                        <td class="align-middle"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%"><a href="">Amlan Sarkar</a></td>
+                                        <td class="align-middle" width="7%">9:48 am</td>
+                                        <td class="align-middle">22.9251493, 88.4336283</td>
+                                        <td class="align-middle">10:05 pm</td>
+                                        <td class="align-middle">22.9492373, 88.8537523</td>
+                                        <td class="align-middle">MO/TO</td>
+                                        <td class="align-middle">North 24 Parganas</td>
+                                        <td class="align-middle">Not Verified</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/eye-icon.svg" alt="create"></a>&nbsp;
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="align-middle"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%"><a href="">Amlan Sarkar</a></td>
+                                        <td class="align-middle" width="7%">9:48 am</td>
+                                        <td class="align-middle">22.9251493, 88.4336283</td>
+                                        <td class="align-middle">10:05 pm</td>
+                                        <td class="align-middle">22.9492373, 88.8537523</td>
+                                        <td class="align-middle">MO/TO</td>
+                                        <td class="align-middle">North 24 Parganas</td>
+                                        <td class="align-middle">Not Verified</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/eye-icon.svg" alt="create"></a>&nbsp;
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+
+                                    <tr role="row" class="even">
+                                        <td class="align-middle"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%"><a href="">Amlan Sarkar</a></td>
+                                        <td class="align-middle" width="7%">9:48 am</td>
+                                        <td class="align-middle">22.9251493, 88.4336283</td>
+                                        <td class="align-middle">10:05 pm</td>
+                                        <td class="align-middle">22.9492373, 88.8537523</td>
+                                        <td class="align-middle">MO/TO</td>
+                                        <td class="align-middle">North 24 Parganas</td>
+                                        <td class="align-middle">Not Verified</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/eye-icon.svg" alt="create"></a>&nbsp;
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="align-middle"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%"><a href="">Amlan Sarkar</a></td>
+                                        <td class="align-middle" width="7%">9:48 am</td>
+                                        <td class="align-middle">22.9251493, 88.4336283</td>
+                                        <td class="align-middle">10:05 pm</td>
+                                        <td class="align-middle">22.9492373, 88.8537523</td>
+                                        <td class="align-middle">MO/TO</td>
+                                        <td class="align-middle">North 24 Parganas</td>
+                                        <td class="align-middle">Not Verified</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/eye-icon.svg" alt="create"></a>&nbsp;
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="align-middle"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%"><a href="">Amlan Sarkar</a></td>
+                                        <td class="align-middle" width="7%">9:48 am</td>
+                                        <td class="align-middle">22.9251493, 88.4336283</td>
+                                        <td class="align-middle">10:05 pm</td>
+                                        <td class="align-middle">22.9492373, 88.8537523</td>
+                                        <td class="align-middle">MO/TO</td>
+                                        <td class="align-middle">North 24 Parganas</td>
+                                        <td class="align-middle">Not Verified</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/eye-icon.svg" alt="create"></a>&nbsp;
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="align-middle"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%"><a href="">Amlan Sarkar</a></td>
+                                        <td class="align-middle" width="7%">9:48 am</td>
+                                        <td class="align-middle">22.9251493, 88.4336283</td>
+                                        <td class="align-middle">10:05 pm</td>
+                                        <td class="align-middle">22.9492373, 88.8537523</td>
+                                        <td class="align-middle">MO/TO</td>
+                                        <td class="align-middle">North 24 Parganas</td>
+                                        <td class="align-middle">Not Verified</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/eye-icon.svg" alt="create"></a>&nbsp;
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="even">
+                                        <td class="align-middle"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%"><a href="">Amlan Sarkar</a></td>
+                                        <td class="align-middle" width="7%">9:48 am</td>
+                                        <td class="align-middle">22.9251493, 88.4336283</td>
+                                        <td class="align-middle">10:05 pm</td>
+                                        <td class="align-middle">22.9492373, 88.8537523</td>
+                                        <td class="align-middle">MO/TO</td>
+                                        <td class="align-middle">North 24 Parganas</td>
+                                        <td class="align-middle">Not Verified</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/eye-icon.svg" alt="create"></a>&nbsp;
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="odd">
+                                        <td class="align-middle"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%"><a href="">Amlan Sarkar</a></td>
+                                        <td class="align-middle" width="7%">9:48 am</td>
+                                        <td class="align-middle">22.9251493, 88.4336283</td>
+                                        <td class="align-middle">10:05 pm</td>
+                                        <td class="align-middle">22.9492373, 88.8537523</td>
+                                        <td class="align-middle">MO/TO</td>
+                                        <td class="align-middle">North 24 Parganas</td>
+                                        <td class="align-middle">Not Verified</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/eye-icon.svg" alt="create"></a>&nbsp;
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow"
+                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+
+                                    <tr role="row" class="even">
+                                        <td class="align-middle"><input type="checkbox" id="customCheck2">
+                                        </td>
+                                        <td class="align-middle" width="7%"><a href="">Amlan Sarkar</a></td>
+                                        <td class="align-middle" width="7%">9:48 am</td>
+                                        <td class="align-middle">22.9251493, 88.4336283</td>
+                                        <td class="align-middle">10:05 pm</td>
+                                        <td class="align-middle">22.9492373, 88.8537523</td>
+                                        <td class="align-middle">MO/TO</td>
+                                        <td class="align-middle">North 24 Parganas</td>
+                                        <td class="align-middle">Not Verified</td>
+                                        <td width="70px" class="align-middle">
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/eye-icon.svg" alt="create"></a>&nbsp;
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/file-folder.svg" alt="create"></a>
+                                            <a class="d-inline-block align-middle" href="#">
+                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                        </td>
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-xl-flex align-items-center mt-3">
+
+                            <div class="col-auto d-block">
+
+                                <div class="text-center">
+                                    <div class="dataTables_length" id="datatables-reponsive_length">
+                                        <label>Records per page <select name="datatables-reponsive_length"
+                                                aria-controls="datatables-reponsive" class="form-select form-select-sm">
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="30">20</option>
+                                                <option value="30">30</option>
+                                                <option value="50">50</option>
+                                            </select> 1 - 10</label>
+                                        <label>
+                                            <a class="px-1 d-inline-block align-middle" href="#">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left"></a>
+                                            <a class="px-1 d-inline-block align-middle" href="#">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right"></a>
+                                            <label>
+                                            </label></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>

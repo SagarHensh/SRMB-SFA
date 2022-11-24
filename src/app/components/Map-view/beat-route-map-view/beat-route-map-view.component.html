@@ -22,13 +22,14 @@
 
     <!-- Planned visited markers -->
     <agm-marker *ngFor="let m of pvMarkers; let i = index" [agmFitBounds]="true" (markerClick)="clickedMarker(m)"
-        [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="$any(icongreen)" animation="DROP">
-        <agm-info-window>
+        (mouseOver)="onMouseOverVisit(infoWindowVisit, m)" (mouseOut)="onMouseOutVisit(infoWindowVisit, m)"
+        [latitude]="m.lat" [longitude]="m.lng"  animation="DROP">
+        <agm-info-window [disableAutoPan]="false" #infoWindowVisit>
             <div id="content">
                 <div id="siteNotice"></div>
                 <div id="bodyContent">
-                    <p><strong>Name : {{infoLabel.name}}</strong></p>
-                    <p><strong>Type : {{infoLabel.type}}</strong></p>
+                    <p><strong>Name : {{infoVisitModal.name}}</strong></p>
+                    <p><strong>Type : {{infoVisitModal.type}}</strong></p>
                 </div>
             </div>
         </agm-info-window>
@@ -38,13 +39,14 @@
 
     <!-- Unplanned visited markers -->
     <agm-marker *ngFor="let m of upvMarkers; let i = index" [agmFitBounds]="true" (markerClick)="clickedMarker(m)"
-        [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="$any(iconRed)" animation="DROP">
-        <agm-info-window>
+        [latitude]="m.lat" (mouseOver)="onMouseOverVisit(infoWindowVisit, m)"
+        (mouseOut)="onMouseOutVisit(infoWindowVisit, m)" [longitude]="m.lng" animation="DROP">
+        <agm-info-window [disableAutoPan]="false" #infoWindowVisit>
             <div id="content">
                 <div id="siteNotice"></div>
                 <div id="bodyContent">
-                    <p><strong>Name : {{infoLabel.name}}</strong></p>
-                    <p><strong>Type : {{infoLabel.type}}</strong></p>
+                    <p><strong>Name : {{infoVisitModal.name}}</strong></p>
+                    <p><strong>Type : {{infoVisitModal.type}}</strong></p>
                 </div>
             </div>
         </agm-info-window>
@@ -53,13 +55,14 @@
 
     <!-- Not visited markers -->
     <agm-marker *ngFor="let m of nvMarkers; let i = index" [agmFitBounds]="true" (markerClick)="clickedMarker(m)"
-        [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="$any(iconBlue)" animation="DROP">
-        <agm-info-window>
+        (mouseOver)="onMouseOverVisit(infoWindowVisit, m)" (mouseOut)="onMouseOutVisit(infoWindowVisit, m)"
+        [latitude]="m.lat" [longitude]="m.lng" animation="DROP">
+        <agm-info-window [disableAutoPan]="false" #infoWindowVisit>
             <div id="content">
                 <div id="siteNotice"></div>
                 <div id="bodyContent">
-                    <p><strong>Name : {{infoLabel.name}}</strong></p>
-                    <p><strong>Type : {{infoLabel.type}}</strong></p>
+                    <p><strong>Name : {{infoVisitModal.name}}</strong></p>
+                    <p><strong>Type : {{infoVisitModal.type}}</strong></p>
                 </div>
             </div>
         </agm-info-window>
@@ -75,13 +78,11 @@
             </agm-polyline-point>
         </agm-polyline>
     </ng-container>
-    <ng-container>
+    <!-- <ng-container>
         <agm-polyline *ngFor="let polyline of uvPolyLine;let i = index;" [strokeWeight]="2" [strokeOpacity]="1.0"
             [strokeColor]="polyline.color">
-            <!-- <agm-icon-sequence [fixedRotation]="false" [repeat]="'150px'" [offset]="'200'" [path]="'FORWARD_OPEN_ARROW'">
-            </agm-icon-sequence> -->
             <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
         </agm-polyline>
-    </ng-container>
+    </ng-container> -->
 </agm-map>

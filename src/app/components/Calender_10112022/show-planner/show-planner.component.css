@@ -1,0 +1,10 @@
+.bold_font{
+    font-weight: bold;
+}
+
+.bold_font i{
+    font-weight: 1000;
+    font-size: 24px;
+    margin: auto;
+    margin-right: 5px;
+}

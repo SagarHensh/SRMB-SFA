@@ -1,5 +1,7 @@
+<notifier-container></notifier-container>
 <main class="content">
     <div class="container-fluid p-0">
+        <ngx-spinner type="ball-scale-multiple" [fullScreen]="false"></ngx-spinner>
 
 
         <div class="row mb-2 mb-lg-4">
@@ -23,8 +25,8 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
                 <div class="col-md-3">
-                    <input type="text" class="form-control"
-                        placeholder="Search by brand name">
+                    <input type="text" class="form-control" placeholder="Search by brand name" [(ngModel)]="serachText"
+                        (ngModelChange)="onChangeSearchText($event)">
 
                 </div>
                 <div class="col-md-9 text-end mt-n1">
@@ -34,28 +36,32 @@
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
-                                <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="fromDate">
                             </div>
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
-                                <input type="date" placeholder="Search" class="form-control input-sm">
-                                <i class="fa fa-calendar"></i>
+                                <input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="toDate">
                             </div>
                         </li>
                         <li class="list-inline-item">
-                            <button class="btn btn-success btn-lg">Search &nbsp;<i class="fa fa-search"
-                                    aria-hidden="true"></i></button>
+                            <button class="btn btn-success btn-lg" (click)="searchFilterSubmit()">Search &nbsp;<i
+                                    class="fa fa-search" aria-hidden="true"></i></button>
                         </li>
                         <li class="list-inline-item">
-                            <button class="btn btn-success btn-lg">Add New</button>
+                            <button class="btn btn-pink btn-lg" (click)="reset()">Reset</button>
+
                         </li>
+                        <!-- <li class="list-inline-item">
+                            <button class="btn btn-success btn-lg">Add New</button>
+                        </li> -->
                         <li class="list-inline-item">
 
                             <div class="d-inline-block">
                                 <a class="btn btn-secondary-drk btn-lg d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                    href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-filter" aria-hidden="true"></i>
                                     &nbsp;Filter Search &nbsp;
                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -64,145 +70,98 @@
                                     <div class="filter_secn">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquiry
-                                                    Source</label>
+                                                <label for="district_name" class="form-label">Branding Type</label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquery
-                                                    Type</label>
-                                                <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquired
-                                                    Product</label>
-                                                <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">Enquery
-                                                    Location</label>
-                                                <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Select from
-                                                            List</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-4">
-                                                <label for="district_name" class="form-label">&nbsp;</label>
-                                                <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">District
+                                                        id="status_type" (change)="changeBrandingType()"
+                                                        [(ngModel)]="selectedBrandType">
+                                                        <option value="">Select an options
                                                         </option>
+                                                        <option *ngFor="let obj of allBrandingType" [value]="obj.id">
+                                                            {{obj.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Status</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" (change)="changeBrandingStatus()"
+                                                        [(ngModel)]="selectedStatus">
+                                                        <option value="">Select an options
+                                                        </option>
+                                                        <option *ngFor="let obj of allStatusList" [value]="obj.id">
+                                                            {{obj.title}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Customer Type</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="customerType">
+                                                        <option value="">Select an options
+                                                        </option>
+                                                        <option *ngFor="let obj of allCustomerType"
+                                                            [value]="obj.contactTypeId">
+                                                            {{obj.contactTypeName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row pt-3">
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">State</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" (change)="stateChange()" [(ngModel)]="state">
+                                                        <option value="">Select an options
+                                                        </option>
+                                                        <option *ngFor="let obj of stateList" [value]="obj.stateId">
+                                                            {{obj.stateName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
 
 
                                             <div class="col-md-4">
-                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <label for="district_name" class="form-label">District</label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type">
-                                                        <option selected="Select an options">Zone</option>
+                                                        id="status_type" [(ngModel)]="city" (change)="cityChange()">
+                                                        <option value="">Select an options
+                                                        </option>
+                                                        <option *ngFor="let item of cityList" [value]="item.cityId">
+                                                            {{item.cityName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md-12">
-                                                <label for="district_name" class="form-label  text-black">
-                                                    Enquiery Status
-                                                    <div class="form-check d-inline-block align-middle me-1 ms-2">
-                                                        <input class="form-check-input" type="radio" name="assigned"
-                                                            id="flexRadioDefault15" value="igotsix" (click)="show01()">
-                                                        <label class="form-check-label text-black"
-                                                            for="assigned_users">Assigned</label>
-                                                    </div>
-                                                    <div class="form-check d-inline-block align-middle">
-                                                        <input class="form-check-input" type="radio" name="assigned"
-                                                            id="flexRadioDefault15" value="igotsix" (click)="show02()"
-                                                            checked="">
-                                                        <label class="form-check-label text-black"
-                                                            for="assigned_groups">Not Assigned</label>
-                                                    </div>
-                                                </label>
 
-                                            </div>
-                                        </div>
-                                        <div id="div01">
-                                            <div class="row hide asign_to_dv">
-                                                <div class="col-md-4">
-                                                    <label for="district_name" class="form-label">Employee
-                                                        Type</label>
-                                                    <div class="input-group">
-                                                        <select class="form-select" aria-label="Default select example"
-                                                            id="status_type">
-                                                            <option selected="Select an options">MO/TO
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label for="district_name" class="form-label">Employee
-                                                        Location</label>
-                                                    <div class="input-group">
-                                                        <select class="form-select" aria-label="Default select example"
-                                                            id="status_type">
-                                                            <option selected="Select an options">District
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label for="district_name" class="form-label">&nbsp;</label>
-                                                    <div class="input-group">
-                                                        <select class="form-select" aria-label="Default select example"
-                                                            id="status_type">
-                                                            <option selected="Select an options">Zone
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
 
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Zone</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="zone">
+                                                        <option value="">Select an options</option>
+                                                        <option *ngFor="let item of zoneList" [value]="item.zoneId">
+                                                            {{item.zoneName}}</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row d-flex justify-content-end">
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-pink w-100">Reset</button>
+                                                    <button class="btn btn-pink w-100" (click)="reset()">Reset</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-success w-100">Save &
-                                                        Search</button>
+                                                    <button class="btn btn-success w-100"
+                                                        (click)="searchFilterSubmit()">Save & Search</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -290,217 +249,202 @@
                             </div>
                             <div class="btn-group btn-group-sm ms-auto btn-download-group">
 
-                                    <button type="button" class="btn btn-primary px-4 text-white" (click)="onDownload()">
-                                        Download List
-                                    </button>
-                                <button type="button" class="btn btn-primary px-4 text-white">Bulk
-                                    Upload
+                                <button type="button" class="btn btn-primary px-4 text-white" (click)="onDownload()">
+                                    Download List
                                 </button>
-                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
+                                <!-- <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                    Upload
+                                </button> -->
+                                <!-- <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button> -->
                                 <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    data-bs-toggle="dropdown" aria-expanded="false" *ngIf="isTable == 1">
                                     <img src="assets/images/filtering.svg" alt="filtering"></button>
                                 <div class="dropdown-menu dropdown-menu-end addDropdownhead">
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">State</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch1">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">District</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch2">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Zone</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch3">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">User Name</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch4">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Brand Name</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch5">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Brand Description</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch6">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Request Date</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch7">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Request Quntity</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch8">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Allocate Quantity</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch9">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Delivered Quantity</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch10">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Unit Name</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Unit Rate</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Total Amount</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Status</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Approved</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Remarks</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
+                                    <ng-container *ngFor="let th of tableHeader ; let i=index">
+                                        <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                            <span class="col-auto d-block">{{th.title}}</span>
+                                            <div class="form-check form-switch col-auto d-block ms-auto">
+                                                <input class="form-check-input" type="checkbox" id="switch1"
+                                                    [checked]="th.isView" (click)="changeTableView($event, i)">
+                                            </div>
+                                        </a>
+                                        <ng-container *ngIf="i < tableHeader.length-1">
+                                            <div class="dropdown-divider"></div>
+                                        </ng-container>
+                                    </ng-container>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive  odometer_div" *ngIf="isTable == 1">
                             <table id="datatables-column-search-select-inputs"
                                 class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
                                 aria-describedby="datatables-column-search-select-inputs_info">
                                 <thead class="thead-dark">
                                     <tr role="row">
                                         <!-- <th width="40" style="background:#e8e8e8">&nbsp;</th> -->
-                                        <th colspan="3" class="sorting align-middle"
+                                        <!-- <th colspan="3" class="sorting align-middle"
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
                                             Location Information
-                                        </th>
-                                        <th colspan="13" class="sorting align-middle"
+                                        </th> -->
+                                        <th colspan="22" class="sorting align-middle"
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
                                             Branding Information
                                         </th>
                                         <th style="background:#e8e8e8">&nbsp;</th>
                                     </tr>
                                     <tr role="row">
+                                        <ng-container *ngFor="let th of tableHeader">
+                                            <th class="sorting align-middle" *ngIf="th.isView">{{th.title}}
+                                            </th>
+                                        </ng-container>
+                                        <!-- <th class="sorting align-middle">Request Number</th>
                                         <th class="sorting align-middle">State</th>
                                         <th class="sorting align-middle">District</th>
                                         <th class="sorting align-middle">Zone</th>
-                                        <th class="sorting align-middle">User Name</th>
+                                        <th class="sorting align-middle">Customer Name</th>
+                                        <th class="sorting align-middle">Customer Type</th>
+                                        <th class="sorting align-middle">Organization Name</th>
                                         <th class="sorting align-middle">Brand Name</th>
-                                        <th class="sorting align-middle">Brand Description</th>
+                                        <th class="sorting align-middle">Description</th>
                                         <th class="sorting align-middle">Request Date</th>
-                                        <th class="sorting align-middle">Request Quntity</th>
-                                        <th class="sorting align-middle">Allocate Quantity</th>
+                                        <th class="sorting align-middle">Request By</th>
+                                        <th class="sorting align-middle">Last update On</th>
+                                        <th class="sorting align-middle">Last update By</th>
+                                        <th class="sorting align-middle">Request Quantity</th>
+                                        <th class="sorting align-middle">Approved Quantity</th>
                                         <th class="sorting align-middle">Delivered Quantity</th>
-                                        <th class="sorting align-middle">Unit Name</th>
-                                        <th class="sorting align-middle">Unit Rate</th>
+                                        <th class="sorting align-middle">UOM</th>
+                                        <th class="sorting align-middle">Rate/unit</th>
                                         <th class="sorting align-middle">Total Amount</th>
                                         <th class="sorting align-middle">Status</th>
-                                        <th class="sorting align-middle">Approved</th>
-                                        <th class="sorting align-middle">Remarks</th>
+                                        <th class="sorting align-middle">Vendor Name</th>
+                                        <th class="sorting align-middle">Remarks</th> -->
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <ng-container *ngFor="let data of allReportList; let i = index">
+                                    <ng-container *ngFor="let data of allReportList; let i=index">
                                         <tr role="row" class="odd">
-                                            <td class="align-middle">{{data.stateName}}</td>
-                                            <td class="align-middle">{{data.districtName}}</td>
-                                            <td class="align-middle">{{data.zoneName}}</td>
-                                            <td class="align-middle">{{data.userName}}</td>
-                                            <td class="align-middle">{{data.brandName}}</td>
-                                            <td class="align-middle">{{data.brandDescription}}</td>
-                                            <td class="align-middle">{{getDate(data.requestDate)}}</td>
-                                            <td class="align-middle">{{data.requestedQty}}</td>
-                                            <td class="align-middle">{{data.allocatedQty}}</td>
-                                            <td class="align-middle">{{data.deliveredQty}}</td>
-                                            <td class="align-middle">{{data.unit}}</td>
-                                            <td class="align-middle">{{data.unitRate}}</td>
-                                            <td class="align-middle">{{data.totalAmount}}</td>
-                                            <td class="align-middle">
-                                                {{getStatus(data.status)}}
-                                            </td>
-                                            <td class="align-middle">
+                                            <ng-container *ngFor="let th of tableHeader; let t = index">
+                                                <!-- <td class="align-middle" *ngIf="th.isView">{{tableDataView(data, t)}}
+                                                </td> -->
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Request Number' && th.isView">
+                                                    {{data.requestNo}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'State' && th.isView">
+                                                    {{data.stateName}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'District' && th.isView">
+                                                    {{data.cityName}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'Zone' && th.isView">
+                                                    {{data.zoneName}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Customer Name' && th.isView">{{data.firstName}}
+                                                    {{data.lastName}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Customer Type' && th.isView">
+                                                    {{data.contactTypeName}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Organization Name' && th.isView">
+                                                    {{data.custBusinessName}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'Brand Name' && th.isView">
+                                                    {{data.brandName}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Description' && th.isView">{{data.description}}
+                                                </td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Request Date' && th.isView">
+                                                    {{getDate(data.requestDate)}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'Request By' && th.isView">
+                                                    {{data.requestedBy}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Last update On' && th.isView">
+                                                    {{getDate(data.lastUpdated)}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Last update By' && th.isView">
+                                                    {{data.lastUpdatedBy}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Request Quntity' && th.isView">
+                                                    {{data.requestedQty}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Approved Quantity' && th.isView">
+                                                    {{data.allocatedQty}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Delivered Quantity' && th.isView">
+                                                    {{data.deliveredQty}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'UOM' && th.isView">
+                                                    {{data.unitName}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'Rate/unit' && th.isView">
+                                                    {{data.unitRate}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Total Amount' && th.isView">
+                                                    {{data.totalAmount}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'Status' && th.isView">
+                                                    {{data.status}}
+                                                </td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Vendor Name' && th.isView">{{data.vendorName}}
+                                                </td>
+                                                <!-- <td class="align-middle">
                                                 {{getApprovalStatus(data.approvedStatus)}}
-                                            </td>
-                                            <td class="align-middle">{{data.remarks}}</td>
-                                            <td width="70" class="align-middle"><a class="d-inline-block align-middle"
-                                                    href="#"><i class="fa fa-eye"
-                                                        aria-hidden="true"></i></a>&nbsp;&nbsp; <a
-                                                    class="d-inline-block align-middle" href="#"> <img
-                                                        src="assets/images/file-folder.svg" alt="create"></a> <a
-                                                    class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <img src="assets/images/menu-vertical.svg" alt="trash"></a>
-                                                <div class="dropdown-menu dropdown-menu-end"> <a class="dropdown-item"
-                                                        href="">Edit this organization</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Change profile image</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Delete organization</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Change record owner</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Print this details</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Assign task</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Change assign user</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Add opportunity with this
-                                                        org.</a>
+                                            </td> -->
+                                                <td class="align-middle" *ngIf="th.title === 'Remarks' && th.isView">
+                                                    {{data.remarks}}</td>
+                                            </ng-container>
+                                            <td width="70" class="align-middle">
+                                                <!-- <a class="d-inline-block align-middle" href="javascript:void(0)">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <a class="d-inline-block align-middle" href="javascript:void(0)">
+                                                    <img src="assets/images/file-folder.svg" alt="create">
+                                                </a> -->
+                                                <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                    href="javascript:void(0)" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <img src="assets/images/menu-vertical.svg" alt="trash">
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                        (click)="openCostingModal(data)"
+                                                        *ngIf="data.costByOperationStatus == '0' && permissionData.editPem == '1'">Add
+                                                        Costing</a>
+                                                    <div class="dropdown-divider"
+                                                        *ngIf="data.costByOperationStatus == '0' && permissionData.editPem == '1'">
+                                                    </div>
+                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                        (click)="openBrandModify(data)"
+                                                        *ngIf="data.approvedStatusByHod == '0' && permissionData.approvePem == '1'">Approve</a>
+                                                    <div class="dropdown-divider"
+                                                        *ngIf="data.approvedStatusByHod == '0' && permissionData.approvePem == '1'">
+                                                    </div>
+                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                        (click)="openVendorListModal(data)"
+                                                        *ngIf="data.approvedStatusByHod == '1' && data.approvedStatusByComm == '0' && permissionData.approvePem == '1'">Assign
+                                                        Vendor</a>
+                                                    <div class="dropdown-divider"
+                                                        *ngIf="data.approvedStatusByHod == '1' && data.approvedStatusByComm == '0' && permissionData.approvePem == '1'">
+                                                    </div>
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0)"
+                                                        *ngIf="data.approvedStatusByHod == '0' && permissionData.approvePem == '1'">Reject</a> -->
+                                                    <!-- <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="javascript:void(0)">Delete organization</a> -->
+
+                                                    <!-- ============================================= -->
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0)"
+                                                        (click)="openCostingModal(data)">Add
+                                                        Costing</a>
+                                                    <div class="dropdown-divider">
+                                                    </div>
+                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                        (click)="openBrandModify(data)">Approve</a>
+                                                    <div class="dropdown-divider">
+                                                    </div>
+                                                    <a class="dropdown-item" href="javascript:void(0)"
+                                                        (click)="openVendorListModal(data)">Assign
+                                                        Vendor</a>
+                                                    <div class="dropdown-divider">
+                                                    </div>
+                                                    <a class="dropdown-item" href="javascript:void(0)">Reject</a> -->
                                                 </div>
                                             </td>
                                         </tr>
@@ -530,6 +474,55 @@
                                 </tbody>
                             </table>
 
+                        </div>
+
+                        <div class="grid_viw_dv  odometer_div" *ngIf="isTable == 0">
+                            <div class="grid_viw_dv_inr bg-white shadow-lg p-3 rounded-3"
+                                *ngFor="let data of allReportList; let i=index">
+                                <div class="col-auto grid_viw_mor_opn">
+                                    <a class="dropdown-toggle no-dropdown-arrow" href="#" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <img src="assets/images/hdr-menu-vertical.svg" alt="menu-vertical"></a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            (click)="openCostingModal(data)"
+                                            *ngIf="data.costByOperationStatus == '0'">Add Costing</a>
+                                        <div class="dropdown-divider" *ngIf="data.costByOperationStatus == '0'"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            (click)="openBrandModify(data)"
+                                            *ngIf="data.approvedStatusByHod == '0'">Approve</a>
+                                        <div class="dropdown-divider" *ngIf="data.approvedStatusByHod == '0'"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            (click)="openVendorListModal(data)"
+                                            *ngIf="data.approvedStatusByHod == '1' && data.approvedStatusByComm == '0'">Assign
+                                            Vendor</a>
+                                        <div class="dropdown-divider"
+                                            *ngIf="data.approvedStatusByHod == '1' && data.approvedStatusByComm == '0'">
+                                        </div>
+                                        <!-- <a class="dropdown-item" href="javascript:void(0)">Reject</a> -->
+                                    </div>
+                                </div>
+                                <span>{{data.requestNo}}</span>
+                                <span>{{data.contactTypeName}}</span>
+                                <strong>{{data.custBusinessName}}</strong>
+                                <p>
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                        class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                                    </svg> -->
+                                    {{data.brandName}}
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                        class="bi bi-calendar" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                    </svg>
+                                    {{getDate(data.requestDate)}}
+                                </p>
+                                <span>{{data.status}}</span>
+                            </div>
                         </div>
 
                         <div class="d-xl-flex align-items-center mt-3">
@@ -567,3 +560,333 @@
         </div>
     </div>
 </main>
+
+
+
+<!-- .........Popup for Add Costing.......... -->
+<ng-template #addCostingModal>
+    <div class="addContactModal">
+        <div class="modal-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <h3 class="modal-title d-inline-block align-middle me-2">Add Costing
+                        </h3>
+                    </div>
+                    <div class="col-sm-2 d-flex justify-content-end"><button type="button" data-bs-dismiss="modal"
+                            aria-label="Close" class="btn-close" (click)="closeModal()"></button></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Brand Name : {{modalData.brandName}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>Description : {{modalData.description}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>Organization Name : {{modalData.custBusinessName}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>Type : {{modalData.contactTypeName}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>Requested By : {{modalData.requestedBy}}</h4>
+                    </div>
+                    <div class="col-md-6 col-sm-6 add_pjp_pp">
+                        <h4>Requested Quantity : {{modalData.requestedQty}} {{modalData.unitName}}</h4>
+                    </div>
+                    <div class="col-md-6 col-sm-6 add_pjp_pp">
+                        <!-- <h3>Requested Quantity : 13</h3> -->
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <label for="unitRate" class="form-label"><span class="text-danger"></span>Rate/unit</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="unitRate" [(ngModel)]="modalData.unitRate"
+                                (keypress)="keyPressNumbersWithDecimal($event)"
+                                (ngModelChange)="onUnitRateChange($event)">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <label for="costing" class="form-label"><span class="text-danger"></span>Total Cost</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="costing" [(ngModel)]="modalData.totalAmount"
+                                (keypress)="keyPressNumbersWithDecimal($event)" readonly>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12  pt-4 text-center">
+                        <button type="button" class="btn btn-success" (click)="submitCosting()">Submit</button>
+                        <!-- <button type="button" class="btn btn-success" (click)="update()"
+                            >Update</button> -->
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</ng-template>
+
+
+<!-- .........Popup for Modify Quantity.......... -->
+<ng-template #modifyBrandModal>
+    <div class="addContactModal">
+        <div class="modal-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <h3 class="modal-title d-inline-block align-middle me-2">Add Costing
+                        </h3>
+                    </div>
+                    <div class="col-sm-2 d-flex justify-content-end"><button type="button" data-bs-dismiss="modal"
+                            aria-label="Close" class="btn-close" (click)="closeModal()"></button></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Brand Name : {{modalData.brandName}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>Description : {{modalData.description}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>Organization Name : {{modalData.custBusinessName}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>Type : {{modalData.contactTypeName}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>Requested By : {{modalData.requestedBy}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 ">
+                                <label for="allocatequantity" class="form-label">
+                                    <span class="text-danger"></span>Requested Quantity</label>
+                                <div class="input-group">
+                                    <span>{{modalData.requestedQty}}
+                                        <!-- {{modalData.unitName}} -->
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label for="district_name" class="form-label">Measurement Type</label>
+                                <div class="input-group">
+                                    <select class="form-select" aria-label="Default select example" id="status_type"
+                                        [(ngModel)]="selectedUnit">
+                                        <option value="">Select an options
+                                        </option>
+                                        <option *ngFor="let obj of allUnitList" [value]="obj.id">
+                                            {{obj.unitName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 add_pjp_pp"></div>
+                    <div class="col-md-12">
+                        <label for="allocatequantity" class="form-label"><span class="text-danger"></span>Allocate
+                            Quantity</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="allocatequantity"
+                                [(ngModel)]="modalData.allocatedQty" (keypress)="keyPressNumbersWithDecimal($event)"
+                                (ngModelChange)="onAllocateQuantityChange($event)">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <label for="unitRate" class="form-label"><span class="text-danger"></span>Rate/unit</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="unitRate" [(ngModel)]="modalData.unitRate"
+                                (keypress)="keyPressNumbersWithDecimal($event)"
+                                (ngModelChange)="onUnitRateChange($event)">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <label for="costing" class="form-label"><span class="text-danger"></span>Total Cost</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="costing" [(ngModel)]="modalData.totalAmount"
+                                (keypress)="keyPressNumbersWithDecimal($event)" readonly>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12  pt-4 text-center">
+                        <button type="button" class="btn btn-success" (click)="approveByHod()">Approve</button>
+                        <!-- <button type="button" class="btn btn-success" (click)="update()"
+                            >Update</button> -->
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</ng-template>
+
+<!-- .........Popup for Vendor List Modal.......... -->
+<ng-template #vendorListModal>
+    <div class="addContactModal">
+        <div class="modal-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <h3 class="modal-title d-inline-block align-middle me-2">Select Vendor</h3>
+
+                    </div>
+                    <div class="col-sm-2 d-flex justify-content-end"><button type="button" data-bs-dismiss="modal"
+                            aria-label="Close" class="btn-close" (click)="closeModal()"></button></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="d-block text-center">
+                            <div class="input-button-wrap">
+                                <label class="po-label" for="upload">PO Upload
+                                </label><br><br>
+                                <input id="upload" type="file" (change)="uploadFile()" style="text-align:right; display: none;"
+                                    accept="application/pdf">
+                                <span>{{uploadFileName}}</span>
+                            </div>
+                        </div>
+                        <!-- <div class="d-block p-3 mb-4 mt-3 text-center" (click)="sampleDownload()">
+                            <a class="text-primary d-flex justify-content-center align-items-center">
+                                <img src="assets/images/bulk-download.svg" alt="download" class="me-3">Download
+                                Sample File</a>
+                        </div> -->
+                        <div class="d-block">
+                            <p style="text-align: center;">You can import records through an .pdf file.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 add_pjp_pp">
+                        <!-- <div class="row">
+                            <div class="col-md-4">
+                                <label for="district_name" class="form-label">District Name</label>
+                                <div class="input-group">
+                                    <select class="form-select" aria-label="Default select example" id="status_type">
+                                        <option selected="Select an options">Select from list</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="district_name" class="form-label">Zone Name</label>
+                                <div class="input-group">
+                                    <select class="form-select" aria-label="Default select example" id="status_type">
+                                        <option selected="Select an options">Select from list</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="district_name" class="form-label">Visitor Type</label>
+                                <div class="input-group">
+                                    <select class="form-select" aria-label="Default select example" id="status_type">
+                                        <option selected="Select an options">Select from list</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="brdr"></div>
+                        <div class="row mt-2 mb-2">
+                            <div class="col-md-12">
+
+                                <div class="input-group srch_box">
+                                    <input type="text" name="Customer name" class="form-control" placeholder="Search"
+                                        id="">
+                                    <button><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div id="">
+                            <div class="sech_list_out">
+                                <div class="sech_list_list" *ngFor="let data of allVendorList">
+                                    <div class="sech_list">
+                                        <div class="cnk_slect">
+
+                                            <div class="form-check d-inline-block align-middle me-3">
+                                                <input class="form-check-input" type="radio" name="employee"
+                                                    id="assigned_groups" [value]="data.id"
+                                                    (click)="selectVendor($event)">
+                                                <label class="form-check-label" for="assigned_groups"></label>
+                                            </div>
+                                            <div class="p_files">
+                                                <!-- <img class="prf_img" src={{getProfileImage(data.profileImg)}}
+                                                    alt="create"> -->
+                                                <div>
+                                                    <strong>{{data.vendorName}}</strong>
+                                                    <span>{{data.email}}</span>
+                                                    <span>{{data.phone}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="forday">
+                                            <strong>{{data.zoneName}}</strong><br />
+                                            <span>{{data.districtName}}, {{data.stateName}}</span>
+                                        </div>
+                                        <!-- <div class="vst_rsgn" [id]="'accordionExamplebuisness'+data.userId">
+
+                                            <span class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                [attr.data-bs-target]="'#collapsebuisnessTwo'+data.userId"
+                                                aria-expanded="false"
+                                                [attr.aria-controls]="'collapsebuisnessTwo'+data.userId">View
+                                                details</span>
+
+                                        </div> -->
+
+                                    </div>
+                                    <!-- <div [id]="'collapsebuisnessTwo'+data.userId" class="accordion-collapse collapse"
+                                        [attr.aria-labelledby]="'headingbuisnessTwo'+data.userId"
+                                        [attr.data-bs-parent]="'#accordionExamplebuisness'+data.userId">
+                                        <div class="accordion-body">
+                                            <div class="pre_plan_vist">
+                                                <h4>Preplan Visit</h4>
+                                                <div class="tabl_div_sec" *ngFor="let plan of data.allPrePlanVisit">
+                                                    <div class="cle"><i class="fa fa-calendar"
+                                                            aria-hidden="true"></i>{{getDate(plan.plannedDate)}}</div>
+                                                    <div class="mo_nm"><i class="fa fa-map-marker"
+                                                            aria-hidden="true"></i>
+                                                        <div><strong>{{plan.name}}</strong><span>{{plan.district}},
+                                                                {{plan.zone}}</span></div>
+                                                    </div>
+                                                    <div class="lnce"><i class="fa fa-question" aria-hidden="true"></i>
+                                                        <div>
+                                                            <strong>{{plan.categoryName}}</strong><span>{{plan.purposeNote}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="btn btn-success vewpjp" (click)="assignVendor()">Select</button>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</ng-template>

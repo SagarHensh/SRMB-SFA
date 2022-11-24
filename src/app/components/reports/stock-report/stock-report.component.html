@@ -1,5 +1,6 @@
 <main class="content">
     <div class="container-fluid p-0">
+        <ngx-spinner type="ball-scale-multiple" [fullScreen]="false"></ngx-spinner>
 
 
         <div class="row mb-2 mb-lg-4">
@@ -24,7 +25,9 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
                 <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Search by customer name or email or phone number or employee name or quantity here" (keyup) = "searchIndividual($event)">
+                    <input type="text" class="form-control"
+                        placeholder="Search by customer name or email or phone number or employee name or quantity here"
+                        (keyup)="searchIndividual($event)">
 
                 </div>
                 <div class="col-md-9 text-end mt-n1">
@@ -34,28 +37,30 @@
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
-                                <input type="date" placeholder="Search" class="form-control input-sm" [(ngModel)] = "fromDate">
+                                <input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="fromDate">
                                 <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
                             <div class="dt_fld">
-                                <input type="date" placeholder="Search" class="form-control input-sm" [(ngModel)] = "toDate">
+                                <input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="toDate">
                                 <!-- <i class="fa fa-calendar"></i> -->
                             </div>
                         </li>
                         <li class="list-inline-item">
-                            <button class="btn btn-success btn-lg" (click) ="searchByDateRange()">Search &nbsp;<i class="fa fa-search"
-                                    aria-hidden="true"></i></button>
+                            <button class="btn btn-success btn-lg" (click)="searchByDateRange()">Search &nbsp;<i
+                                    class="fa fa-search" aria-hidden="true"></i></button>
                         </li>
                         <li class="list-inline-item">
-                            <button class="btn btn-pink w-100" (click)="resetDate()">Reset</button>
+                            <button class="btn btn-pink btn-lg" (click)="resetDate()">Reset</button>
                         </li>
                         <li class="list-inline-item">
 
                             <div class="d-inline-block">
                                 <a class="btn btn-secondary-drk btn-lg d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                    href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-filter" aria-hidden="true"></i>
                                     &nbsp;Filter Search &nbsp;
                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -66,25 +71,28 @@
                                             <div class="col-md-4">
                                                 <label for="customer_name" class="form-label">Customer Name</label>
                                                 <div class="input-group">
-                                                   <input type="text" class="form-control" placeholder="search" [(ngModel)] = "custName">
+                                                    <input type="text" class="form-control" placeholder="search"
+                                                        [(ngModel)]="custName">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="employee_name" class="form-label">Employee Name
-                                                    </label>
+                                                </label>
                                                 <div class="input-group">
-                                                   <input type="text" class="form-control" placeholder="search" [(ngModel)] = "empName">
+                                                    <input type="text" class="form-control" placeholder="search"
+                                                        [(ngModel)]="empName">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="customer_type" class="form-label">Customer Type
-                                                    </label>
+                                                </label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type" [(ngModel)] = "custType">
+                                                        id="status_type" [(ngModel)]="custType">
                                                         <option value="">Select from
                                                             List</option>
-                                                            <option *ngFor = "let item of contactTypeList" [value] = "item.custTypId">{{item.custTypName}}</option>
+                                                        <option *ngFor="let item of contactTypeList"
+                                                            [value]="item.custTypId">{{item.custTypName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -92,13 +100,14 @@
 
                                             <div class="col-md-4 pt-2">
                                                 <label for="state_name" class="form-label">State
-                                                    </label>
+                                                </label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="state_id" [(ngModel)] ="state" (change) = "changeState()">
+                                                        id="state_id" [(ngModel)]="state" (change)="changeState()">
                                                         <option value="">Select from
                                                             List</option>
-                                                            <option *ngFor = "let item of stateList" [value]="item.stateId">{{item.stateName}}</option>
+                                                        <option *ngFor="let item of stateList" [value]="item.stateId">
+                                                            {{item.stateName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -108,10 +117,11 @@
                                                 <label for="district_name" class="form-label">District</label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type" [(ngModel)] ="city" (change) = "changeCity()">
+                                                        id="status_type" [(ngModel)]="city" (change)="changeCity()">
                                                         <option value="">Select an options
                                                         </option>
-                                                        <option *ngFor = "let item of cityList" [value]="item.cityId">{{item.cityName}}</option>
+                                                        <option *ngFor="let item of cityList" [value]="item.cityId">
+                                                            {{item.cityName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -121,9 +131,10 @@
                                                 <label for="district_name" class="form-label">Zone</label>
                                                 <div class="input-group">
                                                     <select class="form-select" aria-label="Default select example"
-                                                        id="status_type" [(ngModel)] ="zone">
+                                                        id="status_type" [(ngModel)]="zone">
                                                         <option value="">Select an options</option>
-                                                        <option *ngFor = "let item of zoneList" [value]="item.zoneId">{{item.zoneName}}</option>
+                                                        <option *ngFor="let item of zoneList" [value]="item.zoneId">
+                                                            {{item.zoneName}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -190,13 +201,13 @@
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-pink w-100" (click) = "reset()">Reset</button>
+                                                    <button class="btn btn-pink w-100" (click)="reset()">Reset</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-success w-100" (click) = "saveSearch()">Save &
+                                                    <button class="btn btn-success w-100" (click)="saveSearch()">Save &
                                                         Search</button>
                                                 </div>
                                             </div>
@@ -271,12 +282,16 @@
                                                 [(ngModel)]="limit" (ngModelChange)="changeLimit()">
                                                 <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
                                                     {{pg.label}}</option>
-                                            </select> {{startRecordNumber()}} - {{allReportList.length}}</label>
+                                            </select>
+                                            {{startPage}} - {{endPage}}
+                                        </label>
                                         <label>
-                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="prevPage()">
                                                 <img src="assets/images/chevron-left.svg" alt="chevron-left">
                                             </a>
-                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="nextPage()">
                                                 <img src="assets/images/chevron-right.svg" alt="chevron-right">
                                             </a>
                                         </label>
@@ -284,105 +299,43 @@
                                 </div>
                             </div>
                             <div class="btn-group btn-group-sm ms-auto btn-download-group">
-                                <button type="button" class="btn btn-primary px-4 text-white" (click) = "onDownload()">
+                                <button type="button" class="btn btn-primary px-4 text-white" (click)="onDownload()">
                                     Download List
                                 </button>
-                                <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                <!-- <button type="button" class="btn btn-primary px-4 text-white">Bulk
                                     Upload
                                 </button>
-                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
+                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button> -->
+
+
                                 <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="assets/images/filtering.svg" alt="filtering"></button>
+                                    data-bs-toggle="dropdown" aria-expanded="false" *ngIf="isTable == 1">
+                                    <img src="assets/images/filtering.svg" alt="filtering">
+                                </button>
+
                                 <div class="dropdown-menu dropdown-menu-end addDropdownhead">
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">State</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch1">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">District</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch2">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Zone</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch3">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Pincode</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch4">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Organization Name</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch5">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Contact Person Name</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch6">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Contact Person Phone No.</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch7">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Email</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch8">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Address</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch9">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Survey For</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch10">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Survey On</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Remarks</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch11">
-                                        </div>
-                                    </a>
+                                    <ng-container *ngFor="let th of tableHeader ; let i=index">
+                                        <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                            <span class="col-auto d-block">{{th.title}}</span>
+                                            <div class="form-check form-switch col-auto d-block ms-auto">
+                                                <input class="form-check-input" type="checkbox" id="switch1"
+                                                    [checked]="th.isView" (click)="changeTableView($event, i)">
+                                            </div>
+                                        </a>
+                                        <ng-container *ngIf="i < tableHeader.length-1">
+                                            <div class="dropdown-divider"></div>
+                                        </ng-container>
+                                    </ng-container>
+
                                 </div>
+
+
+
+
 
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive odometer_div" *ngIf="isTable == 1">
                             <table id="datatables-column-search-select-inputs"
                                 class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
                                 aria-describedby="datatables-column-search-select-inputs_info">
@@ -393,18 +346,26 @@
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
                                             Location Information
                                         </th>
-                                        <th colspan="6" class="sorting align-middle"
+                                        <th colspan="4" class="sorting align-middle"
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
                                             Customer Information
                                         </th>
-                                        <th colspan="4" class="sorting align-middle"
+                                        <th colspan="11" class="sorting align-middle"
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
                                             Product Information
+                                        </th>
+                                        <th colspan="2" class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            Employee Information
                                         </th>
                                         <th style="background:#e8e8e8">&nbsp;</th>
                                     </tr>
                                     <tr role="row">
-                                        <th class="sorting align-middle">State</th>
+                                        <ng-container *ngFor="let th of tableHeader">
+                                            <th class=" align-middle" *ngIf="th.isView">{{th.title}}
+                                            </th>
+                                        </ng-container>
+                                        <!-- <th class="sorting align-middle">State</th>
                                         <th class="sorting align-middle">District</th>
                                         <th class="sorting align-middle">Zone</th>
                                         <th class="sorting align-middle">Pincode</th>
@@ -417,52 +378,89 @@
                                         <th class="sorting align-middle">ERP Code</th>
                                         <th class="sorting align-middle">Entry Date</th>
                                         <th class="sorting align-middle">Item Name</th>
-                                        <th class="sorting align-middle">Total Qty</th>
+                                        <th class="sorting align-middle">Total Qty</th> -->
                                         <th>&nbsp;</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <ng-container *ngFor="let data of allReportList; let i = index">
-                                        <tr role="row" class="odd">
-                                            <td class="align-middle">{{data.stateName}}</td>
-                                            <td class="align-middle">{{data.cityName}}</td>
-                                            <td class="align-middle">{{data.zoneName}}</td>
-                                            <td class="align-middle">{{data.pincode}}</td>
-                                            <td class="align-middle">{{data.customerName}}</td>
-                                            <td class="align-middle">{{data.contactTypeName}}</td>
-                                            <td class="align-middle">{{data.phoneNumber}}</td>
-                                            <td class="align-middle">{{data.email}}</td>
-                                            <td class="align-middle">{{data.userName}}</td>
-                                            <td class="align-middle">{{data.designationName}}</td>
-                                            <td class="align-middle">{{data.erpNo}}</td>
-                                            <td class="align-middle">{{data.createDate}}</td>
-                                            <td class="align-middle">{{data.productName}}</td>
-                                            <td class="align-middle">{{data.stockValue}}</td>
-                                            <td width="70" class="align-middle"><a class="d-inline-block align-middle"
-                                                    href="#"><i class="fa fa-eye"
-                                                        aria-hidden="true"></i></a>&nbsp;&nbsp; <a
-                                                    class="d-inline-block align-middle" href="#"> <img
-                                                        src="assets/images/file-folder.svg" alt="create"></a> <a
-                                                    class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <img src="assets/images/menu-vertical.svg" alt="trash"></a>
-                                                <div class="dropdown-menu dropdown-menu-end"> <a class="dropdown-item"
-                                                        href="">Edit this organization</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Change profile image</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Delete organization</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Change record owner</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Print this details</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Assign task</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Change assign user</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Add opportunity with this
-                                                        org.</a>
+                                        <tr role="row" [ngClass]="(i+1) % 2 !=0 ? 'odd':'even'">
+                                            <ng-container *ngFor="let th of tableHeader; let t = index">
+                                                <td class="align-middle" *ngIf="th.title === 'State' && th.isView">
+                                                    {{data.stateName}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'District' && th.isView">
+                                                    {{data.cityName}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'Zone' && th.isView">
+                                                    {{data.zoneName}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'Pincode' && th.isView">
+                                                    {{data.pincode}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'ERP Code' && th.isView">
+                                                    {{data.erpNo}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Customer Name' && th.isView">
+                                                    {{data.customerName}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Customer Type' && th.isView">
+                                                    {{data.contactTypeName}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'Contact No' && th.isView">
+                                                    {{data.phoneNumber}}</td>
+                                                <td class="align-middle" *ngIf="th.title === 'Category' && th.isView">
+                                                    {{data.category}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Avg. Lifting' && th.isView">
+                                                    {{data.avg_lifting}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Last Stock Update Date' && th.isView">
+                                                    {{data.lastStockUpdateDate}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Last Stock Update Qty. (A)' && th.isView">
+                                                    {{data.lastStockUpdateQtn}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'In Between Purchase (B)' && th.isView">
+                                                    {{data.inbetweenPurchsed}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Total Stock (A+B)' && th.isView">
+                                                    {{this.getStockQty(data.totalStock)}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Recent Stock Update Date' && th.isView">
+                                                    {{data.createDate}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Recent Stock Update Qty. (C)' && th.isView">
+                                                    {{data.stockValue}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Stock Liquited Qty. (A+B+C)' && th.isView">
+                                                    {{data.stockLiquitedQtn}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'No. of Times Stock Updated by MO/TO/FSE/D-MO' && th.isView">
+                                                    {{data.numberOftimesStockUpdatedByMO}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'No. of Times Stock Updated by Dealer' && th.isView">
+                                                    {{data.numberOftimesStockUpdatedByDealer}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Stock Updated by' && th.isView">
+                                                    {{data.userName}}</td>
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Employee Type' && th.isView">
+                                                    {{data.designationName}}</td>
+                                            </ng-container>
+                                            <td width="70" class="align-middle">
+                                                <a class="d-inline-block align-middle" href="javascript:void(0)"
+                                                    (click)="viewStockDetails(data)">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <a class="d-inline-block align-middle" href="javascript:void(0)">
+                                                    <img src="assets/images/file-folder.svg" alt="create">
+                                                </a>
+                                                <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                    href="javascript:void(0)" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <img src="assets/images/menu-vertical.svg" alt="trash">
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0)">Edit</a>
+                                                    <div class="dropdown-divider"></div> -->
+                                                    <a class="dropdown-item" href="javascript:void(0)">Approve</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -470,6 +468,45 @@
                                 </tbody>
                             </table>
 
+                        </div>
+                        <div class="grid_viw_dv  odometer_div" *ngIf="isTable == 0">
+                            <div class="grid_viw_dv_inr bg-white shadow-lg p-3 rounded-3"
+                                *ngFor="let data of allReportList; let i=index">
+                                <div class="col-auto grid_viw_mor_opn">
+                                    <a class="dropdown-toggle no-dropdown-arrow" href="#" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <img src="assets/images/hdr-menu-vertical.svg" alt="menu-vertical"></a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            (click)="viewStockDetails(data)">View</a>
+                                        <div class="dropdown-divider"></div>
+                                        <!-- <a class="dropdown-item" href="javascript:void(0)">Edit</a>
+                                        <div class="dropdown-divider"></div> -->
+                                        <a class="dropdown-item" href="javascript:void(0)">Approve</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)">Reject</a>
+                                    </div>
+                                </div>
+                                <strong>{{data.customerName}}</strong>
+                                <span>{{data.contactTypeName}}</span>
+                                <span>Total Quantity : {{data.stockValue}}</span>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                        class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                                    </svg>
+                                    {{data.phoneNumber}}
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                        class="bi bi-calendar" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                    </svg>
+                                    {{data.createDate}}
+                                </p>
+                            </div>
                         </div>
 
                         <div class="d-xl-flex align-items-center mt-3">
@@ -484,12 +521,16 @@
                                                 [(ngModel)]="limit" (ngModelChange)="changeLimit()">
                                                 <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
                                                     {{pg.label}}</option>
-                                            </select> {{startRecordNumber()}} - {{allReportList.length}}</label>
+                                            </select>
+                                            {{startPage}} - {{endPage}}
+                                        </label>
                                         <label>
-                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="prevPage()">
                                                 <img src="assets/images/chevron-left.svg" alt="chevron-left">
                                             </a>
-                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="nextPage()">
                                                 <img src="assets/images/chevron-right.svg" alt="chevron-right">
                                             </a>
                                         </label>
@@ -507,3 +548,222 @@
         </div>
     </div>
 </main>
+
+
+<!-- Stock update popup -->
+<ng-template #stockViewModal>
+    <div class="addContactModal">
+        <div class="modal-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <h3 class="modal-title d-inline-block align-middle me-2">Stock Details</h3>
+
+                    </div>
+                    <div class="col-sm-2 d-flex justify-content-end">
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn-close"
+                            (click)="closeModal()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                    <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="stock_updt">
+                            <h4>Customer Name : {{stockViewDeatils.customerName}}</h4>
+                            <h4>Total Stock Qty : {{this.getStockQty(stockViewDeatils.stockValue)}}</h4>
+                            <!-- <div class="stock_updt_sel">
+                                <select class="form-select">
+                                    <option>TMT Bar</option>
+                                </select>
+                            </div> -->
+                        </div>
+                        <div class="stock_lst_scr">
+                            <div class="stock_lsts" *ngFor="let data of stockViewList">
+                                <div class="stock_lsts_txt"><strong>{{data.description}}</strong></div>
+                                <div class="stock_lsts_txt_blk">&nbsp;</div>
+                                <div class="stock_lsts_txt"><strong class="text-danger">{{data.stockValue}}
+                                        {{data.unitShort}}</strong></div>
+                                <!-- <div class="stock_lsts_txt">Straight</div> -->
+                            </div>
+
+                        </div>
+                        <!-- <div class="btn_dv_blw">
+                            <button class="btn btn-info btn-lg mx-auto m-0">Add Stock</button>
+                        </div> -->
+                    </div>
+                </div>
+                <!-- <div class="bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                    <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+
+                        <div class="stock_lst_scr">
+                            <div class="stock_lst_scr_dlt_out">
+                                <div class="stock_lst_scr_dlt">
+                                    <div class="stock_lst_top">
+                                        <strong>1. TMT Bar</strong>
+                                        <span class="thrs_del"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg></span>
+                                    </div>
+                                    <div class="stock_lst_blw">
+                                        <strong>5.6mm</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>10MT</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>Straight</strong>
+                                    </div>
+                                </div>
+                                <div class="stock_lst_scr_dlt">
+                                    <div class="stock_lst_top">
+                                        <strong>2. TMT Bar</strong>
+                                        <span class="thrs_del"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg></span>
+                                    </div>
+                                    <div class="stock_lst_blw">
+                                        <strong>5.6mm</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>10MT</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>Straight</strong>
+                                    </div>
+                                </div>
+                                <div class="stock_lst_scr_dlt">
+                                    <div class="stock_lst_top">
+                                        <strong>3. TMT Bar</strong>
+                                        <span class="thrs_del"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg></span>
+                                    </div>
+                                    <div class="stock_lst_blw">
+                                        <strong>5.6mm</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>10MT</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>Straight</strong>
+                                    </div>
+                                </div>
+                                <div class="stock_lst_scr_dlt">
+                                    <div class="stock_lst_top">
+                                        <strong>4. TMT Bar</strong>
+                                        <span class="thrs_del"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg></span>
+                                    </div>
+                                    <div class="stock_lst_blw">
+                                        <strong>5.6mm</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>10MT</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>Straight</strong>
+                                    </div>
+                                </div>
+                                <div class="stock_lst_scr_dlt">
+                                    <div class="stock_lst_top">
+                                        <strong>5. TMT Bar</strong>
+                                        <span class="thrs_del"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg></span>
+                                    </div>
+                                    <div class="stock_lst_blw">
+                                        <strong>5.6mm</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>10MT</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>Straight</strong>
+                                    </div>
+                                </div>
+                                <div class="stock_lst_scr_dlt">
+                                    <div class="stock_lst_top">
+                                        <strong>6. TMT Bar</strong>
+                                        <span class="thrs_del"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg></span>
+                                    </div>
+                                    <div class="stock_lst_blw">
+                                        <strong>5.6mm</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>10MT</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>Straight</strong>
+                                    </div>
+                                </div>
+                                <div class="stock_lst_scr_dlt">
+                                    <div class="stock_lst_top">
+                                        <strong>7. TMT Bar</strong>
+                                        <span class="thrs_del"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg></span>
+                                    </div>
+                                    <div class="stock_lst_blw">
+                                        <strong>5.6mm</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>10MT</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>Straight</strong>
+                                    </div>
+                                </div>
+                                <div class="stock_lst_scr_dlt">
+                                    <div class="stock_lst_top">
+                                        <strong>8. TMT Bar</strong>
+                                        <span class="thrs_del"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg></span>
+                                    </div>
+                                    <div class="stock_lst_blw">
+                                        <strong>5.6mm</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>10MT</strong>
+                                        <span>&nbsp;</span>
+                                        <strong>Straight</strong>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div> -->
+                <!-- <div class="btn_dv_blw">
+                    <button class="btn btn-success btn-lg mx-auto">Submit</button>
+                </div> -->
+
+            </div>
+
+        </div>
+    </div>
+</ng-template>

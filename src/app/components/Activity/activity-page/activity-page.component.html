@@ -23,9 +23,26 @@
         <div class="row">
             <div class="col-md-12 ">
                 <div class="date_caro">
-                    <!-- <img src="assets/images/date-image.png"> -->
-                    <ngb-carousel *ngIf="images" [showNavigationArrows]="true" [showNavigationIndicators]="false">
-                        <!-- <div class="inner"> -->
+                    <ul class="d-inline-block ml-auto mt-3 mt-lg-0 mb-0">
+                        <li class="list-inline-item">
+                            <div class="dt_fld">Select Date</div>
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="dt_fld">
+                                <input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="createdDate">
+                                <!-- <i class="fa fa-calendar"></i> -->
+                            </div>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-success btn-lg" (click)="searchActivityByDate()">Search &nbsp;<i
+                                    class="fa fa-search" aria-hidden="true"></i></button>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-pink" (click)="resetDate()">Reset</button>
+                        </li>
+                    </ul>
+                    <!-- <ngb-carousel *ngIf="images" [showNavigationArrows]="true" [showNavigationIndicators]="false">
                         <ng-template ngbSlide *ngFor="let img of images">
                             <div class="row">
                                 <div class="col-md-1">
@@ -90,164 +107,45 @@
                                 </div>
                             </div>
                         </ng-template>
-                        <!-- </div> -->
-                    </ngb-carousel>
+                    </ngb-carousel> -->
                 </div>
             </div>
         </div>
         <div class="row py-2">
             <div class="col-md-8">
                 <div class="actvty_hed">
-                    <h4>Activity of Shyamal Das</h4>
-                    <strong>August 10 2021</strong>
+                    <h4>Activity of {{activityOwner}}</h4>
+                    <!-- <strong>August 10 2021</strong> -->
+                    <div class="btn-group btn-group-sm ms-auto  btn-download-group rit_gool" style="float: right;">
+                        <button class="me-2"><img src="assets/images/google-icon.png"
+                                (click)="openActivityMap()"></button>
+                    </div>
                 </div>
-                <div class="actvty_blw">
+                <div class="actvty_blw odometer_div">
 
-                    <div class="actvty_blw_dv">
+                    <div class="actvty_blw_dv" *ngFor="let item of activityDetails">
                         <div class="ctvty_lf">
-                            <span class="ctvty_lf_to">9:00 am</span>
-                            <span class="ctvty_lf_mid">9:30 am</span>
+                            <span class="ctvty_lf_to">{{dateFormat(item.eventTime)}}</span>
+                            <span class="ctvty_lf_mid">{{timeAmPm(item.eventTime)}}</span>
                         </div>
                         <div class="ctvty_rt">
                             <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon1.png">
                             </div>
                             <div class="ctvty_rt_icon_mid">
-                                <span>9:30 am</span>
-                                <p>System Login</p>
+                                <span>{{timeAmPm(item.eventTime)}}</span>
+                                <p>{{item.description}}</p>
                             </div>
                             <div class="ctvty_rt_icon_stat">
-                                Login
+                                <!-- Login -->
                             </div>
                         </div>
-                        <div></div>
+                        <div>
+
+                        </div>
                     </div>
-                    <div class="actvty_blw_dv">
-                        <div class="ctvty_lf">
-                            <span class="ctvty_lf_to">9:00 am</span>
-                            <span class="ctvty_lf_mid">9:30 am</span>
-                        </div>
-                        <div class="ctvty_rt">
-                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon2.png">
-                            </div>
-                            <div class="ctvty_rt_icon_mid">
-                                <span>Soumen Sarkar</span>
-                                <p>Dealer Working area <strong>Bankura</strong> | West Bengal</p>
-                            </div>
-                            <div class="ctvty_rt_icon_stat">
-                                Visit
-                            </div>
-                        </div>
-                        <div></div>
-                    </div>
-                    <div class="actvty_blw_dv">
-                        <div class="ctvty_lf">
-                            <span class="ctvty_lf_to">9:00 am</span>
-                            <span class="ctvty_lf_mid">9:30 am</span>
-                        </div>
-                        <div class="ctvty_rt">
-                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon3.png">
-                            </div>
-                            <div class="ctvty_rt_icon_mid">
-                                <span>Online Meeting</span>
-                                <p>Meeting with <strong>Bankura</strong> team zone 3</p>
-                            </div>
-                            <div class="ctvty_rt_icon_stat">
-                                Team Meeting
-                            </div>
-                        </div>
-                        <div></div>
-                    </div>
-                    <div class="actvty_blw_dv">
-                        <div class="ctvty_lf">
-                            <span class="ctvty_lf_to">9:00 am</span>
-                            <span class="ctvty_lf_mid">9:30 am</span>
-                        </div>
-                        <div class="ctvty_rt">
-                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon4.png">
-                            </div>
-                            <div class="ctvty_rt_icon_mid">
-                                <span>9:30 am</span>
-                                <p>System Login</p>
-                            </div>
-                            <div class="ctvty_rt_icon_stat">
-                                Login
-                            </div>
-                        </div>
-                        <div></div>
-                    </div>
-                    <div class="actvty_blw_dv">
-                        <div class="ctvty_lf">
-                            <span class="ctvty_lf_to">9:00 am</span>
-                            <span class="ctvty_lf_mid">9:30 am</span>
-                        </div>
-                        <div class="ctvty_rt">
-                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon5.png">
-                            </div>
-                            <div class="ctvty_rt_icon_mid">
-                                <span>9:30 am</span>
-                                <p>System Login</p>
-                            </div>
-                            <div class="ctvty_rt_icon_stat">
-                                Login
-                            </div>
-                        </div>
-                        <div></div>
-                    </div>
-                    <div class="actvty_blw_dv">
-                        <div class="ctvty_lf">
-                            <span class="ctvty_lf_to">9:00 am</span>
-                            <span class="ctvty_lf_mid">9:30 am</span>
-                        </div>
-                        <div class="ctvty_rt">
-                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon6.png">
-                            </div>
-                            <div class="ctvty_rt_icon_mid">
-                                <span>9:30 am</span>
-                                <p>System Login</p>
-                            </div>
-                            <div class="ctvty_rt_icon_stat">
-                                Login
-                            </div>
-                        </div>
-                        <div></div>
-                    </div>
-                    <div class="actvty_blw_dv">
-                        <div class="ctvty_lf">
-                            <span class="ctvty_lf_to">9:00 am</span>
-                            <span class="ctvty_lf_mid">9:30 am</span>
-                        </div>
-                        <div class="ctvty_rt">
-                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon1.png">
-                            </div>
-                            <div class="ctvty_rt_icon_mid">
-                                <span>9:30 am</span>
-                                <p>System Login</p>
-                            </div>
-                            <div class="ctvty_rt_icon_stat">
-                                Login
-                            </div>
-                        </div>
-                        <div></div>
-                    </div>
-                    <div class="actvty_blw_dv">
-                        <div class="ctvty_lf">
-                            <span class="ctvty_lf_to">9:00 am</span>
-                            <span class="ctvty_lf_mid">9:30 am</span>
-                        </div>
-                        <div class="ctvty_rt">
-                            <div class="ctvty_rt_icon"><img src="assets/images/activity-page-icon1.png">
-                            </div>
-                            <div class="ctvty_rt_icon_mid">
-                                <span>9:30 am</span>
-                                <p>System Login</p>
-                            </div>
-                            <div class="ctvty_rt_icon_stat">
-                                Login
-                            </div>
-                        </div>
-                        <div></div>
-                    </div>
-                    <div class="actvty_blw_dv">
+
+
+                    <!-- <div class="actvty_blw_dv">
                         <div class="ctvty_lf">
                             <span class="ctvty_lf_to">9:00 am</span>
                             <span class="ctvty_lf_mid">9:30 am</span>
@@ -264,227 +162,68 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="acti_emplyee">
-
-
                     <div class="activity_detail">
                         <h4>Employee</h4>
                         <div class="acti_emplyee_tab">
                             <ul class="nav nav-pills nav-tabs" id="pills-tab" role="tablist">
                                 <li><a class="click_tab active" id="sub_ord_div" data-bs-target="#pills_self" role="tab"
-                                        data-bs-toggle="pill" aria-controls="pills_self" aria-selected="true">Self</a>
+                                        data-bs-toggle="pill" aria-controls="pills_self" aria-selected="true"
+                                        (click)="self()">Self</a>
                                 </li>
                                 <li><a class="click_tab" data-bs-target="#pills_subord" role="tab" data-bs-toggle="tab"
                                         id="sub_ord" data-bs-toggle="pill" aria-controls="pills_subord"
-                                        aria-selected="false">Subordinate</a>
+                                        aria-selected="false" (click)="subordinateList()">Subordinate</a>
                                 </li>
                             </ul>
 
                             <div class="tab-content" id="pills-tabContent">
                                 <div role="tabpanel" class="tab-pane fade active show" id="pills_self"
                                     aria-labelledby="sub_ord_div">
-                                    <div class="input-group srch_box">
+
+                                    <!-- <div class="input-group srch_box">
                                         <input type="text" name="Customer name" class="form-control"
                                             placeholder="Search by Employee name or location, zone" id="">
                                         <button><i class="fa fa-search"></i></button>
-                                    </div>
+                                    </div> -->
+
                                     <div class="scr_emplee">
                                         <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
+                                            <img src="assets/images/profl-pic.png" class="prf_img" alt="create"
+                                                *ngIf="selectedEmpDeails.profileImg == ''">
+                                            <img src={{imageUrl+selectedEmpDeails.profileImg}} class="prf_img"
+                                                alt="create" *ngIf="selectedEmpDeails.profileImg !=''">
                                             <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
+                                                <strong>{{selectedEmpDeails.name}}</strong>
+                                                <span>{{selectedEmpDeails.designation}}</span>
                                             </div>
                                         </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="tab-pane fade mt-2" id="pills_subord" role="tabpanel"
                                     aria-labelledby="sub_ord">
-                                    <div class="input-group srch_box">
+                                    <!-- <div class="input-group srch_box">
                                         <input type="text" name="Customer name" class="form-control"
                                             placeholder="Search by Employee name or location, zone" id="">
                                         <button><i class="fa fa-search"></i></button>
-                                    </div>
+                                    </div> -->
                                     <div class="scr_emplee">
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
+                                        <div class="p_files" *ngFor="let item of subordinateLists"  (click)="selectSuborinateUser(item)">
+                                            <img src="assets/images/profl-pic.png" class="prf_img" alt="create"
+                                                *ngIf="item.profileImgUrl == ''">
+                                            <img src={{imageUrl+item.profileImgUrl}} class="prf_img" alt="create"
+                                                *ngIf="item.profileImgUrl != ''">
                                             <div>
-                                                <strong>Ghosh Hardware</strong>
-                                                <span>Designation : Sales Executive</span>
+                                                <strong>{{item.name}}</strong>
+                                                <span>{{item.designationName}}</span>
                                             </div>
                                         </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
-                                        <div class="p_files">
-                                            <img src="assets/images/profl-pic.png" alt="create">
-                                            <div>
-                                                <strong>Soumen Sarkar</strong>
-                                                <span>Designation : Sales Executive</span>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -492,7 +231,7 @@
 
                     </div>
                 </div>
-                <div class="emp_act_detl">
+                <!-- <div class="emp_act_detl" *ngIf = "detailsInformation">
                     <div>
                         <h5>Detail Information</h5>
                         <div class="emp_act_detl_in">
@@ -529,8 +268,82 @@
                                 ornare lorem ligula, vitae bibendum quam elementum sed.</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
 </main>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+
+
+<ng-template #activityModal>
+    <div class="addContactModal">
+        <div class="modal-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <h3 class="modal-title d-inline-block align-middle me-2">Activity Beat Route</h3>
+
+                    </div>
+                    <div class="col-sm-2 d-flex justify-content-end"><button type="button" aria-label="Close"
+                            class="btn-close" (click)="closeModal()"></button></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid  bg-white shadow_d py-4 px-4 rounded-3 mt-3 mb-3 p-3">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 add_pjp_pp">
+
+                        <div class="calender_box_dv">
+                            <div class="calendar calendar-first" id="calendar_first" style="height: 500px;">
+                                <div>
+                                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fitBounds]="true"
+                                        [disableDefaultUI]="true" (mapReady)="mapReady($event)">
+                                        <!-- <agm-direction [origin]="origin" [destination]="destination">
+                                        </agm-direction> -->
+
+
+                                        <agm-marker *ngFor="let m of markers; let i = index"
+                                            (mouseOver)="onMouseOver(infoWindow, m)"
+                                            (mouseOut)="onMouseOut(infoWindow, m)" [latitude]="m.latitude"
+                                            [longitude]="m.longitude" [agmFitBounds]="true">
+                                            <agm-info-window [disableAutoPan]="false" #infoWindow>
+                                                <strong>{{infoLabel}}</strong>
+                                                <div id="content">
+                                                    <div id="siteNotice"></div>
+                                                    <div id="bodyContent">
+                                                        <p><strong>Sl No. : {{infoData.slNo}}</strong></p>
+                                                        <p><strong>Activity : {{infoData.name}}</strong></p>
+                                                        <p><strong>Time : {{infoData.time}}</strong></p>
+                                                    </div>
+                                                </div>
+                                            </agm-info-window>
+                                        </agm-marker>
+
+                                        <ng-container>
+                                            <agm-polyline *ngFor="let polyline of polylines;let i = index;"
+                                                [strokeWeight]="5" [strokeColor]="polyline.color">
+
+                                                <agm-polyline-point *ngFor="let point of polyline.path"
+                                                    [latitude]="point.lat" [longitude]="point.lng">
+                                                </agm-polyline-point>
+                                            </agm-polyline>
+                                        </ng-container>
+                                        <!-- <agm-icon-sequence [fixedRotation]="false" [repeat]="'150px'" [offset]="'200'" [path]="'FORWARD_OPEN_ARROW'">
+                                                </agm-icon-sequence> -->
+                                    </agm-map>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</ng-template>

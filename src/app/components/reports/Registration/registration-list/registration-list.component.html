@@ -1,7 +1,6 @@
 <main class="content">
     <div class="container-fluid p-0">
-
-
+        <ngx-spinner type="ball-scale-multiple" [fullScreen]="false"></ngx-spinner>
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center main-hdng">
                 <div class="col-md-6">
@@ -318,10 +317,12 @@
                                                     {{pg.label}}</option>
                                             </select> {{startPage}} - {{endPage}}</label>
                                         <label>
-                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)" (click)="prevPage()">
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="prevPage()">
                                                 <img src="assets/images/chevron-left.svg" alt="chevron-left">
                                             </a>
-                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)" (click)="nextPage()">
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="nextPage()">
                                                 <img src="assets/images/chevron-right.svg" alt="chevron-right">
                                             </a>
                                         </label>
@@ -332,10 +333,10 @@
                                 <button type="button" class="btn btn-primary px-4 text-white" (click)="onDownload()">
                                     Download List
                                 </button>
-                                <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                <!-- <button type="button" class="btn btn-primary px-4 text-white">Bulk
                                     Upload
                                 </button>
-                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
+                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button> -->
                                 <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="assets/images/filtering.svg" alt="filtering">
@@ -433,7 +434,7 @@
 
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive odometer_div">
                             <table id="datatables-column-search-select-inputs"
                                 class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
                                 aria-describedby="datatables-column-search-select-inputs_info">

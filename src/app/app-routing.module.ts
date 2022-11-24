@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 // import { ActivityPageComponent } from './components/Activity/activity-page/activity-page.component';
 // import { BrandingListComponent } from './components/Branding/branding-list/branding-list.component';
 // import { CalenderViewComponent } from './components/Calender/calender-view/calender-view.component';
@@ -19,6 +21,8 @@ import { RouterModule, Routes } from '@angular/router';
 // import { DashboardComponent } from './layouts/components/dashboard/dashboard.component';
 // import { LoginComponent } from './login/login.component';
 
+// import { NotificationComponent } from './components/notification/notification.component';
+
 const routes: Routes = [
   {
     path: "",
@@ -32,14 +36,20 @@ const routes: Routes = [
   {
     path: "pages", loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
   },
-  // {
-  //   path: "enquiry-report",
-  //   component: EnquiryReportsComponent
-  // },
-  // {
-  //   path : "enquiry-visit-report",
-  //   component : EnquiryVisitReportComponent
-  // },
+  {
+    path: "terms-and-conditions",
+    component: TermsAndConditionsComponent
+  },
+  {
+    path: "privacy-policy",
+    component: PrivacyPolicyComponent
+  },
+
+  //  {
+  //   path:"notification",
+  //   component:NotificationComponent
+  // }
+
   // {
   //   path : "visit-report",
   //   component : PlannedUnplannedReportsComponent

@@ -1,6 +1,7 @@
 <!--Container Main start-->
 <main class="content">
     <div class="container-fluid p-0">
+        <ngx-spinner type="ball-scale-multiple" [fullScreen]="false"></ngx-spinner>
 
 
         <div class="row mb-2 mb-lg-4">
@@ -13,7 +14,7 @@
                         <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
                             <ol class="breadcrumb justify-content-end">
                                 <li class="breadcrumb-item">PJP</li>
-                                <li class="breadcrumb-item" aria-current="page">PJP Schedule Report</li>
+                                <li class="breadcrumb-item" aria-current="page">PJP Schedule</li>
                             </ol>
                         </nav>
                     </div>
@@ -364,7 +365,7 @@
                     <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                         <div class="d-md-flex align-items-center mb-3">
                             <div class="col-auto d-flex">
-                                <h3>PJP Schedule Report</h3>
+                                <h3>PJP Schedule</h3>
                                 <span class="sm-font text-primary" *ngIf="totalRecords !=0">{{totalRecords}} Records
                                     Found</span>
                             </div>
@@ -395,9 +396,9 @@
                                 <button type="button" class="btn btn-primary px-4 text-white" (click)="onDownload()">
                                     Download List
                                 </button>
-                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
+                                <!-- <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button> -->
                                 <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    data-bs-toggle="dropdown" aria-expanded="false" *ngIf="isTable == 1">
                                     <img src="assets/images/filtering.svg" alt="filtering">
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end addDropdownhead">
@@ -416,7 +417,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive odometer_div" *ngIf="isTable == 1">
                             <table id="datatables-column-search-select-inputs"
                                 class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
                                 aria-describedby="datatables-column-search-select-inputs_info">
@@ -467,7 +468,7 @@
                                                 </span>
                                             </td> -->
                                             <td width="70" class="align-middle">
-                                                <a class="d-inline-block align-middle" href="javascript:void(0)"
+                                                <!-- <a class="d-inline-block align-middle" href="javascript:void(0)"
                                                     (click)="goToDetails()">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>&nbsp;&nbsp;
@@ -494,13 +495,59 @@
                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item" href="#">Add opportunity with this
                                                         org.</a>
-                                                </div>
+                                                </div> -->
                                             </td>
                                         </tr>
                                     </ng-container>
                                 </tbody>
                             </table>
 
+                        </div>
+
+                        <div class="grid_viw_dv  odometer_div" *ngIf="isTable == 0">
+                            <div class="grid_viw_dv_inr bg-white shadow-lg p-3 rounded-3"
+                                *ngFor="let data of allReportList; let i=index">
+                                <!-- <div class="col-auto grid_viw_mor_opn">
+                                    <a class="dropdown-toggle no-dropdown-arrow" href="#" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <img src="assets/images/hdr-menu-vertical.svg" alt="menu-vertical"></a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            (click)="openCostingModal(data)"
+                                            *ngIf="data.costByOperationStatus == '0'">Add Costing</a>
+                                        <div class="dropdown-divider" *ngIf="data.costByOperationStatus == '0'"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            (click)="openBrandModify(data)"
+                                            *ngIf="data.approvedStatusByHod == '0'">Approve</a>
+                                        <div class="dropdown-divider" *ngIf="data.approvedStatusByHod == '0'"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            (click)="openVendorListModal(data)"
+                                            *ngIf="data.approvedStatusByHod == '1' && data.approvedStatusByComm == '0'">Assign
+                                            Vendor</a>
+                                        <div class="dropdown-divider"
+                                            *ngIf="data.approvedStatusByHod == '1' && data.approvedStatusByComm == '0'">
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <span>{{data.contactTypeName}}</span>
+                                <strong>{{data.contactFirstName}} {{data.contactLastName}}</strong>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                        class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                                    </svg>
+                                    {{data.ContactPhone}}
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                        class="bi bi-calendar" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                    </svg>
+                                    {{getDate(data.plannedDate)}}
+                                </p>
+                            </div>
                         </div>
 
                         <div class="d-xl-flex align-items-center mt-3">

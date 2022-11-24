@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import app_config from 'src/app/app.config';
 import { CommonService } from 'src/app/services/common.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
+import { NotifierService } from 'angular-notifier';
+import { LEAVE_REPORT } from 'src/app/TableHeader';
 
 @Component({
   selector: 'app-leave-list',
@@ -12,7 +14,8 @@ export class LeaveListComponent implements OnInit {
 
   constructor(
     private common: CommonService,
-    private store: StoreDataService
+    private store: StoreDataService,
+    private notifier: NotifierService
   ) { }
 
   authUserData: any;
@@ -21,11 +24,28 @@ export class LeaveListComponent implements OnInit {
   limit: any = "";
   offset: any = "0";
   totalRecords: any = "";
+  totalPage = 1;
+  startPage: any = 0;
+  endPage: any = 0;
+  currentPage: any = 1;
+  tableHeader: any = [];
+  isTable: any = 1;
+
   @ViewChild('subordinateListModal') subordinateListModal: any;
   odometerImagesModal: any;
 
+  //-------------  For Filter -------------//
+
+  searchName = "";
+  searchFrom = "";
+  searchTo = "";
+  leaveType = "";
+  userName = "";
+  status = "";
+
 
   ngOnInit(): void {
+    this.tableHeader = LEAVE_REPORT;
     let data: any = this.common.getAuthUserData();
     this.authUserData = JSON.parse(data);
     console.log("authuserData:: ", this.authUserData);
@@ -40,20 +60,29 @@ export class LeaveListComponent implements OnInit {
       "userId": this.authUserData.userId,
       "limit": this.limit.toString(),
       "offset": this.offset.toString(),
-      "searchFrom":"",
-      "searchTo":"",
-      "userName":""
-    }
+      "searchName": this.searchName,
+      "searchFrom": this.searchFrom,
+      "searchTo": this.searchTo,
+      "leaveType": this.leaveType,
+      "userName": this.userName,
+      "leaveStatus": this.status.toString()
+    };
     this.common.getLeaveList(req).subscribe(res => {
-      console.log("Leave Report response::", res);
+      //console.log("Leave Report response::", res);
       if (res.respondcode == 200) {
         let respObj = res.data;
         if (respObj.list.length > 0) {
           this.allReportList = respObj.list;
           this.totalRecords = respObj.count;
+          this.totalPage = Math.ceil(this.totalRecords / this.limit);
+          this.startPage = Number(this.offset) + 1;
+          this.endPage = Number(this.offset) + Number(this.allReportList.length);
         } else {
           this.allReportList = [];
           this.totalRecords = 0;
+          this.totalPage = 1;
+          this.startPage = 1;
+          this.endPage = 1;
         }
       }
     })
@@ -76,6 +105,7 @@ export class LeaveListComponent implements OnInit {
     tb.classList.toggle("switchActiveList");
     var tbX: any = document.getElementById('switchGrid');
     tbX.classList.remove("switchActivegrid");
+    this.isTable = 1;
   }
 
   toggleBtnGrid() {
@@ -83,6 +113,7 @@ export class LeaveListComponent implements OnInit {
     tb.classList.toggle("switchActivegrid");
     var tbX: any = document.getElementById('switchList');
     tbX.classList.remove("switchActiveList");
+    this.isTable = 0;
   }
 
   getDate(val: any) {
@@ -136,6 +167,8 @@ export class LeaveListComponent implements OnInit {
 
   changeLimit() {
     // console.log("limit value::", this.limit);
+    this.offset = 0;
+    this.currentPage = 1;
     this.getVisitReports();
   }
 
@@ -171,14 +204,117 @@ export class LeaveListComponent implements OnInit {
 
 
     this.odometerImagesModal = {
-      inTime : this.formatAMPM(data.inTime),
-      inTimeDate : this.getDate(data.inTime),
-      outTime : this.formatAMPM(data.outTime),
-      outTimeDate : this.getDate(data.outTime),
+      inTime: this.formatAMPM(data.inTime),
+      inTimeDate: this.getDate(data.inTime),
+      outTime: this.formatAMPM(data.outTime),
+      outTimeDate: this.getDate(data.outTime),
       inTimePic: inTime,
       outTimePic: outTime
     }
     console.log("odometer image modal::", inTime)
   }
+
+  //--------------Pagination ---------------//
+
+  nextPage() {
+    if (this.currentPage < this.totalPage) {
+      // alert("Offset "+ this.offset)
+      this.currentPage++;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.getVisitReports();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.getVisitReports();
+    }
+  }
+
+  //--------------------- For Filter------------------//
+
+
+  searchByDateRange() {
+    if (this.searchFrom == "" && this.searchTo == "") {
+      this.notifier.notify('error', "Please select date range");
+      return;
+    }
+    if (this.searchFrom != "" && this.searchTo != "") {
+      if (this.searchFrom > this.searchTo) {
+        this.notifier.notify('error', "Please select valid date range");
+        return;
+      }
+    }
+    this.getVisitReports();
+  }
+
+  resetDate() {
+    this.searchFrom = "";
+    this.searchTo = "";
+    this.getVisitReports();
+  }
+
+  saveSearch() {
+    this.getVisitReports();
+  }
+
+  reset() {
+    this.searchFrom = "";
+    this.searchTo = "";
+    this.leaveType = "";
+    this.userName = "";
+    this.status = "";
+    this.getVisitReports();
+  }
+
+  individualSearch(event: any) {
+    if (event.target.value.length >= 2) {
+      this.searchName = event.target.value;
+      this.getVisitReports();
+    } else {
+      this.searchName = "";
+      this.getVisitReports();
+    }
+  }
+
+  tableDataView(data: any, pos: any) {
+    let str: any = "";
+    if (pos == 0) {
+      str = data.name
+    } else if (pos == 1) {
+      str = data.startDate
+    } else if (pos == 2) {
+      str = data.endDate
+    } else if (pos == 3) {
+      str = data.noOfDays
+    }
+    else if (pos == 4) {
+      str = data.leaveType
+    }
+    else if (pos == 5) {
+      str = data.status
+    }
+
+    return str;
+  }
+
+
+
+
+  changeTableView(event: any, pos: any) {
+    this.tableHeader.map((data: any, i: any) => {
+      if (i == pos) {
+        if (event.target.checked) {
+          data.isView = true;
+        } else {
+          data.isView = false;
+        }
+      }
+    })
+  }
+
+
 
 }

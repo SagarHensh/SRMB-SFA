@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
+import { SURVEY_REPORT_LIST } from 'src/app/TableHeader';
 
 @Component({
   selector: 'app-survey-report-list',
@@ -31,8 +32,11 @@ export class SurveyReportListComponent implements OnInit {
   address = "";
   stateList:any = [];
   cityList:any = [];
+  tableHeader=[] as any
+
 
   ngOnInit(): void {
+    
     let data: any = this.common.getAuthUserData();
     this.authUserData = JSON.parse(data);
     this.paginationLimitDropdown = this.store.getPaginationLimitList();
@@ -40,6 +44,7 @@ export class SurveyReportListComponent implements OnInit {
     this.getVisitReports();
     this.getState();
     this.getCity();
+    this.tableHeader=SURVEY_REPORT_LIST;
   }
 
   getVisitReports() {
@@ -129,6 +134,67 @@ export class SurveyReportListComponent implements OnInit {
     // console.log("limit value::", this.limit);
     this.getVisitReports();
   }
+
+
+
+  tableDataView(data: any, pos: any) {
+    let str: any = "";
+    if (pos == 0) {
+      str = data.stateName
+    }
+    else if(pos ==1){
+      str=data.cityName
+    }
+    else if(pos == 2){
+      str=data.zoneName
+    }
+    else if(pos == 3){
+      str=data.pincode
+    }
+    else if(pos == 4){
+      str = data.organizationName
+    }
+    else if(pos == 5){
+      str = data.ownerName
+
+    }
+    else if(pos == 6){
+      str = data.phone
+    }
+    else if(pos == 7){
+      str =data.email
+
+    }
+    else if(pos==8)
+    {
+      str=data.address
+    }
+    else if(pos==9)
+    {
+      str=""
+    }
+    else if(pos==10)
+    {
+      str=data.surveyDate
+    }
+    else if(pos==11)
+    {
+      str=data.remarks
+    }
+    return str;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   onDownload = () => {
     let req = {
@@ -224,6 +290,19 @@ export class SurveyReportListComponent implements OnInit {
       this.searchName = "";
       this.getVisitReports(); 
     }
+  }
+
+
+  changeTableView(event: any, pos: any) {
+    this.tableHeader.map((data: any, i: any) => {
+      if (i == pos) {
+        if (event.target.checked) {
+          data.isView = true;
+        } else {
+          data.isView = false;
+        }
+      }
+    })
   }
 
 }

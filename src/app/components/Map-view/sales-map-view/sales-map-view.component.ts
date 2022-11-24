@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-sales-map-view',
@@ -7,27 +8,20 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChil
 })
 export class SalesMapViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private common: CommonService
+  ) { }
+
+  authUserData: any;
 
   @Output() salesItemEvent = new EventEmitter<any>();
   @Input() btnData: any;
+  @Input() filterData: any;
   @Input() salesMarkerData: any = {
-    opMrkr: [{
-      lat: 22.5448,
-      lng: 88.3426
-    }],
-    ldMrkr: [{
-      lat: 22.5448,
-      lng: 88.3426
-    }],
-    enMrkr: [{
-      lat: 22.5448,
-      lng: 88.3426
-    }],
-    clMrkr: [{
-      lat: 22.5448,
-      lng: 88.3426
-    }]
+    opMrkr: [],
+    ldMrkr: [],
+    enMrkr: [],
+    clMrkr: []
   };
   zoom: number = 30;
   lat: any = 22.5448;
@@ -47,139 +41,10 @@ export class SalesMapViewComponent implements OnInit {
 
 
 
-  markers: any = [
-    {
-      id: 1,
-      name: "PRANAB DAS",
-      phone: "9230066106",
-      email: "pranab.das@srmbsteel.com",
-      zone_id: 1,
-      district_id: 371,
-      state_id: 35,
-      lat: 22.587404900000003,
-      lng: 88.40787700000001,
-      emp_type_id: 1,
-      isPresent: 1,
-      isLate: 0,
-    },
-    {
-      id: 2,
-      name: "DEBOJIT GHOSH HAZRA",
-      phone: "9232353029",
-      email: "debojit.hazra@srmbsteel.com",
-      zone_id: 2,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 1,
-      lat: 22.553678594641333,
-      lng: 88.33806895000001,
-      isPresent: 1,
-      isLate: 0,
-    },
-    {
-      id: 3,
-      name: "SANJIB CHANDA",
-      phone: "9230066115",
-      email: "sanjib.chanda@srmbsteel.com",
-      zone_id: 3,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 1,
-      lat: 22.520037601882475,
-      lng: 88.36631055,
-      isPresent: 1,
-      isLate: 1,
-    },
-    {
-      id: 4,
-      name: "SANJIT CHATTERJEE",
-      phone: 9230066147,
-      email: "sanjit.chatterjee@srmbsteel.com",
-      zone_id: 4,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 1,
-      lat: 22.6211825,
-      lng: 88.3931409,
-      isPresent: 1,
-      isLate: 0,
-    },
-    {
-      id: 5,
-      name: "RAMENDRA BHATTACHARJEE",
-      phone: 8585081393,
-      email: "ramendra.bhattacharyya@srmbsteel.com",
-      zone_id: 1,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 1,
-      lat: 22.474126829557175,
-      lng: 88.32392655000001,
-      isPresent: 1,
-      isLate: 1,
-    },
-    {
-      id: 6,
-      name: "BIVAS PAL",
-      phone: 9230066102,
-      email: "bivas.pal@srmbsteel.com",
-      zone_id: 2,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 1,
-      lat: 22.474126829557175,
-      lng: 88.32392655000001,
-      isPresent: 0,
-      isLate: 0,
-    },
-    {
-      id: 7,
-      name: "DEBASISH GHOSH",
-      phone: 9903943311,
-      email: "bebasish.ghosh@srmbsteel.com",
-      zone_id: 3,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 2,
-      lat: 22.539049000000002,
-      lng: 88.3230111,
-      isPresent: 0,
-      isLate: 0,
-    },
-    {
-      id: 8,
-      name: "SIDDHARTHA SEN MAJUMDER",
-      phone: 9230011666,
-      email: "siddhartha.senmajumdar@srmbsteel.com",
-      zone_id: 4,
-      district_id: 371,
-      state_id: 35,
-      emp_type_id: 2,
-      lat: 22.605972999999988,
-      lng: 88.386353,
-      isPresent: 1,
-      isLate: 0,
-    },
-    {
-      id: 9,
-      name: "SANTANU DUTTA",
-      phone: 9230066143,
-      email: "santanu.dutta@srmbsteel.com",
-      zone_id: 1,
-      district_id: 371,
-      state_id: 35,
-      lat: 22.569053800000024,
-      lng: 88.40904429999999,
-      emp_type_id: 2,
-      isPresent: 1,
-      isLate: 0,
-    }
-  ];
+  markers: any = [];
 
   polyline: any;
   polylines: any;
-
-  maxSpeed = 40;
 
   opportunityMarker: any = [{
     lat: "",
@@ -216,23 +81,64 @@ export class SalesMapViewComponent implements OnInit {
     scaledSize: { height: 40, width: 30 }
   }
 
-  btnFlag : any;
+  btnFlag: any = {
+    isLead: true,
+    isOpportunity: true,
+    isEnquiry: true,
+    isClosed: true
+  };
+
+  filter: any = {
+    state: "",
+    district: "",
+    zone: ""
+  };
 
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("Sales Changes:", changes)
+    // console.log("Sales Changes:", changes)
     let data: any = changes;
-    console.log("Final Sales Changes:", data.salesMarkerData);
-    this.opportunityMarker = data.salesMarkerData.currentValue.opMrkr;
-    this.leadMarker = data.salesMarkerData.currentValue.ldMrkr;
-    this.enquiryMarker = data.salesMarkerData.currentValue.enMrkr;
-    this.closedMarker = data.salesMarkerData.currentValue.clMrkr;
+    // console.log("Filter Data:", data.filterData.currentValue);
+    if (data.salesMarkerData != undefined) {
+      // console.log("Final Sales Changes:", data.salesMarkerData);
+      this.opportunityMarker = data.salesMarkerData.currentValue.opMrkr;
+      this.leadMarker = data.salesMarkerData.currentValue.ldMrkr;
+      this.enquiryMarker = data.salesMarkerData.currentValue.enMrkr;
+      this.closedMarker = data.salesMarkerData.currentValue.clMrkr;
 
-    console.log("opMarker", this.opportunityMarker);
+      // console.log("opMarker", this.opportunityMarker);
+      if (data.salesMarkerData.currentValue.btnData != undefined) {
+        this.btnFlag = data.salesMarkerData.currentValue.btnData;
+      }
+    }
 
-    this.btnFlag = data.salesMarkerData.currentValue.btnData;
+    // if (data.filterData != undefined) {
+    //   console.log("Filter Data:", data.filterData)
+    //   this.filter = data.filterData.currentValue;
+    //   console.log("Changes in filter:", this.filter);
+    //   this.getSalesMapData();
+    // }
+
+
 
   }
+
+  // getSalesMapData() {
+  //   let req = {
+  //     clientId: this.authUserData.clientId,
+  //     userId: this.authUserData.userId,
+  //     stateId: this.filter.state,
+  //     districtId: this.filter.district,
+  //     zoneId: this.filter.zone
+  //   }
+
+  //   this.common.getCrmSalesMap(req).subscribe((res: any) => {
+  //     console.log("Sales Map Data::", res)
+  //     if (res.respondcode == 200) {
+
+  //     }
+  //   })
+  // }
 
 
 
@@ -255,39 +161,11 @@ export class SalesMapViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    let data: any = this.common.getAuthUserData();
+    this.authUserData = JSON.parse(data);
     //set google maps defaults
-    this.maxSpeed = 40;
-    this.latitude = 22.5448;
-    this.longitude = 88.3426;
-
-    this.polyline = [
-      {
-        latitude: 22.5448,
-        longitude: 88.3426,
-        speed: 50
-      },
-      {
-        latitude: 22.5653,
-        longitude: 88.3519,
-        speed: 20
-      },
-      {
-        latitude: 22.5728,
-        longitude: 88.3445,
-        speed: 20
-      },
-      {
-        latitude: 22.5553,
-        longitude: 88.3312,
-        speed: 20
-      },
-      {
-        latitude: 22.5448,
-        longitude: 88.3426,
-        speed: 20
-      }
-    ]
-    this.polylines = this.rebuildPolylines();
+    // this.latitude = 22.5448;
+    // this.longitude = 88.3426;
 
 
     //set current position
@@ -322,7 +200,9 @@ export class SalesMapViewComponent implements OnInit {
     console.log("val of marker::", val)
     let obj: any = {
       name: val.name,
-      type : val.salesType
+      type: val.type,
+      phone : val.phone,
+      contactType : val.contactType
     }
     this.infoData = obj;
   }
@@ -344,7 +224,6 @@ export class SalesMapViewComponent implements OnInit {
       // let aa = point;
       newPolyline.path.push(point);
       const speedChanged: any = this.polyline[i + 1]
-      // && (point.speed < this.maxSpeed && this.polyline[i + 1].speed < this.maxSpeed) || (point.speed > this.maxSpeed && this.polyline[i + 1].speed > this.maxSpeed)
       // if (point.speed > this.maxSpeed) {
       newPolyline.color = 'red';
       // }
@@ -371,9 +250,9 @@ export class SalesMapViewComponent implements OnInit {
     }
   }
 
-  getStatus(id : any){
-    if(id == 2 && this.btnFlag.isOpportunity == true){
-      
+  getStatus(id: any) {
+    if (id == 2 && this.btnFlag.isOpportunity == true) {
+
     }
   }
 

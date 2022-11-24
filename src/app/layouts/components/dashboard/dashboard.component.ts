@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Subject, Subscription} from "rxjs";
-import {DashboardService} from "../../../services/dashboard.service";
+import { Component, OnInit } from '@angular/core';
+import { Subject, Subscription } from "rxjs";
+import { DashboardService } from "../../../services/dashboard.service";
 
 @Component({
     selector: 'app-dashboard',
@@ -99,7 +99,7 @@ export class DashboardComponent implements OnInit {
         this.startDate = initDate.startDate;
         this.endDate = initDate.endDate;
         this.getProductData();
-        this.getMinMaxOfLastMonth();
+        // this.getMinMaxOfLastMonth();
         this.getDashboardData('totalVisit');
         this.nextChartSubsp = this.nextChartSub.asObservable().subscribe((res: any) => {
             this.getDashboardData('branding');
@@ -118,6 +118,7 @@ export class DashboardComponent implements OnInit {
 
     getMinMaxOfLastMonth(): void {
         this.dashboardService.getMinMaxOfLastMonth().subscribe((res: any) => {
+            // console.log("Response::", res)
             if (res.success) {
                 this.startDate = res.response.startDate;
                 this.endDate = res.response.endDate;
@@ -162,7 +163,7 @@ export class DashboardComponent implements OnInit {
                     this.totalVisit = res.response.data;
                     this.totalVisitGrowth = res.response.Growth;
                     if (flag == 0) {
-                        this.nextChartSub.next({success: true});
+                        this.nextChartSub.next({ success: true });
                     }
                 } else if (chartType === 'branding') {
                     this.totalBranding = res.response.data;
@@ -217,13 +218,13 @@ export class DashboardComponent implements OnInit {
             clientId: this.dashboardService.getClientId()
         };
         this.dashboardService.getMemberData(data).subscribe((res: any) => {
-          if (res.success) {
-              this.isLoading = false;
-             /* for (const obj of res.response.data) {
-                  obj.search = event
-              }*/
-            this.memberList = res.response.data;
-          }
+            if (res.success) {
+                this.isLoading = false;
+                /* for (const obj of res.response.data) {
+                     obj.search = event
+                 }*/
+                this.memberList = res.response.data;
+            }
         }, (err: any) => {
             this.isLoading = false;
         })

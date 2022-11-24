@@ -3,7 +3,7 @@ import { CommonService } from 'src/app/services/common.service';
 import app_config from 'src/app/app.config';
 import { StoreDataService } from 'src/app/services/store-data.service';
 import { CrmService } from 'src/app/services/crm.service';
-
+import { EMPLOYEE_LIST } from 'src/app/TableHeader';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -22,6 +22,13 @@ export class EmployeeComponent implements OnInit {
   limit: any = 10;
   offset: any = "0";
   totalRecords: any = 0;
+  tableHeader: any = [];
+  currentPage = 1;
+  totalPage = 1;
+
+  startPage: any = 0;
+  endPage: any = 0;
+
 
   //---------------- For Filter----------------//
   searchName = "";
@@ -34,10 +41,12 @@ export class EmployeeComponent implements OnInit {
   employeeTypeList: any = [];
   stateList: any = [];
   cityList: any = [];
+  isTable: any = 1;
 
 
 
   ngOnInit(): void {
+    this.tableHeader = EMPLOYEE_LIST;
     let data: any = this.common.getAuthUserData();
     // console.log("authUserL::", JSON.parse(data));
     this.authUserData = JSON.parse(data);
@@ -62,7 +71,7 @@ export class EmployeeComponent implements OnInit {
       name: this.empName,
       designationId: this.empType
     };
-    console.log("Request Data for employee data", obj);
+    // console.log("Request Data for employee data", obj);
     this.common.getEmployeeMapData(obj).subscribe(res => {
       console.log("All left Employee Response:", res);
       if (res.error == 0 && res.respondcode == 200) {
@@ -71,14 +80,24 @@ export class EmployeeComponent implements OnInit {
           if (respObj.data.length > 0) {
             this.employeeList = respObj.data;
             this.totalRecords = respObj.data.length;
+            this.totalPage = Math.ceil(this.totalRecords / this.limit);
+            this.startPage = Number(this.offset) + 1;
+            this.endPage = Number(this.offset) + Number(this.employeeList.length);
           } else {
             this.employeeList = [];
+            this.totalRecords = 0;
+            this.totalPage = 1;
+            this.startPage = 1;
+            this.endPage = 1;
           }
         }
       }
     })
 
   }
+
+
+
 
 
   show01() {
@@ -97,6 +116,7 @@ export class EmployeeComponent implements OnInit {
     tb.classList.toggle("switchActiveList");
     var tbX: any = document.getElementById('switchGrid');
     tbX.classList.remove("switchActivegrid");
+    this.isTable = 1;
   }
 
   toggleBtnGrid() {
@@ -104,6 +124,7 @@ export class EmployeeComponent implements OnInit {
     tb.classList.toggle("switchActivegrid");
     var tbX: any = document.getElementById('switchList');
     tbX.classList.remove("switchActiveList");
+    this.isTable = 0;
   }
 
   getDate(val: any) {
@@ -249,6 +270,71 @@ export class EmployeeComponent implements OnInit {
     this.state = "";
     this.city = "";
     this.getEmployeeData();
+  }
+  tableDataView(data: any, pos: any) {
+    let str: any = "";
+    if (pos == 0) {
+      str = data.firstName
+    } else if (pos == 1) {
+      str = data.phone
+    } else if (pos == 2) {
+      str = data.email
+    } else if (pos == 3) {
+      str = data.designationName
+    } else if (pos == 4) {
+      str = data.stateName
+    } else if (pos == 5) {
+      str = this.textTruncateData(data.cityName)
+    }
+    return str;
+  }
+
+  textTruncateData(str: any) {
+    let val: any = this.store.textTruncate(str, 20);
+    return val;
+  }
+
+
+  getDistanceData(val: any) {
+    let str: any = "";
+    if (val != null) {
+      str = parseFloat(val).toFixed(2)
+    } else {
+      str = "";
+    }
+    return str;
+  }
+
+
+  changeTableView(event: any, pos: any) {
+    this.tableHeader.map((data: any, i: any) => {
+      if (i == pos) {
+        if (event.target.checked) {
+          data.isView = true;
+        } else {
+          data.isView = false;
+        }
+      }
+    })
+  }
+
+
+
+  nextPage() {
+    if (this.currentPage < this.totalPage) {
+      // alert("Offset "+ this.offset)
+      this.currentPage++;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.getEmployeeData();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.getEmployeeData();
+    }
   }
 
 }

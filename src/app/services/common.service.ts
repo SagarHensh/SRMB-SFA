@@ -11,6 +11,8 @@ export class CommonService {
   constructor(private http: HttpClient) { }
   public apiurl: string = app_config.apiUrl;
   public apiurlCRM: string = app_config.crmApiUrl;
+  public imageUrlCrm: string = app_config.imageUrlForCrm;
+  public imageUrl: string = app_config.imageUrl;
 
   public options = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.getToken()}` }) };
 
@@ -132,12 +134,20 @@ export class CommonService {
     return this.http.post(this.apiurl + 'api/v1/calenderActivity/list', params, this.options);
   }
 
+  // getOdometerReportList(params: any): Observable<any> {
+  //   return this.http.post(this.apiurl + 'api/v1/odometerManagement/getOdometerReadingList', params, this.options);
+  // }
+
   getOdometerReportList(params: any): Observable<any> {
-    return this.http.post(this.apiurl + 'api/v1/odometerManagement/getOdometerReadingList', params, this.options);
+    return this.http.post(this.apiurl + 'api/v2/odometerManagement/getOdometerReadingList', params, this.options);
   }
 
+  // getAttendanceList(params: any): Observable<any> {
+  //   return this.http.post(this.apiurl + 'api/v1/leaveAttendence/listAttendence', params, this.options);
+  // }
+
   getAttendanceList(params: any): Observable<any> {
-    return this.http.post(this.apiurl + 'api/v1/leaveAttendence/listAttendence', params, this.options);
+    return this.http.post(this.apiurl + 'api/v2/leaveAttendence/listAttendence', params, this.options);
   }
 
   getLeaveList(params: any): Observable<any> {
@@ -146,6 +156,10 @@ export class CommonService {
 
   getBrandingList(params: any): Observable<any> {
     return this.http.post(this.apiurl + 'api/v1/brandingManagement/getBrandList', params, this.options);
+  }
+
+  getBrandingRequisitionList(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v1/brandingManagement/requisitionList', params, this.options);
   }
 
   getCsrReportList(params: any): Observable<any> {
@@ -199,6 +213,12 @@ export class CommonService {
   getSubordinateUser(params: any): Observable<any> {
     return this.http.post(this.apiurl + 'api/v1/pjpmanagement/getSubordinateData', params, this.options);
   }
+
+  //..........Subordinate User ................Activity page......
+
+  getSubordinateUserV2(params: any): Observable<any> {
+    return this.http.post(this.apiurl + 'api/v2/pjpmanagement/getSubordinateData', params, this.options);
+  }
   //-------------------Visit Report Filter----------------//
 
   getContactType(data: any) {
@@ -210,13 +230,16 @@ export class CommonService {
 
   //--------------------- Filter---- 24/08/2022 ----------------//
 
+  // getStockReportList(data: any) {
+  //   return this.http.post(this.apiurl + 'api/v1/stockManagement/reportList', data, this.options);
+  // }
   getStockReportList(data: any) {
-    return this.http.post(this.apiurl + 'api/v1/stockManagement/reportList', data, this.options);
+    return this.http.post(this.apiurl + 'api/v2/stockManagement/reportList', data, this.options);
   }
 
   getOdometerReportsDownload(params: any): Observable<any> {
 
-    return this.http.post(this.apiurl + 'api/v1/odometerManagement/exportAPI', params, this.options);
+    return this.http.post(this.apiurl + 'api/v2/odometerManagement/exportAPI', params, this.options);
   }
 
   //----------------------------- 25/08/2022-------------------------//
@@ -260,6 +283,176 @@ export class CommonService {
   pjvCreate(data: any) {
     return this.http.post(this.apiurl + 'api/v1/pjpmanagement/pjvCreate', data, this.options);
   }
+
+
+  getInfluencerList(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/contact/getInfluencerList', data, this.options);
+  }
+
+  //------------------ 14/09/2022 ---------------//
+
+  fetchMasterData(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/contact/getContactDetails', data, this.options);
+  }
+
+  uploadFile(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/imageupload', data);
+  }
+
+  //------------- Email Format Check Function-------------------//
+
+  mailFormatCheck(mail: any) {
+    const mailFormat = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (mailFormat.test(mail)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //------------- Date Format Check Function-------------------//
+
+
+
+
+  getDateFormatNew3(newDate: any): any {
+    // console.log('>>>>>>>>>>>>>', newDate);
+    let date = new Date(newDate);
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let hour = date.getHours();
+    let min = date.getMinutes();
+    let sec = date.getSeconds();
+    let actualMonth;
+    if (month < 10) {
+      actualMonth = '0' + month;
+    } else {
+      actualMonth = month;
+    }
+    let actualDate;
+    let day = date.getDate();
+    if (day < 10) {
+      actualDate = '0' + day;
+    } else {
+      actualDate = day;
+    }
+    // return day + '/' + month + '/' + year;
+    return year + '-' + actualMonth + '-' + actualDate + ' ' + hour + ':' + min + ':' + sec;
+  }
+
+
+  mstContactType(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/mstContactType', data, this.options);
+  }
+
+  getVisitorType(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/pjpmanagement/getVisitorType', data, this.options);
+  }
+
+  getStockDetails(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/stockManagement/getStockDetails', data, this.options);
+  }
+
+  approvedOdometer(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/odometerManagement/approveOdometer', data, this.options);
+  }
+
+  updateOdometer(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/odometerManagement/updateOdometer', data, this.options);
+  }
+
+  addCosting(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/brandingManagement/addCosting', data, this.options);
+  }
+
+  approvedByHod(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/brandingManagement/approvedByHod', data, this.options);
+  }
+
+  getVendorList(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/vendor/list', data, this.options);
+  }
+
+  assignVendor(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/brandingManagement/vendorAssign', data, this.options);
+  }
+
+  getMeasurementUnitList(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/brandingManagement/getMeasurementUnitList', data, this.options);
+  }
+
+  getBrandingTypeList(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/brandingManagement/getMasterList', data, this.options);
+  }
+
+  getBrandingListDownloadCSV(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/brandingManagement/brandingExport', data, this.options);
+  }
+
+  getNotificationList(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/notificationManagement/notificationList', data, this.options);
+  }
+
+  getActivityDetails(data: any) {
+    return this.http.post(this.apiurl + 'api/v2/mapEntity/getBeatData', data, this.options);
+  }
+
+  getConsolidatedVisitReport(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/consolidatedVisitReport', data, this.options);
+  }
+
+  getConsolidatedVisitReportDownload(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/consolidatedVisitReportDownload', data, this.options);
+  }
+
+  getUniqueVisitReport(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/uniqueVisit', data, this.options);
+  }
+
+  getUniqueVisitReportDownload(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/uniqueVisitDownload', data, this.options);
+  }
+
+  getNewShopRegReport(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/newShopRegistration', data, this.options);
+  }
+
+  getNewShopRegReportDownload(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/newShopRegistrationDownload', data, this.options);
+  }
+
+  getDealerFeedbackReport(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/delerFeedBack', data, this.options);
+  }
+
+  getDealerFeedbackReportDownload(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/delerFeedBackDownload', data, this.options);
+  }
+
+  getVisitConversionReport(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/visitConversion', data, this.options);
+  }
+
+  getVisitConversionReportDownload(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/visitConversionDownload', data, this.options);
+  }
+
+  getVisitBeatMap(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/mapEntity/getVisitMap', data, this.options);
+  }
+
+  fileUpload(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/fileupload', data, this.options);
+  }
+
+  getCrmSalesMap(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/mapEntity/getCrmMap', data, this.options);
+  }
+
+  getApplicationPolicyHTML(data: any) {
+    return this.http.post(this.apiurl + 'api/v1/common/getApplicationPolicy', data, this.options);
+  }
+
 
 
 }

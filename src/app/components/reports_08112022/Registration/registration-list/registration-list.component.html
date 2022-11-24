@@ -1,0 +1,560 @@
+<main class="content">
+    <div class="container-fluid p-0">
+        <ngx-spinner type="ball-scale-multiple" [fullScreen]="false"></ngx-spinner>
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center main-hdng">
+                <div class="col-md-6">
+                    <h3>Registration Reports</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item">Reports</li>
+                                <li class="breadcrumb-item" aria-current="page">Registration</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2 mb-lg-4">
+            <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
+                <div class="col-md-3">
+                    <input type="text" class="form-control"
+                        placeholder="Search by shop name or owner name or contact phone or contact email or created by"
+                        (keyup)="searchIndividual($event)">
+
+                </div>
+                <div class="col-md-9 text-end mt-n1">
+                    <ul class="d-inline-block ml-auto mt-3 mt-lg-0 mb-0">
+                        <li class="list-inline-item">
+                            <div class="dt_fld">Select Date Range</div>
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="dt_fld">
+                                <input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="fromDate">
+                                <!-- <i class="fa fa-calendar"></i> -->
+                            </div>
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="dt_fld">
+                                <input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="toDate">
+                                <!-- <i class="fa fa-calendar"></i> -->
+                            </div>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-success btn-lg" (click)="searchByDateRange()">Search &nbsp;<i
+                                    class="fa fa-search" aria-hidden="true"></i></button>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-pink btn-lg" (click)="resetDate()">Reset</button>
+
+                        </li>
+                        <li class="list-inline-item">
+
+                            <div class="d-inline-block">
+                                <a class="btn btn-secondary-drk btn-lg d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                    href="" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-filter" aria-hidden="true"></i>
+                                    &nbsp;Filter Search &nbsp;
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end filter_secn_dv">
+                                    <div class="filter_secn">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="owner_name" class="form-label">Owner Name
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="search"
+                                                        [(ngModel)]="ownerName">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="phone_no" class="form-label">Phone No.
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="search"
+                                                        [(ngModel)]="phone">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="shop_name" class="form-label">Shop Name
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="search"
+                                                        [(ngModel)]="businessName">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 pt-2">
+                                                <label for="customer_type" class="form-label">Customer Type</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="cust_type" [(ngModel)]="contactType">
+                                                        <option value="">Select from
+                                                            List</option>
+                                                        <option *ngFor="let item of contactTypeList"
+                                                            [value]="item.custTypId">{{item.custTypName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Enquery
+                                                    Type</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Select from
+                                                            List</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">Enquired
+                                                    Product</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type">
+                                                        <option selected="Select an options">Select from
+                                                            List</option>
+                                                    </select>
+                                                </div>
+                                            </div> -->
+
+
+                                            <div class="col-md-4 pt-2">
+                                                <label for="state_name" class="form-label">State
+                                                </label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="state_id" (change)="changeState()" [(ngModel)]="state">
+                                                        <option value="">Select from
+                                                            List</option>
+                                                        <option *ngFor="let item of stateList" [value]="item.stateId">
+                                                            {{item.stateName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4 pt-2">
+                                                <label for="district_name" class="form-label">District</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="city_id" (change)="changeCity()" [(ngModel)]="city">
+                                                        <option value="">Select an options
+                                                        </option>
+                                                        <option *ngFor="let item of cityList" [value]="item.cityId">
+                                                            {{item.cityName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4 pt-2">
+                                                <label for="district_name" class="form-label">Zone</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status_type" [(ngModel)]="zone">
+                                                        <option value="">Select an options</option>
+                                                        <option *ngFor="let item of zoneList" [value]="item.zoneId">
+                                                            {{item.zoneName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="row mt-3">
+                                            <div class="col-md-12">
+                                                <label for="district_name" class="form-label  text-black">
+                                                    Enquiery Status
+                                                    <div class="form-check d-inline-block align-middle me-1 ms-2">
+                                                        <input class="form-check-input" type="radio" name="assigned"
+                                                            id="flexRadioDefault15" value="igotsix" (click)="show01()">
+                                                        <label class="form-check-label text-black"
+                                                            for="assigned_users">Assigned</label>
+                                                    </div>
+                                                    <div class="form-check d-inline-block align-middle">
+                                                        <input class="form-check-input" type="radio" name="assigned"
+                                                            id="flexRadioDefault15" value="igotsix" (click)="show02()"
+                                                            checked="">
+                                                        <label class="form-check-label text-black"
+                                                            for="assigned_groups">Not Assigned</label>
+                                                    </div>
+                                                </label>
+
+                                            </div>
+                                        </div> -->
+
+                                        <!-- <div id="div01">
+                                            <div class="row hide asign_to_dv">
+                                                <div class="col-md-4">
+                                                    <label for="district_name" class="form-label">Employee
+                                                        Type</label>
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type">
+                                                            <option selected="Select an options">MO/TO
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="district_name" class="form-label">Employee
+                                                        Location</label>
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type">
+                                                            <option selected="Select an options">District
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="district_name" class="form-label">&nbsp;</label>
+                                                    <div class="input-group">
+                                                        <select class="form-select" aria-label="Default select example"
+                                                            id="status_type">
+                                                            <option selected="Select an options">Zone
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div> -->
+
+                                        <div class="row d-flex justify-content-end">
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-pink w-100" (click)="reset()">Reset</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="district_name" class="form-label">&nbsp;</label>
+                                                <div class="input-group">
+                                                    <button class="btn btn-success w-100" (click)="saveSearch()">Save &
+                                                        Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+                                <button id="switchList" (click)="toggleBtnList()" type="button"
+                                    class="btn btn-outline-dark btn-xs switchActiveList">
+                                    <img src="assets/images/list-view.svg" alt="list-view">
+                                </button>
+                                <button id="switchGrid" (click)="toggleBtnGrid()" type="button"
+                                    class="btn btn-outline-dark btn-xs">
+                                    <img src="assets/images/grid-view.svg" alt="list-view">
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                    <!-- <div class="d-inline-block">
+                        <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate" href="#"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="">Edit this organization</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change profile image</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Delete organization</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change record owner</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Print this details</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Assign task</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Change assign user</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Add opportunity with this org.</a>
+                        </div>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12 ">
+
+                <div class="bg-white shadow_d py-4 px-4 rounded-3">
+                    <div id="datatables-reponsive_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="d-md-flex align-items-center mb-3">
+                            <div class="col-auto d-flex">
+                                <h3>Registration List</h3>
+                                <span class="sm-font text-primary" *ngIf="totalRecords !=0">{{totalRecords}} Records
+                                    Found</span>
+                            </div>
+                            <div class="col-auto d-block ms-auto">
+                                <div class="text-center">
+                                    <div class="dataTables_length" id="datatables-reponsive_length"
+                                        *ngIf="allReportList.length>0">
+                                        <label>Records per page <select name="datatables-reponsive_length"
+                                                aria-controls="datatables-reponsive" class="form-select form-select-sm"
+                                                [(ngModel)]="limit" (ngModelChange)="changeLimit()">
+                                                <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
+                                                    {{pg.label}}</option>
+                                            </select> {{startPage}} - {{endPage}}</label>
+                                        <label>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="prevPage()">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left">
+                                            </a>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="nextPage()">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right">
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group btn-group-sm ms-auto btn-download-group">
+                                <button type="button" class="btn btn-primary px-4 text-white" (click)="onDownload()">
+                                    Download List
+                                </button>
+                                <!-- <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                    Upload
+                                </button>
+                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button> -->
+                                <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="assets/images/filtering.svg" alt="filtering">
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end addDropdownhead">
+                                    <ng-container *ngFor="let th of tableHeader ; let i=index">
+                                        <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                            <span class="col-auto d-block">{{th.title}}</span>
+                                            <div class="form-check form-switch col-auto d-block ms-auto">
+                                                <input class="form-check-input" type="checkbox" id="switch1"
+                                                    [checked]="th.isView" (click)="changeTableView($event, i)">
+                                            </div>
+                                        </a>
+                                        <ng-container *ngIf="i < tableHeader.length-1">
+                                            <div class="dropdown-divider"></div>
+                                        </ng-container>
+                                    </ng-container>
+                                    <!-- <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">District</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch2">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Zone</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch3">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Pincode</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch4">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Customer Type</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch5">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Primary Item</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch6">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Shop Name</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch7">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Owner Name</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch8">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Contact Person Phone</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch9">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Contact Person Email</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch10">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Created By</span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
+                                        <span class="col-auto d-block">Created at </span>
+                                        <div class="form-check form-switch col-auto d-block ms-auto">
+                                            <input class="form-check-input" type="checkbox" id="switch11">
+                                        </div>
+                                    </a> -->
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="table-responsive odometer_div">
+                            <table id="datatables-column-search-select-inputs"
+                                class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
+                                aria-describedby="datatables-column-search-select-inputs_info">
+                                <thead class="thead-dark">
+                                    <tr role="row">
+                                        <!-- <th width="40" style="background:#e8e8e8">&nbsp;</th> -->
+                                        <th colspan="4" class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            Location Information
+                                        </th>
+                                        <th colspan="8" class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            Customer Information
+                                        </th>
+                                        <th style="background:#e8e8e8">&nbsp;</th>
+                                    </tr>
+                                    <tr role="row">
+                                        <ng-container *ngFor="let th of tableHeader">
+                                            <th class="sorting align-middle" *ngIf="th.isView">{{th.title}}
+                                            </th>
+                                        </ng-container>
+                                        <!-- <th class="sorting align-middle">District</th>
+                                        <th class="sorting align-middle">Zone</th>
+                                        <th class="sorting align-middle">Pincode</th>
+                                        <th class="sorting align-middle">Customer Type</th>
+                                        <th class="sorting align-middle">Primary Item</th>
+                                        <th class="sorting align-middle">Shop Name</th>
+                                        <th class="sorting align-middle">Owner Name</th>
+                                        <th class="sorting align-middle">Contact Person Phone</th>
+                                        <th class="sorting align-middle">Contact Person Email</th>
+                                        <th class="sorting align-middle">Created By</th>
+                                        <th class="sorting align-middle">Created at</th> -->
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let data of allReportList; let i = index">
+                                        <tr role="row" class="odd">
+                                            <ng-container *ngFor="let th of tableHeader; let t = index">
+                                                <td class="align-middle" *ngIf="th.isView">{{tableDataView(data, t)}}
+                                                </td>
+                                            </ng-container>
+                                            <!-- <td class="align-middle">{{data.cityName}}</td>
+                                            <td class="align-middle">{{data.zoneName}}</td>
+                                            <td class="align-middle">{{data.pincode}}</td>
+                                            <td class="align-middle">{{data.contactTypeName}}</td>
+                                            <td class="align-middle">{{data.productName}}</td>
+                                            <td class="align-middle">{{data.custBusinessName}}</td>
+                                            <td class="align-middle">{{data.customerName}}</td>
+                                            <td class="align-middle">{{data.phoneNumber}}</td>
+                                            <td class="align-middle">{{data.email}}</td>
+                                            <td class="align-middle">{{data.createdByUserName}}</td>
+                                            <td class="align-middle">{{getDate(data.createdAt)}}</td> -->
+                                            <td width="70" class="align-middle"><a class="d-inline-block align-middle"
+                                                    href="#"><i class="fa fa-eye"
+                                                        aria-hidden="true"></i></a>&nbsp;&nbsp; <a
+                                                    class="d-inline-block align-middle" href="#"> <img
+                                                        src="assets/images/file-folder.svg" alt="create"></a> <a
+                                                    class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
+                                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <img src="assets/images/menu-vertical.svg" alt="trash"></a>
+                                                <div class="dropdown-menu dropdown-menu-end"> <a class="dropdown-item"
+                                                        href="">Edit this organization</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Change profile image</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Delete organization</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Change record owner</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Print this details</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Assign task</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Change assign user</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Add opportunity with this
+                                                        org.</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="d-xl-flex align-items-center mt-3">
+
+                            <div class="col-auto d-block">
+
+                                <div class="text-center">
+                                    <div class="dataTables_length" id="datatables-reponsive_length"
+                                        *ngIf="allReportList.length>0">
+                                        <label>Records per page <select name="datatables-reponsive_length"
+                                                aria-controls="datatables-reponsive" class="form-select form-select-sm"
+                                                [(ngModel)]="limit" (ngModelChange)="changeLimit()">
+                                                <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
+                                                    {{pg.label}}</option>
+                                            </select> {{startPage}} - {{endPage}}</label>
+                                        <label>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                                <img src="assets/images/chevron-left.svg" alt="chevron-left">
+                                            </a>
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                                <img src="assets/images/chevron-right.svg" alt="chevron-right">
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+<notifier-container></notifier-container>

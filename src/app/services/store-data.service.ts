@@ -336,6 +336,7 @@ export class StoreDataService {
 
 
   textTruncate(str: any, length: any) {
+    // console.log("truncate service function:", str)
     if (length == null) {
       length = 100;
     }
@@ -346,6 +347,18 @@ export class StoreDataService {
       return str;
     }
   };
+
+
+  
+  keyPressNumbersWithDecimal(event: any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode != 46 && charCode > 31
+      && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    }
+    return true;
+  }
 
   
 

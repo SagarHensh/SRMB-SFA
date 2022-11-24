@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StoreDataService } from 'src/app/services/store-data.service';
 import { CommonService } from 'src/app/services/common.service';
 import app_config from 'src/app/app.config';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { STOCK_REPORT_LIST} from  'src/app/TableHeader';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-stock-report',
@@ -10,12 +13,21 @@ import app_config from 'src/app/app.config';
 })
 export class StockReportComponent implements OnInit {
 
+
+  constructor(private store: StoreDataService,
+    private common: CommonService,
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
+  ) { }
+
+  @ViewChild('stockViewModal') stockViewModal: any;
   authUserData: any;
   allReportList: any = [];
   paginationLimitDropdown: any = [];
   limit: any = "";
   offset: any = "0";
   totalRecords: any = "";
+  tableHeader: any =[];
 
   //--------------------- For Filter----------------------------//
   searchName = "";
@@ -31,14 +43,18 @@ export class StockReportComponent implements OnInit {
   cityList: any = [];
   zoneList: any = [];
   contactTypeList: any = [];
+  stockViewList: any = [];
+  stockViewDeatils: any;
+  isTable: any = 1;
+  currentPage: any = 1;
+  totalPage = 1;
+  startPage: any = 0;
+  endPage: any = 0;
 
 
-
-
-  constructor(private store: StoreDataService, private common: CommonService) { }
 
   ngOnInit(): void {
-
+    this.tableHeader=STOCK_REPORT_LIST;
     let data: any = this.common.getAuthUserData();
     this.authUserData = JSON.parse(data);
     this.paginationLimitDropdown = this.store.getPaginationLimitList();
@@ -49,6 +65,7 @@ export class StockReportComponent implements OnInit {
   }
 
   getStockReports() {
+    this.spinner.show();
     let req = {
       "clientId": this.authUserData.clientId,
       "userId": this.authUserData.userId,
@@ -65,18 +82,25 @@ export class StockReportComponent implements OnInit {
       "searchFrom": this.fromDate,
       "searchTo": this.toDate
     };
-    console.log("Request data for Stock report>>>>>>>>>>>>>>",req);
+    // console.log("Request data for Stock report>>>>>>>>>>>>>>", req);
     this.common.getStockReportList(req).subscribe((res: any) => {
-      console.log("Stock response::", res);
+      console.log("Stock report response::", res);
       if (res.respondcode == 200) {
         let respObj: any = res.data;
         if (respObj.data.length > 0) {
           this.allReportList = respObj.data;
           this.totalRecords = respObj.count;
+          this.totalPage = Math.ceil(this.totalRecords / this.limit);
+          this.startPage = Number(this.offset) + 1;
+          this.endPage = Number(this.offset) + Number(this.allReportList.length);
         } else {
           this.allReportList = [];
           this.totalRecords = 0;
+          this.totalPage = 1;
+          this.startPage = 1;
+          this.endPage = 1;
         }
+        this.spinner.hide();
 
       }
 
@@ -100,6 +124,7 @@ export class StockReportComponent implements OnInit {
     tb.classList.toggle("switchActiveList");
     var tbX: any = document.getElementById('switchGrid');
     tbX.classList.remove("switchActivegrid");
+    this.isTable = 1;
   }
 
   toggleBtnGrid() {
@@ -107,6 +132,7 @@ export class StockReportComponent implements OnInit {
     tb.classList.toggle("switchActivegrid");
     var tbX: any = document.getElementById('switchList');
     tbX.classList.remove("switchActiveList");
+    this.isTable = 0;
   }
 
   getDate(val: any) {
@@ -141,11 +167,12 @@ export class StockReportComponent implements OnInit {
       "searchFrom": this.fromDate,
       "searchTo": this.toDate
     };
-    this.common.getStockReportDownload(req).subscribe((res:any)=>{
-      console.log("res for report download>>>>>>>>>>>>>",res);
+    this.common.getStockReportDownload(req).subscribe((res: any) => {
+      // console.log("Stock report Response for download>>>>>>>>>>>>>", res);
       if (res.data.path != "") {
-        var file_path = app_config.downloadUrlSFA + res.data.path;
+        var file_path = app_config.downloadUrlExcel  + res.data.path;
         var a = document.createElement('a');
+        // console.log(file_path)
         a.href = file_path;
         document.body.appendChild(a);
         a.click();
@@ -166,7 +193,7 @@ export class StockReportComponent implements OnInit {
       "userId": this.authUserData.userId,
     };
     this.common.getContactType(data).subscribe((res: any) => {
-      console.log("contact type res>>>>>>", res);
+      // console.log("contact type res>>>>>>", res);
       if (res.respondcode == 200) {
         this.contactTypeList = res.data;
       }
@@ -181,7 +208,7 @@ export class StockReportComponent implements OnInit {
       "countryId": this.authUserData.countryId
     };
     this.common.getAllStates(data).subscribe((res: any) => {
-      console.log("state res>>>>>>>>>", res);
+      // console.log("state res>>>>>>>>>", res);
       if (res.respondcode == 200) {
         this.stateList = res.data.stateList;
       }
@@ -195,7 +222,7 @@ export class StockReportComponent implements OnInit {
       "stateId": this.state
     };
     this.common.getAllDistrictByState(data).subscribe((res: any) => {
-      console.log("city res>>>>>>>>>", res);
+      // console.log("city res>>>>>>>>>", res);
       if (res.respondcode == 200) {
         this.cityList = res.data.districtList;
       }
@@ -208,7 +235,7 @@ export class StockReportComponent implements OnInit {
       "cityId": this.city
     };
     this.common.getAllZoneByCity(data).subscribe((res: any) => {
-      console.log("zone res>>>>>>>>>", res);
+      // console.log("zone res>>>>>>>>>", res);
       if (res.respondcode == 200) {
         this.zoneList = res.data.zoneList;
       }
@@ -246,13 +273,133 @@ export class StockReportComponent implements OnInit {
     this.getStockReports();
   }
 
-  searchIndividual(event:any){
-    if(event.target.value.length >1){
+  searchIndividual(event: any) {
+    if (event.target.value.length > 1) {
       this.searchName = event.target.value;
       this.getStockReports();
-    } else{
+    } else {
       this.searchName = "";
-      this.getStockReports(); 
+      this.getStockReports();
+    }
+  }
+
+  viewStockDetails(data: any) {
+    // console.log("Stock details:", data);
+    this.stockViewDeatils = data;
+    let req = {
+      clientId: this.authUserData.clientId,
+      stockId: data.stockReportId,
+      customerId: data.customerId
+    }
+
+    // console.log("req for stock details:", req);
+
+    this.common.getStockDetails(req).subscribe(response => {
+      // console.log("Stock details response:", response);
+      let res: any = response;
+      if (res.respondcode == 200) {
+        this.stockViewList = res.data;
+      }
+    })
+    this.modalService.open(this.stockViewModal, { size: 'lg', centered: true, animation: true })
+  }
+
+  closeModal() {
+    this.modalService.dismissAll();
+  }
+
+  getStockQty(val: any) {
+    let str: any = "";
+    if (val != null) {
+      str = parseFloat(val).toFixed(2);
+    } else {
+      str = "";
+    }
+
+    return str;
+  }
+
+  tableDataView(data: any, pos: any) {
+    let str: any = "";
+    if (pos == 0) {
+      str = data.stateName
+    } 
+    else if(pos == 1){
+      str = data.cityName
+    }
+    else if(pos == 2){
+      str = data.zoneName
+    }
+    else if(pos == 3){
+      str = data.pincode
+    }
+    else if(pos == 4){
+      str = data.customerName
+    }
+    else if(pos == 5){
+      str = data.contactTypeName
+    }
+    else if(pos ==6)
+    {
+      str = data.phoneNumber
+    }
+    else if(pos ==7)
+    {
+      str = data.email
+    }
+    else if(pos ==8)
+    {
+      str = data.userName
+    }
+    else if(pos ==9)
+    {
+      str = data.designationName
+    }
+    else if(pos ==10)
+    {
+      str = data.erpNo
+    }
+    else if(pos ==11)
+    {
+      str = data.createDate
+    }
+    else if(pos ==12)
+    {
+      str = data.productName
+    }
+    else if(pos ==13)
+    {
+      str = data.stockValue
+    }
+    return str;
+  }
+
+  changeTableView(event: any, pos: any) {
+    this.tableHeader.map((data: any, i: any) => {
+      if (i == pos) {
+        if (event.target.checked) {
+          data.isView = true;
+        } else {
+          data.isView = false;
+        }
+      }
+    })
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPage) {
+      // alert("Offset "+ this.offset)
+      this.currentPage++;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.getStockReports();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.getStockReports();
     }
   }
 }

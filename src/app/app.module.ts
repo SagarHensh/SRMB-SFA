@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +36,14 @@ import { CsrReportListComponent } from './components/reports/CSR/csr-report-list
 import { SchemeListComponent } from './components/scheme/scheme-list/scheme-list.component';
 import { ActivityPageComponent } from './components/Activity/activity-page/activity-page.component';
 import { StockReportComponent } from './components/reports/stock-report/stock-report.component';
+import { ConsolidateReportComponent } from './components/reports/consolidate-report/consolidate-report.component';
+import { UniqueVisitReportComponent } from './components/reports/unique-visit-report/unique-visit-report.component';
+import { NewShopRegistrationReportComponent } from './components/reports/new-shop-registration-report/new-shop-registration-report.component';
+import { DealerFeedbackReportComponent } from './components/reports/dealer-feedback-report/dealer-feedback-report.component';
+import { VisitConversionReportComponent } from './components/reports/visit-conversion-report/visit-conversion-report.component';
+import { TermsAndConditionsComponent } from './components/user-settings/terms-and-conditions/terms-and-conditions.component';
+import { PrivacyPolicyComponent } from './components/user-settings/privacy-policy/privacy-policy.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -105,7 +114,15 @@ const customNotifierOptions: NotifierOptions = {
     CsrReportListComponent,
     SchemeListComponent,
     ActivityPageComponent,
-    StockReportComponent
+    StockReportComponent,
+    ConsolidateReportComponent,
+    UniqueVisitReportComponent,
+    NewShopRegistrationReportComponent,
+    DealerFeedbackReportComponent,
+    VisitConversionReportComponent,
+    TermsAndConditionsComponent,
+    PrivacyPolicyComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -119,6 +136,7 @@ const customNotifierOptions: NotifierOptions = {
     }),
     AgmDirectionModule,
     NotifierModule.withConfig(customNotifierOptions),
+    NgxSpinnerModule,
   ],
   providers: [CommonService],
   bootstrap: [AppComponent]

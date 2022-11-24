@@ -1,0 +1,38 @@
+.log_se {
+    background: url("../../assets/images/login-bg2.png") 0 0 no-repeat;
+    padding: 50px;
+    background-size: cover;
+}
+
+.container {
+    max-width: 1200px;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+.homePage .container {
+    max-width: 1400px;
+}
+
+.con_dv {
+    border-radius: 20px;
+}
+
+.top_prt_sc {
+    display: flex;
+    justify-content: space-between;
+}
+
+.man_log {
+    width: 740px;
+    margin: 0 auto;
+}
+
+.man_log .hd_to {
+    margin: -2px auto;
+}
+.btm_sc a {
+  color: #000;
+  font-size: 12px;
+}
+.btm_sc{display: flex; justify-content: center; margin-top: 20px;}

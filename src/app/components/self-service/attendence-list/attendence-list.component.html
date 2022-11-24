@@ -1,5 +1,6 @@
 <main class="content">
     <div class="container-fluid p-0">
+        <ngx-spinner type="ball-scale-multiple" [fullScreen]="false"></ngx-spinner>
 
 
         <div class="row mb-2 mb-lg-4">
@@ -24,7 +25,8 @@
         <div class="row mb-2 mb-lg-4">
             <div class="col-md-12 d-lg-flex align-items-center hdng-btm">
                 <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Search by employee name here" (keyup) = "searchIndividual($event)">
+                    <input type="text" class="form-control" placeholder="Search by employee name here"
+                        (keyup)="searchIndividual($event)">
 
                 </div>
                 <div class="col-md-9 text-end mt-n1">
@@ -33,31 +35,33 @@
                             <div class="dt_fld">Select Date Range</div>
                         </li>
                         <li class="list-inline-item">
-                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm" [(ngModel)] = "fromDate">
+                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="fromDate">
                             </div>
                         </li>
                         <li class="list-inline-item">
-                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm" [(ngModel)] = "toDate">
+                            <div class="dt_fld"><input type="date" placeholder="Search" class="form-control input-sm"
+                                    [(ngModel)]="toDate">
                             </div>
                         </li>
                         <li class="list-inline-item">
-                            <button class="btn btn-success btn-lg" (click) = "searchByDateRange()">Search &nbsp;<i class="fa fa-search"
-                                    aria-hidden="true"></i></button>
+                            <button class="btn btn-success btn-lg" (click)="searchByDateRange()">Search &nbsp;<i
+                                    class="fa fa-search" aria-hidden="true"></i></button>
                         </li>
                         <li class="list-inline-item">
-                            <button class="btn btn-pink w-100" (click)="resetDate()">Reset</button>
+                            <button class="btn btn-pink btn-lg" (click)="resetDate()">Reset</button>
                         </li>
                         <!-- <li class="list-inline-item">
                             <button class="btn btn-pink btn-lg">Sync</button>
                         </li> -->
-                        <li class="list-inline-item">
+                        <!-- <li class="list-inline-item">
                             <button class="btn btn-success btn-lg">Add New</button>
-                        </li>
+                        </li> -->
                         <li class="list-inline-item">
 
                             <div class="d-inline-block">
                                 <a class="btn btn-secondary-drk btn-lg d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                    href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-filter" aria-hidden="true"></i>
                                     &nbsp;Filter Search &nbsp;
                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -70,7 +74,8 @@
                                                     <label for="emp_name" class="form-label">Employee
                                                         Name</label>
                                                     <div class="input-group">
-                                                       <input type="text" class="form-control" placeholder="search" [(ngModel)] ="userName">
+                                                        <input type="text" class="form-control" placeholder="search"
+                                                            [(ngModel)]="userName">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -78,22 +83,26 @@
                                                         Type</label>
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
-                                                            id="status_type" [(ngModel)] = "empType">
+                                                            id="status_type" [(ngModel)]="empType">
                                                             <option value="">Select an options
                                                             </option>
-                                                            <option *ngFor = "let item of employeeTypeList" [value] = "item.designationId">{{item.designationName}}</option>
+                                                            <option *ngFor="let item of employeeTypeList"
+                                                                [value]="item.designationId">{{item.designationName}}
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="district_name" class="form-label">State
-                                                        </label>
+                                                    </label>
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
-                                                            id="status_type" (change) = "stateChange()" [(ngModel)] = "state">
+                                                            id="status_type" (change)="stateChange()"
+                                                            [(ngModel)]="state">
                                                             <option value="">Select an options
                                                             </option>
-                                                            <option *ngFor = "let item of stateList" [value]="item.stateId">{{item.stateName}}</option>
+                                                            <option *ngFor="let item of stateList"
+                                                                [value]="item.stateId">{{item.stateName}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -101,10 +110,11 @@
                                                     <label for="district_name" class="form-label">District</label>
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
-                                                            id="status_type" [(ngModel)] = "city">
+                                                            id="status_type" [(ngModel)]="city">
                                                             <option value="">Select an options
                                                             </option>
-                                                            <option *ngFor = "let item of cityList" [value]="item.cityId">{{item.cityName}}</option>
+                                                            <option *ngFor="let item of cityList" [value]="item.cityId">
+                                                                {{item.cityName}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -113,11 +123,11 @@
                                                         Status</label>
                                                     <div class="input-group">
                                                         <select class="form-select" aria-label="Default select example"
-                                                            id="status_type" [(ngModel)] = "empStatus">
+                                                            id="status_type" [(ngModel)]="empStatus">
                                                             <option value="">Select an options
                                                             </option>
-                                                            <option [value] = "1">Approved</option>
-                                                            <option [value] = "0">Not Approved</option>
+                                                            <option [value]="1">Approved</option>
+                                                            <option [value]="0">Not Approved</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -128,13 +138,13 @@
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-pink w-100" (click) = "reset()">Reset</button>
+                                                    <button class="btn btn-pink w-100" (click)="reset()">Reset</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="district_name" class="form-label">&nbsp;</label>
                                                 <div class="input-group">
-                                                    <button class="btn btn-success w-100" (click) = "saveSearch()">Save &
+                                                    <button class="btn btn-success w-100" (click)="saveSearch()">Save &
                                                         Search</button>
                                                 </div>
                                             </div>
@@ -209,12 +219,16 @@
                                                 [(ngModel)]="limit" (ngModelChange)="changeLimit()">
                                                 <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
                                                     {{pg.label}}</option>
-                                            </select> {{startRecordNumber()}} - {{allReportList.length}}</label>
+                                            </select>
+                                            {{startPage}} - {{endPage}}
+                                        </label>
                                         <label>
-                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="prevPage()">
                                                 <img src="assets/images/chevron-left.svg" alt="chevron-left">
                                             </a>
-                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="nextPage()">
                                                 <img src="assets/images/chevron-right.svg" alt="chevron-right">
                                             </a>
                                         </label>
@@ -226,182 +240,209 @@
                                 <button type="button" class="btn btn-primary px-4 text-white" (click)="onDownload()">
                                     Download List
                                 </button>
-                                <button type="button" class="btn btn-primary px-4 text-white">Bulk
+                                <!-- <button type="button" class="btn btn-primary px-4 text-white">Bulk
                                     Upload
                                 </button>
-                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button>
+                                <button type="button" class="btn btn-primary px-4 text-white synce_br">Sync</button> -->
                                 <button type="button" class="ps-2 dropdown-toggle no-dropdown-arrow"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    data-bs-toggle="dropdown" aria-expanded="false" *ngIf="isTable == 1">
                                     <img src="assets/images/filtering.svg" alt="filtering"></button>
                                 <div class="dropdown-menu dropdown-menu-end addDropdownhead">
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Employee Name</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch1">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">User Type</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch2">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">State</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch3">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">District</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch4">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Login Date</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch5">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Login Time</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch6">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Logout Date</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch7">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Logout Time</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch8">
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-md-flex align-items-center" href="#">
-                                        <span class="col-auto d-block">Status</span>
-                                        <div class="form-check form-switch col-auto d-block ms-auto">
-                                            <input class="form-check-input" type="checkbox" id="switch9">
-                                        </div>
-                                    </a>
-
+                                    <ng-container *ngFor="let th of tableHeader ; let i=index">
+                                        <a class="dropdown-item d-md-flex align-items-center" href="javascript:void(0)">
+                                            <span class="col-auto d-block">{{th.title}}</span>
+                                            <div class="form-check form-switch col-auto d-block ms-auto">
+                                                <input class="form-check-input" type="checkbox" id="switch1"
+                                                    [checked]="th.isView" (click)="changeTableView($event, i)">
+                                            </div>
+                                        </a>
+                                        <ng-container *ngIf="i < tableHeader.length-1">
+                                            <div class="dropdown-divider"></div>
+                                        </ng-container>
+                                    </ng-container>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive odometer_div" *ngIf="isTable == 1">
                             <table id="datatables-column-search-select-inputs"
                                 class="table table-striped dataTable no-bg-no-aro" style="width: 100%;"
                                 aria-describedby="datatables-column-search-select-inputs_info">
                                 <thead class="thead-dark">
                                     <tr role="row">
                                         <!-- <th width="40" style="background:#e8e8e8">&nbsp;</th> -->
-                                        <th colspan="4" class="sorting align-middle"
+                                        <th colspan="2" class="sorting align-middle"
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
                                             Employee Information
                                         </th>
-                                        <th colspan="5" class="sorting align-middle"
+                                        <th colspan="4" class="sorting align-middle"
                                             style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
-                                            Attendance Information
+                                            Login Information
                                         </th>
-
+                                        <th colspan="2" class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            Logout Information
+                                        </th>
+                                        <th class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            &nbsp;</th>
+                                        <th colspan="3" class="sorting align-middle"
+                                            style="background:#e8e8e8; border-right: 1px solid #fff; text-align: center;">
+                                            Location Information
+                                        </th>
                                         <th style="background:#e8e8e8">&nbsp;</th>
                                     </tr>
                                     <tr role="row">
-                                        <th class="sorting align-middle">Employee Name</th>
-                                        <th class="sorting align-middle">Employee Type</th>
-                                        <th class="sorting align-middle">State</th>
-                                        <th class="sorting align-middle">District</th>
-                                        <th class="sorting align-middle">Login Date</th>
-                                        <th class="sorting align-middle">Login Time</th>
-                                        <th class="sorting align-middle">Logout Date</th>
-                                        <th class="sorting align-middle">Logout Time</th>
-                                        <th class="sorting align-middle">Status</th>
+                                        <ng-container *ngFor="let th of tableHeader">
+                                            <th class="sorting align-middle" *ngIf="th.isView">{{th.title}}
+                                            </th>
+                                        </ng-container>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <ng-container *ngFor="let data of allReportList; let i = index">
-                                        <tr role="row" class="odd">
-                                            <td class="align-middle">{{data.name}}</td>
-                                            <td class="align-middle">{{data.designationName}}</td>
-                                            <td class="align-middle">{{data.stateName}}</td>
-                                            <td class="align-middle">{{data.cityName}}</td>
-                                            <td class="align-middle">{{getDate(data.inTime)}}</td>
-                                            <td class="align-middle">{{formatAMPM(data.inTime)}}</td>
-                                            <td class="align-middle">{{getDate(data.outTime)}}</td>
-                                            <td class="align-middle">{{formatAMPM(data.outTime)}}</td>
-                                            <td class="align-middle">{{getApprovalStatus(data.approveStatus)}}</td>
+                                        <tr role="row" [ngClass]="(i+1) % 2 !=0 ? 'odd':'even'">
+                                            <ng-container *ngFor="let th of tableHeader; let t = index">
+                                                <!-- <td class="align-middle" *ngIf="th.isView"
+                                                    style="word-wrap: break-word;">
+                                                    {{tableDataView(data, t)}}
+                                                    <span data-toggle="tooltip" title={{tableDataView(data, t)}}>
+                                                        {{tableDataView(data, t)}}
+                                                    </span>
+                                                </td> -->
+                                                <td class="align-middle" *ngIf="th.title === 'ERP Code' && th.isView">
+                                                    {{data.erpCode}}</td>
+
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Employee Name' && th.isView">
+                                                    {{data.name}}</td>
+
+                                                <!-- <td class="align-middle"
+                                                    *ngIf="th.title === 'Attendance_In_Date' && th.isView">
+                                                    {{data.FirstVisitInfo}}</td> -->
+                                                    
+                                                <!-- <td class="align-middle"
+                                                    *ngIf="th.title === 'Login Lat. Long.' && th.isView">
+                                                    {{data.loginlatlong}}</td> -->
+
+
+                                                <td class="align-middle" *ngIf="th.title === 'Attendance_In_Date' && th.isView">
+                                                    {{getDate(data.inTime)}}</td>
+
+                                                    <td class="align-middle"
+                                                    *ngIf="th.title === 'Attendance_Out_Date' && th.isView">
+                                                    {{getDate(data.outTime)}}</td>
+
+                                                <td class="align-middle" *ngIf="th.title === 'In_Time_Hours' && th.isView">
+                                                    {{data.In_Time_Hours}}</td>
+                                                <!-- <td class="align-middle"
+                                                    *ngIf="th.title === 'Logout Lat. Long.' && th.isView">
+                                                    {{data.Lastlatlong}}</td> -->
+
+
+                                                    <td class="align-middle" *ngIf="th.title === 'In_Time_Minutes' && th.isView">
+                                                        {{data.In_Time_Min}}</td>
+
+                                                <td class="align-middle"
+                                                    *ngIf="th.title === 'Out_Time_Hours' && th.isView">
+                                                    {{data.Out_Time_Hours}}</td>
+
+                                                    <td class="align-middle"
+                                                    *ngIf="th.title === 'Out_Time_Minutes' && th.isView">
+                                                    {{data.Out_Time_Min}}</td>
+
+                                                    <td class="align-middle" *ngIf="th.title === 'Remakrs' && th.isView">
+                                                        {{data.stateName}}</td>
+
+                                                    <td class="align-middle" *ngIf="th.title === 'User_Type' && th.isView">
+                                                            {{data.designationName}}</td>
+    
+
+                                                <td class="align-middle" *ngIf="th.title === 'isVerified' && th.isView">
+                                                    {{getApprovalStatus(data.approveStatus)}}</td>
+                                                    
+
+                                                <td class="align-middle" *ngIf="th.title === 'TimeDiffMinutes' && th.isView">
+                                                    {{data.timeDiff}}</td>
+
+
+                                                
+                                            </ng-container>
 
                                             <td width="70" class="align-middle">
                                                 <a class="d-inline-block align-middle" href="javascript:void(0)">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>&nbsp;&nbsp;
-                                                <a class="d-inline-block align-middle" href="#">
+                                                <a class="d-inline-block align-middle" href="javascript:void(0)">
                                                     <img src="assets/images/file-folder.svg" alt="create">
                                                 </a>
                                                 <a class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                                    href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    href="javascript:void(0)" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
                                                     <img src="assets/images/menu-vertical.svg" alt="trash">
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-end"> <a class="dropdown-item"
-                                                        href="">Edit this organization</a>
+                                                        href="javascript:void(0)">Approve</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Change profile image</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Delete organization</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Change record owner</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Print this details</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Assign task</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Change assign user</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Add opportunity with this
-                                                        org.</a>
+                                                    <a class="dropdown-item" href="javascript:void(0)">Mark as
+                                                        absent</a>
                                                 </div>
                                             </td>
                                         </tr>
                                     </ng-container>
-                                    <!-- <tr role="row" class="even">
-                                        <td class="align-middle" width="40"><input type="checkbox" id="customCheck2">
-                                        </td>
-                                        <td class="align-middle">CRM</td>
-                                        <td class="align-middle">Enquery Type</td>
-                                        <td class="align-middle">Ramesh Das</td>
-                                        <td class="align-middle">Sun Builder</td>
-                                        <td class="align-middle">9876543210</td>
-                                        <td class="align-middle">Bankura</td>
-                                        <td class="align-middle">Zone 3</td>
-                                        <td class="align-middle">Dinesh Kumar</td>
-                                        <td class="align-middle">Salesman</td>
-                                        <td class="align-middle">Assigned</td>
-                                        <td width="70" class="align-middle"><a class="d-inline-block align-middle"
-                                                href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp; <a
-                                                class="d-inline-block align-middle" href="#"> <img
-                                                    src="assets/images/file-folder.svg" alt="create"></a> <a
-                                                class="d-inline-block align-middle dropdown-toggle no-dropdown-arrow rotate"
-                                                href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <img src="assets/images/menu-vertical.svg" alt="trash"></a>
-                                        </td>
-                                    </tr> -->
                                 </tbody>
                             </table>
 
+                        </div>
+
+
+                        <div class="grid_viw_dv  odometer_div" *ngIf="isTable == 0">
+                            <div class="grid_viw_dv_inr bg-white shadow-lg p-3 rounded-3"
+                                *ngFor="let data of allReportList; let i=index">
+                                <div class="col-auto grid_viw_mor_opn">
+                                    <!-- <a class="dropdown-toggle no-dropdown-arrow" href="#" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <img src="assets/images/hdr-menu-vertical.svg" alt="menu-vertical"></a> -->
+                                    <!-- <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            (click)="openCostingModal(data)"
+                                            *ngIf="data.costByOperationStatus == '0'">Add Costing</a>
+                                        <div class="dropdown-divider" *ngIf="data.costByOperationStatus == '0'"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            (click)="openBrandModify(data)"
+                                            *ngIf="data.approvedStatusByHod == '0'">Approve</a>
+                                        <div class="dropdown-divider" *ngIf="data.approvedStatusByHod == '0'"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            (click)="openVendorListModal(data)"
+                                            *ngIf="data.approvedStatusByHod == '1' && data.approvedStatusByComm == '0'">Assign
+                                            Vendor</a>
+                                        <div class="dropdown-divider"
+                                            *ngIf="data.approvedStatusByHod == '1' && data.approvedStatusByComm == '0'">
+                                        </div>
+                                        <a class="dropdown-item" href="javascript:void(0)">Reject</a>
+                                    </div> -->
+                                </div>
+                                <strong>{{data.name}}</strong>
+                                <span>{{data.designationName}}</span>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                        class="bi bi-calendar" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                    </svg> Login :
+                                    {{getDate(data.inTime)}} {{formatAMPM(data.inTime)}}
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                        class="bi bi-calendar" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                    </svg> Logout :
+                                    {{getDate(data.outTime)}} {{formatAMPM(data.outTime)}}
+                                </p>
+                                <span>{{getApprovalStatus(data.approveStatus)}}</span>
+                            </div>
                         </div>
 
                         <div class="d-xl-flex align-items-center mt-3">
@@ -416,12 +457,16 @@
                                                 [(ngModel)]="limit" (ngModelChange)="changeLimit()">
                                                 <option *ngFor="let pg of paginationLimitDropdown" [value]="pg.value">
                                                     {{pg.label}}</option>
-                                            </select> {{startRecordNumber()}} - {{allReportList.length}}</label>
+                                            </select>
+                                            {{startPage}} - {{endPage}}
+                                        </label>
                                         <label>
-                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="prevPage()">
                                                 <img src="assets/images/chevron-left.svg" alt="chevron-left">
                                             </a>
-                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)">
+                                            <a class="px-1 d-inline-block align-middle" href="javascript:void(0)"
+                                                (click)="nextPage()">
                                                 <img src="assets/images/chevron-right.svg" alt="chevron-right">
                                             </a>
                                         </label>
@@ -439,3 +484,4 @@
         </div>
     </div>
 </main>
+<notifier-container></notifier-container>
